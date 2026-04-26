@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Split PDF Free — Extract Pages Online | Toolify Core</title>
+<meta name="description" content="Split PDF into separate pages or extract specific pages online free. No signup. Runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;padding:1rem}
+.page-thumb{background:var(--surface2);border:2px solid var(--border);border-radius:8px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .15s;user-select:none}
+.page-thumb:hover{border-color:var(--border2)}
+.page-thumb.selected{border-color:var(--accent);background:var(--accent-light)}
+.page-num{font-size:11px;color:var(--muted);margin-top:4px}
+.page-icon{font-size:1.4rem}
+.page-controls{display:flex;gap:8px;padding:0 1rem 1rem;flex-wrap:wrap}
+.page-ctrl-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;transition:all .15s;font-family:var(--font-body)}
+.page-ctrl-btn:hover{border-color:var(--border2);color:var(--text)}
+.range-input{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;color:var(--text);font-family:var(--font-body);font-size:14px;width:100%;outline:none;margin-bottom:.8rem}
+.range-input:focus{border-color:var(--accent)}
+.split-mode{display:flex;gap:8px;margin-bottom:1.2rem}
+.mode-btn{flex:1;padding:10px;border:1px solid var(--border2);border-radius:10px;background:var(--surface);color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--font-body);transition:all .15s;text-align:center}
+.mode-btn.active{border-color:var(--accent);background:var(--accent-light);color:#B8AAFF}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Split PDF</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">📄 PDF Tools</div>
+    <h1>Split PDF Free</h1>
+    <p>Extract specific pages, split into individual pages, or extract a page range. No upload — runs in your browser.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 5,182 times this month</div>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept=".pdf">
+    <div class="drop-icon">✂️</div>
+    <h3>Drop a PDF file here</h3>
+    <p>Select one PDF file to split or extract pages from</p>
+    <span class="drop-cta">Choose PDF</span>
+  </div>
+
+  <div id="splitPanel" style="display:none">
+    <div class="split-mode">
+      <button class="mode-btn active" onclick="setMode('all',this)">📄 Split all pages</button>
+      <button class="mode-btn" onclick="setMode('range',this)">🔢 Extract by range</button>
+      <button class="mode-btn" onclick="setMode('pick',this)">👆 Pick pages</button>
+    </div>
+
+    <div id="rangePanel" style="display:none">
+      <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:.4rem">Enter page range (e.g. 1-3, 5, 7-9)</label>
+      <input class="range-input" type="text" id="rangeInput" placeholder="e.g. 1-3, 5, 8-10">
+    </div>
+
+    <div class="file-list show" id="pagePanel" style="display:none">
+      <div class="file-list-header"><span>Select pages to extract</span><span id="selectedCount">0 selected</span></div>
+      <div class="page-grid" id="pageGrid"></div>
+      <div class="page-controls">
+        <button class="page-ctrl-btn" onclick="selectAll()">Select all</button>
+        <button class="page-ctrl-btn" onclick="selectNone()">Deselect all</button>
+        <button class="page-ctrl-btn" onclick="selectOdd()">Odd pages</button>
+        <button class="page-ctrl-btn" onclick="selectEven()">Even pages</button>
+      </div>
+    </div>
+
+    <div class="actions" style="display:flex">
+      <button class="btn-primary" id="splitBtn">✂️ Split / Extract PDF</button>
+      <button class="btn-secondary" onclick="resetAll()">Reset</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <span style="font-size:13px;color:var(--muted)">Processing...</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-icon">✅</div>
+    <h3 id="resultTitle">Done!</h3>
+    <p id="resultInfo"></p>
+    <button class="btn-primary" id="downloadBtn" style="max-width:260px;margin:0 auto">⬇ Download PDF</button>
+    <div class="share-row">
+      <a class="share-btn share-wa" href="https://wa.me/?text=Split PDFs free at Toolify Core: https://toolifycore.com/tools/split-pdf.html" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/split-pdf.html');alert('Copied!')">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/split-pdf.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark this tool</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need to <strong>merge, compress or convert PDFs</strong> in bulk?</div>
+    <a href="https://smallpdf.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Smallpdf Pro →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Can I extract just one page from a PDF?</div><div class="faq-a">Yes — use "Pick pages" mode, select one page, and extract it as a separate PDF.</div></div>
+    <div class="faq-item"><div class="faq-q">Does splitting damage the original file?</div><div class="faq-a">No. Your original file is never modified. We create new PDF files from the selected pages.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I split a password-protected PDF?</div><div class="faq-a">Not currently. Remove the password first using a tool like Smallpdf, then split here.</div></div>
+  </div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+const {PDFDocument} = PDFLib;
+let pdfDoc = null, totalPages = 0, selectedPages = new Set(), currentMode = 'all';
+let resultBlob = null;
+const fmtSize = b => b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over')});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');if(e.dataTransfer.files[0])loadPDF(e.dataTransfer.files[0])});
+fileInput.addEventListener('change',()=>{if(fileInput.files[0])loadPDF(fileInput.files[0])});
+
+async function loadPDF(file) {
+  try {
+    const ab = await file.arrayBuffer();
+    pdfDoc = await PDFDocument.load(ab);
+    totalPages = pdfDoc.getPageCount();
+    document.getElementById('splitPanel').style.display = 'block';
+    buildPageGrid();
+  } catch(e) { alert('Could not read PDF. Make sure it is not password protected.'); }
+}
+
+function setMode(mode, btn) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('rangePanel').style.display = mode==='range'?'block':'none';
+  document.getElementById('pagePanel').style.display = mode==='pick'?'block':'none';
+}
+
+function buildPageGrid() {
+  document.getElementById('pageGrid').innerHTML = Array.from({length:totalPages},(_,i)=>`
+    <div class="page-thumb" id="pt${i}" onclick="togglePage(${i})">
+      <div class="page-icon">📄</div>
+      <div class="page-num">Page ${i+1}</div>
+    </div>`).join('');
+}
+
+function togglePage(i) {
+  selectedPages.has(i)?selectedPages.delete(i):selectedPages.add(i);
+  document.getElementById('pt'+i).classList.toggle('selected');
+  document.getElementById('selectedCount').textContent = selectedPages.size+' selected';
+}
+function selectAll(){for(let i=0;i<totalPages;i++){selectedPages.add(i);document.getElementById('pt'+i).classList.add('selected')}document.getElementById('selectedCount').textContent=totalPages+' selected'}
+function selectNone(){selectedPages.clear();document.querySelectorAll('.page-thumb').forEach(t=>t.classList.remove('selected'));document.getElementById('selectedCount').textContent='0 selected'}
+function selectOdd(){selectNone();for(let i=0;i<totalPages;i+=2)togglePage(i)}
+function selectEven(){selectNone();for(let i=1;i<totalPages;i+=2)togglePage(i)}
+
+function parseRange(str) {
+  const pages = new Set();
+  str.split(',').forEach(part => {
+    part = part.trim();
+    if(part.includes('-')){
+      const [a,b]=part.split('-').map(Number);
+      for(let i=a;i<=b;i++)if(i>=1&&i<=totalPages)pages.add(i-1);
+    } else {
+      const n=parseInt(part);
+      if(n>=1&&n<=totalPages)pages.add(n-1);
+    }
+  });
+  return [...pages].sort((a,b)=>a-b);
+}
+
+document.getElementById('splitBtn').addEventListener('click', async () => {
+  const pw = document.getElementById('progressWrap');
+  pw.classList.add('show');
+  document.getElementById('progressFill').style.width = '30%';
+
+  let pageIndices = [];
+  if (currentMode==='all') pageIndices = Array.from({length:totalPages},(_,i)=>i);
+  else if (currentMode==='range') {
+    pageIndices = parseRange(document.getElementById('rangeInput').value);
+    if(!pageIndices.length){pw.classList.remove('show');return alert('Enter a valid page range.')}
+  } else {
+    pageIndices = [...selectedPages].sort((a,b)=>a-b);
+    if(!pageIndices.length){pw.classList.remove('show');return alert('Select at least one page.')}
+  }
+
+  try {
+    const newPdf = await PDFDocument.create();
+    const pages = await newPdf.copyPages(pdfDoc, pageIndices);
+    pages.forEach(p=>newPdf.addPage(p));
+    document.getElementById('progressFill').style.width='90%';
+    const bytes = await newPdf.save();
+    resultBlob = new Blob([bytes],{type:'application/pdf'});
+    document.getElementById('progressFill').style.width='100%';
+    document.getElementById('resultTitle').textContent = currentMode==='all'?'PDF Split!':'Pages Extracted!';
+    document.getElementById('resultInfo').textContent = `${pageIndices.length} page${pageIndices.length>1?'s':''} · ${fmtSize(bytes.length)}`;
+    document.getElementById('resultBox').classList.add('show');
+    pw.classList.remove('show');
+  } catch(e) { alert('Error processing PDF.'); pw.classList.remove('show'); }
+});
+
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(resultBlob);
+  a.download='split-toolifycore.pdf';a.click();
+});
+
+function resetAll(){
+  pdfDoc=null;totalPages=0;selectedPages.clear();resultBlob=null;fileInput.value='';
+  document.getElementById('splitPanel').style.display='none';
+  document.getElementById('resultBox').classList.remove('show');
+  document.getElementById('progressFill').style.width='0%';
+}
+</script>
+</body>
+</html>

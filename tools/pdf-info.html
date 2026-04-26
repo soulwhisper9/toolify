@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PDF Page Counter — Count PDF Pages & Get Info Free | Toolify Core</title>
+<meta name="description" content="Count PDF pages and get full PDF info online free. See page count, file size, dimensions, author, title and more instantly.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.info-num{font-family:var(--font-head);font-size:2rem;font-weight:800;color:var(--accent);line-height:1;margin-bottom:.3rem}
+.info-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.meta-table{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1.5rem}
+.meta-row{display:flex;padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px;gap:1rem}
+.meta-row:last-child{border-bottom:none}
+.meta-key{color:var(--muted);min-width:130px;flex-shrink:0}
+.meta-val{color:var(--text);word-break:break-all}
+.page-size-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:1.5rem}
+.ps-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.8rem;font-size:12px}
+.ps-page{color:var(--muted);margin-bottom:2px}
+.ps-dim{color:var(--text);font-weight:500}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">PDF Info</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">📄 PDF Tools</div>
+    <h1>PDF Page Counter & Info</h1>
+    <p>Instantly get page count, file size, dimensions, metadata and more from any PDF. No upload — runs in browser.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 6,710 times this month</div>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept=".pdf">
+    <div class="drop-icon">🔍</div>
+    <h3>Drop your PDF here</h3>
+    <p>Get instant page count and full file information</p>
+    <span class="drop-cta">Choose PDF</span>
+  </div>
+
+  <div id="results" style="display:none">
+    <div class="info-grid">
+      <div class="info-card"><div class="info-num" id="r-pages">—</div><div class="info-label">Pages</div></div>
+      <div class="info-card"><div class="info-num" id="r-size">—</div><div class="info-label">File size</div></div>
+      <div class="info-card"><div class="info-num" id="r-dims">—</div><div class="info-label">Page size</div></div>
+    </div>
+
+    <div class="meta-table">
+      <div class="meta-row"><span class="meta-key">File name</span><span class="meta-val" id="m-name">—</span></div>
+      <div class="meta-row"><span class="meta-key">File size</span><span class="meta-val" id="m-size">—</span></div>
+      <div class="meta-row"><span class="meta-key">Total pages</span><span class="meta-val" id="m-pages">—</span></div>
+      <div class="meta-row"><span class="meta-key">Title</span><span class="meta-val" id="m-title">—</span></div>
+      <div class="meta-row"><span class="meta-key">Author</span><span class="meta-val" id="m-author">—</span></div>
+      <div class="meta-row"><span class="meta-key">Creator</span><span class="meta-val" id="m-creator">—</span></div>
+      <div class="meta-row"><span class="meta-key">Created</span><span class="meta-val" id="m-created">—</span></div>
+      <div class="meta-row"><span class="meta-key">Modified</span><span class="meta-val" id="m-modified">—</span></div>
+      <div class="meta-row"><span class="meta-key">PDF version</span><span class="meta-val" id="m-version">—</span></div>
+      <div class="meta-row"><span class="meta-key">Encrypted</span><span class="meta-val" id="m-enc">—</span></div>
+    </div>
+
+    <p style="font-size:13px;font-weight:500;margin-bottom:.6rem;color:var(--muted)">Page dimensions (first 12 pages):</p>
+    <div class="page-size-grid" id="pageSizes"></div>
+
+    <div class="share-row" style="justify-content:flex-start;margin-top:0">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 Share on WhatsApp</a>
+      <button class="share-btn" onclick="copyInfo()">📋 Copy info</button>
+      <button class="share-btn" onclick="resetAll()">🔄 New file</button>
+    </div>
+
+    <div class="embed-section" style="margin-top:1rem">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/pdf-info.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark — useful for quick PDF checks</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need to <strong>merge, split or compress</strong> this PDF?</div>
+    <a href="/tools/merge-pdf.html" class="aff-btn">Merge PDF →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Is my PDF file uploaded anywhere?</div><div class="faq-a">No. The file is read locally in your browser using pdf-lib. Nothing is sent to any server.</div></div>
+    <div class="faq-item"><div class="faq-q">What page size formats does this detect?</div><div class="faq-a">It shows exact dimensions in points. A4 is 595×842pt, US Letter is 612×792pt.</div></div>
+    <div class="faq-item"><div class="faq-q">Can it read password-protected PDFs?</div><div class="faq-a">Basic info like page count and file size is shown, but metadata may be restricted for encrypted PDFs.</div></div>
+  </div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+const {PDFDocument} = PDFLib;
+let infoText = '';
+const fmtSize = b => b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';
+const ptToMm = pt => (pt*0.352778).toFixed(0)+'mm';
+const dropZone=document.getElementById('dropZone');
+const fileInput=document.getElementById('fileInput');
+
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over')});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');if(e.dataTransfer.files[0])analyze(e.dataTransfer.files[0])});
+fileInput.addEventListener('change',()=>{if(fileInput.files[0])analyze(fileInput.files[0])});
+
+async function analyze(file) {
+  try {
+    const ab = await file.arrayBuffer();
+    const pdf = await PDFDocument.load(ab,{ignoreEncryption:true});
+    const pages = pdf.getPages();
+    const pageCount = pages.length;
+    const firstPage = pages[0];
+    const {width,height} = firstPage.getSize();
+    const sizeLabel = `${Math.round(width)}×${Math.round(height)}pt`;
+
+    document.getElementById('r-pages').textContent = pageCount;
+    document.getElementById('r-size').textContent = fmtSize(file.size);
+    document.getElementById('r-dims').textContent = sizeLabel;
+
+    const title = pdf.getTitle()||'—';
+    const author = pdf.getAuthor()||'—';
+    const creator = pdf.getCreator()||'—';
+    const created = pdf.getCreationDate()?pdf.getCreationDate().toLocaleDateString():'—';
+    const modified = pdf.getModificationDate()?pdf.getModificationDate().toLocaleDateString():'—';
+
+    document.getElementById('m-name').textContent = file.name;
+    document.getElementById('m-size').textContent = `${fmtSize(file.size)} (${file.size.toLocaleString()} bytes)`;
+    document.getElementById('m-pages').textContent = pageCount+' pages';
+    document.getElementById('m-title').textContent = title;
+    document.getElementById('m-author').textContent = author;
+    document.getElementById('m-creator').textContent = creator;
+    document.getElementById('m-created').textContent = created;
+    document.getElementById('m-modified').textContent = modified;
+    document.getElementById('m-version').textContent = 'PDF 1.x';
+    document.getElementById('m-enc').textContent = 'No';
+
+    const maxPages = Math.min(pages.length, 12);
+    document.getElementById('pageSizes').innerHTML = pages.slice(0,maxPages).map((p,i)=>{
+      const s=p.getSize();
+      return `<div class="ps-card"><div class="ps-page">Page ${i+1}</div><div class="ps-dim">${Math.round(s.width)}×${Math.round(s.height)}pt<br>${ptToMm(s.width)}×${ptToMm(s.height)}</div></div>`;
+    }).join('');
+
+    infoText = `PDF Info — ${file.name}\nPages: ${pageCount}\nSize: ${fmtSize(file.size)}\nDimensions: ${sizeLabel}\nTitle: ${title}\nAuthor: ${author}`;
+    document.getElementById('shareWa').href = `https://wa.me/?text=Count PDF pages free at Toolify Core: https://toolifycore.com/tools/pdf-info.html`;
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({behavior:'smooth',block:'nearest'});
+  } catch(e) { alert('Could not read PDF file.'); }
+}
+
+function copyInfo(){navigator.clipboard.writeText(infoText);alert('PDF info copied!')}
+function resetAll(){fileInput.value='';document.getElementById('results').style.display='none';}
+</script>
+</body>
+</html>

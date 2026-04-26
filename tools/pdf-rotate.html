@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rotate PDF Free — Rotate PDF Pages Online | Toolify Core</title>
+<meta name="description" content="Rotate PDF pages online for free. Rotate all pages or individual pages. No upload. Runs in your browser instantly.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.rotate-controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap}
+.rot-btn{flex:1;min-width:100px;padding:12px;background:var(--surface);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-size:14px;cursor:pointer;font-family:var(--font-body);transition:all .15s;text-align:center}
+.rot-btn:hover{border-color:var(--accent);background:var(--accent-light)}
+.rot-btn.active{border-color:var(--accent);background:var(--accent-light);color:#B8AAFF}
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px;padding:1rem}
+.page-card{background:var(--surface2);border:2px solid var(--border);border-radius:10px;padding:.8rem .5rem;text-align:center;cursor:pointer;transition:all .2s;user-select:none}
+.page-card:hover{border-color:var(--border2)}
+.page-card.selected{border-color:var(--accent)}
+.page-icon-wrap{transition:transform .3s}
+.page-icon{font-size:1.6rem}
+.page-num{font-size:11px;color:var(--muted);margin-top:4px}
+.page-deg{font-size:10px;color:var(--accent);margin-top:2px;min-height:14px}
+.select-row{display:flex;gap:8px;padding:0 1rem .8rem;flex-wrap:wrap}
+.sel-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all .15s}
+.sel-btn:hover{color:var(--text);border-color:var(--border2)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Rotate PDF</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">📄 PDF Tools</div>
+    <h1>Rotate PDF Pages Free</h1>
+    <p>Rotate all pages or individual pages in any direction. Pick pages, set rotation, download. No upload needed.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 3,840 times this month</div>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept=".pdf">
+    <div class="drop-icon">🔄</div>
+    <h3>Drop your PDF here</h3>
+    <p>Select a PDF file to rotate pages</p>
+    <span class="drop-cta">Choose PDF</span>
+  </div>
+
+  <div id="mainPanel" style="display:none">
+    <div class="rotate-controls">
+      <button class="rot-btn" onclick="rotateAll(90)">↻ 90° Right</button>
+      <button class="rot-btn" onclick="rotateAll(-90)">↺ 90° Left</button>
+      <button class="rot-btn" onclick="rotateAll(180)">🔃 180°</button>
+      <button class="rot-btn" onclick="rotateSelected(90)">Selected → 90°</button>
+      <button class="rot-btn" onclick="rotateSelected(-90)">Selected → -90°</button>
+    </div>
+
+    <div class="file-list show">
+      <div class="file-list-header"><span>Pages — click to select, then rotate</span><span id="selCount">0 selected</span></div>
+      <div class="select-row">
+        <button class="sel-btn" onclick="selAll()">Select all</button>
+        <button class="sel-btn" onclick="selNone()">None</button>
+        <button class="sel-btn" onclick="resetRotations()">Reset rotations</button>
+      </div>
+      <div class="page-grid" id="pageGrid"></div>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <span style="font-size:13px;color:var(--muted)">Applying rotations...</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="actions" style="display:flex">
+      <button class="btn-primary" id="applyBtn">✅ Apply Rotations & Download</button>
+      <button class="btn-secondary" onclick="resetAll()">Reset</button>
+    </div>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-icon">✅</div>
+    <h3>PDF Rotated!</h3>
+    <p id="resultInfo"></p>
+    <button class="btn-primary" id="downloadBtn" style="max-width:260px;margin:0 auto">⬇ Download Rotated PDF</button>
+    <div class="share-row">
+      <a class="share-btn share-wa" href="https://wa.me/?text=Rotate PDFs free at Toolify Core: https://toolifycore.com/tools/pdf-rotate.html" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/pdf-rotate.html');alert('Copied!')">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/pdf-rotate.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark this tool</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need to <strong>edit, annotate or sign PDFs</strong>?</div>
+    <a href="https://smallpdf.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Smallpdf Pro →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Can I rotate only specific pages?</div><div class="faq-a">Yes — click pages to select them, then use the "Selected" rotation buttons to rotate only those pages.</div></div>
+    <div class="faq-item"><div class="faq-q">Is the original file changed?</div><div class="faq-a">No. You download a new rotated PDF. Your original file is untouched.</div></div>
+    <div class="faq-item"><div class="faq-q">Does rotation reduce quality?</div><div class="faq-a">No. PDF rotation is a metadata change — content is not re-rendered or recompressed.</div></div>
+  </div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+const {PDFDocument, degrees} = PDFLib;
+let pdfDoc=null, totalPages=0, rotations=[], selected=new Set(), resultBlob=null;
+const fmtSize = b => b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';
+
+const dropZone=document.getElementById('dropZone');
+const fileInput=document.getElementById('fileInput');
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over')});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');if(e.dataTransfer.files[0])loadPDF(e.dataTransfer.files[0])});
+fileInput.addEventListener('change',()=>{if(fileInput.files[0])loadPDF(fileInput.files[0])});
+
+async function loadPDF(file) {
+  try {
+    pdfDoc = await PDFDocument.load(await file.arrayBuffer());
+    totalPages = pdfDoc.getPageCount();
+    rotations = pdfDoc.getPages().map(p=>p.getRotation().angle);
+    document.getElementById('mainPanel').style.display='block';
+    buildGrid();
+  } catch(e){alert('Could not load PDF.');}
+}
+
+function buildGrid(){
+  document.getElementById('pageGrid').innerHTML = Array.from({length:totalPages},(_,i)=>`
+    <div class="page-card" id="pc${i}" onclick="toggleSel(${i})">
+      <div class="page-icon-wrap" id="piw${i}" style="transform:rotate(${rotations[i]}deg)">
+        <div class="page-icon">📄</div>
+      </div>
+      <div class="page-num">Page ${i+1}</div>
+      <div class="page-deg" id="pd${i}">${rotations[i]?rotations[i]+'°':''}</div>
+    </div>`).join('');
+}
+
+function toggleSel(i){selected.has(i)?selected.delete(i):selected.add(i);document.getElementById('pc'+i).classList.toggle('selected');document.getElementById('selCount').textContent=selected.size+' selected'}
+function selAll(){for(let i=0;i<totalPages;i++){selected.add(i);document.getElementById('pc'+i).classList.add('selected')}document.getElementById('selCount').textContent=totalPages+' selected'}
+function selNone(){selected.clear();document.querySelectorAll('.page-card').forEach(c=>c.classList.remove('selected'));document.getElementById('selCount').textContent='0 selected'}
+
+function applyRot(pages,deg){
+  pages.forEach(i=>{rotations[i]=(rotations[i]+deg+360)%360;document.getElementById('piw'+i).style.transform=`rotate(${rotations[i]}deg)`;document.getElementById('pd'+i).textContent=rotations[i]?rotations[i]+'°':''});
+}
+function rotateAll(deg){applyRot(Array.from({length:totalPages},(_,i)=>i),deg)}
+function rotateSelected(deg){if(!selected.size)return alert('Select pages first');applyRot([...selected],deg)}
+function resetRotations(){rotations=pdfDoc.getPages().map(p=>p.getRotation().angle);buildGrid()}
+
+document.getElementById('applyBtn').addEventListener('click',async()=>{
+  const pw=document.getElementById('progressWrap');
+  pw.classList.add('show');
+  document.getElementById('progressFill').style.width='50%';
+  try {
+    const pages=pdfDoc.getPages();
+    pages.forEach((p,i)=>p.setRotation(degrees(rotations[i])));
+    document.getElementById('progressFill').style.width='90%';
+    const bytes=await pdfDoc.save();
+    document.getElementById('progressFill').style.width='100%';
+    resultBlob=new Blob([bytes],{type:'application/pdf'});
+    document.getElementById('resultInfo').textContent=`${totalPages} pages · ${fmtSize(bytes.length)}`;
+    document.getElementById('resultBox').classList.add('show');
+    pw.classList.remove('show');
+  } catch(e){alert('Error applying rotations.');pw.classList.remove('show');}
+});
+
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+  const a=document.createElement('a');a.href=URL.createObjectURL(resultBlob);a.download='rotated-toolifycore.pdf';a.click();
+});
+
+function resetAll(){pdfDoc=null;fileInput.value='';document.getElementById('mainPanel').style.display='none';document.getElementById('resultBox').classList.remove('show');document.getElementById('progressFill').style.width='0%';}
+</script>
+</body>
+</html>

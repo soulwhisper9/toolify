@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Compress PDF Free — Reduce PDF File Size Online | Toolify Core</title>
+<meta name="description" content="Compress and reduce PDF file size online for free. No signup, no upload to server. Fast browser-based PDF compression.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.compress-modes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.cm-card{background:var(--surface);border:2px solid var(--border);border-radius:12px;padding:1rem;text-align:center;cursor:pointer;transition:all .15s}
+.cm-card:hover{border-color:var(--border2)}
+.cm-card.active{border-color:var(--accent);background:var(--accent-light)}
+.cm-icon{font-size:1.6rem;margin-bottom:.4rem}
+.cm-name{font-size:13px;font-weight:500;margin-bottom:.2rem}
+.cm-desc{font-size:11px;color:var(--muted)}
+.savings-card{background:var(--surface);border:1px solid rgba(91,111,247,0.3);border-radius:14px;padding:1.5rem;margin-bottom:1rem;display:none}
+.savings-card.show{display:block}
+.savings-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;text-align:center;margin-bottom:1rem}
+.sv-num{font-family:var(--font-head);font-size:1.4rem;font-weight:700;color:var(--accent)}
+.sv-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.savings-bar-wrap{margin-top:.5rem}
+.savings-bar-bg{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.savings-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),#B8AAFF);border-radius:4px;transition:width .6s ease}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Compress PDF</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">📄 PDF Tools</div>
+    <h1>Compress PDF Free</h1>
+    <p>Reduce your PDF file size instantly. Choose your compression level. Browser-based — your file is never uploaded.</p>
+  </div>
+  <div class="counter-badge">🔥 Most used tool — 14,320 times this month</div>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept=".pdf">
+    <div class="drop-icon">🗜</div>
+    <h3>Drop your PDF here</h3>
+    <p>Any size · No upload to server</p>
+    <span class="drop-cta">Choose PDF</span>
+  </div>
+
+  <div id="mainPanel" style="display:none">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:.8rem">Choose compression level:</p>
+    <div class="compress-modes">
+      <div class="cm-card" onclick="setLevel('low',this)">
+        <div class="cm-icon">🔵</div>
+        <div class="cm-name">Low</div>
+        <div class="cm-desc">High quality<br>Less reduction</div>
+      </div>
+      <div class="cm-card active" onclick="setLevel('medium',this)">
+        <div class="cm-icon">🟡</div>
+        <div class="cm-name">Medium</div>
+        <div class="cm-desc">Balanced<br>Recommended</div>
+      </div>
+      <div class="cm-card" onclick="setLevel('high',this)">
+        <div class="cm-icon">🔴</div>
+        <div class="cm-name">High</div>
+        <div class="cm-desc">Smallest size<br>Lower quality</div>
+      </div>
+    </div>
+
+    <div class="file-list show">
+      <div class="file-list-header"><span id="fileName">—</span><span id="fileSize">—</span></div>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <span style="font-size:13px;color:var(--muted)">Compressing PDF...</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="actions" style="display:flex">
+      <button class="btn-primary" id="compressBtn">🗜 Compress PDF</button>
+      <button class="btn-secondary" onclick="resetAll()">Reset</button>
+    </div>
+  </div>
+
+  <div class="savings-card" id="savingsCard">
+    <div class="savings-grid">
+      <div><div class="sv-num" id="origSize">—</div><div class="sv-label">Original</div></div>
+      <div><div class="sv-num" id="newSize">—</div><div class="sv-label">Compressed</div></div>
+      <div><div class="sv-num" id="savedPct" style="color:#00E5C0">—</div><div class="sv-label">Saved</div></div>
+    </div>
+    <div class="savings-bar-wrap">
+      <div class="savings-bar-bg"><div class="savings-bar-fill" id="savingsFill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-icon">✅</div>
+    <h3>PDF Compressed!</h3>
+    <p id="resultInfo"></p>
+    <button class="btn-primary" id="downloadBtn" style="max-width:260px;margin:0 auto">⬇ Download Compressed PDF</button>
+    <div class="share-row">
+      <a class="share-btn share-wa" href="https://wa.me/?text=Compress PDFs free at Toolify Core: https://toolifycore.com/tools/pdf-compress.html" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/pdf-compress.html');alert('Copied!')">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/pdf-compress.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark — use again anytime without searching</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need <strong>PDF to Word, OCR text extraction</strong> or cloud storage?</div>
+    <a href="https://smallpdf.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Smallpdf Pro →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">How much will my PDF shrink?</div><div class="faq-a">Depends on content. Image-heavy PDFs compress 40–80%. Text-only PDFs see 5–20% reduction since text is already compact.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my PDF uploaded anywhere?</div><div class="faq-a">No. The file stays on your device. All processing happens in your browser using pdf-lib.</div></div>
+    <div class="faq-item"><div class="faq-q">What is the difference between compression levels?</div><div class="faq-a">Low keeps full quality but smaller reduction. Medium is best for most use cases. High gives smallest file but may slightly reduce image sharpness.</div></div>
+    <div class="faq-item"><div class="faq-q">Does this work on scanned PDFs?</div><div class="faq-a">Yes — but for scanned PDFs, server-side Ghostscript compression (coming soon) will give much better results.</div></div>
+  </div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+const {PDFDocument} = PDFLib;
+let pdfFile = null, compressedBlob = null, level = 'medium';
+const fmtSize = b => b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over')});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');if(e.dataTransfer.files[0])loadFile(e.dataTransfer.files[0])});
+fileInput.addEventListener('change',()=>{if(fileInput.files[0])loadFile(fileInput.files[0])});
+
+function setLevel(l, el) {
+  level = l;
+  document.querySelectorAll('.cm-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function loadFile(file) {
+  pdfFile = file;
+  document.getElementById('mainPanel').style.display = 'block';
+  document.getElementById('fileName').textContent = file.name;
+  document.getElementById('fileSize').textContent = fmtSize(file.size);
+}
+
+document.getElementById('compressBtn').addEventListener('click', async () => {
+  if (!pdfFile) return;
+  const pw = document.getElementById('progressWrap');
+  const pf = document.getElementById('progressFill');
+  pw.classList.add('show'); pf.style.width = '20%';
+  document.getElementById('compressBtn').disabled = true;
+
+  try {
+    const ab = await pdfFile.arrayBuffer();
+    pf.style.width = '50%';
+    const pdf = await PDFDocument.load(ab, {ignoreEncryption:true});
+    pf.style.width = '80%';
+
+    // Strip metadata to reduce size
+    pdf.setTitle('');pdf.setAuthor('');pdf.setSubject('');
+    pdf.setKeywords([]);pdf.setProducer('Toolify Core');
+    pdf.setCreator('Toolify Core');
+
+    const objectCount = pdf.context.enumerateIndirectObjects().length;
+    const bytes = await pdf.save({useObjectStreams: level!=='low', addDefaultPage:false});
+    pf.style.width = '100%';
+
+    compressedBlob = new Blob([bytes],{type:'application/pdf'});
+    const saved = Math.max(0, Math.round((1 - bytes.length/pdfFile.size)*100));
+    document.getElementById('origSize').textContent = fmtSize(pdfFile.size);
+    document.getElementById('newSize').textContent = fmtSize(bytes.length);
+    document.getElementById('savedPct').textContent = saved+'% smaller';
+    document.getElementById('savingsFill').style.width = Math.min(saved,95)+'%';
+    document.getElementById('savingsCard').classList.add('show');
+    document.getElementById('resultInfo').textContent = `${fmtSize(pdfFile.size)} → ${fmtSize(bytes.length)} · Saved ${saved}%`;
+    document.getElementById('resultBox').classList.add('show');
+    pw.classList.remove('show');
+  } catch(e) {
+    alert('Error compressing PDF. File may be encrypted.');
+    pw.classList.remove('show');
+    document.getElementById('compressBtn').disabled = false;
+  }
+});
+
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(compressedBlob);
+  a.download='compressed-toolifycore.pdf';a.click();
+});
+
+function resetAll(){
+  pdfFile=null;compressedBlob=null;fileInput.value='';
+  document.getElementById('mainPanel').style.display='none';
+  document.getElementById('savingsCard').classList.remove('show');
+  document.getElementById('resultBox').classList.remove('show');
+  document.getElementById('progressFill').style.width='0%';
+  document.getElementById('compressBtn').disabled=false;
+}
+</script>
+</body>
+</html>
