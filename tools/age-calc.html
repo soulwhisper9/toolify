@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator — Find Exact Age from Date of Birth | Toolify Core</title>
+<meta name="description" content="Free online age calculator. Find your exact age in years, months, days, hours and minutes from your date of birth. Also shows next birthday countdown.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0F;--surface:#12121A;--surface2:#1A1A26;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#F0EEF8;--muted:#8885A0;--accent:#BA7517;--accent-light:rgba(186,117,23,0.12);--font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;min-height:100vh}
+nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;gap:1rem;height:56px}
+.logo{font-family:var(--font-head);font-weight:800;font-size:1.1rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:7px}
+.logo-icon{width:24px;height:24px;background:#7B61FF;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.back{color:var(--muted);text-decoration:none;font-size:13px}
+.back:hover{color:var(--text)}
+.nav-sep{color:var(--border2);font-size:18px}
+.tool-title-nav{font-size:14px;font-weight:500}
+
+main{max-width:740px;margin:0 auto;padding:3rem 2rem 5rem}
+.tool-header{margin-bottom:2rem}
+.tool-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(186,117,23,0.12);border:1px solid rgba(186,117,23,0.25);color:#FAC775;padding:4px 12px;border-radius:100px;font-size:12px;margin-bottom:1rem}
+.tool-header h1{font-family:var(--font-head);font-size:2rem;font-weight:800;margin-bottom:.5rem}
+.tool-header p{color:var(--muted)}
+
+/* Input card */
+.input-card{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:2rem;margin-bottom:1.5rem}
+.input-card h2{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1.2rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.date-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+.field input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;font-family:var(--font-body);outline:none;transition:border-color .2s;color-scheme:dark}
+.field input:focus{border-color:var(--accent)}
+.calc-btn{width:100%;background:var(--accent);color:white;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:500;font-family:var(--font-body);cursor:pointer;transition:opacity .2s;margin-top:.5rem}
+.calc-btn:hover{opacity:.85}
+
+/* Result */
+.result-wrap{display:none}
+.result-wrap.show{display:block}
+
+.big-age{background:linear-gradient(135deg,rgba(186,117,23,0.15),rgba(186,117,23,0.05));border:1px solid rgba(186,117,23,0.25);border-radius:16px;padding:2rem;text-align:center;margin-bottom:1rem}
+.age-num{font-family:var(--font-head);font-size:5rem;font-weight:800;color:var(--accent);line-height:1;margin-bottom:.3rem}
+.age-label{font-size:1rem;color:var(--muted)}
+.age-detail{font-size:14px;color:var(--text);margin-top:.5rem}
+
+.breakdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
+.bd-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-align:center}
+.bd-num{font-family:var(--font-head);font-size:1.5rem;font-weight:700;color:var(--text);margin-bottom:.2rem}
+.bd-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+
+.extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.ex-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem}
+.ex-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+.ex-val{font-size:1rem;font-weight:500;color:var(--text)}
+
+/* Birthday countdown */
+.birthday-card{background:var(--surface2);border:1px solid rgba(186,117,23,0.2);border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+.bd-info h3{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:.2rem}
+.bd-info p{font-size:13px;color:var(--muted)}
+.bd-countdown{text-align:right}
+.bd-days{font-family:var(--font-head);font-size:1.8rem;font-weight:800;color:var(--accent);line-height:1}
+.bd-days-label{font-size:11px;color:var(--muted)}
+
+/* Zodiac */
+.zodiac-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem}
+.zodiac-icon{font-size:2.5rem}
+.zodiac-info h3{font-family:var(--font-head);font-size:1rem;font-weight:700}
+.zodiac-info p{font-size:13px;color:var(--muted)}
+
+/* Life stats */
+.life-stats{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:1.5rem}
+.ls-title{font-size:13px;font-weight:500;color:var(--muted);margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em}
+.ls-item{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:13px}
+.ls-item:last-child{border-bottom:none}
+.ls-item span:last-child{color:var(--accent);font-weight:500}
+
+/* FAQ */
+.faq{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)}
+.faq h2{font-family:var(--font-head);font-size:1.1rem;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid var(--border);padding:.9rem 0}
+.faq-q{font-size:14px;font-weight:500;margin-bottom:.3rem}
+.faq-a{font-size:13px;color:var(--muted)}
+
+/* Affiliate */
+.affiliate-banner{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.aff-text{font-size:13px;color:var(--muted)}
+.aff-text strong{color:var(--text)}
+.aff-btn{background:transparent;border:1px solid var(--border2);color:var(--text);padding:7px 16px;border-radius:8px;font-size:12px;text-decoration:none;white-space:nowrap;transition:all .15s}
+.aff-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+@media(max-width:600px){
+  .date-grid,.breakdown-grid,.extra-grid{grid-template-columns:1fr 1fr}
+  .breakdown-grid{grid-template-columns:1fr}
+  .age-num{font-size:4rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span>
+  <a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span>
+  <span class="tool-title-nav">Age Calculator</span>
+</nav>
+
+<main>
+  <div class="tool-header">
+    <div class="tool-badge"><span>🎂</span> Calculators</div>
+    <h1>Age Calculator</h1>
+    <p>Find your exact age in years, months, days, hours and minutes. See your next birthday countdown, zodiac sign, and life stats.</p>
+  </div>
+
+  <div class="input-card">
+    <h2>Enter dates</h2>
+    <div class="date-grid">
+      <div class="field">
+        <label>Date of birth</label>
+        <input type="date" id="dob" max="">
+      </div>
+      <div class="field">
+        <label>Age at date (optional)</label>
+        <input type="date" id="ageAt">
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calculate()">Calculate Age →</button>
+  </div>
+
+  <div class="result-wrap" id="resultWrap">
+
+    <div class="big-age">
+      <div class="age-num" id="ageYears">—</div>
+      <div class="age-label">years old</div>
+      <div class="age-detail" id="ageDetail">—</div>
+    </div>
+
+    <div class="breakdown-grid">
+      <div class="bd-card"><div class="bd-num" id="r-months">—</div><div class="bd-label">Total months</div></div>
+      <div class="bd-card"><div class="bd-num" id="r-weeks">—</div><div class="bd-label">Total weeks</div></div>
+      <div class="bd-card"><div class="bd-num" id="r-days">—</div><div class="bd-label">Total days</div></div>
+    </div>
+
+    <div class="extra-grid">
+      <div class="ex-card"><div class="ex-label">Total hours</div><div class="ex-val" id="r-hours">—</div></div>
+      <div class="ex-card"><div class="ex-label">Total minutes</div><div class="ex-val" id="r-mins">—</div></div>
+      <div class="ex-card"><div class="ex-label">Day of week born</div><div class="ex-val" id="r-dow">—</div></div>
+      <div class="ex-card"><div class="ex-label">Age in seconds</div><div class="ex-val" id="r-secs">—</div></div>
+    </div>
+
+    <div class="birthday-card">
+      <div class="bd-info">
+        <h3>Next birthday 🎂</h3>
+        <p id="bd-date">—</p>
+      </div>
+      <div class="bd-countdown">
+        <div class="bd-days" id="bd-days">—</div>
+        <div class="bd-days-label">days away</div>
+      </div>
+    </div>
+
+    <div class="zodiac-card">
+      <div class="zodiac-icon" id="zodiac-icon">♈</div>
+      <div class="zodiac-info">
+        <h3 id="zodiac-name">—</h3>
+        <p id="zodiac-desc">—</p>
+      </div>
+    </div>
+
+    <div class="life-stats">
+      <div class="ls-title">Life stats (approximate)</div>
+      <div class="ls-item"><span>Heartbeats</span><span id="ls-heart">—</span></div>
+      <div class="ls-item"><span>Breaths taken</span><span id="ls-breath">—</span></div>
+      <div class="ls-item"><span>Hours slept (avg 8h/day)</span><span id="ls-sleep">—</span></div>
+      <div class="ls-item"><span>Meals eaten (avg 3/day)</span><span id="ls-meals">—</span></div>
+      <div class="ls-item"><span>Lunar months lived</span><span id="ls-lunar">—</span></div>
+    </div>
+
+    <div class="affiliate-banner">
+      <div class="aff-text">Need to calculate <strong>loan EMI, tax or Zakat</strong>?</div>
+      <a href="/tools/emi-calc.html" class="aff-btn">Try EMI Calculator →</a>
+    </div>
+
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">How is exact age calculated?</div>
+      <div class="faq-a">We calculate the difference between your date of birth and the target date in years, months, and days accounting for leap years and varying month lengths.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if I want to know my age on a specific past or future date?</div>
+      <div class="faq-a">Use the "Age at date" field. Enter any past or future date and we'll calculate exactly how old you were or will be on that day.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How is zodiac sign determined?</div>
+      <div class="faq-a">Western/tropical zodiac signs are assigned based on the month and day of your birth date.</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const ZODIACS = [
+  {name:'Capricorn',icon:'♑',desc:'Dec 22 – Jan 19 · Earth sign, disciplined and ambitious',end:[1,19]},
+  {name:'Aquarius',icon:'♒',desc:'Jan 20 – Feb 18 · Air sign, innovative and humanitarian',end:[2,18]},
+  {name:'Pisces',icon:'♓',desc:'Feb 19 – Mar 20 · Water sign, empathetic and creative',end:[3,20]},
+  {name:'Aries',icon:'♈',desc:'Mar 21 – Apr 19 · Fire sign, bold and energetic',end:[4,19]},
+  {name:'Taurus',icon:'♉',desc:'Apr 20 – May 20 · Earth sign, patient and reliable',end:[5,20]},
+  {name:'Gemini',icon:'♊',desc:'May 21 – Jun 20 · Air sign, curious and adaptable',end:[6,20]},
+  {name:'Cancer',icon:'♋',desc:'Jun 21 – Jul 22 · Water sign, intuitive and caring',end:[7,22]},
+  {name:'Leo',icon:'♌',desc:'Jul 23 – Aug 22 · Fire sign, charismatic and generous',end:[8,22]},
+  {name:'Virgo',icon:'♍',desc:'Aug 23 – Sep 22 · Earth sign, analytical and precise',end:[9,22]},
+  {name:'Libra',icon:'♎',desc:'Sep 23 – Oct 22 · Air sign, balanced and diplomatic',end:[10,22]},
+  {name:'Scorpio',icon:'♏',desc:'Oct 23 – Nov 21 · Water sign, passionate and intense',end:[11,21]},
+  {name:'Sagittarius',icon:'♐',desc:'Nov 22 – Dec 21 · Fire sign, adventurous and optimistic',end:[12,21]},
+  {name:'Capricorn',icon:'♑',desc:'Dec 22 – Jan 19 · Earth sign, disciplined and ambitious',end:[12,31]},
+];
+
+const todayStr = new Date().toISOString().split('T')[0];
+document.getElementById('dob').max = todayStr;
+document.getElementById('ageAt').value = todayStr;
+document.getElementById('ageAt').max = '2100-12-31';
+
+function getZodiac(month, day) {
+  for (const z of ZODIACS) {
+    const [zm, zd] = z.end;
+    if (month < zm || (month === zm && day <= zd)) return z;
+  }
+  return ZODIACS[0];
+}
+
+function fmt(n) { return Math.round(n).toLocaleString(); }
+
+function calculate() {
+  const dobVal = document.getElementById('dob').value;
+  const atVal = document.getElementById('ageAt').value || todayStr;
+  if (!dobVal) { alert('Please enter your date of birth'); return; }
+
+  const dob = new Date(dobVal);
+  const at = new Date(atVal);
+  if (dob > at) { alert('Date of birth cannot be after the target date'); return; }
+
+  // Years, months, days
+  let years = at.getFullYear() - dob.getFullYear();
+  let months = at.getMonth() - dob.getMonth();
+  let days = at.getDate() - dob.getDate();
+  if (days < 0) { months--; const d = new Date(at.getFullYear(), at.getMonth(), 0); days += d.getDate(); }
+  if (months < 0) { years--; months += 12; }
+
+  const totalDays = Math.floor((at - dob) / 86400000);
+  const totalWeeks = Math.floor(totalDays / 7);
+  const totalMonths = years * 12 + months;
+  const totalHours = totalDays * 24;
+  const totalMins = totalHours * 60;
+  const totalSecs = totalMins * 60;
+
+  document.getElementById('ageYears').textContent = years;
+  document.getElementById('ageDetail').textContent = `${years} years, ${months} months and ${days} days`;
+  document.getElementById('r-months').textContent = fmt(totalMonths);
+  document.getElementById('r-weeks').textContent = fmt(totalWeeks);
+  document.getElementById('r-days').textContent = fmt(totalDays);
+  document.getElementById('r-hours').textContent = fmt(totalHours);
+  document.getElementById('r-mins').textContent = fmt(totalMins);
+  document.getElementById('r-secs').textContent = fmt(totalSecs);
+  document.getElementById('r-dow').textContent = DAYS[dob.getDay()];
+
+  // Next birthday
+  const today = new Date(todayStr);
+  let nextBd = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
+  if (nextBd <= today) nextBd.setFullYear(today.getFullYear() + 1);
+  const daysUntil = Math.ceil((nextBd - today) / 86400000);
+  document.getElementById('bd-date').textContent = `${DAYS[nextBd.getDay()]}, ${MONTHS[nextBd.getMonth()]} ${nextBd.getDate()}, ${nextBd.getFullYear()}`;
+  document.getElementById('bd-days').textContent = daysUntil === 0 ? '🎉' : daysUntil;
+
+  // Zodiac
+  const z = getZodiac(dob.getMonth()+1, dob.getDate());
+  document.getElementById('zodiac-icon').textContent = z.icon;
+  document.getElementById('zodiac-name').textContent = z.name;
+  document.getElementById('zodiac-desc').textContent = z.desc;
+
+  // Life stats
+  document.getElementById('ls-heart').textContent = fmt(totalMins * 70);
+  document.getElementById('ls-breath').textContent = fmt(totalMins * 15);
+  document.getElementById('ls-sleep').textContent = fmt(totalDays * 8);
+  document.getElementById('ls-meals').textContent = fmt(totalDays * 3);
+  document.getElementById('ls-lunar').textContent = fmt(totalDays / 29.53);
+
+  document.getElementById('resultWrap').classList.add('show');
+  document.getElementById('resultWrap').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// Auto-calculate if dob is set (return visitor)
+document.getElementById('dob').addEventListener('change', () => { if(document.getElementById('dob').value) calculate(); });
+</script>
+</body>
+</html>
