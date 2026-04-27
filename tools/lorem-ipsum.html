@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Lorem Ipsum Generator Free — Placeholder Text | Toolify Core</title>
+<meta name="description" content="Generate Lorem Ipsum placeholder text free. Choose paragraphs, words or sentences. Copy instantly. No signup needed.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<style>
+.gen-options{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
+.go-btn{padding:8px 18px;background:var(--surface);border:1px solid var(--border2);border-radius:8px;color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--font-body);transition:all .15s}
+.go-btn:hover,.go-btn.active{background:var(--accent);border-color:var(--accent);color:white}
+.count-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
+.count-row label{font-size:13px;color:var(--muted);min-width:80px}
+.count-input{width:80px;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;color:var(--text);font-family:var(--font-head);font-size:1rem;font-weight:700;outline:none;text-align:center}
+.options-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.opt-check{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer}
+.opt-check input{accent-color:var(--accent);width:14px;height:14px}
+.output-area{width:100%;min-height:280px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:1.2rem;color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.8;resize:vertical;outline:none;margin-bottom:.8rem}
+.output-footer{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);margin-bottom:1rem}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Lorem Ipsum</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">✍️ Text Tools</div>
+    <h1>Lorem Ipsum Generator</h1>
+    <p>Generate placeholder text for designs, mockups and development. Choose type and amount. Copy instantly.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 4,230 times this month</div>
+
+  <div class="gen-options">
+    <button class="go-btn active" onclick="setType('paragraphs',this)">Paragraphs</button>
+    <button class="go-btn" onclick="setType('sentences',this)">Sentences</button>
+    <button class="go-btn" onclick="setType('words',this)">Words</button>
+    <button class="go-btn" onclick="setType('bytes',this)">Bytes</button>
+  </div>
+
+  <div class="count-row">
+    <label id="countLabel">Paragraphs</label>
+    <input class="count-input" type="number" id="countInput" value="3" min="1" max="100" oninput="generate()">
+    <span style="font-size:12px;color:var(--muted)">amount to generate</span>
+  </div>
+
+  <div class="options-row">
+    <label class="opt-check"><input type="checkbox" id="startLorem" checked onchange="generate()"> Start with "Lorem ipsum..."</label>
+    <label class="opt-check"><input type="checkbox" id="htmlTags" onchange="generate()"> Wrap in &lt;p&gt; tags</label>
+    <label class="opt-check"><input type="checkbox" id="allCaps" onchange="generate()"> ALL CAPS</label>
+  </div>
+
+  <div class="actions" style="display:flex;margin-bottom:1rem">
+    <button class="btn-primary" onclick="generate()">⚡ Generate</button>
+    <button class="btn-secondary" onclick="copyOutput()">📋 Copy all</button>
+    <button class="btn-secondary" onclick="downloadOutput()">⬇ Download</button>
+  </div>
+
+  <textarea class="output-area" id="output" readonly></textarea>
+  <div class="output-footer">
+    <span id="statsLabel">—</span>
+    <button class="go-btn" onclick="copyOutput()" style="padding:4px 12px;font-size:12px">Copy</button>
+  </div>
+
+  <div class="share-row">
+    <a class="share-btn share-wa" href="https://wa.me/?text=Free Lorem Ipsum generator at Toolify Core: https://toolifycore.com/tools/lorem-ipsum.html" target="_blank">💬 WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/lorem-ipsum.html');alert('Copied!')">🔗 Copy link</button>
+  </div>
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/lorem-ipsum.html" width="100%" height="650" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark for quick placeholder text</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need to <strong>count words, check grammar or paraphrase</strong> your real content?</div>
+    <a href="/tools/word-count.html" class="aff-btn">Word Counter →</a>
+  </div>
+</main>
+<script>
+const WORDS = "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat duis aute irure dolor reprehenderit voluptate velit esse cillum dolore fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt culpa qui officia deserunt mollit anim id est laborum curabitur pretium tincidunt lacus nulla gravida orci lobortis tempus dignissim posuere mauris vivamus quis eget volutpat lacinia laoreet nullam felis neque mattis purus".split(' ');
+
+let genType = 'paragraphs';
+function setType(t,btn){genType=t;document.querySelectorAll('.go-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('countLabel').textContent=t.charAt(0).toUpperCase()+t.slice(1);generate();}
+
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function getRandWord(i){return WORDS[rnd(0,WORDS.length-1)]}
+function getSentence(){const len=rnd(8,20);let w=Array.from({length:len},getRandWord);w[0]=w[0].charAt(0).toUpperCase()+w[0].slice(1);return w.join(' ')+'.';}
+function getParagraph(){return Array.from({length:rnd(4,8)},getSentence).join(' ')}
+
+function generate(){
+  const count=Math.min(parseInt(document.getElementById('countInput').value)||1,100);
+  const startLorem=document.getElementById('startLorem').checked;
+  const html=document.getElementById('htmlTags').checked;
+  const caps=document.getElementById('allCaps').checked;
+  const LOREM='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+  let result='';
+
+  if(genType==='words'){
+    let words=[];
+    if(startLorem)words=LOREM.replace(/[.,]/g,'').split(' ');
+    while(words.length<count)words.push(getRandWord());
+    result=words.slice(0,count).join(' ');
+  } else if(genType==='sentences'){
+    const sents=[];
+    if(startLorem)sents.push(LOREM);
+    while(sents.length<count)sents.push(getSentence());
+    result=sents.slice(0,count).join(' ');
+  } else if(genType==='bytes'){
+    let text='';
+    if(startLorem)text=LOREM+' ';
+    while(text.length<count)text+=getParagraph()+' ';
+    result=text.substring(0,count);
+  } else {
+    const paras=[];
+    if(startLorem){paras.push(LOREM+' '+getSentence()+' '+getSentence()+' '+getSentence());}
+    while(paras.length<count)paras.push(getParagraph());
+    result=html?paras.slice(0,count).map(p=>`<p>${p}</p>`).join('\n'):paras.slice(0,count).join('\n\n');
+  }
+
+  if(caps)result=result.toUpperCase();
+  document.getElementById('output').value=result;
+  const wc=result.trim().split(/\s+/).length;
+  document.getElementById('statsLabel').textContent=`${wc.toLocaleString()} words · ${result.length.toLocaleString()} characters`;
+}
+
+function copyOutput(){navigator.clipboard.writeText(document.getElementById('output').value);alert('Copied!')}
+function downloadOutput(){
+  const a=document.createElement('a');
+  a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(document.getElementById('output').value);
+  a.download='lorem-ipsum-toolifycore.txt';a.click();
+}
+generate();
+</script>
+</body>
+</html>

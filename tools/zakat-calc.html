@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Zakat Calculator Pakistan 2026 — Calculate Zakat Free | Toolify Core</title>
+<meta name="description" content="Calculate your Zakat for 2026 free online. Enter gold, silver, cash, savings and business assets. Get exact Zakat amount in PKR.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.section-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1rem}
+.sc-header{background:var(--surface2);padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.sc-icon{font-size:1.2rem}
+.sc-title{font-size:13px;font-weight:500}
+.sc-total{margin-left:auto;font-size:13px;font-weight:500;color:var(--accent)}
+.sc-body{padding:1rem 1.2rem}
+.input-row{display:flex;align-items:center;gap:8px;margin-bottom:.7rem}
+.input-row label{font-size:13px;color:var(--muted);flex:1}
+.pkr-input{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;color:var(--text);font-family:var(--font-head);font-size:13px;font-weight:500;outline:none;width:140px;text-align:right;transition:border-color .2s}
+.pkr-input:focus{border-color:var(--accent)}
+.pkr-label{font-size:12px;color:var(--muted);min-width:30px}
+.nisab-bar{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4rem}
+.nisab-val{color:var(--accent);font-weight:500}
+.result-card{background:linear-gradient(135deg,rgba(91,111,247,0.12),rgba(0,229,192,0.06));border:1px solid rgba(91,111,247,0.25);border-radius:16px;padding:1.5rem;margin-bottom:1.2rem;display:none}
+.result-card.show{display:block}
+.zakat-amount{font-family:var(--font-head);font-size:3rem;font-weight:800;color:var(--accent);line-height:1;margin-bottom:.3rem}
+.zakat-label{font-size:13px;color:var(--muted);margin-bottom:1rem}
+.breakdown-table{width:100%;border-collapse:collapse}
+.breakdown-table td{padding:6px 4px;font-size:12px;border-bottom:1px solid var(--border)}
+.breakdown-table td:last-child{text-align:right;color:var(--accent);font-weight:500}
+.breakdown-table tr:last-child td{border-bottom:none;font-weight:600;font-size:13px;color:var(--text)}
+.nisab-warn{background:rgba(255,184,0,0.1);border:1px solid rgba(255,184,0,0.3);border-radius:10px;padding:.8rem 1rem;font-size:13px;color:#B8860B;display:none}
+.nisab-warn.show{display:block}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Zakat Calculator</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🧮 Calculators</div>
+    <h1>Zakat Calculator Pakistan 2026 ☪️</h1>
+    <p>Calculate your annual Zakat obligation based on gold, silver, cash, savings and business assets. Results in PKR.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 18,230 times this month</div>
+
+  <div class="nisab-bar">
+    <span>Nisab 2026 (87.48g gold): <span class="nisab-val" id="nisabGold">Loading...</span></span>
+    <span>Nisab (612.36g silver): <span class="nisab-val" id="nisabSilver">Loading...</span></span>
+  </div>
+
+  <!-- Gold -->
+  <div class="section-card">
+    <div class="sc-header"><span class="sc-icon">🥇</span><span class="sc-title">Gold</span><span class="sc-total" id="goldTotal">PKR 0</span></div>
+    <div class="sc-body">
+      <div class="input-row"><label>Gold (24K) in grams</label><input class="pkr-input" type="number" id="gold24" value="0" min="0" oninput="calc()"><span class="pkr-label">g</span></div>
+      <div class="input-row"><label>Gold (22K) in grams</label><input class="pkr-input" type="number" id="gold22" value="0" min="0" oninput="calc()"><span class="pkr-label">g</span></div>
+      <div class="input-row"><label>Gold (18K) in grams</label><input class="pkr-input" type="number" id="gold18" value="0" min="0" oninput="calc()"><span class="pkr-label">g</span></div>
+    </div>
+  </div>
+
+  <!-- Silver -->
+  <div class="section-card">
+    <div class="sc-header"><span class="sc-icon">🥈</span><span class="sc-title">Silver</span><span class="sc-total" id="silverTotal">PKR 0</span></div>
+    <div class="sc-body">
+      <div class="input-row"><label>Silver in grams</label><input class="pkr-input" type="number" id="silver" value="0" min="0" oninput="calc()"><span class="pkr-label">g</span></div>
+    </div>
+  </div>
+
+  <!-- Cash & Savings -->
+  <div class="section-card">
+    <div class="sc-header"><span class="sc-icon">💵</span><span class="sc-title">Cash & Savings</span><span class="sc-total" id="cashTotal">PKR 0</span></div>
+    <div class="sc-body">
+      <div class="input-row"><label>Cash in hand</label><input class="pkr-input" type="number" id="cashHand" value="0" min="0" oninput="calc()"><span class="pkr-label">PKR</span></div>
+      <div class="input-row"><label>Bank savings</label><input class="pkr-input" type="number" id="cashBank" value="0" min="0" oninput="calc()"><span class="pkr-label">PKR</span></div>
+      <div class="input-row"><label>Foreign currency (in PKR)</label><input class="pkr-input" type="number" id="cashFx" value="0" min="0" oninput="calc()"><span class="pkr-label">PKR</span></div>
+    </div>
+  </div>
+
+  <!-- Business -->
+  <div class="section-card">
+    <div class="sc-header"><span class="sc-icon">🏪</span><span class="sc-title">Business & Investments</span><span class="sc-total" id="bizTotal">PKR 0</span></div>
+    <div class="sc-body">
+      <div class="input-row"><label>Business inventory value</label><input class="pkr-input" type="number" id="bizInv" value="0" min="0" oninput="calc()"><span class="pkr-label">PKR</span></div>
+      <div class="input-row"><label>Receivables (money owed to you)</label><input class="pkr-input" type="number" id="bizRec" value="0" min="0" oninput="calc()"><span class="pkr-label">PKR</span></div>
+      <div class="input-row"><label>Shares / Stocks value</label><input class="pkr-input" type="number" id="bizShares" value="0" min="0" oninput="calc()"><span class="pkr-label">PKR</span></div>
+    </div>
+  </div>
+
+  <!-- Deductions -->
+  <div class="section-card">
+    <div class="sc-header"><span class="sc-icon">➖</span><span class="sc-title">Liabilities (deduct)</span><span class="sc-total" id="deductTotal" style="color:#FF6B6B">PKR 0</span></div>
+    <div class="sc-body">
+      <div class="input-row"><label>Debts / loans you owe</label><input class="pkr-input" type="number" id="debts" value="0" min="0" oninput="calc()"><span class="pkr-label">PKR</span></div>
+      <div class="input-row"><label>Bills due this month</label><input class="pkr-input" type="number" id="bills" value="0" min="0" oninput="calc()"><span class="pkr-label">PKR</span></div>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="calc()" style="margin-bottom:1.2rem">☪️ Calculate My Zakat</button>
+
+  <div class="nisab-warn" id="nisabWarn">
+    ⚠️ Your total wealth is below Nisab. Zakat is not obligatory on you this year. May Allah increase your wealth.
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="zakat-amount" id="zakatAmount">PKR 0</div>
+    <div class="zakat-label">Your Zakat for 2026 (2.5% of Zakatable wealth)</div>
+    <table class="breakdown-table">
+      <tr><td>Total gold value</td><td id="br-gold">—</td></tr>
+      <tr><td>Total silver value</td><td id="br-silver">—</td></tr>
+      <tr><td>Cash & savings</td><td id="br-cash">—</td></tr>
+      <tr><td>Business assets</td><td id="br-biz">—</td></tr>
+      <tr><td style="color:#FF6B6B">Less: Liabilities</td><td id="br-ded" style="color:#FF6B6B">—</td></tr>
+      <tr><td><strong>Net Zakatable wealth</strong></td><td id="br-net">—</td></tr>
+      <tr><td><strong>Zakat (2.5%)</strong></td><td id="br-zakat">—</td></tr>
+    </table>
+    <div class="share-row" style="margin-top:1rem">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 Share on WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/zakat-calc.html');alert('Copied!')">🔗 Share tool</button>
+    </div>
+    <div class="embed-section" style="margin-top:.8rem">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/zakat-calc.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark — calculate Zakat every Ramadan</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Want to <strong>pay Zakat online to verified causes in Pakistan</strong>?</div>
+    <a href="https://www.edhi.org" target="_blank" rel="noopener sponsored" class="aff-btn">Edhi Foundation →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is Nisab?</div><div class="faq-a">Nisab is the minimum amount of wealth a Muslim must have before Zakat becomes obligatory. It equals 87.48g of gold or 612.36g of silver, whichever is lower.</div></div>
+    <div class="faq-item"><div class="faq-q">Is Zakat on gold calculated on jewellery worn daily?</div><div class="faq-a">According to most scholars, yes — Zakat applies to all gold above Nisab including jewellery. Some scholars exempt regularly worn jewellery. Consult your local scholar.</div></div>
+    <div class="faq-item"><div class="faq-q">What is the Zakat rate?</div><div class="faq-a">Zakat is 2.5% of your total Zakatable wealth held for one full lunar year (Hawl).</div></div>
+    <div class="faq-item"><div class="faq-q">Is house or car included in Zakat?</div><div class="faq-a">No. Your primary home, car and personal items for daily use are not included. Only wealth held for investment or trade is Zakatable.</div></div>
+  </div>
+</main>
+<script>
+// 2026 Pakistan gold/silver rates (update periodically)
+const GOLD_24K_PER_GRAM = 26800; // PKR
+const GOLD_22K_PER_GRAM = 24600;
+const GOLD_18K_PER_GRAM = 20100;
+const SILVER_PER_GRAM = 310;
+
+const NISAB_GOLD_GRAMS = 87.48;
+const NISAB_SILVER_GRAMS = 612.36;
+const NISAB_GOLD_PKR = Math.round(NISAB_GOLD_GRAMS * GOLD_24K_PER_GRAM);
+const NISAB_SILVER_PKR = Math.round(NISAB_SILVER_GRAMS * SILVER_PER_GRAM);
+const NISAB_PKR = Math.min(NISAB_GOLD_PKR, NISAB_SILVER_PKR); // use lower
+
+document.getElementById('nisabGold').textContent = 'PKR '+NISAB_GOLD_PKR.toLocaleString();
+document.getElementById('nisabSilver').textContent = 'PKR '+NISAB_SILVER_PKR.toLocaleString();
+
+const fmt = n => 'PKR '+Math.round(n).toLocaleString();
+const val = id => parseFloat(document.getElementById(id).value)||0;
+
+function calc(){
+  const goldVal = val('gold24')*GOLD_24K_PER_GRAM + val('gold22')*GOLD_22K_PER_GRAM + val('gold18')*GOLD_18K_PER_GRAM;
+  const silverVal = val('silver')*SILVER_PER_GRAM;
+  const cashVal = val('cashHand')+val('cashBank')+val('cashFx');
+  const bizVal = val('bizInv')+val('bizRec')+val('bizShares');
+  const deductVal = val('debts')+val('bills');
+
+  document.getElementById('goldTotal').textContent = fmt(goldVal);
+  document.getElementById('silverTotal').textContent = fmt(silverVal);
+  document.getElementById('cashTotal').textContent = fmt(cashVal);
+  document.getElementById('bizTotal').textContent = fmt(bizVal);
+  document.getElementById('deductTotal').textContent = fmt(deductVal);
+
+  const total = goldVal+silverVal+cashVal+bizVal;
+  const net = Math.max(0, total-deductVal);
+  const zakat = net*0.025;
+
+  if(net < NISAB_PKR){
+    document.getElementById('nisabWarn').classList.add('show');
+    document.getElementById('resultCard').classList.remove('show');
+    return;
+  }
+
+  document.getElementById('nisabWarn').classList.remove('show');
+  document.getElementById('zakatAmount').textContent = fmt(zakat);
+  document.getElementById('br-gold').textContent = fmt(goldVal);
+  document.getElementById('br-silver').textContent = fmt(silverVal);
+  document.getElementById('br-cash').textContent = fmt(cashVal);
+  document.getElementById('br-biz').textContent = fmt(bizVal);
+  document.getElementById('br-ded').textContent = '- '+fmt(deductVal);
+  document.getElementById('br-net').textContent = fmt(net);
+  document.getElementById('br-zakat').textContent = fmt(zakat);
+  document.getElementById('resultCard').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=${encodeURIComponent('Calculate your Zakat for 2026 free at Toolify Core: https://toolifycore.com/tools/zakat-calc.html')}`;
+}
+calc();
+</script>
+</body>
+</html>

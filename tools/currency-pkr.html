@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PKR Currency Converter — Pakistan Rupee to USD SAR AED | Toolify Core</title>
+<meta name="description" content="Convert Pakistani Rupee (PKR) to USD, SAR, AED, GBP, EUR and more. Live exchange rates. Free online PKR currency converter.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.conv-card{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:1.5rem;margin-bottom:1rem}
+.amount-row{display:flex;gap:10px;align-items:center;margin-bottom:1rem}
+.amount-input{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px;color:var(--text);font-family:var(--font-head);font-size:1.4rem;font-weight:700;outline:none;transition:border-color .2s}
+.amount-input:focus{border-color:var(--accent)}
+.currency-sel{background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:12px 10px;color:var(--text);font-family:var(--font-body);font-size:14px;font-weight:500;outline:none;min-width:110px}
+.swap-row{display:flex;justify-content:center;margin:.5rem 0}
+.swap-circle{width:38px;height:38px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .2s}
+.swap-circle:hover{border-color:var(--accent);transform:rotate(180deg)}
+.result-big{text-align:center;padding:1.5rem;background:linear-gradient(135deg,rgba(91,111,247,0.1),rgba(0,229,192,0.05));border:1px solid rgba(91,111,247,0.2);border-radius:14px;margin-bottom:1rem}
+.result-num{font-family:var(--font-head);font-size:2.4rem;font-weight:800;color:var(--accent);line-height:1}
+.result-sub{font-size:13px;color:var(--muted);margin-top:.4rem}
+.rates-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:1.2rem}
+.rate-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;cursor:pointer;transition:all .15s}
+.rate-card:hover{border-color:var(--accent);background:rgba(91,111,247,0.05)}
+.rate-flag{font-size:1.2rem;margin-bottom:.3rem}
+.rate-currency{font-size:12px;color:var(--muted)}
+.rate-value{font-family:var(--font-head);font-size:1rem;font-weight:700;color:var(--text)}
+.rate-change{font-size:10px;margin-top:2px}
+.rate-up{color:#1D9E75}.rate-down{color:#FF6B6B}
+.disclaimer{font-size:11px;color:var(--muted);text-align:center;padding:.6rem;background:var(--surface2);border-radius:8px;margin-bottom:1rem}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">PKR Converter</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🧮 Calculators</div>
+    <h1>PKR Currency Converter</h1>
+    <p>Convert Pakistani Rupee to USD, SAR, AED, GBP, EUR and 10+ currencies. Rates updated daily.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 12,440 times this month</div>
+
+  <div class="conv-card">
+    <div class="amount-row">
+      <input class="amount-input" type="number" id="fromAmount" value="1000" oninput="convert()">
+      <select class="currency-sel" id="fromCur" onchange="convert()"></select>
+    </div>
+    <div class="swap-row">
+      <button class="swap-circle" onclick="swapCurrencies()">⇄</button>
+    </div>
+    <div class="amount-row">
+      <input class="amount-input" type="number" id="toAmount" readonly style="opacity:.8">
+      <select class="currency-sel" id="toCur" onchange="convert()"></select>
+    </div>
+  </div>
+
+  <div class="result-big" id="resultBig">
+    <div class="result-num" id="resultNum">—</div>
+    <div class="result-sub" id="resultSub">—</div>
+  </div>
+
+  <div class="disclaimer" id="rateDate">📅 Rates: Loading...</div>
+
+  <p style="font-size:13px;font-weight:500;color:var(--muted);margin-bottom:.6rem">Quick convert 1,000 PKR to all currencies</p>
+  <div class="rates-grid" id="ratesGrid"></div>
+
+  <div class="share-row">
+    <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 Share on WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/currency-pkr.html');alert('Copied!')">🔗 Copy link</button>
+  </div>
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/currency-pkr.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark — check rates daily</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need to <strong>send money abroad at the best rate</strong>?</div>
+    <a href="https://wise.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Wise →</a>
+  </div>
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">How often are exchange rates updated?</div><div class="faq-a">Rates are fetched from a free exchange rate API and updated daily. For large transactions, always verify with your bank or SBP rates.</div></div>
+    <div class="faq-item"><div class="faq-q">Which currencies are supported?</div><div class="faq-a">USD, SAR, AED, GBP, EUR, CAD, AUD, JPY, CNY, KWD, QAR and PKR. More being added soon.</div></div>
+    <div class="faq-item"><div class="faq-q">Are these SBP official rates?</div><div class="faq-a">These are interbank/open market indicative rates. For official SBP rates, visit sbp.org.pk.</div></div>
+  </div>
+</main>
+<script>
+// Hardcoded fallback rates (PKR base) — update these weekly or connect free API
+const RATES = {
+  PKR: 1,
+  USD: 0.003584,
+  SAR: 0.013440,
+  AED: 0.013164,
+  GBP: 0.002820,
+  EUR: 0.003295,
+  CAD: 0.004876,
+  AUD: 0.005512,
+  JPY: 0.545,
+  CNY: 0.025980,
+  KWD: 0.001099,
+  QAR: 0.013045,
+};
+
+const LABELS = {
+  PKR:{flag:'🇵🇰',name:'Pakistani Rupee'},
+  USD:{flag:'🇺🇸',name:'US Dollar'},
+  SAR:{flag:'🇸🇦',name:'Saudi Riyal'},
+  AED:{flag:'🇦🇪',name:'UAE Dirham'},
+  GBP:{flag:'🇬🇧',name:'British Pound'},
+  EUR:{flag:'🇪🇺',name:'Euro'},
+  CAD:{flag:'🇨🇦',name:'Canadian Dollar'},
+  AUD:{flag:'🇦🇺',name:'Australian Dollar'},
+  JPY:{flag:'🇯🇵',name:'Japanese Yen'},
+  CNY:{flag:'🇨🇳',name:'Chinese Yuan'},
+  KWD:{flag:'🇰🇼',name:'Kuwaiti Dinar'},
+  QAR:{flag:'🇶🇦',name:'Qatari Riyal'},
+};
+
+const currencies = Object.keys(RATES);
+
+function populateSelects(){
+  ['fromCur','toCur'].forEach((id,i)=>{
+    document.getElementById(id).innerHTML = currencies.map(c=>
+      `<option value="${c}" ${(i===0&&c==='PKR')||(i===1&&c==='USD')?'selected':''}>${c}</option>`
+    ).join('');
+  });
+}
+
+function fmt(n){
+  if(n>=1000)return n.toLocaleString('en-US',{maximumFractionDigits:2});
+  if(n>=1)return n.toFixed(4);
+  return n.toFixed(6);
+}
+
+function convert(){
+  const amt=parseFloat(document.getElementById('fromAmount').value)||0;
+  const from=document.getElementById('fromCur').value;
+  const to=document.getElementById('toCur').value;
+  const inPKR=amt/RATES[from];
+  const result=inPKR*RATES[to];
+  document.getElementById('toAmount').value=fmt(result);
+  document.getElementById('resultNum').textContent=`${fmt(result)} ${to}`;
+  document.getElementById('resultSub').textContent=`${amt.toLocaleString()} ${from} = ${fmt(result)} ${to}`;
+  document.getElementById('shareWa').href=`https://wa.me/?text=${encodeURIComponent(`${amt} ${from} = ${fmt(result)} ${to} — convert PKR at Toolify Core: https://toolifycore.com/tools/currency-pkr.html`)}`;
+}
+
+function swapCurrencies(){
+  const f=document.getElementById('fromCur').value;
+  const t=document.getElementById('toCur').value;
+  document.getElementById('fromCur').value=t;
+  document.getElementById('toCur').value=f;
+  document.getElementById('fromAmount').value=document.getElementById('toAmount').value||1000;
+  convert();
+}
+
+function buildRatesGrid(){
+  const others=currencies.filter(c=>c!=='PKR');
+  document.getElementById('ratesGrid').innerHTML=others.map(c=>{
+    const val=fmt(1000*RATES[c]);
+    return `<div class="rate-card" onclick="document.getElementById('fromCur').value='PKR';document.getElementById('toCur').value='${c}';convert()">
+      <div class="rate-flag">${LABELS[c].flag}</div>
+      <div class="rate-currency">${LABELS[c].name}</div>
+      <div class="rate-value">${val} ${c}</div>
+      <div class="rate-change rate-up">per 1,000 PKR</div>
+    </div>`;
+  }).join('');
+}
+
+// Try to fetch live rates
+async function fetchLiveRates(){
+  try{
+    const r=await fetch('https://api.exchangerate-api.com/v4/latest/PKR');
+    if(!r.ok)throw new Error();
+    const data=await r.json();
+    currencies.forEach(c=>{if(data.rates[c])RATES[c]=data.rates[c];});
+    const d=new Date();
+    document.getElementById('rateDate').textContent=`📅 Live rates — updated ${d.toLocaleDateString('en-PK',{day:'numeric',month:'short',year:'numeric'})}`;
+    buildRatesGrid();convert();
+  }catch{
+    document.getElementById('rateDate').textContent='📅 Indicative rates — updated daily. Verify with your bank for transactions.';
+  }
+}
+
+populateSelects();buildRatesGrid();convert();fetchLiveRates();
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Percentage Calculator Free — Calculate % Online | Toolify Core</title>
+<meta name="description" content="Free percentage calculator. Find percentage of a number, percentage change, increase/decrease, and more. Instant results.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.calc-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;transition:border-color .15s}
+.calc-card:hover{border-color:var(--border2)}
+.calc-card h3{font-family:var(--font-head);font-size:.9rem;font-weight:700;color:var(--muted);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.06em}
+.pct-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:9px 10px;color:var(--text);font-family:var(--font-head);font-size:1rem;font-weight:600;outline:none;margin-bottom:.5rem;transition:border-color .2s;text-align:right}
+.pct-input:focus{border-color:var(--accent)}
+.pct-label{font-size:11px;color:var(--muted);margin-bottom:.3rem;display:block}
+.pct-result{background:var(--accent-light);border:1px solid rgba(91,111,247,0.2);border-radius:8px;padding:.6rem .8rem;font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:var(--accent);text-align:center;margin-top:.3rem;cursor:pointer;transition:all .15s}
+.pct-result:hover{opacity:.85}
+.pct-result small{font-size:10px;color:var(--muted);display:block;font-weight:400;font-family:var(--font-body)}
+.op-label{font-size:12px;color:var(--muted);text-align:center;padding:.2rem 0}
+@media(max-width:600px){.calc-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Percentage Calculator</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🧮 Calculators</div>
+    <h1>Percentage Calculator</h1>
+    <p>Six types of percentage calculations in one place. Click any result to copy it.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 16,550 times this month</div>
+
+  <div class="calc-grid">
+
+    <!-- 1: X% of Y -->
+    <div class="calc-card">
+      <h3>What is X% of Y?</h3>
+      <label class="pct-label">Percentage (%)</label>
+      <input class="pct-input" type="number" id="c1-pct" value="20" oninput="c1()">
+      <div class="op-label">% of</div>
+      <label class="pct-label">Number</label>
+      <input class="pct-input" type="number" id="c1-num" value="500" oninput="c1()">
+      <div class="pct-result" id="c1-res" onclick="copyRes('c1-res')">
+        <small>Click to copy</small>
+      </div>
+    </div>
+
+    <!-- 2: X is what % of Y -->
+    <div class="calc-card">
+      <h3>X is what % of Y?</h3>
+      <label class="pct-label">Number (X)</label>
+      <input class="pct-input" type="number" id="c2-x" value="75" oninput="c2()">
+      <div class="op-label">is what % of</div>
+      <label class="pct-label">Number (Y)</label>
+      <input class="pct-input" type="number" id="c2-y" value="300" oninput="c2()">
+      <div class="pct-result" id="c2-res" onclick="copyRes('c2-res')">
+        <small>Click to copy</small>
+      </div>
+    </div>
+
+    <!-- 3: Percentage change -->
+    <div class="calc-card">
+      <h3>Percentage Change</h3>
+      <label class="pct-label">From value</label>
+      <input class="pct-input" type="number" id="c3-from" value="200" oninput="c3()">
+      <div class="op-label">→ changed to</div>
+      <label class="pct-label">To value</label>
+      <input class="pct-input" type="number" id="c3-to" value="250" oninput="c3()">
+      <div class="pct-result" id="c3-res" onclick="copyRes('c3-res')">
+        <small>Click to copy</small>
+      </div>
+    </div>
+
+    <!-- 4: Increase by % -->
+    <div class="calc-card">
+      <h3>Increase by %</h3>
+      <label class="pct-label">Original number</label>
+      <input class="pct-input" type="number" id="c4-num" value="1000" oninput="c4()">
+      <div class="op-label">increased by</div>
+      <label class="pct-label">Increase (%)</label>
+      <input class="pct-input" type="number" id="c4-pct" value="15" oninput="c4()">
+      <div class="pct-result" id="c4-res" onclick="copyRes('c4-res')">
+        <small>Click to copy</small>
+      </div>
+    </div>
+
+    <!-- 5: Decrease by % -->
+    <div class="calc-card">
+      <h3>Decrease by %</h3>
+      <label class="pct-label">Original number</label>
+      <input class="pct-input" type="number" id="c5-num" value="1000" oninput="c5()">
+      <div class="op-label">decreased by</div>
+      <label class="pct-label">Decrease (%)</label>
+      <input class="pct-input" type="number" id="c5-pct" value="15" oninput="c5()">
+      <div class="pct-result" id="c5-res" onclick="copyRes('c5-res')">
+        <small>Click to copy</small>
+      </div>
+    </div>
+
+    <!-- 6: What % is the difference -->
+    <div class="calc-card">
+      <h3>Discount Calculator</h3>
+      <label class="pct-label">Original price (PKR)</label>
+      <input class="pct-input" type="number" id="c6-orig" value="5000" oninput="c6()">
+      <div class="op-label">with discount</div>
+      <label class="pct-label">Discount (%)</label>
+      <input class="pct-input" type="number" id="c6-disc" value="20" oninput="c6()">
+      <div class="pct-result" id="c6-res" onclick="copyRes('c6-res')">
+        <small>Click to copy</small>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="share-row">
+    <a class="share-btn share-wa" href="https://wa.me/?text=Free percentage calculator at Toolify Core: https://toolifycore.com/tools/percentage-calc.html" target="_blank">💬 WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/percentage-calc.html');alert('Copied!')">🔗 Copy link</button>
+  </div>
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/percentage-calc.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark — fastest percentage calculator online</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need a full <strong>financial calculator for tax, EMI or Zakat</strong>?</div>
+    <a href="/tools/emi-calc.html" class="aff-btn">EMI Calculator →</a>
+  </div>
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">How do I calculate percentage of a number?</div><div class="faq-a">Multiply the number by the percentage and divide by 100. For example, 20% of 500 = (20 × 500) ÷ 100 = 100.</div></div>
+    <div class="faq-item"><div class="faq-q">How do I calculate percentage change?</div><div class="faq-a">Subtract old value from new value, divide by old value, multiply by 100. Example: from 200 to 250 = (250-200)/200 × 100 = 25% increase.</div></div>
+  </div>
+</main>
+<script>
+const fmt = n => {
+  if(isNaN(n)||!isFinite(n))return '—';
+  return parseFloat(n.toFixed(6)).toLocaleString();
+};
+const v = id => parseFloat(document.getElementById(id).value)||0;
+
+function setRes(id, text, sub='Click to copy'){
+  document.getElementById(id).innerHTML=`${text}<small>${sub}</small>`;
+}
+
+function c1(){const r=v('c1-pct')/100*v('c1-num');setRes('c1-res',fmt(r),`${v('c1-pct')}% of ${v('c1-num')} = ${fmt(r)}`)}
+function c2(){const r=v('c2-y')!==0?v('c2-x')/v('c2-y')*100:0;setRes('c2-res',fmt(r)+'%',`${v('c2-x')} is ${fmt(r)}% of ${v('c2-y')}`)}
+function c3(){const from=v('c3-from');const to=v('c3-to');if(!from){setRes('c3-res','—');return;}const r=(to-from)/Math.abs(from)*100;const dir=r>=0?'increase':'decrease';setRes('c3-res',(r>=0?'+':'')+fmt(r)+'%',`${Math.abs(fmt(r))}% ${dir}`)}
+function c4(){const r=v('c4-num')*(1+v('c4-pct')/100);setRes('c4-res',fmt(r),`After ${v('c4-pct')}% increase: ${fmt(r)}`)}
+function c5(){const r=v('c5-num')*(1-v('c5-pct')/100);setRes('c5-res',fmt(r),`After ${v('c5-pct')}% decrease: ${fmt(r)}`)}
+function c6(){const save=v('c6-orig')*v('c6-disc')/100;const final=v('c6-orig')-save;setRes('c6-res',`PKR ${fmt(final)}`,`Save PKR ${fmt(save)} on PKR ${v('c6-orig')}`)}
+
+function copyRes(id){
+  const text=document.getElementById(id).childNodes[0].textContent.trim();
+  navigator.clipboard.writeText(text);
+  const el=document.getElementById(id);
+  const orig=el.innerHTML;
+  el.innerHTML='Copied! ✅<small>Copied to clipboard</small>';
+  setTimeout(()=>el.innerHTML=orig,1500);
+}
+
+c1();c2();c3();c4();c5();c6();
+</script>
+</body>
+</html>

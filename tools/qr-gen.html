@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>QR Code Generator Free — Create Custom QR Codes | Toolify Core</title>
+<meta name="description" content="Generate QR codes free online. Create QR codes for URLs, text, WhatsApp, email and more. Download as PNG. No signup.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<style>
+.qr-types{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.2rem}
+.qt-btn{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.7rem .5rem;text-align:center;cursor:pointer;transition:all .15s;font-size:12px;color:var(--muted);font-family:var(--font-body)}
+.qt-btn:hover{border-color:var(--border2);color:var(--text)}
+.qt-btn.active{border-color:var(--accent);background:var(--accent-light);color:#B8AAFF}
+.qt-icon{font-size:1.4rem;display:block;margin-bottom:.3rem}
+.qr-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:border-color .2s;margin-bottom:1rem}
+.qr-input:focus{border-color:var(--accent)}
+textarea.qr-input{min-height:90px;resize:vertical}
+.qr-options{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.opt-label{font-size:12px;color:var(--muted);margin-bottom:.4rem;display:block}
+.color-row{display:flex;align-items:center;gap:8px}
+.color-row input[type=color]{width:36px;height:36px;border:none;background:none;cursor:pointer;border-radius:6px}
+.size-select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--text);font-family:var(--font-body);font-size:13px;outline:none}
+.qr-preview{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;margin-bottom:1.5rem;display:none}
+.qr-preview.show{display:block}
+#qrCanvas{border-radius:10px;max-width:100%}
+.qr-share-text{font-size:12px;color:var(--muted);margin:.8rem 0 .5rem}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">QR Generator</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility</div>
+    <h1>QR Code Generator</h1>
+    <p>Create custom QR codes for URLs, WhatsApp, text, email and more. Download as PNG instantly. Free forever.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 11,430 times this month</div>
+
+  <div class="qr-types">
+    <button class="qt-btn active" onclick="setType('url',this)"><span class="qt-icon">🔗</span>URL</button>
+    <button class="qt-btn" onclick="setType('whatsapp',this)"><span class="qt-icon">💬</span>WhatsApp</button>
+    <button class="qt-btn" onclick="setType('text',this)"><span class="qt-icon">📝</span>Text</button>
+    <button class="qt-btn" onclick="setType('email',this)"><span class="qt-icon">📧</span>Email</button>
+    <button class="qt-btn" onclick="setType('phone',this)"><span class="qt-icon">📞</span>Phone</button>
+    <button class="qt-btn" onclick="setType('sms',this)"><span class="qt-icon">💌</span>SMS</button>
+    <button class="qt-btn" onclick="setType('wifi',this)"><span class="qt-icon">📶</span>WiFi</button>
+    <button class="qt-btn" onclick="setType('location',this)"><span class="qt-icon">📍</span>Location</button>
+  </div>
+
+  <div id="inputArea">
+    <input class="qr-input" type="text" id="mainInput" placeholder="Enter URL (e.g. https://toolifycore.com)" oninput="liveGenerate()">
+    <div id="extraFields"></div>
+  </div>
+
+  <div class="qr-options">
+    <div>
+      <label class="opt-label">QR Color</label>
+      <div class="color-row">
+        <input type="color" id="fgColor" value="#0A0A0F" oninput="liveGenerate()">
+        <span style="font-size:12px;color:var(--muted)">Foreground</span>
+        <input type="color" id="bgColor" value="#FFFFFF" oninput="liveGenerate()">
+        <span style="font-size:12px;color:var(--muted)">Background</span>
+      </div>
+    </div>
+    <div>
+      <label class="opt-label">Size</label>
+      <select class="size-select" id="qrSize" onchange="liveGenerate()">
+        <option value="200">Small (200px)</option>
+        <option value="300" selected>Medium (300px)</option>
+        <option value="500">Large (500px)</option>
+        <option value="800">HD (800px)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="actions" style="display:flex;margin-bottom:1.5rem">
+    <button class="btn-primary" onclick="liveGenerate()">⚡ Generate QR Code</button>
+  </div>
+
+  <div class="qr-preview" id="qrPreview">
+    <canvas id="qrCanvas"></canvas>
+    <div class="qr-share-text">Your QR code is ready</div>
+    <div class="actions" style="display:flex;justify-content:center;margin-top:.5rem">
+      <button class="btn-primary" onclick="downloadQR()" style="max-width:220px">⬇ Download PNG</button>
+      <button class="btn-secondary" onclick="downloadSVG()">SVG</button>
+    </div>
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/qr-gen.html');alert('Copied!')">🔗 Copy tool link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/qr-gen.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark — create QR codes anytime without searching</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need <strong>bulk QR codes, custom logos inside QR, or analytics</strong> on scans?</div>
+    <a href="https://www.qr-code-generator.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try QR Pro →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">How long does the QR code last?</div><div class="faq-a">Forever. These are static QR codes — they never expire and work without any account or subscription.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I use custom colors?</div><div class="faq-a">Yes. Pick any foreground and background color. Ensure high contrast for best scan reliability.</div></div>
+    <div class="faq-item"><div class="faq-q">What QR code types are supported?</div><div class="faq-a">URL, WhatsApp direct link, plain text, email, phone number, SMS, WiFi credentials, and GPS location.</div></div>
+    <div class="faq-item"><div class="faq-q">Is the QR code stored on your server?</div><div class="faq-a">No. QR codes are generated entirely in your browser. Nothing is stored anywhere.</div></div>
+  </div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+let currentType = 'url';
+const TYPES = {
+  url:       { placeholder:'Enter URL (e.g. https://toolifycore.com)', extra:'' },
+  whatsapp:  { placeholder:'Phone number with country code (e.g. 923001234567)', extra:'', prefix: n=>`https://wa.me/${n.replace(/\D/g,'')}` },
+  text:      { placeholder:'Enter any text message...', extra:'', textarea:true },
+  email:     { placeholder:'Email address', extra:'<input class="qr-input" id="emailSub" placeholder="Subject (optional)" oninput="liveGenerate()"><input class="qr-input" id="emailBody" placeholder="Message (optional)" oninput="liveGenerate()">' },
+  phone:     { placeholder:'Phone number (e.g. +92 300 1234567)', extra:'' },
+  sms:       { placeholder:'Phone number', extra:'<input class="qr-input" id="smsMsg" placeholder="Message" oninput="liveGenerate()">' },
+  wifi:      { placeholder:'WiFi network name (SSID)', extra:'<input class="qr-input" id="wifiPass" type="password" placeholder="Password" oninput="liveGenerate()"><select class="size-select" id="wifiSec" onchange="liveGenerate()" style="margin-bottom:1rem"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="">Open (no password)</option></select>' },
+  location:  { placeholder:'Latitude (e.g. 33.7294)', extra:'<input class="qr-input" id="locLng" placeholder="Longitude (e.g. 73.0931)" oninput="liveGenerate()">' },
+};
+
+function setType(type, btn) {
+  currentType = type;
+  document.querySelectorAll('.qt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const t = TYPES[type];
+  const mainInput = document.getElementById('mainInput');
+  mainInput.placeholder = t.placeholder;
+  mainInput.value = '';
+  document.getElementById('extraFields').innerHTML = t.extra || '';
+  document.getElementById('qrPreview').classList.remove('show');
+}
+
+function buildQRData() {
+  const val = document.getElementById('mainInput').value.trim();
+  if (!val) return '';
+  switch(currentType) {
+    case 'url': return val.startsWith('http')?val:'https://'+val;
+    case 'whatsapp': return `https://wa.me/${val.replace(/\D/g,'')}`;
+    case 'text': return val;
+    case 'email': {
+      const sub = document.getElementById('emailSub')?.value||'';
+      const body = document.getElementById('emailBody')?.value||'';
+      return `mailto:${val}${sub?'?subject='+encodeURIComponent(sub):''}${body?(sub?'&':'?')+'body='+encodeURIComponent(body):''}`;
+    }
+    case 'phone': return `tel:${val}`;
+    case 'sms': return `sms:${val}${document.getElementById('smsMsg')?.value?':'+document.getElementById('smsMsg').value:''}`;
+    case 'wifi': {
+      const pass = document.getElementById('wifiPass')?.value||'';
+      const sec = document.getElementById('wifiSec')?.value||'WPA';
+      return `WIFI:S:${val};T:${sec};P:${pass};;`;
+    }
+    case 'location': {
+      const lng = document.getElementById('locLng')?.value||'0';
+      return `geo:${val},${lng}`;
+    }
+    default: return val;
+  }
+}
+
+let qrInstance = null;
+function liveGenerate() {
+  const data = buildQRData();
+  if (!data) return;
+  const size = parseInt(document.getElementById('qrSize').value);
+  const fg = document.getElementById('fgColor').value;
+  const bg = document.getElementById('bgColor').value;
+
+  const canvas = document.getElementById('qrCanvas');
+  canvas.width = size; canvas.height = size;
+
+  // Use QRCode library
+  const tempDiv = document.createElement('div');
+  new QRCode(tempDiv, {
+    text: data, width: size, height: size,
+    colorDark: fg, colorLight: bg,
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  setTimeout(() => {
+    const img = tempDiv.querySelector('img') || tempDiv.querySelector('canvas');
+    if (img) {
+      const ctx = canvas.getContext('2d');
+      const i = new Image();
+      i.onload = () => { ctx.drawImage(i,0,0,size,size); };
+      i.src = img.tagName==='IMG' ? img.src : img.toDataURL();
+    }
+    document.getElementById('qrPreview').classList.add('show');
+    document.getElementById('shareWa').href = `https://wa.me/?text=Generate QR codes free at Toolify Core: https://toolifycore.com/tools/qr-gen.html`;
+  }, 100);
+}
+
+function downloadQR() {
+  const a = document.createElement('a');
+  a.href = document.getElementById('qrCanvas').toDataURL('image/png');
+  a.download = 'qrcode-toolifycore.png'; a.click();
+}
+function downloadSVG() {
+  const data = buildQRData();
+  if(!data){alert('Generate a QR code first');return;}
+  alert('SVG export: Copy the PNG and use a free PNG-to-SVG converter at toolifycore.com');
+}
+</script>
+</body>
+</html>

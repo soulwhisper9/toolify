@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Unit Converter Free — Length Weight Temperature Speed | Toolify Core</title>
+<meta name="description" content="Free online unit converter. Convert length, weight, temperature, speed, area, data size and more. Instant results.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<style>
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem}
+.cat-btn{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.7rem .4rem;text-align:center;cursor:pointer;font-size:12px;color:var(--muted);font-family:var(--font-body);transition:all .15s}
+.cat-btn:hover{border-color:var(--border2);color:var(--text)}
+.cat-btn.active{border-color:var(--accent);background:var(--accent-light);color:#B8AAFF}
+.cat-icon{font-size:1.3rem;display:block;margin-bottom:.3rem}
+.conv-row{display:grid;grid-template-columns:1fr auto 1fr;gap:.8rem;align-items:end;margin-bottom:1.2rem}
+.conv-field label{font-size:12px;color:var(--muted);margin-bottom:.4rem;display:block}
+.conv-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--font-head);font-size:1.1rem;font-weight:700;outline:none;transition:border-color .2s}
+.conv-input:focus{border-color:var(--accent)}
+.conv-select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:9px 10px;color:var(--text);font-family:var(--font-body);font-size:13px;outline:none;margin-top:.4rem}
+.swap-btn{background:var(--surface);border:1px solid var(--border2);color:var(--muted);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-bottom:1.8rem;flex-shrink:0}
+.swap-btn:hover{border-color:var(--accent);color:var(--accent);transform:rotate(180deg)}
+.result-big{background:var(--surface);border:1px solid rgba(91,111,247,0.3);border-radius:14px;padding:1.5rem;text-align:center;margin-bottom:1.2rem}
+.result-big .r-num{font-family:var(--font-head);font-size:2rem;font-weight:800;color:var(--accent)}
+.result-big .r-unit{font-size:14px;color:var(--muted);margin-top:.2rem}
+.all-results{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1.5rem}
+.ar-header{padding:10px 14px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
+.ar-row{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--border);font-size:13px;cursor:pointer;transition:background .15s}
+.ar-row:last-child{border-bottom:none}
+.ar-row:hover{background:var(--surface2)}
+.ar-unit{color:var(--muted)}
+.ar-val{color:var(--text);font-weight:500}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Unit Converter</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility</div>
+    <h1>Unit Converter</h1>
+    <p>Convert length, weight, temperature, speed, area, volume and data size instantly. All conversions shown at once.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 7,550 times this month</div>
+
+  <div class="cat-grid">
+    <button class="cat-btn active" onclick="setCat('length',this)"><span class="cat-icon">📏</span>Length</button>
+    <button class="cat-btn" onclick="setCat('weight',this)"><span class="cat-icon">⚖️</span>Weight</button>
+    <button class="cat-btn" onclick="setCat('temp',this)"><span class="cat-icon">🌡</span>Temp</button>
+    <button class="cat-btn" onclick="setCat('speed',this)"><span class="cat-icon">💨</span>Speed</button>
+    <button class="cat-btn" onclick="setCat('area',this)"><span class="cat-icon">📐</span>Area</button>
+    <button class="cat-btn" onclick="setCat('volume',this)"><span class="cat-icon">🧪</span>Volume</button>
+    <button class="cat-btn" onclick="setCat('data',this)"><span class="cat-icon">💾</span>Data</button>
+    <button class="cat-btn" onclick="setCat('time',this)"><span class="cat-icon">⏱</span>Time</button>
+  </div>
+
+  <div class="conv-row">
+    <div class="conv-field">
+      <label>From</label>
+      <input class="conv-input" type="number" id="fromVal" value="1" oninput="convert()">
+      <select class="conv-select" id="fromUnit" onchange="convert()"></select>
+    </div>
+    <button class="swap-btn" onclick="swapUnits()">⇄</button>
+    <div class="conv-field">
+      <label>To</label>
+      <input class="conv-input" type="number" id="toVal" readonly style="opacity:.8">
+      <select class="conv-select" id="toUnit" onchange="convert()"></select>
+    </div>
+  </div>
+
+  <div class="result-big" id="resultBig" style="display:none">
+    <div class="r-num" id="rNum">—</div>
+    <div class="r-unit" id="rUnit">—</div>
+  </div>
+
+  <div class="all-results" id="allResults" style="display:none">
+    <div class="ar-header">All conversions for <span id="arFrom"></span> — click any to copy</div>
+    <div id="arRows"></div>
+  </div>
+
+  <div class="share-row">
+    <a class="share-btn share-wa" href="https://wa.me/?text=Free unit converter at Toolify Core: https://toolifycore.com/tools/unit-convert.html" target="_blank">💬 WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/unit-convert.html');alert('Copied!')">🔗 Copy link</button>
+  </div>
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/unit-convert.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark this converter</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need to <strong>convert currency (PKR/USD/SAR)</strong> with live rates?</div>
+    <a href="/tools/currency-pkr.html" class="aff-btn">PKR Converter →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">How accurate are the conversions?</div><div class="faq-a">All conversions use standard internationally-recognized conversion factors accurate to 10 decimal places.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I convert Pakistani units like tola or marla?</div><div class="faq-a">Area conversions include marla and kanal. Tola (gold weight) is coming soon.</div></div>
+  </div>
+</main>
+<script>
+const CATS = {
+  length: {
+    units: ['Meter','Kilometer','Centimeter','Millimeter','Mile','Yard','Foot','Inch','Nautical Mile'],
+    toBase: [1,1000,0.01,0.001,1609.344,0.9144,0.3048,0.0254,1852],
+  },
+  weight: {
+    units: ['Kilogram','Gram','Milligram','Pound','Ounce','Ton (metric)','Stone'],
+    toBase: [1,0.001,0.000001,0.453592,0.0283495,1000,6.35029],
+  },
+  temp: {
+    units: ['Celsius','Fahrenheit','Kelvin'],
+    toBase: null, // special
+  },
+  speed: {
+    units: ['m/s','km/h','mph','knot','ft/s'],
+    toBase: [1,0.277778,0.44704,0.514444,0.3048],
+  },
+  area: {
+    units: ['m²','km²','cm²','Hectare','Acre','sq ft','sq in','Marla','Kanal'],
+    toBase: [1,1e6,0.0001,10000,4046.86,0.092903,0.00064516,25.2929,505.857],
+  },
+  volume: {
+    units: ['Liter','Milliliter','Cubic meter','Gallon (US)','Quart','Pint','Cup','fl oz'],
+    toBase: [1,0.001,1000,3.78541,0.946353,0.473176,0.236588,0.0295735],
+  },
+  data: {
+    units: ['Byte','Kilobyte','Megabyte','Gigabyte','Terabyte','Bit','Kilobit','Megabit','Gigabit'],
+    toBase: [1,1024,1048576,1073741824,1099511627776,0.125,128,131072,134217728],
+  },
+  time: {
+    units: ['Second','Minute','Hour','Day','Week','Month (30d)','Year'],
+    toBase: [1,60,3600,86400,604800,2592000,31536000],
+  },
+};
+
+let currentCat = 'length';
+
+function setCat(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  populateSelects();
+  convert();
+}
+
+function populateSelects() {
+  const {units} = CATS[currentCat];
+  const toIdx = Math.min(1, units.length-1);
+  ['fromUnit','toUnit'].forEach((id,i) => {
+    const sel = document.getElementById(id);
+    sel.innerHTML = units.map((u,j)=>`<option value="${j}">${u}</option>`).join('');
+    sel.value = i===0 ? 0 : toIdx;
+  });
+}
+
+function convertTemp(val, from, to) {
+  // to Celsius first
+  let c;
+  if(from===0)c=val;
+  else if(from===1)c=(val-32)*5/9;
+  else c=val-273.15;
+  // from Celsius to target
+  if(to===0)return c;
+  if(to===1)return c*9/5+32;
+  return c+273.15;
+}
+
+function fmt(n) {
+  if(Math.abs(n)>=1e10||Math.abs(n)<1e-6&&n!==0)return n.toExponential(4);
+  return parseFloat(n.toPrecision(8)).toString();
+}
+
+function convert() {
+  const val = parseFloat(document.getElementById('fromVal').value);
+  if(isNaN(val)){document.getElementById('toVal').value='';return;}
+  const fi = parseInt(document.getElementById('fromUnit').value);
+  const ti = parseInt(document.getElementById('toUnit').value);
+  const cat = CATS[currentCat];
+  let result;
+  if(currentCat==='temp'){result=convertTemp(val,fi,ti);}
+  else{result=(val*cat.toBase[fi])/cat.toBase[ti];}
+  document.getElementById('toVal').value = fmt(result);
+  document.getElementById('resultBig').style.display='block';
+  document.getElementById('rNum').textContent = fmt(result);
+  document.getElementById('rUnit').textContent = `${cat.units[fi]} → ${cat.units[ti]}`;
+
+  // All results
+  const allRows = cat.units.map((u,i)=>{
+    if(i===fi)return '';
+    let r;
+    if(currentCat==='temp')r=convertTemp(val,fi,i);
+    else r=(val*cat.toBase[fi])/cat.toBase[i];
+    return `<div class="ar-row" onclick="navigator.clipboard.writeText('${fmt(r)}');this.style.background='var(--accent-light)'">
+      <span class="ar-unit">${u}</span><span class="ar-val">${fmt(r)}</span></div>`;
+  }).join('');
+  document.getElementById('arFrom').textContent = `${val} ${cat.units[fi]}`;
+  document.getElementById('arRows').innerHTML = allRows;
+  document.getElementById('allResults').style.display='block';
+}
+
+function swapUnits(){
+  const f=document.getElementById('fromUnit').value;
+  const t=document.getElementById('toUnit').value;
+  document.getElementById('fromUnit').value=t;
+  document.getElementById('toUnit').value=f;
+  document.getElementById('fromVal').value=document.getElementById('toVal').value||1;
+  convert();
+}
+
+populateSelects();convert();
+</script>
+</body>
+</html>

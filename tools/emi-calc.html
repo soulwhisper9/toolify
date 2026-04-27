@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EMI Calculator Pakistan — Loan & Mortgage Calculator Free | Toolify Core</title>
+<meta name="description" content="Calculate loan EMI, total interest and repayment schedule free. Pakistan home loan, car loan and personal loan EMI calculator 2026.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.loan-types{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.2rem}
+.lt-btn{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.6rem .4rem;text-align:center;cursor:pointer;font-size:12px;color:var(--muted);font-family:var(--font-body);transition:all .15s}
+.lt-btn:hover{border-color:var(--border2);color:var(--text)}
+.lt-btn.active{border-color:var(--accent);background:var(--accent-light);color:#B8AAFF}
+.lt-icon{font-size:1.2rem;display:block;margin-bottom:.2rem}
+.slider-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1rem}
+.sl-row{margin-bottom:1rem}
+.sl-row:last-child{margin-bottom:0}
+.sl-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem}
+.sl-label{font-size:13px;color:var(--muted)}
+.sl-val{font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:var(--text)}
+.sl-input{width:100%;accent-color:var(--accent)}
+.result-hero{background:linear-gradient(135deg,rgba(91,111,247,0.12),rgba(0,229,192,0.06));border:1px solid rgba(91,111,247,0.25);border-radius:16px;padding:1.5rem;text-align:center;margin-bottom:1rem}
+.emi-amount{font-family:var(--font-head);font-size:3rem;font-weight:800;color:var(--accent);line-height:1}
+.emi-label{font-size:13px;color:var(--muted);margin-top:.3rem}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
+.sg-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem;text-align:center}
+.sg-val{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:.2rem}
+.sg-label{font-size:11px;color:var(--muted)}
+.donut-wrap{display:flex;align-items:center;gap:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1rem;flex-wrap:wrap}
+.donut-legend{flex:1}
+.legend-item{display:flex;align-items:center;gap:8px;margin-bottom:.5rem;font-size:13px}
+.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.schedule-table{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1rem;max-height:300px;overflow-y:auto}
+.st-header{background:var(--surface2);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;padding:8px 12px;font-size:11px;color:var(--muted);text-transform:uppercase;position:sticky;top:0;border-bottom:1px solid var(--border)}
+.st-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;padding:7px 12px;font-size:12px;border-bottom:1px solid var(--border)}
+.st-row:last-child{border-bottom:none}
+.st-row:nth-child(even){background:rgba(255,255,255,0.02)}
+.bank-rates{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem;font-size:12px;color:var(--muted)}
+.bank-rates strong{color:var(--text)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">EMI Calculator</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🧮 Calculators</div>
+    <h1>EMI Calculator Pakistan</h1>
+    <p>Calculate monthly EMI, total interest and full repayment schedule for home loan, car loan or personal loan.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 19,640 times this month</div>
+
+  <div class="loan-types">
+    <button class="lt-btn active" onclick="setLoan('home',this)"><span class="lt-icon">🏠</span>Home Loan</button>
+    <button class="lt-btn" onclick="setLoan('car',this)"><span class="lt-icon">🚗</span>Car Loan</button>
+    <button class="lt-btn" onclick="setLoan('personal',this)"><span class="lt-icon">💳</span>Personal</button>
+    <button class="lt-btn" onclick="setLoan('business',this)"><span class="lt-icon">🏪</span>Business</button>
+  </div>
+
+  <div class="bank-rates" id="bankRates">
+    🏦 Current Pakistan home loan rates: <strong>HBL 22%</strong> · <strong>MCB 21.5%</strong> · <strong>Meezan (Islamic) 20%</strong> · <strong>UBL 22.5%</strong>
+  </div>
+
+  <div class="slider-card">
+    <div class="sl-row">
+      <div class="sl-top"><span class="sl-label">Loan Amount</span><span class="sl-val" id="amtVal">PKR 1,000,000</span></div>
+      <input type="range" class="sl-input" id="amtSlider" min="50000" max="50000000" step="50000" value="1000000" oninput="updateSliders();calculate()">
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>50K</span><span>5 Crore</span></div>
+    </div>
+    <div class="sl-row">
+      <div class="sl-top"><span class="sl-label">Interest Rate (Annual)</span><span class="sl-val" id="rateVal">21%</span></div>
+      <input type="range" class="sl-input" id="rateSlider" min="5" max="40" step="0.5" value="21" oninput="updateSliders();calculate()">
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>5%</span><span>40%</span></div>
+    </div>
+    <div class="sl-row">
+      <div class="sl-top"><span class="sl-label">Loan Tenure</span><span class="sl-val" id="tenureVal">5 Years</span></div>
+      <input type="range" class="sl-input" id="tenureSlider" min="1" max="30" step="1" value="5" oninput="updateSliders();calculate()">
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>1 yr</span><span>30 yrs</span></div>
+    </div>
+  </div>
+
+  <div class="result-hero">
+    <div class="emi-amount" id="emiAmount">—</div>
+    <div class="emi-label">Monthly EMI</div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="sg-card"><div class="sg-val" id="s-principal" style="color:#378ADD">—</div><div class="sg-label">Principal</div></div>
+    <div class="sg-card"><div class="sg-val" id="s-interest" style="color:#FF6B6B">—</div><div class="sg-label">Total Interest</div></div>
+    <div class="sg-card"><div class="sg-val" id="s-total" style="color:#1D9E75">—</div><div class="sg-label">Total Payment</div></div>
+  </div>
+
+  <div class="donut-wrap">
+    <canvas id="donut" width="120" height="120"></canvas>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div><span>Principal: <strong id="l-principal">—</strong></span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FF6B6B"></div><span>Interest: <strong id="l-interest">—</strong></span></div>
+      <div style="font-size:12px;color:var(--muted);margin-top:.5rem">Interest represents <strong id="l-pct">—</strong> of total payment</div>
+    </div>
+  </div>
+
+  <details style="margin-bottom:1rem">
+    <summary style="cursor:pointer;font-size:13px;font-weight:500;padding:.6rem 0;color:var(--muted)">📅 View full repayment schedule</summary>
+    <div class="schedule-table" style="margin-top:.5rem">
+      <div class="st-header"><span>Month</span><span>EMI</span><span>Principal</span><span>Interest</span><span>Balance</span></div>
+      <div id="scheduleBody"></div>
+    </div>
+  </details>
+
+  <div class="share-row">
+    <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/emi-calc.html');alert('Copied!')">🔗 Copy link</button>
+  </div>
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/emi-calc.html" width="100%" height="750" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark — compare loans before applying</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Compare <strong>home loan rates from all Pakistani banks</strong> in one place?</div>
+    <a href="https://www.pakloans.com" target="_blank" rel="noopener sponsored" class="aff-btn">Compare Rates →</a>
+  </div>
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is EMI?</div><div class="faq-a">EMI (Equated Monthly Installment) is a fixed payment you make to a bank every month to repay a loan. It includes both principal and interest portions.</div></div>
+    <div class="faq-item"><div class="faq-q">What is the current home loan rate in Pakistan?</div><div class="faq-a">As of 2026, home loan rates in Pakistan range from 20% to 23% per annum depending on the bank and whether it is conventional or Islamic financing.</div></div>
+    <div class="faq-item"><div class="faq-q">How can I reduce my EMI?</div><div class="faq-a">You can reduce EMI by increasing loan tenure, making a larger down payment, or negotiating a lower interest rate. Use the sliders above to compare scenarios.</div></div>
+  </div>
+</main>
+<script>
+const LOAN_PRESETS = {
+  home:     {rate:21,tenure:15,max:50000000,rateNote:'HBL 22% · MCB 21.5% · Meezan 20% · UBL 22.5%'},
+  car:      {rate:20,tenure:5, max:10000000,rateNote:'Meezan 18% · Bank Alfalah 20% · HBL 21% · Askari 19.5%'},
+  personal: {rate:28,tenure:3, max:5000000, rateNote:'HBL 26-30% · MCB 27% · UBL 28% · Standard Chartered 29%'},
+  business: {rate:22,tenure:5, max:50000000,rateNote:'SBP SME rate 20% · HBL 22% · MCB 21% · NBP 20.5%'},
+};
+
+function setLoan(type, btn){
+  document.querySelectorAll('.lt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const p=LOAN_PRESETS[type];
+  document.getElementById('rateSlider').value=p.rate;
+  document.getElementById('tenureSlider').value=p.tenure;
+  document.getElementById('bankRates').innerHTML=`🏦 Current Pakistan ${type} loan rates: <strong>${p.rateNote}</strong>`;
+  updateSliders();calculate();
+}
+
+const fmtPKR = n => 'PKR '+Math.round(n).toLocaleString();
+const fmtShort = n => n>=10000000?'PKR '+(n/10000000).toFixed(2)+' Cr':n>=100000?'PKR '+(n/100000).toFixed(1)+' L':'PKR '+Math.round(n).toLocaleString();
+
+function updateSliders(){
+  const amt=parseInt(document.getElementById('amtSlider').value);
+  const rate=parseFloat(document.getElementById('rateSlider').value);
+  const tenure=parseInt(document.getElementById('tenureSlider').value);
+  document.getElementById('amtVal').textContent=fmtShort(amt);
+  document.getElementById('rateVal').textContent=rate+'%';
+  document.getElementById('tenureVal').textContent=tenure+(tenure===1?' Year':' Years');
+}
+
+function calculate(){
+  const P=parseInt(document.getElementById('amtSlider').value);
+  const r=parseFloat(document.getElementById('rateSlider').value)/100/12;
+  const n=parseInt(document.getElementById('tenureSlider').value)*12;
+  const emi=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  const totalPayment=emi*n;
+  const totalInterest=totalPayment-P;
+
+  document.getElementById('emiAmount').textContent=fmtPKR(emi);
+  document.getElementById('s-principal').textContent=fmtShort(P);
+  document.getElementById('s-interest').textContent=fmtShort(totalInterest);
+  document.getElementById('s-total').textContent=fmtShort(totalPayment);
+  document.getElementById('l-principal').textContent=fmtShort(P);
+  document.getElementById('l-interest').textContent=fmtShort(totalInterest);
+  document.getElementById('l-pct').textContent=Math.round(totalInterest/totalPayment*100)+'%';
+
+  drawDonut(P,totalInterest);
+  buildSchedule(P,r,n,emi);
+
+  document.getElementById('shareWa').href=`https://wa.me/?text=${encodeURIComponent(`My loan EMI is ${fmtPKR(emi)}/month. Calculate yours free at Toolify Core: https://toolifycore.com/tools/emi-calc.html`)}`;
+}
+
+function drawDonut(principal,interest){
+  const canvas=document.getElementById('donut');
+  const ctx=canvas.getContext('2d');
+  const total=principal+interest;
+  const cx=60,cy=60,r=50,iR=30;
+  ctx.clearRect(0,0,120,120);
+  const angles=[[principal/total,'#378ADD'],[interest/total,'#FF6B6B']];
+  let start=-Math.PI/2;
+  angles.forEach(([pct,color])=>{
+    const end=start+pct*2*Math.PI;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,start,end);ctx.closePath();
+    ctx.fillStyle=color;ctx.fill();
+    start=end;
+  });
+  ctx.beginPath();ctx.arc(cx,cy,iR,0,2*Math.PI);
+  ctx.fillStyle='var(--surface)';ctx.fill();
+}
+
+function buildSchedule(P,r,n,emi){
+  let balance=P;
+  const rows=[];
+  for(let m=1;m<=n;m++){
+    const interest=balance*r;
+    const principal=emi-interest;
+    balance=Math.max(0,balance-principal);
+    rows.push(`<div class="st-row">
+      <span>${m}</span>
+      <span>${Math.round(emi).toLocaleString()}</span>
+      <span>${Math.round(principal).toLocaleString()}</span>
+      <span>${Math.round(interest).toLocaleString()}</span>
+      <span>${Math.round(balance).toLocaleString()}</span>
+    </div>`);
+  }
+  document.getElementById('scheduleBody').innerHTML=rows.join('');
+}
+
+updateSliders();calculate();
+</script>
+</body>
+</html>

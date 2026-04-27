@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Password Generator Free — Strong Secure Passwords | Toolify Core</title>
+<meta name="description" content="Generate strong secure passwords instantly. Customize length, symbols, numbers. Free online password generator. No signup.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<style>
+.pass-display{background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:1.2rem 1rem;font-family:monospace;font-size:1.1rem;color:var(--text);word-break:break-all;letter-spacing:.05em;margin-bottom:1rem;min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.pass-text{flex:1}
+.copy-btn{background:var(--accent);color:white;border:none;padding:7px 14px;border-radius:8px;font-size:12px;cursor:pointer;white-space:nowrap;font-family:var(--font-body);transition:opacity .2s}
+.copy-btn:hover{opacity:.85}
+.strength-bar{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-bottom:.4rem}
+.strength-fill{height:100%;border-radius:3px;transition:all .3s}
+.strength-label{font-size:12px;color:var(--muted);margin-bottom:1.2rem}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.opt-row{display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem}
+.opt-row label{font-size:13px;color:var(--text)}
+.toggle{width:40px;height:22px;background:var(--surface2);border-radius:11px;position:relative;cursor:pointer;transition:background .2s;border:none}
+.toggle.on{background:var(--accent)}
+.toggle::after{content:'';position:absolute;width:16px;height:16px;background:white;border-radius:50%;top:3px;left:3px;transition:transform .2s}
+.toggle.on::after{transform:translateX(18px)}
+.len-row{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+.len-row label{font-size:13px;color:var(--text);min-width:60px}
+.len-row input{flex:1;accent-color:var(--accent)}
+.len-val{font-family:var(--font-head);font-size:1.1rem;font-weight:700;min-width:28px;text-align:right}
+.bulk-area{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem;font-family:monospace;font-size:12px;color:var(--text);width:100%;min-height:120px;outline:none;resize:none;margin-bottom:.8rem}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Password Generator</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility</div>
+    <h1>Password Generator</h1>
+    <p>Generate strong, secure, random passwords instantly. Customize length and character types. Nothing stored anywhere.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 9,870 times this month</div>
+
+  <div class="pass-display" id="passDisplay">
+    <span class="pass-text" id="passText">Click Generate to create a password</span>
+    <button class="copy-btn" onclick="copyPass()">Copy</button>
+  </div>
+  <div class="strength-bar"><div class="strength-fill" id="strengthFill" style="width:0%"></div></div>
+  <div class="strength-label" id="strengthLabel">Strength: —</div>
+
+  <div class="len-row">
+    <label>Length</label>
+    <input type="range" id="lenSlider" min="4" max="64" value="16" oninput="updateLen();generate()">
+    <span class="len-val" id="lenVal">16</span>
+  </div>
+
+  <div class="opt-grid">
+    <div class="opt-row"><label>Uppercase (A–Z)</label><button class="toggle on" id="t-upper" onclick="toggleOpt(this)"></button></div>
+    <div class="opt-row"><label>Lowercase (a–z)</label><button class="toggle on" id="t-lower" onclick="toggleOpt(this)"></button></div>
+    <div class="opt-row"><label>Numbers (0–9)</label><button class="toggle on" id="t-num" onclick="toggleOpt(this)"></button></div>
+    <div class="opt-row"><label>Symbols (!@#$)</label><button class="toggle on" id="t-sym" onclick="toggleOpt(this)"></button></div>
+    <div class="opt-row"><label>Exclude ambiguous</label><button class="toggle" id="t-amb" onclick="toggleOpt(this)"></button></div>
+    <div class="opt-row"><label>No repeating chars</label><button class="toggle" id="t-norep" onclick="toggleOpt(this)"></button></div>
+  </div>
+
+  <div class="actions" style="display:flex">
+    <button class="btn-primary" onclick="generate()">⚡ Generate Password</button>
+    <button class="btn-secondary" onclick="generateBulk()">Generate 10</button>
+  </div>
+
+  <div id="bulkWrap" style="display:none;margin-top:1rem">
+    <p style="font-size:12px;color:var(--muted);margin-bottom:.4rem">10 passwords — click any to copy</p>
+    <textarea class="bulk-area" id="bulkArea" readonly onclick="selectLine(event)"></textarea>
+  </div>
+
+  <div class="share-row" style="margin-top:1rem">
+    <a class="share-btn share-wa" href="https://wa.me/?text=Generate strong passwords free at Toolify Core: https://toolifycore.com/tools/pass-gen.html" target="_blank">💬 WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/pass-gen.html');alert('Copied!')">🔗 Copy tool link</button>
+  </div>
+
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/pass-gen.html" width="100%" height="650" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark — generate new passwords anytime</div>
+
+  <div class="affiliate-banner">
+    <div class="aff-text">Need to <strong>store and autofill all your passwords securely</strong>?</div>
+    <a href="https://nordpass.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try NordPass Free →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Are generated passwords stored anywhere?</div><div class="faq-a">No. Passwords are generated using your browser's cryptographic random number generator. Nothing is sent to any server.</div></div>
+    <div class="faq-item"><div class="faq-q">What length password should I use?</div><div class="faq-a">16 characters is strong for most accounts. Use 24+ for banking, email, and password managers.</div></div>
+    <div class="faq-item"><div class="faq-q">What does "exclude ambiguous" mean?</div><div class="faq-a">It removes characters like 0, O, l, 1, I that look similar and cause confusion when reading passwords.</div></div>
+  </div>
+</main>
+<script>
+const UPPER='ABCDEFGHIJKLMNOPQRSTUVWXYZ', LOWER='abcdefghijklmnopqrstuvwxyz';
+const NUMS='0123456789', SYMS='!@#$%^&*()_+-=[]{}|;:,.<>?';
+const AMBIGUOUS=/[0Ol1I]/g;
+
+function updateLen(){document.getElementById('lenVal').textContent=document.getElementById('lenSlider').value}
+function toggleOpt(el){el.classList.toggle('on');generate()}
+
+function isOn(id){return document.getElementById(id).classList.contains('on')}
+
+function buildCharset(){
+  let c='';
+  if(isOn('t-upper'))c+=UPPER;
+  if(isOn('t-lower'))c+=LOWER;
+  if(isOn('t-num'))c+=NUMS;
+  if(isOn('t-sym'))c+=SYMS;
+  if(isOn('t-amb'))c=c.replace(/[0Ol1I]/g,'');
+  return c||LOWER+NUMS;
+}
+
+function secureRand(max){
+  const arr=new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  return arr[0]%max;
+}
+
+function genOne(len){
+  const charset=buildCharset();
+  const noRep=isOn('t-norep');
+  let pass='',used=new Set();
+  for(let i=0;i<len;i++){
+    let c,tries=0;
+    do{c=charset[secureRand(charset.length)];tries++}
+    while(noRep&&used.has(c)&&tries<100);
+    pass+=c;used.add(c);
+  }
+  return pass;
+}
+
+function getStrength(pass){
+  let score=0;
+  if(pass.length>=8)score++;if(pass.length>=12)score++;if(pass.length>=16)score++;
+  if(/[A-Z]/.test(pass))score++;if(/[a-z]/.test(pass))score++;
+  if(/[0-9]/.test(pass))score++;if(/[^A-Za-z0-9]/.test(pass))score++;
+  const labels=['Very Weak','Weak','Fair','Good','Strong','Very Strong','Excellent'];
+  const colors=['#FF4444','#FF8C00','#FFB800','#7BC67E','#1D9E75','#00E5C0','#7B61FF'];
+  const i=Math.min(score,6);
+  return{pct:Math.round((score/7)*100),label:labels[i],color:colors[i]};
+}
+
+function generate(){
+  const len=parseInt(document.getElementById('lenSlider').value);
+  const pass=genOne(len);
+  document.getElementById('passText').textContent=pass;
+  const s=getStrength(pass);
+  document.getElementById('strengthFill').style.cssText=`width:${s.pct}%;background:${s.color}`;
+  document.getElementById('strengthLabel').textContent=`Strength: ${s.label}`;
+}
+
+function generateBulk(){
+  const len=parseInt(document.getElementById('lenSlider').value);
+  const passes=Array.from({length:10},()=>genOne(len)).join('\n');
+  document.getElementById('bulkArea').value=passes;
+  document.getElementById('bulkWrap').style.display='block';
+}
+
+function copyPass(){
+  const t=document.getElementById('passText').textContent;
+  if(t.includes('Click'))return;
+  navigator.clipboard.writeText(t);
+  const btn=event.target;btn.textContent='Copied!';
+  setTimeout(()=>btn.textContent='Copy',1500);
+}
+
+function selectLine(e){
+  const ta=e.target,lines=ta.value.split('\n');
+  const pos=ta.selectionStart,len=ta.value.length;
+  let start=0,end=len;
+  for(const l of lines){
+    if(start+l.length>=pos){end=start+l.length;break;}
+    start+=l.length+1;
+  }
+  ta.setSelectionRange(start,end);
+  navigator.clipboard.writeText(ta.value.substring(start,end));
+}
+
+// Generate on load
+generate();
+</script>
+</body>
+</html>

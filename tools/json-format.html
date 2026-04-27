@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JSON Formatter & Validator Free — Beautify JSON Online | Toolify Core</title>
+<meta name="description" content="Format, validate and beautify JSON online free. Minify JSON, fix errors, convert to tree view. No signup. Runs in browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.editor-box{display:flex;flex-direction:column}
+.editor-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem;display:flex;justify-content:space-between;align-items:center}
+.code-area{flex:1;width:100%;min-height:320px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:1rem;color:var(--text);font-family:'Courier New',monospace;font-size:13px;line-height:1.6;resize:vertical;outline:none;transition:border-color .2s}
+.code-area:focus{border-color:var(--accent)}
+.code-area.error{border-color:#FF6B6B}
+.code-area.success{border-color:#1D9E75}
+.status-bar{display:flex;align-items:center;gap:8px;padding:.5rem 0;font-size:12px;min-height:28px}
+.status-ok{color:#1D9E75}.status-err{color:#FF6B6B}.status-neutral{color:var(--muted)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.tb-btn{background:var(--surface);border:1px solid var(--border2);color:var(--muted);padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all .15s}
+.tb-btn:hover{color:var(--text);border-color:var(--text)}
+.tb-btn.primary{background:var(--accent);border-color:var(--accent);color:white}
+.indent-sel{background:var(--surface);border:1px solid var(--border2);color:var(--muted);padding:6px 10px;border-radius:8px;font-size:12px;font-family:var(--font-body);outline:none}
+.tree-view{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;font-family:monospace;font-size:13px;line-height:1.8;display:none;max-height:400px;overflow-y:auto}
+.tree-view.show{display:block}
+.tv-key{color:#B8AAFF}.tv-str{color:#6EDFB8}.tv-num{color:#FAC775}.tv-bool{color:#F4A482}.tv-null{color:var(--muted)}
+.stats-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1rem}
+.stat-pill{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;color:var(--muted)}
+.stat-pill span{color:var(--text);font-weight:500}
+@media(max-width:640px){.editor-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">JSON Formatter</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility</div>
+    <h1>JSON Formatter & Validator</h1>
+    <p>Paste JSON to format, validate, minify or view as tree. Errors highlighted instantly. Runs entirely in your browser.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 6,120 times this month</div>
+
+  <div class="toolbar">
+    <button class="tb-btn primary" onclick="format()">✨ Format / Beautify</button>
+    <button class="tb-btn" onclick="minify()">📦 Minify</button>
+    <button class="tb-btn" onclick="validate()">✅ Validate</button>
+    <button class="tb-btn" onclick="toggleTree()">🌳 Tree view</button>
+    <button class="tb-btn" onclick="copyOutput()">📋 Copy output</button>
+    <button class="tb-btn" onclick="clearAll()">✕ Clear</button>
+    <select class="indent-sel" id="indentSel" onchange="format()">
+      <option value="2">2 spaces</option>
+      <option value="4" selected>4 spaces</option>
+      <option value="tab">Tab</option>
+    </select>
+  </div>
+
+  <div id="statsRow" class="stats-row" style="display:none">
+    <div class="stat-pill">Keys: <span id="st-keys">—</span></div>
+    <div class="stat-pill">Depth: <span id="st-depth">—</span></div>
+    <div class="stat-pill">Size: <span id="st-size">—</span></div>
+    <div class="stat-pill">Arrays: <span id="st-arr">—</span></div>
+  </div>
+
+  <div class="editor-grid">
+    <div class="editor-box">
+      <div class="editor-label">
+        <span>Input JSON</span>
+        <button class="tb-btn" onclick="loadSample()" style="padding:2px 8px;font-size:11px">Load sample</button>
+      </div>
+      <textarea class="code-area" id="inputArea" placeholder='Paste your JSON here...&#10;&#10;{"name":"Toolify Core","tools":100,"free":true}' oninput="liveValidate()"></textarea>
+      <div class="status-bar" id="inputStatus"><span class="status-neutral">Paste JSON to begin</span></div>
+    </div>
+    <div class="editor-box">
+      <div class="editor-label"><span>Output</span></div>
+      <textarea class="code-area" id="outputArea" readonly placeholder="Formatted output appears here..."></textarea>
+      <div class="status-bar" id="outputStatus"></div>
+    </div>
+  </div>
+
+  <div class="tree-view" id="treeView"></div>
+
+  <div class="share-row">
+    <a class="share-btn share-wa" href="https://wa.me/?text=Free JSON formatter at Toolify Core: https://toolifycore.com/tools/json-format.html" target="_blank">💬 WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/json-format.html');alert('Copied!')">🔗 Copy link</button>
+  </div>
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/json-format.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark — essential dev tool</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need a full <strong>code editor, API testing and dev environment</strong>?</div>
+    <a href="https://code.visualstudio.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try VS Code Free →</a>
+  </div>
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is JSON formatting?</div><div class="faq-a">JSON formatting (beautifying) adds proper indentation and line breaks to make compact JSON human-readable without changing any data.</div></div>
+    <div class="faq-item"><div class="faq-q">What does minify do?</div><div class="faq-a">Minifying removes all whitespace and line breaks, reducing file size for use in APIs and production code.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my JSON data sent to a server?</div><div class="faq-a">No. All processing happens in your browser using JavaScript. Your data never leaves your device.</div></div>
+  </div>
+</main>
+<script>
+const SAMPLE = '{"website":"Toolify Core","url":"https://toolifycore.com","tools":{"total":20,"categories":["PDF","Image","Text","Calculator","Utility"]},"free":true,"launched":2026,"features":["No signup","Browser-based","Fast","Private"]}';
+
+function getIndent(){const v=document.getElementById('indentSel').value;return v==='tab'?'\t':parseInt(v)}
+
+function liveValidate(){
+  const inp=document.getElementById('inputArea').value.trim();
+  if(!inp){document.getElementById('inputStatus').innerHTML='<span class="status-neutral">Paste JSON to begin</span>';return;}
+  try{JSON.parse(inp);document.getElementById('inputStatus').innerHTML='<span class="status-ok">✅ Valid JSON</span>';document.getElementById('inputArea').className='code-area success';}
+  catch(e){document.getElementById('inputStatus').innerHTML=`<span class="status-err">❌ ${e.message}</span>`;document.getElementById('inputArea').className='code-area error';}
+}
+
+function format(){
+  const inp=document.getElementById('inputArea').value.trim();
+  if(!inp)return;
+  try{
+    const parsed=JSON.parse(inp);
+    const out=JSON.stringify(parsed,null,getIndent());
+    document.getElementById('outputArea').value=out;
+    document.getElementById('outputStatus').innerHTML='<span class="status-ok">✅ Formatted</span>';
+    showStats(parsed,out);
+    renderTree(parsed);
+  }catch(e){document.getElementById('outputStatus').innerHTML=`<span class="status-err">❌ ${e.message}</span>`;}
+}
+
+function minify(){
+  const inp=document.getElementById('inputArea').value.trim();
+  if(!inp)return;
+  try{
+    const out=JSON.stringify(JSON.parse(inp));
+    document.getElementById('outputArea').value=out;
+    document.getElementById('outputStatus').innerHTML=`<span class="status-ok">✅ Minified — ${out.length} chars</span>`;
+  }catch(e){document.getElementById('outputStatus').innerHTML=`<span class="status-err">❌ ${e.message}</span>`;}
+}
+
+function validate(){
+  const inp=document.getElementById('inputArea').value.trim();
+  if(!inp)return;
+  try{JSON.parse(inp);document.getElementById('outputStatus').innerHTML='<span class="status-ok">✅ Valid JSON — no errors found</span>';}
+  catch(e){document.getElementById('outputStatus').innerHTML=`<span class="status-err">❌ Invalid: ${e.message}</span>`;}
+}
+
+function countKeys(obj,depth=0){
+  let keys=0,maxDepth=depth,arrays=0;
+  if(typeof obj==='object'&&obj!==null){
+    if(Array.isArray(obj)){arrays++;obj.forEach(v=>{const r=countKeys(v,depth+1);keys+=r.keys;maxDepth=Math.max(maxDepth,r.depth);arrays+=r.arrays;});}
+    else{Object.keys(obj).forEach(k=>{keys++;const r=countKeys(obj[k],depth+1);keys+=r.keys;maxDepth=Math.max(maxDepth,r.depth);arrays+=r.arrays;});}
+  }
+  return{keys,depth:maxDepth,arrays};
+}
+
+function showStats(parsed,out){
+  const s=countKeys(parsed);
+  document.getElementById('statsRow').style.display='flex';
+  document.getElementById('st-keys').textContent=s.keys;
+  document.getElementById('st-depth').textContent=s.depth;
+  document.getElementById('st-size').textContent=out.length+' chars';
+  document.getElementById('st-arr').textContent=s.arrays;
+}
+
+function renderTree(obj,indent=0){
+  if(indent===0)document.getElementById('treeView').innerHTML=buildTree(obj,0);
+}
+
+function buildTree(val,depth){
+  const pad='  '.repeat(depth);
+  if(val===null)return`<span class="tv-null">null</span>`;
+  if(typeof val==='boolean')return`<span class="tv-bool">${val}</span>`;
+  if(typeof val==='number')return`<span class="tv-num">${val}</span>`;
+  if(typeof val==='string')return`<span class="tv-str">"${val.replace(/</g,'&lt;')}"</span>`;
+  if(Array.isArray(val)){
+    if(!val.length)return'[]';
+    return'[\n'+val.map(v=>`${pad}  ${buildTree(v,depth+1)}`).join(',\n')+`\n${pad}]`;
+  }
+  const keys=Object.keys(val);
+  if(!keys.length)return'{}';
+  return'{\n'+keys.map(k=>`${pad}  <span class="tv-key">"${k}"</span>: ${buildTree(val[k],depth+1)}`).join(',\n')+`\n${pad}}`;
+}
+
+let treeVisible=false;
+function toggleTree(){
+  const tv=document.getElementById('treeView');
+  const inp=document.getElementById('inputArea').value.trim();
+  if(!inp)return;
+  try{
+    const parsed=JSON.parse(inp);
+    if(!treeVisible){tv.innerHTML=buildTree(parsed,0);tv.classList.add('show');treeVisible=true;}
+    else{tv.classList.remove('show');treeVisible=false;}
+  }catch(e){alert('Fix JSON errors first');}
+}
+
+function copyOutput(){navigator.clipboard.writeText(document.getElementById('outputArea').value);alert('Copied!')}
+function clearAll(){document.getElementById('inputArea').value='';document.getElementById('outputArea').value='';document.getElementById('inputArea').className='code-area';document.getElementById('inputStatus').innerHTML='<span class="status-neutral">Paste JSON to begin</span>';document.getElementById('outputStatus').innerHTML='';document.getElementById('statsRow').style.display='none';document.getElementById('treeView').classList.remove('show');}
+function loadSample(){document.getElementById('inputArea').value=SAMPLE;liveValidate();format();}
+</script>
+</body>
+</html>

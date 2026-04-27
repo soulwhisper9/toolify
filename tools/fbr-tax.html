@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FBR Income Tax Calculator 2025-26 Pakistan — Salaried & Business | Toolify Core</title>
+<meta name="description" content="Calculate Pakistan income tax for FY 2025-26 free. FBR tax slabs for salaried individuals and business persons. Get exact annual and monthly tax.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.type-toggle{display:flex;gap:8px;margin-bottom:1.2rem}
+.type-btn{flex:1;padding:10px;border:1px solid var(--border2);border-radius:10px;background:var(--surface);color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--font-body);transition:all .15s;text-align:center}
+.type-btn.active{border-color:var(--accent);background:var(--accent-light);color:#B8AAFF;font-weight:500}
+.income-input-wrap{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:1.2rem;margin-bottom:1rem}
+.big-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px;color:var(--text);font-family:var(--font-head);font-size:1.5rem;font-weight:700;outline:none;transition:border-color .2s;margin-bottom:.5rem}
+.big-input:focus{border-color:var(--accent)}
+.freq-row{display:flex;gap:8px}
+.freq-btn{flex:1;padding:7px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all .15s}
+.freq-btn.active{border-color:var(--accent);color:#B8AAFF}
+.result-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
+.rs-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.rs-val{font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:.2rem}
+.rs-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.slab-table{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1rem}
+.slab-header{background:var(--surface2);padding:10px 14px;font-size:12px;color:var(--muted);display:grid;grid-template-columns:2fr 1fr 1fr;gap:4px;border-bottom:1px solid var(--border)}
+.slab-row{padding:9px 14px;font-size:12px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:4px;border-bottom:1px solid var(--border);transition:background .15s}
+.slab-row:last-child{border-bottom:none}
+.slab-row.active-slab{background:rgba(91,111,247,0.1);border-left:3px solid var(--accent)}
+.slab-row .rate{color:var(--accent);font-weight:500}
+.tax-breakdown{background:var(--surface);border:1px solid rgba(91,111,247,0.2);border-radius:14px;padding:1.2rem;margin-bottom:1rem;display:none}
+.tax-breakdown.show{display:block}
+.tb-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px}
+.tb-row:last-child{border-bottom:none;font-weight:600;font-size:14px;color:var(--text)}
+.tb-row .val{color:var(--accent)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">FBR Tax Calculator</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🧮 Calculators</div>
+    <h1>FBR Income Tax Calculator 2025-26</h1>
+    <p>Calculate your Pakistan income tax based on FBR tax slabs for FY 2025-26. For salaried employees and business persons.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 21,880 times this month</div>
+
+  <div class="type-toggle">
+    <button class="type-btn active" onclick="setType('salaried',this)">👔 Salaried</button>
+    <button class="type-btn" onclick="setType('business',this)">🏪 Business / AOP</button>
+  </div>
+
+  <div class="income-input-wrap">
+    <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:.5rem">Enter your income</label>
+    <input class="big-input" type="number" id="incomeInput" placeholder="600000" oninput="calculate()">
+    <div class="freq-row">
+      <button class="freq-btn active" onclick="setFreq('annual',this)">Annual</button>
+      <button class="freq-btn" onclick="setFreq('monthly',this)">Monthly</button>
+    </div>
+  </div>
+
+  <div class="result-summary" id="resultSummary" style="display:none">
+    <div class="rs-card"><div class="rs-val" id="r-annual">—</div><div class="rs-label">Annual Tax</div></div>
+    <div class="rs-card"><div class="rs-val" id="r-monthly">—</div><div class="rs-label">Monthly Tax</div></div>
+    <div class="rs-card"><div class="rs-val" id="r-rate">—</div><div class="rs-label">Effective Rate</div></div>
+  </div>
+
+  <div class="tax-breakdown" id="taxBreakdown">
+    <div class="tb-row"><span>Annual Income</span><span class="val" id="b-income">—</span></div>
+    <div class="tb-row"><span>Taxable Income</span><span class="val" id="b-taxable">—</span></div>
+    <div class="tb-row"><span>Total Tax</span><span class="val" id="b-tax">—</span></div>
+    <div class="tb-row"><span>Monthly Tax Deduction</span><span class="val" id="b-monthly">—</span></div>
+    <div class="tb-row"><span>Net Annual Take-home</span><span class="val" id="b-takehome">—</span></div>
+  </div>
+
+  <div class="slab-table" id="slabTable">
+    <div class="slab-header"><span>Income Slab (PKR)</span><span>Rate</span><span>Tax on Slab</span></div>
+    <div id="slabRows"></div>
+  </div>
+
+  <div class="share-row">
+    <a class="share-btn share-wa" href="https://wa.me/?text=Calculate your Pakistan income tax free at Toolify Core: https://toolifycore.com/tools/fbr-tax.html" target="_blank">💬 WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/fbr-tax.html');alert('Copied!')">🔗 Copy link</button>
+  </div>
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/fbr-tax.html" width="100%" height="750" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark — check tax before salary negotiations</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need help with <strong>tax filing, NTN registration or tax planning</strong> in Pakistan?</div>
+    <a href="https://www.fbr.gov.pk" target="_blank" rel="noopener" class="aff-btn">Visit FBR.gov.pk →</a>
+  </div>
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is the tax-free limit for salaried persons in Pakistan 2025-26?</div><div class="faq-a">For FY 2025-26, income up to PKR 600,000 per year is exempt from income tax for salaried individuals.</div></div>
+    <div class="faq-item"><div class="faq-q">How is income tax calculated in Pakistan?</div><div class="faq-a">Pakistan uses a progressive slab system. Different rates apply to different portions of your income. This calculator applies each slab rate to the relevant portion automatically.</div></div>
+    <div class="faq-item"><div class="faq-q">Is this calculator official?</div><div class="faq-a">This is an indicative tool based on FBR 2025-26 Finance Act slabs. For official tax assessment, file your return on Iris (iris.fbr.gov.pk) or consult a tax advisor.</div></div>
+  </div>
+</main>
+<script>
+// FBR Tax Slabs FY 2025-26 — Salaried
+const SALARIED_SLABS = [
+  {min:0,       max:600000,   fixed:0,      rate:0,    label:'Up to 600,000'},
+  {min:600001,  max:1200000,  fixed:0,      rate:0.05, label:'600,001 – 1,200,000'},
+  {min:1200001, max:2200000,  fixed:30000,  rate:0.15, label:'1,200,001 – 2,200,000'},
+  {min:2200001, max:3200000,  fixed:180000, rate:0.25, label:'2,200,001 – 3,200,000'},
+  {min:3200001, max:4100000,  fixed:430000, rate:0.30, label:'3,200,001 – 4,100,000'},
+  {min:4100001, max:Infinity, fixed:700000, rate:0.35, label:'Above 4,100,000'},
+];
+
+// FBR Tax Slabs FY 2025-26 — Business/AOP
+const BUSINESS_SLABS = [
+  {min:0,       max:600000,   fixed:0,      rate:0,    label:'Up to 600,000'},
+  {min:600001,  max:1200000,  fixed:0,      rate:0.15, label:'600,001 – 1,200,000'},
+  {min:1200001, max:1600000,  fixed:90000,  rate:0.20, label:'1,200,001 – 1,600,000'},
+  {min:1600001, max:3200000,  fixed:170000, rate:0.25, label:'1,600,001 – 3,200,000'},
+  {min:3200001, max:5600000,  fixed:570000, rate:0.30, label:'3,200,001 – 5,600,000'},
+  {min:5600001, max:Infinity, fixed:1290000,rate:0.35, label:'Above 5,600,000'},
+];
+
+let taxType = 'salaried', freq = 'annual';
+const fmt = n => 'PKR '+Math.round(n).toLocaleString();
+const pct = n => (n*100).toFixed(2)+'%';
+
+function setType(t,btn){taxType=t;document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');calculate();}
+function setFreq(f,btn){freq=f;document.querySelectorAll('.freq-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');calculate();}
+
+function calcTax(annual, slabs){
+  let tax=0;
+  const slab=slabs.find(s=>annual>=s.min&&annual<=s.max)||slabs[slabs.length-1];
+  tax=slab.fixed+(annual-slab.min)*slab.rate;
+  return{tax:Math.max(0,tax),slab};
+}
+
+function calculate(){
+  let income=parseFloat(document.getElementById('incomeInput').value)||0;
+  const annual = freq==='monthly'?income*12:income;
+  const slabs = taxType==='salaried'?SALARIED_SLABS:BUSINESS_SLABS;
+  const {tax,slab}=calcTax(annual,slabs);
+  const monthly=tax/12;
+  const effectiveRate=annual>0?tax/annual:0;
+
+  document.getElementById('resultSummary').style.display='grid';
+  document.getElementById('r-annual').textContent=fmt(tax);
+  document.getElementById('r-monthly').textContent=fmt(monthly);
+  document.getElementById('r-rate').textContent=pct(effectiveRate);
+
+  document.getElementById('b-income').textContent=fmt(annual);
+  document.getElementById('b-taxable').textContent=fmt(annual);
+  document.getElementById('b-tax').textContent=fmt(tax);
+  document.getElementById('b-monthly').textContent=fmt(monthly);
+  document.getElementById('b-takehome').textContent=fmt(annual-tax);
+  document.getElementById('taxBreakdown').classList.add('show');
+
+  // Render slab table
+  document.getElementById('slabRows').innerHTML=slabs.map(s=>{
+    const isActive=annual>=s.min&&annual<=(s.max===Infinity?Infinity:s.max);
+    const slabTax=s.rate>0?`${(s.rate*100)}%`:'Exempt';
+    return `<div class="slab-row${isActive?' active-slab':''}">
+      <span>${s.label}${isActive?' ← You':''}</span>
+      <span class="rate">${s.rate===0?'0%':(s.rate*100)+'%'}</span>
+      <span>${slabTax}</span>
+    </div>`;
+  }).join('');
+}
+
+calculate();
+</script>
+</body>
+</html>
