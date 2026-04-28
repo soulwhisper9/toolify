@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://toolifycore.com/sitemap.xml
+
+# Allow all tools
+Allow: /tools/
+Allow: /assets/
+
+# Block nothing — all content is public
