@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-WLBKXMNV15");
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Image Resizer Free — Resize Images Online | Toolify Core</title>
+<meta name="description" content="Resize images online free. Change image dimensions by pixels or percentage. Maintain aspect ratio. JPG PNG WebP supported. No upload.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.preview-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.preview-box img{width:100%;height:180px;object-fit:contain;background:#0D0D14;padding:.5rem}
+.preview-info{padding:.7rem 1rem;font-size:12px;color:var(--muted)}
+.preview-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.3rem}
+.resize-controls{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1rem}
+.ctrl-row{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:end;margin-bottom:.8rem}
+.field label{font-size:12px;color:var(--muted);display:block;margin-bottom:.3rem}
+.dim-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:10px;color:var(--text);font-family:var(--font-head);font-size:1.1rem;font-weight:700;outline:none;text-align:center;transition:border-color .2s}
+.dim-input:focus{border-color:var(--accent)}
+.lock-btn{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;cursor:pointer;font-size:14px;color:var(--muted);transition:all .15s;margin-bottom:1px}
+.lock-btn.locked{border-color:var(--accent);color:var(--accent)}
+.mode-row{display:flex;gap:8px;margin-bottom:.8rem}
+.mode-btn{flex:1;padding:7px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all .15s}
+.mode-btn.active{border-color:var(--accent);color:#B8AAFF}
+.quality-row{display:flex;align-items:center;gap:10px}
+.quality-row label{font-size:12px;color:var(--muted);min-width:60px}
+.quality-row input{flex:1;accent-color:var(--accent)}
+.quality-row span{font-size:12px;font-weight:500;min-width:30px}
+@media(max-width:600px){.preview-grid{grid-template-columns:1fr}.ctrl-row{grid-template-columns:1fr auto 1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Image Resizer</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🖼 Image Tools</div>
+    <h1>Image Resizer</h1>
+    <p>Resize images to exact dimensions or by percentage. Maintain aspect ratio. Download instantly. No upload to server.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 9,230 times this month</div>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept="image/*">
+    <div class="drop-icon">📐</div>
+    <h3>Drop image here</h3>
+    <p>JPG, PNG, WebP — any size</p>
+    <span class="drop-cta">Choose Image</span>
+  </div>
+
+  <div id="mainPanel" style="display:none">
+    <div class="preview-grid">
+      <div class="preview-box">
+        <img id="origPreview" src="" alt="Original">
+        <div class="preview-info"><div class="preview-label">Original</div><span id="origInfo">—</span></div>
+      </div>
+      <div class="preview-box">
+        <img id="resizedPreview" src="" alt="Resized">
+        <div class="preview-info"><div class="preview-label">Resized</div><span id="resizedInfo">—</span></div>
+      </div>
+    </div>
+
+    <div class="resize-controls">
+      <div class="mode-row">
+        <button class="mode-btn active" onclick="setMode('px',this)">Pixels</button>
+        <button class="mode-btn" onclick="setMode('pct',this)">Percentage</button>
+        <button class="mode-btn" onclick="setMode('preset',this)">Presets</button>
+      </div>
+
+      <div id="pxPanel">
+        <div class="ctrl-row">
+          <div class="field"><label>Width (px)</label><input class="dim-input" type="number" id="widthInput" oninput="onWidthChange()"></div>
+          <button class="lock-btn locked" id="lockBtn" onclick="toggleLock()" title="Lock aspect ratio">🔒</button>
+          <div class="field"><label>Height (px)</label><input class="dim-input" type="number" id="heightInput" oninput="onHeightChange()"></div>
+        </div>
+      </div>
+
+      <div id="pctPanel" style="display:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:.8rem">
+          <label style="font-size:13px;color:var(--muted)">Scale</label>
+          <input type="range" id="pctSlider" min="1" max="200" value="100" style="flex:1;accent-color:var(--accent)" oninput="onPctChange()">
+          <input class="dim-input" type="number" id="pctInput" value="100" min="1" max="200" style="width:70px" oninput="onPctInput()">
+          <span style="font-size:13px;color:var(--muted)">%</span>
+        </div>
+      </div>
+
+      <div id="presetPanel" style="display:none">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <button class="mode-btn" onclick="applyPreset(1920,1080)">1920×1080 HD</button>
+          <button class="mode-btn" onclick="applyPreset(1280,720)">1280×720 HD</button>
+          <button class="mode-btn" onclick="applyPreset(800,600)">800×600</button>
+          <button class="mode-btn" onclick="applyPreset(400,400)">400×400 Square</button>
+          <button class="mode-btn" onclick="applyPreset(1080,1080)">1080×1080 Instagram</button>
+          <button class="mode-btn" onclick="applyPreset(1200,628)">1200×628 Facebook</button>
+          <button class="mode-btn" onclick="applyPreset(1280,640)">1280×640 Twitter</button>
+          <button class="mode-btn" onclick="applyPreset(160,160)">160×160 Avatar</button>
+          <button class="mode-btn" onclick="applyPreset(32,32)">32×32 Favicon</button>
+        </div>
+      </div>
+
+      <div style="margin-top:.8rem">
+        <div class="quality-row">
+          <label>Quality</label>
+          <input type="range" id="qualSlider" min="10" max="100" value="90" oninput="document.getElementById('qualVal').textContent=this.value+'%'">
+          <span id="qualVal">90%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions" style="display:flex">
+      <button class="btn-primary" onclick="resizeAndDownload()">⬇ Resize & Download</button>
+      <button class="btn-secondary" onclick="resetAll()">Reset</button>
+    </div>
+
+    <div class="share-row" style="margin-top:1rem">
+      <a class="share-btn share-wa" href="https://wa.me/?text=Free image resizer at Toolify Core: https://toolifycore.com/tools/img-resize.html" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/img-resize.html');alert('Copied!')">🔗 Copy link</button>
+    </div>
+    <div class="embed-section" style="margin-top:.8rem">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/img-resize.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+    <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark</div>
+    <div class="affiliate-banner">
+      <div class="aff-text">Need <strong>bulk resize, background remove or advanced editing</strong>?</div>
+      <a href="https://canva.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Canva Free →</a>
+    </div>
+  </div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;
+  background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/img-compress.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Compress Image</a>
+<a href="/tools/img-crop.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Crop Image</a>
+<a href="/tools/remove-bg.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Remove BG</a>
+</div>
+
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);
+  border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+let origImg=null, origW=0, origH=0, ratio=1, locked=true, mode='px';
+const fmtSize=b=>b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';
+
+document.getElementById('dropZone').addEventListener('dragover',e=>{e.preventDefault();document.getElementById('dropZone').classList.add('drag-over')});
+document.getElementById('dropZone').addEventListener('dragleave',()=>document.getElementById('dropZone').classList.remove('drag-over'));
+document.getElementById('dropZone').addEventListener('drop',e=>{e.preventDefault();document.getElementById('dropZone').classList.remove('drag-over');if(e.dataTransfer.files[0])loadImage(e.dataTransfer.files[0])});
+document.getElementById('fileInput').addEventListener('change',()=>{if(document.getElementById('fileInput').files[0])loadImage(document.getElementById('fileInput').files[0])});
+
+function loadImage(file){
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      origImg=img;origW=img.width;origH=img.height;ratio=origW/origH;
+      document.getElementById('origPreview').src=e.target.result;
+      document.getElementById('origInfo').textContent=`${origW}×${origH}px · ${fmtSize(file.size)}`;
+      document.getElementById('widthInput').value=origW;
+      document.getElementById('heightInput').value=origH;
+      document.getElementById('mainPanel').style.display='block';
+      livePreview();
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function setMode(m,btn){
+  mode=m;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('pxPanel').style.display=m==='px'?'block':'none';
+  document.getElementById('pctPanel').style.display=m==='pct'?'block':'none';
+  document.getElementById('presetPanel').style.display=m==='preset'?'block':'none';
+  livePreview();
+}
+
+function toggleLock(){locked=!locked;document.getElementById('lockBtn').className='lock-btn'+(locked?' locked':'');document.getElementById('lockBtn').textContent=locked?'🔒':'🔓';}
+function onWidthChange(){if(locked&&origH){const w=parseInt(document.getElementById('widthInput').value)||1;document.getElementById('heightInput').value=Math.round(w/ratio);}livePreview();}
+function onHeightChange(){if(locked&&origW){const h=parseInt(document.getElementById('heightInput').value)||1;document.getElementById('widthInput').value=Math.round(h*ratio);}livePreview();}
+function onPctChange(){document.getElementById('pctInput').value=document.getElementById('pctSlider').value;livePreview();}
+function onPctInput(){document.getElementById('pctSlider').value=document.getElementById('pctInput').value;livePreview();}
+function applyPreset(w,h){document.getElementById('widthInput').value=w;document.getElementById('heightInput').value=h;locked=false;document.getElementById('lockBtn').className='lock-btn';livePreview();}
+
+function getDims(){
+  if(mode==='pct'){const p=parseInt(document.getElementById('pctSlider').value)/100;return{w:Math.round(origW*p),h:Math.round(origH*p)};}
+  return{w:parseInt(document.getElementById('widthInput').value)||origW,h:parseInt(document.getElementById('heightInput').value)||origH};
+}
+
+function livePreview(){
+  if(!origImg)return;
+  const{w,h}=getDims();
+  const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+  canvas.getContext('2d').drawImage(origImg,0,0,w,h);
+  document.getElementById('resizedPreview').src=canvas.toDataURL('image/jpeg',0.8);
+  document.getElementById('resizedInfo').textContent=`${w}×${h}px`;
+}
+
+function resizeAndDownload(){
+  if(!origImg)return;
+  const{w,h}=getDims();
+  const q=parseInt(document.getElementById('qualSlider').value)/100;
+  const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+  canvas.getContext('2d').drawImage(origImg,0,0,w,h);
+  canvas.toBlob(blob=>{
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download=`resized-${w}x${h}-toolifycore.jpg`;a.click();
+  },'image/jpeg',q);
+}
+
+function resetAll(){origImg=null;document.getElementById('fileInput').value='';document.getElementById('mainPanel').style.display='none';document.getElementById('dropZone').classList.remove('drag-over');}
+</script>
+</body>
+</html>

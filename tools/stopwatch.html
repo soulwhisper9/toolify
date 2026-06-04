@@ -1,54 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-WLBKXMNV15");
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Stopwatch & Timer Online Free — Countdown Timer | Toolify Core</title>
-<meta name="description" content="Free online stopwatch and countdown timer. Lap times, multiple timers, alarm sound. Works on mobile and desktop. No signup.">
+<meta name="description" content="Free online stopwatch and countdown timer. Lap times, alarm sound. Works on mobile. No signup. Stays running if you switch tabs.">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/tools.css">
 <link rel="icon" href="/favicon.ico">
 <style>
 .mode-toggle{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:3px;margin-bottom:1.5rem;width:fit-content}
-.mt-btn{padding:8px 24px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:var(--font-head);font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
+.mt-btn{padding:8px 28px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:var(--font-head);font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
 .mt-btn.active{background:var(--accent);color:white}
-.clock-display{text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2.5rem 1rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
-.clock-display::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(91,111,247,0.06) 0%,transparent 70%);pointer-events:none}
-.time-display{font-family:var(--font-head);font-size:clamp(3rem,10vw,5rem);font-weight:800;color:var(--text);letter-spacing:.04em;line-height:1}
-.ms-display{font-family:var(--font-head);font-size:1.8rem;font-weight:400;color:var(--muted)}
+.clock-display{text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2.5rem 1rem;margin-bottom:1.2rem}
+.time-display{font-family:var(--font-head);font-size:clamp(2.8rem,10vw,5rem);font-weight:800;color:var(--text);letter-spacing:.04em;line-height:1}
+.ms-display{font-family:var(--font-head);font-size:1.6rem;font-weight:400;color:var(--muted)}
 .clock-label{font-size:12px;color:var(--muted);margin-top:.5rem;text-transform:uppercase;letter-spacing:.1em}
 .controls{display:flex;gap:10px;justify-content:center;margin-bottom:1.2rem;flex-wrap:wrap}
 .ctrl-btn{padding:12px 28px;border-radius:12px;border:none;font-family:var(--font-head);font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;min-width:100px}
-.btn-start{background:var(--accent);color:white}
-.btn-start:hover{opacity:.85}
-.btn-stop{background:#FF6B6B;color:white}
-.btn-stop:hover{opacity:.85}
+.btn-start{background:var(--accent);color:white}.btn-start:hover{opacity:.85}
+.btn-stop{background:#FF6B6B;color:white}.btn-stop:hover{opacity:.85}
 .btn-lap{background:var(--surface2);border:1px solid var(--border2);color:var(--text)}
-.btn-lap:hover{border-color:var(--accent)}
 .btn-reset{background:var(--surface);border:1px solid var(--border2);color:var(--muted)}
 .btn-reset:hover{color:var(--text)}
-
-/* Timer input */
 .timer-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1rem}
 .ti-wrap{text-align:center}
 .ti-wrap label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.3rem}
 .ti-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px;color:var(--text);font-family:var(--font-head);font-size:1.8rem;font-weight:700;text-align:center;outline:none;transition:border-color .2s}
 .ti-input:focus{border-color:var(--accent)}
-
-/* Presets */
 .presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
 .preset-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all .15s}
 .preset-btn:hover{border-color:var(--accent);color:var(--accent)}
-
-/* Laps */
-.laps-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;max-height:250px;overflow-y:auto;margin-bottom:1rem;display:none}
-.laps-section.show{display:block}
-.lap-header{background:var(--surface2);padding:8px 14px;font-size:11px;color:var(--muted);display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--border)}
-.lap-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:8px 14px;font-size:13px;border-bottom:1px solid var(--border)}
+.laps-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;max-height:240px;overflow-y:auto;margin-bottom:1rem;display:none}
+.laps-wrap.show{display:block}
+.lap-header{background:var(--surface2);padding:8px 14px;font-size:11px;color:var(--muted);display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--border);position:sticky;top:0}
+.lap-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:8px 14px;font-size:12px;border-bottom:1px solid var(--border)}
 .lap-row:last-child{border-bottom:none}
 .lap-row.fastest{color:#1D9E75;font-weight:500}
 .lap-row.slowest{color:#FF6B6B}
-
-/* Progress ring for timer */
 .ring-wrap{position:relative;display:inline-block;margin-bottom:.5rem}
 .ring-svg{transform:rotate(-90deg)}
 .ring-bg{fill:none;stroke:var(--surface2);stroke-width:8}
@@ -65,63 +74,63 @@
   <div class="tool-header">
     <div class="tool-badge">🔧 Utility</div>
     <h1>Stopwatch & Timer</h1>
-    <p>Precise stopwatch with lap times, and a countdown timer with alarm. Works offline. Stays running if you switch tabs.</p>
+    <p>Precise stopwatch with lap times and countdown timer with alarm. Keeps running when you switch tabs.</p>
   </div>
   <div class="counter-badge">🔥 Used 13,290 times this month</div>
 
   <div class="mode-toggle">
-    <button class="mt-btn active" onclick="setMode('stopwatch',this)">⏱ Stopwatch</button>
-    <button class="mt-btn" onclick="setMode('timer',this)">⏳ Timer</button>
+    <button class="mt-btn active" onclick="setMode('sw',this)">⏱ Stopwatch</button>
+    <button class="mt-btn" onclick="setMode('tm',this)">⏳ Timer</button>
   </div>
 
   <!-- STOPWATCH -->
-  <div id="stopwatchPanel">
+  <div id="swPanel">
     <div class="clock-display">
-      <div class="time-display" id="sw-display">00:00<span class="ms-display">.00</span></div>
+      <div class="time-display" id="swDisplay">00:00<span class="ms-display">.00</span></div>
       <div class="clock-label">Stopwatch</div>
     </div>
     <div class="controls">
-      <button class="ctrl-btn btn-start" id="sw-startBtn" onclick="swStart()">▶ Start</button>
+      <button class="ctrl-btn btn-start" id="swBtn" onclick="swToggle()">▶ Start</button>
       <button class="ctrl-btn btn-lap" onclick="swLap()">🏁 Lap</button>
       <button class="ctrl-btn btn-reset" onclick="swReset()">↺ Reset</button>
     </div>
-    <div class="laps-section" id="lapsSection">
-      <div class="lap-header"><span>Lap</span><span>Lap Time</span><span>Total</span></div>
+    <div class="laps-wrap" id="lapsWrap">
+      <div class="lap-header"><span>Lap</span><span>Lap time</span><span>Total</span></div>
       <div id="lapsBody"></div>
     </div>
   </div>
 
   <!-- TIMER -->
-  <div id="timerPanel" style="display:none">
-    <div class="timer-inputs" id="timerInputs">
-      <div class="ti-wrap"><label>Hours</label><input class="ti-input" type="number" id="t-h" value="0" min="0" max="99" oninput="setTimerFromInputs()"></div>
-      <div class="ti-wrap"><label>Minutes</label><input class="ti-input" type="number" id="t-m" value="5" min="0" max="59" oninput="setTimerFromInputs()"></div>
-      <div class="ti-wrap"><label>Seconds</label><input class="ti-input" type="number" id="t-s" value="0" min="0" max="59" oninput="setTimerFromInputs()"></div>
+  <div id="tmPanel" style="display:none">
+    <div class="timer-inputs">
+      <div class="ti-wrap"><label>Hours</label><input class="ti-input" type="number" id="th" value="0" min="0" max="99" oninput="tmSet()"></div>
+      <div class="ti-wrap"><label>Minutes</label><input class="ti-input" type="number" id="tm" value="5" min="0" max="59" oninput="tmSet()"></div>
+      <div class="ti-wrap"><label>Seconds</label><input class="ti-input" type="number" id="ts" value="0" min="0" max="59" oninput="tmSet()"></div>
     </div>
     <div class="presets">
-      <button class="preset-btn" onclick="setTimer(60)">1 min</button>
-      <button class="preset-btn" onclick="setTimer(180)">3 min</button>
-      <button class="preset-btn" onclick="setTimer(300)">5 min</button>
-      <button class="preset-btn" onclick="setTimer(600)">10 min</button>
-      <button class="preset-btn" onclick="setTimer(900)">15 min</button>
-      <button class="preset-btn" onclick="setTimer(1800)">30 min</button>
-      <button class="preset-btn" onclick="setTimer(3600)">1 hour</button>
+      <button class="preset-btn" onclick="tmPreset(60)">1 min</button>
+      <button class="preset-btn" onclick="tmPreset(180)">3 min</button>
+      <button class="preset-btn" onclick="tmPreset(300)">5 min</button>
+      <button class="preset-btn" onclick="tmPreset(600)">10 min</button>
+      <button class="preset-btn" onclick="tmPreset(900)">15 min</button>
+      <button class="preset-btn" onclick="tmPreset(1800)">30 min</button>
+      <button class="preset-btn" onclick="tmPreset(3600)">1 hour</button>
     </div>
     <div class="clock-display">
       <div class="ring-wrap">
         <svg class="ring-svg" width="160" height="160" viewBox="0 0 160 160">
           <circle class="ring-bg" cx="80" cy="80" r="70"/>
-          <circle class="ring-fill" id="timerRing" cx="80" cy="80" r="70" stroke-dasharray="439.8" stroke-dashoffset="0"/>
+          <circle class="ring-fill" id="tmRing" cx="80" cy="80" r="70" stroke-dasharray="439.8" stroke-dashoffset="0"/>
         </svg>
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
-          <div class="time-display" id="t-display" style="font-size:2rem">05:00</div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <div class="time-display" id="tmDisplay" style="font-size:2rem">05:00</div>
         </div>
       </div>
-      <div class="clock-label" id="t-label">Ready</div>
+      <div class="clock-label" id="tmLabel">Ready</div>
     </div>
     <div class="controls">
-      <button class="ctrl-btn btn-start" id="t-startBtn" onclick="tStart()">▶ Start</button>
-      <button class="ctrl-btn btn-reset" onclick="tReset()">↺ Reset</button>
+      <button class="ctrl-btn btn-start" id="tmBtn" onclick="tmToggle()">▶ Start</button>
+      <button class="ctrl-btn btn-reset" onclick="tmReset()">↺ Reset</button>
     </div>
   </div>
 
@@ -138,138 +147,67 @@
     <div class="aff-text">Need a full <strong>productivity and task management app</strong>?</div>
     <a href="https://todoist.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Todoist Free →</a>
   </div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;
+  background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/age-calc.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Age Calc</a>
+<a href="/tools/unit-convert.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Unit Convert</a>
+<a href="/tools/bmi-calc.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">BMI Calc</a>
+</div>
+
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);
+  border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
 </main>
 <script>
 // STOPWATCH
-let swInterval=null, swRunning=false, swMs=0, swLapMs=0, laps=[], swStart_time=null;
-
-function swFmt(ms){
-  const h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000),s=Math.floor(ms%60000/1000),cs=Math.floor(ms%1000/10);
-  const base=h>0?`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  return `${base}<span class="ms-display">.${String(cs).padStart(2,'0')}</span>`;
+let swInt=null,swOn=false,swMs=0,swLapMs=0,laps=[],swT0=null;
+function swFmt(ms){const m=Math.floor(ms/60000),s=Math.floor(ms%60000/1000),cs=Math.floor(ms%1000/10);return`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}<span class="ms-display">.${String(cs).padStart(2,'0')}</span>`;}
+function swFmtP(ms){const m=Math.floor(ms/60000),s=Math.floor(ms%60000/1000),cs=Math.floor(ms%1000/10);return`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(cs).padStart(2,'0')}`;}
+function swToggle(){
+  if(!swOn){swOn=true;swT0=Date.now()-swMs;swInt=setInterval(()=>{swMs=Date.now()-swT0;document.getElementById('swDisplay').innerHTML=swFmt(swMs);},10);
+    document.getElementById('swBtn').textContent='⏸ Pause';document.getElementById('swBtn').className='ctrl-btn btn-stop';
+  }else{swOn=false;clearInterval(swInt);document.getElementById('swBtn').textContent='▶ Resume';document.getElementById('swBtn').className='ctrl-btn btn-start';}
 }
-
-function swStart(){
-  if(!swRunning){
-    swRunning=true;
-    swStart_time=Date.now()-swMs;
-    swInterval=setInterval(()=>{swMs=Date.now()-swStart_time;document.getElementById('sw-display').innerHTML=swFmt(swMs);},10);
-    document.getElementById('sw-startBtn').textContent='⏸ Pause';
-    document.getElementById('sw-startBtn').className='ctrl-btn btn-stop';
-  } else {
-    swRunning=false;clearInterval(swInterval);
-    document.getElementById('sw-startBtn').textContent='▶ Resume';
-    document.getElementById('sw-startBtn').className='ctrl-btn btn-start';
-  }
-}
-
 function swLap(){
-  if(!swRunning&&swMs===0)return;
-  const lapTime=swMs-swLapMs;
-  laps.unshift({n:laps.length+1,lap:lapTime,total:swMs});
-  swLapMs=swMs;
-  renderLaps();
-  document.getElementById('lapsSection').classList.add('show');
+  if(!swOn&&swMs===0)return;
+  const lt=swMs-swLapMs;laps.unshift({n:laps.length+1,lap:lt,total:swMs});swLapMs=swMs;
+  renderLaps();document.getElementById('lapsWrap').classList.add('show');
 }
-
 function renderLaps(){
-  if(!laps.length)return;
-  const lapTimes=laps.map(l=>l.lap);
-  const fastest=Math.min(...lapTimes), slowest=Math.max(...lapTimes);
+  const times=laps.map(l=>l.lap);const fast=Math.min(...times),slow=Math.max(...times);
   document.getElementById('lapsBody').innerHTML=laps.map(l=>{
-    const cls=laps.length>1?(l.lap===fastest?' fastest':l.lap===slowest?' slowest':''):'';
-    return `<div class="lap-row${cls}"><span>Lap ${l.n}${cls?' ★':''}</span><span>${swFmtPlain(l.lap)}</span><span>${swFmtPlain(l.total)}</span></div>`;
+    const cls=laps.length>1?(l.lap===fast?' fastest':l.lap===slow?' slowest':''):'';
+    return`<div class="lap-row${cls}"><span>Lap ${l.n}</span><span>${swFmtP(l.lap)}</span><span>${swFmtP(l.total)}</span></div>`;
   }).join('');
 }
-
-function swFmtPlain(ms){
-  const m=Math.floor(ms/60000),s=Math.floor(ms%60000/1000),cs=Math.floor(ms%1000/10);
-  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(cs).padStart(2,'0')}`;
-}
-
-function swReset(){
-  clearInterval(swInterval);swRunning=false;swMs=0;swLapMs=0;laps=[];
-  document.getElementById('sw-display').innerHTML='00:00<span class="ms-display">.00</span>';
-  document.getElementById('sw-startBtn').textContent='▶ Start';
-  document.getElementById('sw-startBtn').className='ctrl-btn btn-start';
-  document.getElementById('lapsSection').classList.remove('show');
-  document.getElementById('lapsBody').innerHTML='';
-}
+function swReset(){clearInterval(swInt);swOn=false;swMs=0;swLapMs=0;laps=[];document.getElementById('swDisplay').innerHTML='00:00<span class="ms-display">.00</span>';document.getElementById('swBtn').textContent='▶ Start';document.getElementById('swBtn').className='ctrl-btn btn-start';document.getElementById('lapsWrap').classList.remove('show');}
 
 // TIMER
-let tInterval=null, tRunning=false, tTotal=300, tRemaining=300;
+let tmInt=null,tmOn=false,tmTotal=300,tmRem=300;
 const CIRC=439.8;
-
-function setMode(mode,btn){
-  document.querySelectorAll('.mt-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('stopwatchPanel').style.display=mode==='stopwatch'?'block':'none';
-  document.getElementById('timerPanel').style.display=mode==='timer'?'block':'none';
+function tmFmt(s){const h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=s%60;return h>0?`${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`:`${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;}
+function tmSet(){const h=parseInt(document.getElementById('th').value)||0,m=parseInt(document.getElementById('tm').value)||0,s=parseInt(document.getElementById('ts').value)||0;tmTotal=h*3600+m*60+s;tmRem=tmTotal;document.getElementById('tmDisplay').textContent=tmFmt(tmTotal);updateRing(tmTotal,tmTotal);}
+function tmPreset(s){tmReset();tmTotal=s;tmRem=s;document.getElementById('th').value=Math.floor(s/3600);document.getElementById('tm').value=Math.floor(s%3600/60);document.getElementById('ts').value=s%60;document.getElementById('tmDisplay').textContent=tmFmt(s);updateRing(s,s);}
+function updateRing(rem,total){const pct=total>0?rem/total:0;document.getElementById('tmRing').style.strokeDashoffset=CIRC*(1-pct);document.getElementById('tmRing').style.stroke=rem<10?'#FF6B6B':rem<60?'#FFB800':'var(--accent)';}
+function tmToggle(){
+  if(tmRem<=0)return;
+  if(!tmOn){tmOn=true;tmInt=setInterval(()=>{tmRem--;document.getElementById('tmDisplay').textContent=tmFmt(tmRem);document.getElementById('tmLabel').textContent=tmRem>0?'Counting down...':'⏰ Time is up!';updateRing(tmRem,tmTotal);
+    if(tmRem<=0){clearInterval(tmInt);tmOn=false;document.getElementById('tmBtn').textContent='▶ Start';document.getElementById('tmBtn').className='ctrl-btn btn-start';
+      try{const ctx=new AudioContext(),osc=ctx.createOscillator(),g=ctx.createGain();osc.connect(g);g.connect(ctx.destination);osc.frequency.value=880;g.gain.value=0.3;osc.start();setTimeout(()=>osc.stop(),800);}catch(e){}
+    }},1000);
+    document.getElementById('tmBtn').textContent='⏸ Pause';document.getElementById('tmBtn').className='ctrl-btn btn-stop';document.getElementById('tmLabel').textContent='Counting down...';
+  }else{clearInterval(tmInt);tmOn=false;document.getElementById('tmBtn').textContent='▶ Resume';document.getElementById('tmBtn').className='ctrl-btn btn-start';}
 }
+function tmReset(){clearInterval(tmInt);tmOn=false;tmRem=tmTotal;document.getElementById('tmDisplay').textContent=tmFmt(tmTotal);document.getElementById('tmLabel').textContent='Ready';document.getElementById('tmBtn').textContent='▶ Start';document.getElementById('tmBtn').className='ctrl-btn btn-start';updateRing(tmTotal,tmTotal);}
 
-function tFmt(s){const h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=s%60;return h>0?`${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`:`${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;}
+function setMode(m,btn){document.querySelectorAll('.mt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('swPanel').style.display=m==='sw'?'block':'none';document.getElementById('tmPanel').style.display=m==='tm'?'block':'none';}
 
-function setTimer(secs){
-  tReset();tTotal=secs;tRemaining=secs;
-  document.getElementById('t-h').value=Math.floor(secs/3600);
-  document.getElementById('t-m').value=Math.floor(secs%3600/60);
-  document.getElementById('t-s').value=secs%60;
-  document.getElementById('t-display').textContent=tFmt(secs);
-  updateRing(secs,secs);
-}
-
-function setTimerFromInputs(){
-  const h=parseInt(document.getElementById('t-h').value)||0;
-  const m=parseInt(document.getElementById('t-m').value)||0;
-  const s=parseInt(document.getElementById('t-s').value)||0;
-  tTotal=h*3600+m*60+s;tRemaining=tTotal;
-  document.getElementById('t-display').textContent=tFmt(tTotal);
-  updateRing(tTotal,tTotal);
-}
-
-function updateRing(remaining,total){
-  const pct=total>0?remaining/total:0;
-  document.getElementById('timerRing').style.strokeDashoffset=CIRC*(1-pct);
-  document.getElementById('timerRing').style.stroke=remaining<10?'#FF6B6B':remaining<60?'#FFB800':'var(--accent)';
-}
-
-function tStart(){
-  if(tRemaining<=0)return;
-  if(!tRunning){
-    tRunning=true;
-    tInterval=setInterval(()=>{
-      tRemaining--;
-      document.getElementById('t-display').textContent=tFmt(tRemaining);
-      document.getElementById('t-label').textContent=tRemaining>0?'Counting down...':'⏰ Time is up!';
-      updateRing(tRemaining,tTotal);
-      if(tRemaining<=0){
-        clearInterval(tInterval);tRunning=false;
-        document.getElementById('t-startBtn').textContent='▶ Start';
-        document.getElementById('t-startBtn').className='ctrl-btn btn-start';
-        // Alarm beep
-        try{const ctx=new AudioContext();const osc=ctx.createOscillator();const gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.frequency.value=880;gain.gain.value=0.3;osc.start();setTimeout(()=>osc.stop(),800);}catch(e){}
-      }
-    },1000);
-    document.getElementById('t-startBtn').textContent='⏸ Pause';
-    document.getElementById('t-startBtn').className='ctrl-btn btn-stop';
-    document.getElementById('t-label').textContent='Counting down...';
-  } else {
-    clearInterval(tInterval);tRunning=false;
-    document.getElementById('t-startBtn').textContent='▶ Resume';
-    document.getElementById('t-startBtn').className='ctrl-btn btn-start';
-  }
-}
-
-function tReset(){
-  clearInterval(tInterval);tRunning=false;tRemaining=tTotal;
-  document.getElementById('t-display').textContent=tFmt(tTotal);
-  document.getElementById('t-label').textContent='Ready';
-  document.getElementById('t-startBtn').textContent='▶ Start';
-  document.getElementById('t-startBtn').className='ctrl-btn btn-start';
-  updateRing(tTotal,tTotal);
-}
-
-setTimerFromInputs();
+tmSet();
 </script>
 </body>
 </html>

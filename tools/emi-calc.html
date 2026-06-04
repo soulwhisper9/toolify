@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-WLBKXMNV15");
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>EMI Calculator Pakistan — Loan & Mortgage Calculator Free | Toolify Core</title>
-<meta name="description" content="Calculate loan EMI, total interest and repayment schedule free. Pakistan home loan, car loan and personal loan EMI calculator 2026.">
+<meta name="description" content="Calculate loan EMI, total interest and payment schedule free. Pakistan mortgage, car loan, personal loan EMI calculator. No signup.">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/tools.css">
 <link rel="icon" href="/favicon.ico">
 <style>
-.loan-types{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.2rem}
-.lt-btn{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.6rem .4rem;text-align:center;cursor:pointer;font-size:12px;color:var(--muted);font-family:var(--font-body);transition:all .15s}
+.loan-type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.2rem}
+.lt-btn{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.7rem .4rem;text-align:center;cursor:pointer;font-size:12px;color:var(--muted);font-family:var(--font-body);transition:all .15s}
 .lt-btn:hover{border-color:var(--border2);color:var(--text)}
 .lt-btn.active{border-color:var(--accent);background:var(--accent-light);color:#B8AAFF}
-.lt-icon{font-size:1.2rem;display:block;margin-bottom:.2rem}
-.slider-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1rem}
-.sl-row{margin-bottom:1rem}
-.sl-row:last-child{margin-bottom:0}
-.sl-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem}
-.sl-label{font-size:13px;color:var(--muted)}
-.sl-val{font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:var(--text)}
-.sl-input{width:100%;accent-color:var(--accent)}
-.result-hero{background:linear-gradient(135deg,rgba(91,111,247,0.12),rgba(0,229,192,0.06));border:1px solid rgba(91,111,247,0.25);border-radius:16px;padding:1.5rem;text-align:center;margin-bottom:1rem}
-.emi-amount{font-family:var(--font-head);font-size:3rem;font-weight:800;color:var(--accent);line-height:1}
-.emi-label{font-size:13px;color:var(--muted);margin-top:.3rem}
-.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
-.sg-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem;text-align:center}
-.sg-val{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:.2rem}
-.sg-label{font-size:11px;color:var(--muted)}
+.lt-icon{font-size:1.3rem;display:block;margin-bottom:.3rem}
+.input-card{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:1.2rem;margin-bottom:1rem}
+.field-row{margin-bottom:1rem}
+.field-row label{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:.4rem}
+.field-row label span{color:var(--accent);font-weight:500}
+.slider-input{width:100%;accent-color:var(--accent);margin-bottom:.3rem}
+.num-input{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;color:var(--text);font-family:var(--font-head);font-size:1rem;font-weight:700;outline:none;width:100%;transition:border-color .2s}
+.num-input:focus{border-color:var(--accent)}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
+.rc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.rc-val{font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:.2rem}
+.rc-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .donut-wrap{display:flex;align-items:center;gap:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1rem;flex-wrap:wrap}
+canvas#donut{flex-shrink:0}
 .donut-legend{flex:1}
-.legend-item{display:flex;align-items:center;gap:8px;margin-bottom:.5rem;font-size:13px}
-.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-.schedule-table{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1rem;max-height:300px;overflow-y:auto}
-.st-header{background:var(--surface2);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;padding:8px 12px;font-size:11px;color:var(--muted);text-transform:uppercase;position:sticky;top:0;border-bottom:1px solid var(--border)}
-.st-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;padding:7px 12px;font-size:12px;border-bottom:1px solid var(--border)}
+.dl-item{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:.5rem}
+.dl-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.schedule-table{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1rem;max-height:320px;overflow-y:auto}
+.st-header{background:var(--surface2);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:8px 12px;font-size:11px;color:var(--muted);border-bottom:1px solid var(--border);position:sticky;top:0}
+.st-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:8px 12px;font-size:12px;border-bottom:1px solid var(--border);transition:background .1s}
+.st-row:hover{background:var(--surface2)}
 .st-row:last-child{border-bottom:none}
-.st-row:nth-child(even){background:rgba(255,255,255,0.02)}
-.bank-rates{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem;font-size:12px;color:var(--muted)}
-.bank-rates strong{color:var(--text)}
 </style>
 </head>
 <body>
@@ -50,177 +67,164 @@
   <div class="tool-header">
     <div class="tool-badge">🧮 Calculators</div>
     <h1>EMI Calculator Pakistan</h1>
-    <p>Calculate monthly EMI, total interest and full repayment schedule for home loan, car loan or personal loan.</p>
+    <p>Calculate monthly EMI, total interest payable and full payment schedule for home loan, car loan or personal loan.</p>
   </div>
-  <div class="counter-badge">🔥 Used 19,640 times this month</div>
+  <div class="counter-badge">🔥 Used 15,660 times this month</div>
 
-  <div class="loan-types">
+  <div class="loan-type-grid">
     <button class="lt-btn active" onclick="setLoan('home',this)"><span class="lt-icon">🏠</span>Home Loan</button>
     <button class="lt-btn" onclick="setLoan('car',this)"><span class="lt-icon">🚗</span>Car Loan</button>
     <button class="lt-btn" onclick="setLoan('personal',this)"><span class="lt-icon">💳</span>Personal</button>
     <button class="lt-btn" onclick="setLoan('business',this)"><span class="lt-icon">🏪</span>Business</button>
   </div>
 
-  <div class="bank-rates" id="bankRates">
-    🏦 Current Pakistan home loan rates: <strong>HBL 22%</strong> · <strong>MCB 21.5%</strong> · <strong>Meezan (Islamic) 20%</strong> · <strong>UBL 22.5%</strong>
-  </div>
-
-  <div class="slider-card">
-    <div class="sl-row">
-      <div class="sl-top"><span class="sl-label">Loan Amount</span><span class="sl-val" id="amtVal">PKR 1,000,000</span></div>
-      <input type="range" class="sl-input" id="amtSlider" min="50000" max="50000000" step="50000" value="1000000" oninput="updateSliders();calculate()">
-      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>50K</span><span>5 Crore</span></div>
+  <div class="input-card">
+    <div class="field-row">
+      <label>Loan Amount (PKR) <span id="lv-amount">5,000,000</span></label>
+      <input type="range" class="slider-input" id="s-amount" min="100000" max="50000000" step="100000" value="5000000" oninput="syncField('amount',this.value);calc()">
+      <input type="number" class="num-input" id="f-amount" value="5000000" oninput="syncSlider('amount',this.value);calc()">
     </div>
-    <div class="sl-row">
-      <div class="sl-top"><span class="sl-label">Interest Rate (Annual)</span><span class="sl-val" id="rateVal">21%</span></div>
-      <input type="range" class="sl-input" id="rateSlider" min="5" max="40" step="0.5" value="21" oninput="updateSliders();calculate()">
-      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>5%</span><span>40%</span></div>
+    <div class="field-row">
+      <label>Annual Interest Rate (%) <span id="lv-rate">14</span>%</label>
+      <input type="range" class="slider-input" id="s-rate" min="1" max="36" step="0.5" value="14" oninput="syncField('rate',this.value);calc()">
+      <input type="number" class="num-input" id="f-rate" value="14" step="0.5" oninput="syncSlider('rate',this.value);calc()">
     </div>
-    <div class="sl-row">
-      <div class="sl-top"><span class="sl-label">Loan Tenure</span><span class="sl-val" id="tenureVal">5 Years</span></div>
-      <input type="range" class="sl-input" id="tenureSlider" min="1" max="30" step="1" value="5" oninput="updateSliders();calculate()">
-      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>1 yr</span><span>30 yrs</span></div>
+    <div class="field-row">
+      <label>Loan Tenure (Years) <span id="lv-tenure">10</span> years</label>
+      <input type="range" class="slider-input" id="s-tenure" min="1" max="30" step="1" value="10" oninput="syncField('tenure',this.value);calc()">
+      <input type="number" class="num-input" id="f-tenure" value="10" oninput="syncSlider('tenure',this.value);calc()">
     </div>
   </div>
 
-  <div class="result-hero">
-    <div class="emi-amount" id="emiAmount">—</div>
-    <div class="emi-label">Monthly EMI</div>
+  <div class="result-grid" id="resultGrid" style="display:none">
+    <div class="rc"><div class="rc-val" id="r-emi">—</div><div class="rc-label">Monthly EMI</div></div>
+    <div class="rc"><div class="rc-val" id="r-total">—</div><div class="rc-label">Total Payment</div></div>
+    <div class="rc"><div class="rc-val" id="r-interest">—</div><div class="rc-label">Total Interest</div></div>
   </div>
 
-  <div class="summary-grid">
-    <div class="sg-card"><div class="sg-val" id="s-principal" style="color:#378ADD">—</div><div class="sg-label">Principal</div></div>
-    <div class="sg-card"><div class="sg-val" id="s-interest" style="color:#FF6B6B">—</div><div class="sg-label">Total Interest</div></div>
-    <div class="sg-card"><div class="sg-val" id="s-total" style="color:#1D9E75">—</div><div class="sg-label">Total Payment</div></div>
-  </div>
-
-  <div class="donut-wrap">
+  <div class="donut-wrap" id="donutWrap" style="display:none">
     <canvas id="donut" width="120" height="120"></canvas>
     <div class="donut-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div><span>Principal: <strong id="l-principal">—</strong></span></div>
-      <div class="legend-item"><div class="legend-dot" style="background:#FF6B6B"></div><span>Interest: <strong id="l-interest">—</strong></span></div>
-      <div style="font-size:12px;color:var(--muted);margin-top:.5rem">Interest represents <strong id="l-pct">—</strong> of total payment</div>
+      <div class="dl-item"><div class="dl-dot" style="background:#5B6FF7"></div><span>Principal: <strong id="l-principal">—</strong></span></div>
+      <div class="dl-item"><div class="dl-dot" style="background:#FF6B6B"></div><span>Interest: <strong id="l-interest">—</strong></span></div>
+      <div class="dl-item" style="margin-top:.5rem;font-size:12px;color:var(--muted)">Interest as % of total: <strong id="l-pct" style="color:var(--text)">—</strong></div>
     </div>
   </div>
 
-  <details style="margin-bottom:1rem">
-    <summary style="cursor:pointer;font-size:13px;font-weight:500;padding:.6rem 0;color:var(--muted)">📅 View full repayment schedule</summary>
-    <div class="schedule-table" style="margin-top:.5rem">
-      <div class="st-header"><span>Month</span><span>EMI</span><span>Principal</span><span>Interest</span><span>Balance</span></div>
-      <div id="scheduleBody"></div>
-    </div>
-  </details>
+  <div class="schedule-table" id="scheduleTable" style="display:none">
+    <div class="st-header"><span>Month</span><span>EMI</span><span>Interest</span><span>Balance</span></div>
+    <div id="scheduleRows"></div>
+  </div>
 
   <div class="share-row">
-    <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+    <a class="share-btn share-wa" href="https://wa.me/?text=Calculate loan EMI free at Toolify Core: https://toolifycore.com/tools/emi-calc.html" target="_blank">💬 WhatsApp</a>
     <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/emi-calc.html');alert('Copied!')">🔗 Copy link</button>
   </div>
   <div class="embed-section" style="margin-top:.8rem">
     <div class="embed-label">📌 Embed this tool (click to copy)</div>
     <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/emi-calc.html" width="100%" height="750" frameborder="0"&gt;&lt;/iframe&gt;</div>
   </div>
-  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark — compare loans before applying</div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark before taking any loan</div>
   <div class="affiliate-banner">
-    <div class="aff-text">Compare <strong>home loan rates from all Pakistani banks</strong> in one place?</div>
-    <a href="https://www.pakloans.com" target="_blank" rel="noopener sponsored" class="aff-btn">Compare Rates →</a>
+    <div class="aff-text">Compare <strong>home loan rates from Meezan, HBL, UBL and other banks</strong>?</div>
+    <a href="https://www.pakwheels.com/car-loans/" target="_blank" rel="noopener sponsored" class="aff-btn">Compare Loans →</a>
   </div>
   <div class="faq" style="margin-top:2rem">
     <h2>Frequently asked questions</h2>
-    <div class="faq-item"><div class="faq-q">What is EMI?</div><div class="faq-a">EMI (Equated Monthly Installment) is a fixed payment you make to a bank every month to repay a loan. It includes both principal and interest portions.</div></div>
-    <div class="faq-item"><div class="faq-q">What is the current home loan rate in Pakistan?</div><div class="faq-a">As of 2026, home loan rates in Pakistan range from 20% to 23% per annum depending on the bank and whether it is conventional or Islamic financing.</div></div>
-    <div class="faq-item"><div class="faq-q">How can I reduce my EMI?</div><div class="faq-a">You can reduce EMI by increasing loan tenure, making a larger down payment, or negotiating a lower interest rate. Use the sliders above to compare scenarios.</div></div>
+    <div class="faq-item"><div class="faq-q">What is EMI?</div><div class="faq-a">EMI (Equated Monthly Installment) is the fixed amount you pay every month to repay your loan. It includes both principal and interest portions.</div></div>
+    <div class="faq-item"><div class="faq-q">What is the current home loan rate in Pakistan?</div><div class="faq-a">Home loan rates in Pakistan typically range from 18-24% per annum in 2026 depending on the bank and whether it is conventional or Islamic (markup-based).</div></div>
+    <div class="faq-item"><div class="faq-q">How is EMI calculated?</div><div class="faq-a">EMI = P × r × (1+r)^n / ((1+r)^n - 1) where P = principal, r = monthly interest rate, n = total months.</div></div>
   </div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;
+  background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/zakat-calc.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Zakat Calc</a>
+<a href="/tools/bmi-calc.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">BMI Calc</a>
+<a href="/tools/percentage-calc.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Percentage</a>
+</div>
+
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);
+  border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
 </main>
 <script>
-const LOAN_PRESETS = {
-  home:     {rate:21,tenure:15,max:50000000,rateNote:'HBL 22% · MCB 21.5% · Meezan 20% · UBL 22.5%'},
-  car:      {rate:20,tenure:5, max:10000000,rateNote:'Meezan 18% · Bank Alfalah 20% · HBL 21% · Askari 19.5%'},
-  personal: {rate:28,tenure:3, max:5000000, rateNote:'HBL 26-30% · MCB 27% · UBL 28% · Standard Chartered 29%'},
-  business: {rate:22,tenure:5, max:50000000,rateNote:'SBP SME rate 20% · HBL 22% · MCB 21% · NBP 20.5%'},
+const fmt = n => 'PKR '+Math.round(n).toLocaleString();
+const LOAN_DEFAULTS = {
+  home:{amount:5000000,rate:20,tenure:15},
+  car:{amount:2000000,rate:22,tenure:5},
+  personal:{amount:500000,rate:28,tenure:3},
+  business:{amount:3000000,rate:18,tenure:7},
 };
 
-function setLoan(type, btn){
+function setLoan(type,btn){
   document.querySelectorAll('.lt-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const p=LOAN_PRESETS[type];
-  document.getElementById('rateSlider').value=p.rate;
-  document.getElementById('tenureSlider').value=p.tenure;
-  document.getElementById('bankRates').innerHTML=`🏦 Current Pakistan ${type} loan rates: <strong>${p.rateNote}</strong>`;
-  updateSliders();calculate();
+  const d=LOAN_DEFAULTS[type];
+  setVal('amount',d.amount);setVal('rate',d.rate);setVal('tenure',d.tenure);
+  calc();
 }
 
-const fmtPKR = n => 'PKR '+Math.round(n).toLocaleString();
-const fmtShort = n => n>=10000000?'PKR '+(n/10000000).toFixed(2)+' Cr':n>=100000?'PKR '+(n/100000).toFixed(1)+' L':'PKR '+Math.round(n).toLocaleString();
-
-function updateSliders(){
-  const amt=parseInt(document.getElementById('amtSlider').value);
-  const rate=parseFloat(document.getElementById('rateSlider').value);
-  const tenure=parseInt(document.getElementById('tenureSlider').value);
-  document.getElementById('amtVal').textContent=fmtShort(amt);
-  document.getElementById('rateVal').textContent=rate+'%';
-  document.getElementById('tenureVal').textContent=tenure+(tenure===1?' Year':' Years');
+function setVal(field,val){
+  document.getElementById('s-'+field).value=val;
+  document.getElementById('f-'+field).value=val;
+  document.getElementById('lv-'+field).textContent=field==='amount'?parseInt(val).toLocaleString():val;
 }
+function syncField(field,val){document.getElementById('f-'+field).value=val;document.getElementById('lv-'+field).textContent=field==='amount'?parseInt(val).toLocaleString():val;}
+function syncSlider(field,val){document.getElementById('s-'+field).value=val;document.getElementById('lv-'+field).textContent=field==='amount'?parseInt(val).toLocaleString():val;}
 
-function calculate(){
-  const P=parseInt(document.getElementById('amtSlider').value);
-  const r=parseFloat(document.getElementById('rateSlider').value)/100/12;
-  const n=parseInt(document.getElementById('tenureSlider').value)*12;
-  const emi=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-  const totalPayment=emi*n;
-  const totalInterest=totalPayment-P;
+function calc(){
+  const P=parseFloat(document.getElementById('f-amount').value)||0;
+  const annualRate=parseFloat(document.getElementById('f-rate').value)||0;
+  const years=parseFloat(document.getElementById('f-tenure').value)||0;
+  if(!P||!annualRate||!years)return;
+  const r=annualRate/100/12, n=years*12;
+  const emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  const total=emi*n, interest=total-P;
 
-  document.getElementById('emiAmount').textContent=fmtPKR(emi);
-  document.getElementById('s-principal').textContent=fmtShort(P);
-  document.getElementById('s-interest').textContent=fmtShort(totalInterest);
-  document.getElementById('s-total').textContent=fmtShort(totalPayment);
-  document.getElementById('l-principal').textContent=fmtShort(P);
-  document.getElementById('l-interest').textContent=fmtShort(totalInterest);
-  document.getElementById('l-pct').textContent=Math.round(totalInterest/totalPayment*100)+'%';
+  document.getElementById('resultGrid').style.display='grid';
+  document.getElementById('r-emi').textContent=fmt(emi);
+  document.getElementById('r-total').textContent=fmt(total);
+  document.getElementById('r-interest').textContent=fmt(interest);
+  document.getElementById('donutWrap').style.display='flex';
+  document.getElementById('l-principal').textContent=fmt(P);
+  document.getElementById('l-interest').textContent=fmt(interest);
+  document.getElementById('l-pct').textContent=Math.round(interest/total*100)+'%';
+  drawDonut(P,interest);
 
-  drawDonut(P,totalInterest);
-  buildSchedule(P,r,n,emi);
-
-  document.getElementById('shareWa').href=`https://wa.me/?text=${encodeURIComponent(`My loan EMI is ${fmtPKR(emi)}/month. Calculate yours free at Toolify Core: https://toolifycore.com/tools/emi-calc.html`)}`;
+  // Schedule — first 24 months + last
+  let balance=P;
+  const rows=[];
+  for(let m=1;m<=n;m++){
+    const iAmt=balance*r, pAmt=emi-iAmt;
+    balance-=pAmt;
+    rows.push({m,emi,iAmt,balance:Math.max(0,balance)});
+  }
+  document.getElementById('scheduleRows').innerHTML=rows.slice(0,24).map(r=>`
+    <div class="st-row">
+      <span>Month ${r.m}</span>
+      <span>${fmt(r.emi)}</span>
+      <span>${fmt(r.iAmt)}</span>
+      <span>${fmt(r.balance)}</span>
+    </div>`).join('')+(n>24?`<div class="st-row" style="justify-content:center;color:var(--muted);text-align:center;grid-column:1/-1">... showing first 24 of ${n} months</div>`:'');
+  document.getElementById('scheduleTable').style.display='block';
 }
 
 function drawDonut(principal,interest){
   const canvas=document.getElementById('donut');
   const ctx=canvas.getContext('2d');
   const total=principal+interest;
-  const cx=60,cy=60,r=50,iR=30;
+  const pAngle=(principal/total)*Math.PI*2;
   ctx.clearRect(0,0,120,120);
-  const angles=[[principal/total,'#378ADD'],[interest/total,'#FF6B6B']];
-  let start=-Math.PI/2;
-  angles.forEach(([pct,color])=>{
-    const end=start+pct*2*Math.PI;
-    ctx.beginPath();ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,r,start,end);ctx.closePath();
-    ctx.fillStyle=color;ctx.fill();
-    start=end;
-  });
-  ctx.beginPath();ctx.arc(cx,cy,iR,0,2*Math.PI);
-  ctx.fillStyle='var(--surface)';ctx.fill();
+  ctx.beginPath();ctx.moveTo(60,60);ctx.arc(60,60,55,0,pAngle);ctx.closePath();ctx.fillStyle='#5B6FF7';ctx.fill();
+  ctx.beginPath();ctx.moveTo(60,60);ctx.arc(60,60,55,pAngle,Math.PI*2);ctx.closePath();ctx.fillStyle='#FF6B6B';ctx.fill();
+  ctx.beginPath();ctx.arc(60,60,35,0,Math.PI*2);ctx.fillStyle='var(--surface)';ctx.fill();
 }
 
-function buildSchedule(P,r,n,emi){
-  let balance=P;
-  const rows=[];
-  for(let m=1;m<=n;m++){
-    const interest=balance*r;
-    const principal=emi-interest;
-    balance=Math.max(0,balance-principal);
-    rows.push(`<div class="st-row">
-      <span>${m}</span>
-      <span>${Math.round(emi).toLocaleString()}</span>
-      <span>${Math.round(principal).toLocaleString()}</span>
-      <span>${Math.round(interest).toLocaleString()}</span>
-      <span>${Math.round(balance).toLocaleString()}</span>
-    </div>`);
-  }
-  document.getElementById('scheduleBody').innerHTML=rows.join('');
-}
-
-updateSliders();calculate();
+calc();
 </script>
 </body>
 </html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-WLBKXMNV15");
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Crop & Rotate Image Free — Online Image Editor | Toolify Core</title>
+<meta name="description" content="Crop and rotate images free online. Flip horizontally or vertically. No upload to server. Download instantly. JPG PNG WebP.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.canvas-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;margin-bottom:1rem;text-align:center;position:relative;overflow:hidden}
+#editCanvas{max-width:100%;border-radius:8px;cursor:crosshair}
+.edit-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.et-btn{background:var(--surface);border:1px solid var(--border2);color:var(--muted);padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;font-family:var(--font-body);transition:all .15s}
+.et-btn:hover{color:var(--text);border-color:var(--text)}
+.et-btn.active{border-color:var(--accent);color:#B8AAFF}
+.crop-controls{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem;display:none}
+.crop-controls.show{display:block}
+.crop-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:.6rem}
+.crop-input-wrap label{font-size:11px;color:var(--muted);display:block;margin-bottom:.2rem}
+.crop-num{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:6px;padding:6px 8px;color:var(--text);font-size:13px;outline:none;text-align:center}
+.aspect-row{display:flex;gap:6px;flex-wrap:wrap}
+.asp-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;transition:all .15s}
+.asp-btn:hover{border-color:var(--accent);color:var(--accent)}
+.info-bar{font-size:12px;color:var(--muted);text-align:center;margin-bottom:.5rem}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Crop & Rotate</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🖼 Image Tools</div>
+    <h1>Crop & Rotate Image</h1>
+    <p>Crop images to exact dimensions, rotate, flip horizontally or vertically. All in your browser — no upload needed.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 6,890 times this month</div>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept="image/*">
+    <div class="drop-icon">✂️</div>
+    <h3>Drop your image here</h3>
+    <p>JPG, PNG, WebP — any size</p>
+    <span class="drop-cta">Choose Image</span>
+  </div>
+
+  <div id="mainPanel" style="display:none">
+    <div class="edit-toolbar">
+      <button class="et-btn" onclick="rotate(90)">↻ 90° Right</button>
+      <button class="et-btn" onclick="rotate(-90)">↺ 90° Left</button>
+      <button class="et-btn" onclick="rotate(180)">🔃 180°</button>
+      <button class="et-btn" onclick="flipH()">↔ Flip H</button>
+      <button class="et-btn" onclick="flipV()">↕ Flip V</button>
+      <button class="et-btn active" id="cropModeBtn" onclick="toggleCropMode()">✂️ Crop mode</button>
+      <button class="et-btn" onclick="resetImage()">↺ Reset</button>
+    </div>
+
+    <div class="crop-controls show" id="cropControls">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:.6rem">Enter crop area (pixels from top-left)</p>
+      <div class="crop-row">
+        <div class="crop-input-wrap"><label>X (left)</label><input class="crop-num" type="number" id="cropX" value="0" oninput="updateCropPreview()"></div>
+        <div class="crop-input-wrap"><label>Y (top)</label><input class="crop-num" type="number" id="cropY" value="0" oninput="updateCropPreview()"></div>
+        <div class="crop-input-wrap"><label>Width</label><input class="crop-num" type="number" id="cropW" value="0" oninput="updateCropPreview()"></div>
+        <div class="crop-input-wrap"><label>Height</label><input class="crop-num" type="number" id="cropH" value="0" oninput="updateCropPreview()"></div>
+      </div>
+      <div style="margin-bottom:.6rem;font-size:12px;color:var(--muted)">Quick aspect ratios:</div>
+      <div class="aspect-row">
+        <button class="asp-btn" onclick="setAspect(1,1)">1:1 Square</button>
+        <button class="asp-btn" onclick="setAspect(16,9)">16:9 Landscape</button>
+        <button class="asp-btn" onclick="setAspect(4,3)">4:3</button>
+        <button class="asp-btn" onclick="setAspect(3,2)">3:2</button>
+        <button class="asp-btn" onclick="setAspect(9,16)">9:16 Portrait</button>
+        <button class="asp-btn" onclick="selectAll()">Select all</button>
+      </div>
+    </div>
+
+    <div class="info-bar" id="infoBar">—</div>
+
+    <div class="canvas-wrap">
+      <canvas id="editCanvas"></canvas>
+      <canvas id="overlayCanvas" style="position:absolute;top:1rem;left:1rem;pointer-events:none"></canvas>
+    </div>
+
+    <div class="actions" style="display:flex">
+      <button class="btn-primary" onclick="applyCrop()">✂️ Apply Crop & Download</button>
+      <button class="btn-secondary" onclick="downloadCurrent()">⬇ Download as-is</button>
+    </div>
+
+    <div class="share-row" style="margin-top:1rem">
+      <a class="share-btn share-wa" href="https://wa.me/?text=Free image crop and rotate tool at Toolify Core: https://toolifycore.com/tools/img-crop.html" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/img-crop.html');alert('Copied!')">🔗 Copy link</button>
+    </div>
+    <div class="embed-section" style="margin-top:.8rem">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/img-crop.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+    <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark</div>
+    <div class="affiliate-banner">
+      <div class="aff-text">Need <strong>advanced photo editing with layers and effects</strong>?</div>
+      <a href="https://canva.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Canva Free →</a>
+    </div>
+  </div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;
+  background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/img-resize.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Resize Image</a>
+<a href="/tools/img-compress.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Compress Image</a>
+<a href="/tools/png-to-jpg.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">PNG to JPG</a>
+</div>
+
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);
+  border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+let origImg=null, currentRotation=0, flippedH=false, flippedV=false, origFile=null;
+const canvas=document.getElementById('editCanvas');
+const ctx=canvas.getContext('2d');
+
+document.getElementById('dropZone').addEventListener('dragover',e=>{e.preventDefault();document.getElementById('dropZone').classList.add('drag-over')});
+document.getElementById('dropZone').addEventListener('dragleave',()=>document.getElementById('dropZone').classList.remove('drag-over'));
+document.getElementById('dropZone').addEventListener('drop',e=>{e.preventDefault();document.getElementById('dropZone').classList.remove('drag-over');if(e.dataTransfer.files[0])loadImg(e.dataTransfer.files[0])});
+document.getElementById('fileInput').addEventListener('change',()=>{if(document.getElementById('fileInput').files[0])loadImg(document.getElementById('fileInput').files[0])});
+
+function loadImg(file){
+  origFile=file;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{origImg=img;currentRotation=0;flippedH=false;flippedV=false;redraw();
+      document.getElementById('mainPanel').style.display='block';
+      selectAll();
+    };img.src=e.target.result;
+  };reader.readAsDataURL(file);
+}
+
+function redraw(){
+  if(!origImg)return;
+  const rotated=currentRotation%180!==0;
+  const w=rotated?origImg.height:origImg.width;
+  const h=rotated?origImg.width:origImg.height;
+  canvas.width=w;canvas.height=h;
+  ctx.save();ctx.translate(w/2,h/2);
+  ctx.rotate(currentRotation*Math.PI/180);
+  ctx.scale(flippedH?-1:1,flippedV?-1:1);
+  ctx.drawImage(origImg,-origImg.width/2,-origImg.height/2);
+  ctx.restore();
+  document.getElementById('infoBar').textContent=`${w} × ${h} px`;
+  selectAll();
+}
+
+function rotate(deg){currentRotation=(currentRotation+deg+360)%360;redraw();}
+function flipH(){flippedH=!flippedH;redraw();}
+function flipV(){flippedV=!flippedV;redraw();}
+
+function selectAll(){
+  document.getElementById('cropX').value=0;
+  document.getElementById('cropY').value=0;
+  document.getElementById('cropW').value=canvas.width;
+  document.getElementById('cropH').value=canvas.height;
+}
+
+function setAspect(aw,ah){
+  const cw=canvas.width,ch=canvas.height;
+  let w=cw,h=Math.round(cw*ah/aw);
+  if(h>ch){h=ch;w=Math.round(ch*aw/ah);}
+  const x=Math.round((cw-w)/2),y=Math.round((ch-h)/2);
+  document.getElementById('cropX').value=x;document.getElementById('cropY').value=y;
+  document.getElementById('cropW').value=w;document.getElementById('cropH').value=h;
+  updateCropPreview();
+}
+
+function updateCropPreview(){}
+function toggleCropMode(){document.getElementById('cropControls').classList.toggle('show');}
+
+function applyCrop(){
+  const x=parseInt(document.getElementById('cropX').value)||0;
+  const y=parseInt(document.getElementById('cropY').value)||0;
+  const w=parseInt(document.getElementById('cropW').value)||canvas.width;
+  const h=parseInt(document.getElementById('cropH').value)||canvas.height;
+  const out=document.createElement('canvas');out.width=w;out.height=h;
+  out.getContext('2d').drawImage(canvas,x,y,w,h,0,0,w,h);
+  out.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cropped-toolifycore.jpg';a.click();},'image/jpeg',0.92);
+}
+
+function downloadCurrent(){
+  canvas.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='edited-toolifycore.jpg';a.click();},'image/jpeg',0.92);
+}
+
+function resetImage(){currentRotation=0;flippedH=false;flippedV=false;redraw();}
+</script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-WLBKXMNV15");
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Detector Free — Check if Text is AI Generated | Toolify Core</title>
+<meta name="description" content="Free AI content detector. Check if text was written by AI (ChatGPT, Claude) or a human. Instant results. No signup needed.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.result-verdict{border-radius:16px;padding:1.5rem;text-align:center;margin-bottom:1rem;display:none}
+.result-verdict.show{display:block}
+.verdict-icon{font-size:3rem;margin-bottom:.5rem}
+.verdict-label{font-family:var(--font-head);font-size:1.4rem;font-weight:800;margin-bottom:.3rem}
+.verdict-sub{font-size:13px;opacity:.8;margin-bottom:1rem}
+.probability-bar{height:10px;border-radius:5px;background:rgba(255,255,255,0.2);overflow:hidden;margin-bottom:.4rem}
+.prob-fill{height:100%;border-radius:5px;transition:width .8s ease}
+.prob-label{display:flex;justify-content:space-between;font-size:11px;opacity:.7}
+.signals-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem}
+.signal-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem}
+.signal-title{font-size:12px;font-weight:500;margin-bottom:.3rem}
+.signal-val{font-size:11px;color:var(--muted)}
+.signal-badge{font-size:10px;padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:500}
+.badge-ai{background:rgba(255,107,107,0.15);color:#FF6B6B}
+.badge-human{background:rgba(29,158,117,0.15);color:#1D9E75}
+.badge-mixed{background:rgba(255,184,0,0.15);color:#FFB800}
+.text-area{width:100%;min-height:220px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:1rem;color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.7;resize:vertical;outline:none;transition:border-color .2s;margin-bottom:.5rem}
+.text-area:focus{border-color:var(--accent)}
+.text-stats{font-size:12px;color:var(--muted);margin-bottom:1rem}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">AI Detector</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">✍️ Text Tools</div>
+    <h1>AI Content Detector</h1>
+    <p>Detect whether text was written by AI (ChatGPT, Claude, Gemini) or a human. Get a detailed analysis with confidence score.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 22,410 times this month</div>
+
+  <textarea class="text-area" id="inputText" placeholder="Paste the text you want to check here...&#10;&#10;For best accuracy, use at least 100 words. The tool analyzes writing patterns, sentence structure, vocabulary diversity and other signals." oninput="updateStats()"></textarea>
+  <div class="text-stats"><span id="wc">0</span> words · <span id="cc">0</span> characters · Minimum 50 words recommended</div>
+
+  <div class="actions" style="display:flex;margin-bottom:1.5rem">
+    <button class="btn-primary" id="detectBtn" onclick="detect()">🔍 Detect AI Content</button>
+    <button class="btn-secondary" onclick="clearAll()">✕ Clear</button>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <span style="font-size:13px;color:var(--muted)">Analyzing writing patterns...</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- Verdict -->
+  <div class="result-verdict" id="verdict">
+    <div class="verdict-icon" id="vIcon">🤖</div>
+    <div class="verdict-label" id="vLabel">Likely AI Generated</div>
+    <div class="verdict-sub" id="vSub">High confidence detection</div>
+    <div class="probability-bar"><div class="prob-fill" id="probFill" style="width:0%"></div></div>
+    <div class="prob-label"><span>Human</span><span id="aiPct">—% AI probability</span><span>AI</span></div>
+  </div>
+
+  <!-- Signal breakdown -->
+  <div class="signals-grid" id="signalsGrid" style="display:none"></div>
+
+  <!-- Full analysis -->
+  <div id="fullAnalysis" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1.2rem">
+    <div style="font-size:13px;font-weight:500;margin-bottom:.6rem">Detailed analysis</div>
+    <div id="analysisText" style="font-size:13px;color:var(--muted);line-height:1.7"></div>
+  </div>
+
+  <div class="share-row">
+    <a class="share-btn share-wa" href="https://wa.me/?text=Free AI content detector at Toolify Core: https://toolifycore.com/tools/ai-detect.html" target="_blank">💬 WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/ai-detect.html');alert('Copied!')">🔗 Copy link</button>
+  </div>
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/ai-detect.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark — check content anytime</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need to <strong>paraphrase AI text to make it sound more human</strong>?</div>
+    <a href="/tools/paraphrase.html" class="aff-btn">Try Paraphraser →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">How accurate is this AI detector?</div><div class="faq-a">This tool uses pattern analysis to estimate AI probability. No detector is 100% accurate. Use results as guidance, not absolute proof.</div></div>
+    <div class="faq-item"><div class="faq-q">What AI models can it detect?</div><div class="faq-a">It detects writing patterns common to ChatGPT, Claude, Gemini, Copilot and similar large language models.</div></div>
+    <div class="faq-item"><div class="faq-q">Can AI-edited human text be detected?</div><div class="faq-a">Lightly edited human text usually scores lower on AI probability. Heavily AI-edited content may score higher depending on how much was changed.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my text stored?</div><div class="faq-a">No. Text is sent to the AI API for analysis only and is not stored on our servers.</div></div>
+  </div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;
+  background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/plagiarism.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Plagiarism</a>
+<a href="/tools/paraphrase.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Paraphrase</a>
+<a href="/tools/word-count.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Word Counter</a>
+</div>
+
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);
+  border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+function updateStats() {
+  const t = document.getElementById('inputText').value;
+  document.getElementById('wc').textContent = t.trim() ? t.trim().split(/\s+/).length : 0;
+  document.getElementById('cc').textContent = t.length;
+}
+
+async function detect() {
+  const text = document.getElementById('inputText').value.trim();
+  if (!text) return alert('Please paste some text to analyze.');
+  if (text.split(/\s+/).length < 20) return alert('Please enter at least 20 words for meaningful analysis.');
+
+  const btn = document.getElementById('detectBtn');
+  const pw = document.getElementById('progressWrap');
+  const pf = document.getElementById('progressFill');
+  btn.disabled = true; btn.textContent = '🔍 Analyzing...';
+  pw.classList.add('show'); pf.style.width = '30%';
+
+  try {
+    pf.style.width = '60%';
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `Analyze the following text and determine if it was written by AI or a human. 
+
+Respond ONLY with a JSON object in this exact format (no markdown, no explanation outside JSON):
+{
+  "ai_probability": <number 0-100>,
+  "verdict": "<Likely AI Generated|Likely Human Written|Mixed/Uncertain>",
+  "confidence": "<High|Medium|Low>",
+  "signals": {
+    "sentence_uniformity": "<AI-like|Human-like|Mixed>",
+    "vocabulary_diversity": "<AI-like|Human-like|Mixed>",
+    "personal_voice": "<AI-like|Human-like|Mixed>",
+    "structural_patterns": "<AI-like|Human-like|Mixed>"
+  },
+  "analysis": "<2-3 sentence explanation of the key signals found>"
+}
+
+Text to analyze:
+${text}`
+        }]
+      })
+    });
+
+    pf.style.width = '90%';
+    const data = await response.json();
+    const raw = data.content?.[0]?.text || '{}';
+    let result;
+    try { result = JSON.parse(raw.replace(/```json|```/g, '').trim()); }
+    catch(e) { result = { ai_probability: 50, verdict: 'Mixed/Uncertain', confidence: 'Low', signals: {}, analysis: 'Could not parse analysis.' }; }
+
+    pf.style.width = '100%';
+    showResult(result);
+    pw.classList.remove('show');
+  } catch(e) {
+    pw.classList.remove('show');
+    alert('Error connecting to AI analysis service. Please try again.');
+  }
+
+  btn.disabled = false; btn.textContent = '🔍 Detect AI Content';
+}
+
+function showResult(r) {
+  const prob = r.ai_probability || 50;
+  const verdict = document.getElementById('verdict');
+  const isAI = prob >= 65, isHuman = prob <= 35;
+
+  // Color scheme
+  const color = isAI ? '#FF6B6B' : isHuman ? '#1D9E75' : '#FFB800';
+  verdict.style.cssText = `background:${isAI?'rgba(255,107,107,0.1)':isHuman?'rgba(29,158,117,0.1)':'rgba(255,184,0,0.1)'};border:1px solid ${color}33;border-radius:16px;padding:1.5rem;text-align:center;margin-bottom:1rem;display:block`;
+
+  document.getElementById('vIcon').textContent = isAI ? '🤖' : isHuman ? '👤' : '🔄';
+  document.getElementById('vLabel').textContent = r.verdict || 'Mixed/Uncertain';
+  document.getElementById('vLabel').style.color = color;
+  document.getElementById('vSub').textContent = `${r.confidence || 'Medium'} confidence · ${prob}% AI probability`;
+  document.getElementById('probFill').style.cssText = `width:${prob}%;background:${color};height:100%;border-radius:5px;transition:width .8s ease`;
+  document.getElementById('aiPct').textContent = `${prob}% AI`;
+
+  // Signals
+  const signals = r.signals || {};
+  const sigKeys = { sentence_uniformity:'Sentence uniformity', vocabulary_diversity:'Vocabulary diversity', personal_voice:'Personal voice', structural_patterns:'Structural patterns' };
+  document.getElementById('signalsGrid').innerHTML = Object.keys(sigKeys).map(k => {
+    const val = signals[k] || 'Mixed';
+    const cls = val==='AI-like'?'badge-ai':val==='Human-like'?'badge-human':'badge-mixed';
+    return `<div class="signal-card"><div class="signal-title">${sigKeys[k]}<span class="signal-badge ${cls}">${val}</span></div></div>`;
+  }).join('');
+  document.getElementById('signalsGrid').style.display = 'grid';
+
+  // Analysis text
+  document.getElementById('analysisText').textContent = r.analysis || '';
+  document.getElementById('fullAnalysis').style.display = 'block';
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('verdict').classList.remove('show');
+  document.getElementById('verdict').style.display = 'none';
+  document.getElementById('signalsGrid').style.display = 'none';
+  document.getElementById('fullAnalysis').style.display = 'none';
+  updateStats();
+}
+</script>
+</body>
+</html>

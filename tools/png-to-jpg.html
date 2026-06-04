@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-WLBKXMNV15");
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PNG to JPG Converter Free — Convert PNG Online | Toolify Core</title>
+<meta name="description" content="Convert PNG images to JPG free online. Batch convert multiple PNGs. Set quality. No upload to server. Instant download.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.batch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:1rem}
+.img-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;position:relative}
+.img-card img{width:100%;height:100px;object-fit:cover}
+.img-card-info{padding:.5rem .6rem;font-size:11px}
+.img-card-name{color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.img-card-size{color:var(--muted)}
+.img-card-status{position:absolute;top:6px;right:6px;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:500}
+.status-ready{background:rgba(29,158,117,0.2);color:#1D9E75}
+.status-done{background:rgba(91,111,247,0.2);color:var(--accent)}
+.quality-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+.quality-wrap label{font-size:13px;color:var(--muted);min-width:60px}
+.quality-wrap input{flex:1;accent-color:var(--accent)}
+.quality-wrap span{font-size:13px;font-weight:500;min-width:36px}
+.bg-color-row{display:flex;align-items:center;gap:.8rem;margin-top:.6rem}
+.bg-color-row label{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">PNG to JPG</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🖼 Image Tools</div>
+    <h1>PNG to JPG Converter</h1>
+    <p>Convert PNG images to JPG instantly. Supports batch conversion. Set quality and background color for transparent PNGs.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 7,840 times this month</div>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept="image/png,image/webp,image/gif" multiple>
+    <div class="drop-icon">🔄</div>
+    <h3>Drop PNG files here</h3>
+    <p>Select multiple files for batch conversion</p>
+    <span class="drop-cta">Choose PNGs</span>
+  </div>
+
+  <div id="mainPanel" style="display:none">
+    <div class="quality-wrap">
+      <label>Quality</label>
+      <input type="range" id="quality" min="10" max="100" value="90" oninput="document.getElementById('qualVal').textContent=this.value+'%'">
+      <span id="qualVal">90%</span>
+      <div class="bg-color-row">
+        <label>BG color (for transparent):</label>
+        <input type="color" id="bgColor" value="#FFFFFF" style="width:32px;height:28px;border:none;border-radius:6px;cursor:pointer">
+        <span style="font-size:11px;color:var(--muted)">white = safe</span>
+      </div>
+    </div>
+
+    <div class="batch-grid" id="batchGrid"></div>
+
+    <div class="actions" style="display:flex">
+      <button class="btn-primary" id="convertBtn" onclick="convertAll()">🔄 Convert All to JPG</button>
+      <button class="btn-secondary" onclick="resetAll()">Reset</button>
+    </div>
+
+    <div id="downloadAll" style="display:none;margin-top:.8rem">
+      <div id="downloadLinks" style="display:flex;flex-direction:column;gap:6px"></div>
+    </div>
+
+    <div class="share-row" style="margin-top:1rem">
+      <a class="share-btn share-wa" href="https://wa.me/?text=Convert PNG to JPG free at Toolify Core: https://toolifycore.com/tools/png-to-jpg.html" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/png-to-jpg.html');alert('Copied!')">🔗 Copy link</button>
+    </div>
+    <div class="embed-section" style="margin-top:.8rem">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/png-to-jpg.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+    <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark</div>
+    <div class="affiliate-banner">
+      <div class="aff-text">Need <strong>background removal, resizing or bulk image editing</strong>?</div>
+      <a href="https://canva.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Canva Free →</a>
+    </div>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Why convert PNG to JPG?</div><div class="faq-a">JPG files are much smaller than PNG for photographs. PNG is better for logos and graphics with transparency. Converting saves storage and loads faster on websites.</div></div>
+    <div class="faq-item"><div class="faq-q">What happens to transparent backgrounds?</div><div class="faq-a">JPG does not support transparency. The background color you choose (default white) fills transparent areas. Change it to match your needs.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I convert multiple files at once?</div><div class="faq-a">Yes — select multiple PNG files and click Convert All. Each file is converted separately and available for individual download.</div></div>
+  </div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;
+  background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/webp-convert.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">WebP Convert</a>
+<a href="/tools/img-compress.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Compress Image</a>
+<a href="/tools/img-resize.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Resize Image</a>
+</div>
+
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);
+  border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+let files=[];
+const fmtSize=b=>b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';
+
+document.getElementById('dropZone').addEventListener('dragover',e=>{e.preventDefault();document.getElementById('dropZone').classList.add('drag-over')});
+document.getElementById('dropZone').addEventListener('dragleave',()=>document.getElementById('dropZone').classList.remove('drag-over'));
+document.getElementById('dropZone').addEventListener('drop',e=>{e.preventDefault();document.getElementById('dropZone').classList.remove('drag-over');loadFiles(e.dataTransfer.files)});
+document.getElementById('fileInput').addEventListener('change',()=>loadFiles(document.getElementById('fileInput').files));
+
+function loadFiles(newFiles){
+  for(const f of newFiles) files.push(f);
+  renderGrid();
+  document.getElementById('mainPanel').style.display='block';
+}
+
+function renderGrid(){
+  document.getElementById('batchGrid').innerHTML=files.map((f,i)=>`
+    <div class="img-card" id="card${i}">
+      <img src="${URL.createObjectURL(f)}" alt="${f.name}">
+      <span class="img-card-status status-ready">Ready</span>
+      <div class="img-card-info">
+        <div class="img-card-name">${f.name}</div>
+        <div class="img-card-size">${fmtSize(f.size)}</div>
+      </div>
+    </div>`).join('');
+}
+
+async function convertAll(){
+  const q=parseInt(document.getElementById('quality').value)/100;
+  const bg=document.getElementById('bgColor').value;
+  const links=[];
+  for(let i=0;i<files.length;i++){
+    const blob=await convertFile(files[i],q,bg);
+    const url=URL.createObjectURL(blob);
+    const name=files[i].name.replace(/\.[^.]+$/,'.jpg');
+    document.getElementById('card'+i).querySelector('.img-card-status').className='img-card-status status-done';
+    document.getElementById('card'+i).querySelector('.img-card-status').textContent='Done';
+    links.push({url,name,size:fmtSize(blob.size)});
+  }
+  document.getElementById('downloadLinks').innerHTML=links.map(l=>`
+    <a href="${l.url}" download="${l.name}" style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.6rem 1rem;text-decoration:none;color:var(--text);font-size:13px">
+      <span>📄 ${l.name}</span>
+      <span style="color:var(--accent);font-size:12px">${l.size} ⬇</span>
+    </a>`).join('');
+  document.getElementById('downloadAll').style.display='block';
+}
+
+function convertFile(file,quality,bgColor){
+  return new Promise(resolve=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        const canvas=document.createElement('canvas');
+        canvas.width=img.width;canvas.height=img.height;
+        const ctx=canvas.getContext('2d');
+        ctx.fillStyle=bgColor;ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0);
+        canvas.toBlob(resolve,'image/jpeg',quality);
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function resetAll(){files=[];document.getElementById('fileInput').value='';document.getElementById('mainPanel').style.display='none';document.getElementById('downloadAll').style.display='none';}
+</script>
+</body>
+</html>

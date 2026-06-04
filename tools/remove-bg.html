@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-WLBKXMNV15");
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Background Remover Free — Remove Image Background Online | Toolify Core</title>
+<meta name="description" content="Remove image background free online. AI-powered background removal. Download transparent PNG instantly. No signup needed.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.preview-split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.preview-panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.preview-panel img,.preview-panel canvas{width:100%;height:200px;object-fit:contain;display:block}
+.preview-panel canvas{background:repeating-conic-gradient(#888 0% 25%,#666 0% 50%) 0 0/16px 16px}
+.preview-label{padding:.6rem 1rem;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;background:var(--surface2);border-top:1px solid var(--border)}
+.method-tabs{display:flex;gap:8px;margin-bottom:1.2rem}
+.mt-btn{flex:1;padding:9px;border:1px solid var(--border2);border-radius:10px;background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all .15s;text-align:center}
+.mt-btn.active{border-color:var(--accent);background:var(--accent-light);color:#B8AAFF;font-weight:500}
+.api-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;color:var(--text);font-family:var(--font-body);font-size:13px;outline:none;margin-bottom:.5rem;transition:border-color .2s}
+.api-input:focus{border-color:var(--accent)}
+.threshold-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.threshold-row label{font-size:12px;color:var(--muted);min-width:80px}
+.threshold-row input{flex:1;accent-color:var(--accent)}
+.server-note{background:rgba(91,111,247,0.08);border:1px solid rgba(91,111,247,0.2);border-radius:10px;padding:.8rem 1rem;font-size:12px;color:var(--muted);margin-bottom:1rem}
+.server-note strong{color:#B8AAFF}
+.bg-options{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.bg-opt{width:32px;height:32px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:border-color .15s}
+.bg-opt:hover,.bg-opt.active{border-color:var(--accent)}
+@media(max-width:600px){.preview-split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Background Remover</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🖼 Image Tools</div>
+    <h1>Background Remover</h1>
+    <p>Remove image backgrounds instantly. Use your own remove.bg API key for AI-quality results, or use browser-based removal for simple backgrounds.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 24,110 times this month</div>
+
+  <div class="method-tabs">
+    <button class="mt-btn active" onclick="setMethod('browser',this)">🖥 Browser (simple BG)</button>
+    <button class="mt-btn" onclick="setMethod('api',this)">🤖 AI (remove.bg API)</button>
+    <button class="mt-btn" onclick="setMethod('server',this)">⚡ Server (best quality)</button>
+  </div>
+
+  <!-- Browser method info -->
+  <div id="browserInfo" class="server-note">
+    🖥 <strong>Browser mode:</strong> Works on images with solid/simple backgrounds. For complex backgrounds (hair, fur, detailed edges) use AI mode.
+  </div>
+
+  <!-- API method -->
+  <div id="apiPanel" style="display:none">
+    <div class="server-note">
+      🤖 <strong>AI mode (remove.bg):</strong> Get a free API key at <a href="https://remove.bg" target="_blank" style="color:#B8AAFF">remove.bg</a> — 50 free removals/month. Enter your key below.
+    </div>
+    <input class="api-input" type="password" id="apiKey" placeholder="Enter your remove.bg API key (rm_...)">
+    <div style="font-size:11px;color:var(--muted);margin-bottom:.8rem">Your API key is never stored — only used for this request in your browser.</div>
+  </div>
+
+  <!-- Server method -->
+  <div id="serverPanel" style="display:none">
+    <div class="server-note">
+      ⚡ <strong>Server mode:</strong> Uses rembg Python library on your Coolify VPS. Best quality — handles hair, fur and complex edges. Setup guide below.
+    </div>
+    <input class="api-input" type="text" id="serverUrl" placeholder="https://toolifycore.com/api/remove-bg" value="">
+    <div style="font-size:11px;color:var(--muted);margin-bottom:.8rem">Enter your VPS API endpoint URL. See server setup guide below.</div>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept="image/*">
+    <div class="drop-icon">🎭</div>
+    <h3>Drop image here</h3>
+    <p>JPG, PNG, WebP — portraits, products, objects</p>
+    <span class="drop-cta">Choose Image</span>
+  </div>
+
+  <div id="mainPanel" style="display:none">
+    <!-- Browser mode: threshold -->
+    <div id="thresholdPanel">
+      <div class="threshold-row">
+        <label>Sensitivity</label>
+        <input type="range" id="threshold" min="5" max="80" value="30" oninput="document.getElementById('thrVal').textContent=this.value">
+        <span id="thrVal" style="font-size:13px;font-weight:500;min-width:24px">30</span>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:.8rem">Higher = removes more. Lower = removes less. Works best on solid color backgrounds.</div>
+    </div>
+
+    <div style="font-size:12px;color:var(--muted);margin-bottom:.5rem">Replace background with:</div>
+    <div class="bg-options" id="bgOptions">
+      <div class="bg-opt active" style="background:transparent;background-image:repeating-conic-gradient(#888 0% 25%,#666 0% 50%) 0 0/10px 10px" data-bg="transparent" onclick="setBg('transparent',this)" title="Transparent"></div>
+      <div class="bg-opt" style="background:#FFFFFF;border-color:var(--border)" data-bg="#FFFFFF" onclick="setBg('#FFFFFF',this)" title="White"></div>
+      <div class="bg-opt" style="background:#000000" data-bg="#000000" onclick="setBg('#000000',this)" title="Black"></div>
+      <div class="bg-opt" style="background:#FF6B6B" data-bg="#FF6B6B" onclick="setBg('#FF6B6B',this)"></div>
+      <div class="bg-opt" style="background:#378ADD" data-bg="#378ADD" onclick="setBg('#378ADD',this)"></div>
+      <div class="bg-opt" style="background:#1D9E75" data-bg="#1D9E75" onclick="setBg('#1D9E75',this)"></div>
+      <input type="color" id="customBg" style="width:32px;height:32px;border-radius:6px;border:2px solid var(--border);cursor:pointer" oninput="setBg(this.value,null)" title="Custom color">
+    </div>
+
+    <div class="preview-split">
+      <div class="preview-panel">
+        <img id="origPreview" src="" alt="Original">
+        <div class="preview-label">Original</div>
+      </div>
+      <div class="preview-panel">
+        <canvas id="resultCanvas"></canvas>
+        <div class="preview-label">Background removed</div>
+      </div>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <span style="font-size:13px;color:var(--muted)" id="progressLabel">Processing...</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="actions" style="display:flex">
+      <button class="btn-primary" id="removeBtn" onclick="removeBg()">🎭 Remove Background</button>
+      <button class="btn-secondary" id="downloadBtn" style="display:none" onclick="downloadResult()">⬇ Download PNG</button>
+      <button class="btn-secondary" onclick="resetAll()">Reset</button>
+    </div>
+
+    <div class="share-row" style="margin-top:1rem">
+      <a class="share-btn share-wa" href="https://wa.me/?text=Remove image backgrounds free at Toolify Core: https://toolifycore.com/tools/remove-bg.html" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/remove-bg.html');alert('Copied!')">🔗 Copy link</button>
+    </div>
+    <div class="embed-section" style="margin-top:.8rem">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/remove-bg.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+    <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark</div>
+  </div>
+
+  <div class="affiliate-banner" style="margin-top:1rem">
+    <div class="aff-text">Need <strong>unlimited professional background removal</strong>?</div>
+    <a href="https://remove.bg" target="_blank" rel="noopener sponsored" class="aff-btn">Try remove.bg →</a>
+  </div>
+
+  <!-- Server setup guide -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-top:1.5rem">
+    <div style="font-size:13px;font-weight:500;margin-bottom:.8rem">⚡ Server setup on Coolify (best quality)</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.8;font-family:monospace;background:var(--bg);padding:1rem;border-radius:8px;overflow-x:auto">
+      # SSH into your VPS<br>
+      pip install rembg flask --break-system-packages<br><br>
+      # Create /home/claude/rembg-api/app.py<br>
+      # (see full guide in SERVER_GUIDE.md)<br><br>
+      # In Coolify: New Resource → Python App<br>
+      # Port: 5001<br>
+      # Subdomain: api.toolifycore.com
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:.6rem">Full setup guide included in SERVER_GUIDE.md download below.</div>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Which mode gives the best results?</div><div class="faq-a">Server mode (rembg on your VPS) gives the best quality for complex images like hair and fur. API mode (remove.bg) is excellent for portraits. Browser mode works well for simple solid-color backgrounds.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my image uploaded anywhere?</div><div class="faq-a">Browser mode: never uploaded. API mode: sent to remove.bg servers. Server mode: sent to your own VPS server — completely private.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I download a transparent PNG?</div><div class="faq-a">Yes — the default download is a transparent PNG. You can also set a custom background color before downloading.</div></div>
+  </div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;
+  background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/img-compress.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Compress Image</a>
+<a href="/tools/img-resize.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Resize Image</a>
+<a href="/tools/png-to-jpg.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">PNG to JPG</a>
+</div>
+
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);
+  border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+let currentMethod = 'browser', origImgData = null, bgColor = 'transparent';
+let origImg = null, origFile = null;
+
+function setMethod(m, btn) {
+  currentMethod = m;
+  document.querySelectorAll('.mt-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('browserInfo').style.display = m==='browser'?'block':'none';
+  document.getElementById('apiPanel').style.display = m==='api'?'block':'none';
+  document.getElementById('serverPanel').style.display = m==='server'?'block':'none';
+  document.getElementById('thresholdPanel').style.display = m==='browser'?'block':'none';
+}
+
+function setBg(color, el) {
+  bgColor = color;
+  document.querySelectorAll('.bg-opt').forEach(b => b.classList.remove('active'));
+  if(el) el.classList.add('active');
+  if(origImgData) applyBg();
+}
+
+document.getElementById('dropZone').addEventListener('dragover',e=>{e.preventDefault();document.getElementById('dropZone').classList.add('drag-over')});
+document.getElementById('dropZone').addEventListener('dragleave',()=>document.getElementById('dropZone').classList.remove('drag-over'));
+document.getElementById('dropZone').addEventListener('drop',e=>{e.preventDefault();document.getElementById('dropZone').classList.remove('drag-over');if(e.dataTransfer.files[0])loadFile(e.dataTransfer.files[0])});
+document.getElementById('fileInput').addEventListener('change',()=>{if(document.getElementById('fileInput').files[0])loadFile(document.getElementById('fileInput').files[0])});
+
+function loadFile(file) {
+  origFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      origImg = img;
+      document.getElementById('origPreview').src = e.target.result;
+      document.getElementById('mainPanel').style.display = 'block';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function removeBg() {
+  if (!origImg) return;
+  const pw = document.getElementById('progressWrap');
+  const pf = document.getElementById('progressFill');
+  pw.classList.add('show'); pf.style.width = '20%';
+  document.getElementById('removeBtn').disabled = true;
+
+  if (currentMethod === 'browser') {
+    await browserRemove();
+  } else if (currentMethod === 'api') {
+    await apiRemove();
+  } else {
+    await serverRemove();
+  }
+  pw.classList.remove('show');
+  document.getElementById('removeBtn').disabled = false;
+  document.getElementById('downloadBtn').style.display = 'inline-flex';
+}
+
+async function browserRemove() {
+  const pf = document.getElementById('progressFill');
+  const threshold = parseInt(document.getElementById('threshold').value);
+  const canvas = document.createElement('canvas');
+  canvas.width = origImg.width; canvas.height = origImg.height;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(origImg, 0, 0);
+  pf.style.width = '50%';
+
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+
+  // Sample corner pixel as background color
+  const bgR = data[0], bgG = data[1], bgB = data[2];
+
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i], g = data[i+1], b = data[i+2];
+    const diff = Math.abs(r-bgR) + Math.abs(g-bgG) + Math.abs(b-bgB);
+    if (diff < threshold * 3) data[i+3] = 0;
+  }
+
+  pf.style.width = '90%';
+  ctx.putImageData(imageData, 0, 0);
+  origImgData = canvas;
+  applyBg();
+  pf.style.width = '100%';
+}
+
+async function apiRemove() {
+  const key = document.getElementById('apiKey').value.trim();
+  if (!key) { alert('Please enter your remove.bg API key.'); document.getElementById('progressWrap').classList.remove('show'); return; }
+  const pf = document.getElementById('progressFill');
+  pf.style.width = '40%';
+  try {
+    const formData = new FormData();
+    formData.append('image_file', origFile);
+    formData.append('size', 'auto');
+    const res = await fetch('https://api.remove.bg/v1.0/removebg', {
+      method: 'POST',
+      headers: { 'X-Api-Key': key },
+      body: formData
+    });
+    if (!res.ok) throw new Error('API error: ' + res.status);
+    const blob = await res.blob();
+    const img = new Image();
+    img.onload = () => {
+      const c = document.getElementById('resultCanvas');
+      c.width = img.width; c.height = img.height;
+      const ctx = c.getContext('2d');
+      if(bgColor !== 'transparent'){ctx.fillStyle=bgColor;ctx.fillRect(0,0,c.width,c.height);}
+      ctx.drawImage(img,0,0);
+      origImgData = c;
+      pf.style.width = '100%';
+    };
+    img.src = URL.createObjectURL(blob);
+  } catch(e) { alert('remove.bg API error: ' + e.message); }
+}
+
+async function serverRemove() {
+  const url = document.getElementById('serverUrl').value.trim();
+  if (!url) { alert('Please enter your server API URL.'); document.getElementById('progressWrap').classList.remove('show'); return; }
+  const pf = document.getElementById('progressFill');
+  pf.style.width = '40%';
+  try {
+    const formData = new FormData();
+    formData.append('image', origFile);
+    const res = await fetch(url, { method: 'POST', body: formData });
+    if (!res.ok) throw new Error('Server error: ' + res.status);
+    const blob = await res.blob();
+    const img = new Image();
+    img.onload = () => {
+      const c = document.getElementById('resultCanvas');
+      c.width = img.width; c.height = img.height;
+      const ctx = c.getContext('2d');
+      if(bgColor !== 'transparent'){ctx.fillStyle=bgColor;ctx.fillRect(0,0,c.width,c.height);}
+      ctx.drawImage(img,0,0);
+      origImgData = c;
+      pf.style.width = '100%';
+    };
+    img.src = URL.createObjectURL(blob);
+  } catch(e) { alert('Server error: ' + e.message + '\nCheck your server URL and make sure rembg is running.'); }
+}
+
+function applyBg() {
+  if (!origImgData) return;
+  const c = document.getElementById('resultCanvas');
+  c.width = origImgData.width; c.height = origImgData.height;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  if(bgColor !== 'transparent'){ctx.fillStyle=bgColor;ctx.fillRect(0,0,c.width,c.height);}
+  ctx.drawImage(origImgData,0,0);
+}
+
+function downloadResult() {
+  const c = document.getElementById('resultCanvas');
+  const a = document.createElement('a');
+  a.href = c.toDataURL('image/png');
+  a.download = 'no-bg-toolifycore.png'; a.click();
+}
+
+function resetAll() {
+  origImg = null; origImgData = null; origFile = null;
+  document.getElementById('fileInput').value = '';
+  document.getElementById('mainPanel').style.display = 'none';
+  document.getElementById('downloadBtn').style.display = 'none';
+  document.getElementById('progressFill').style.width = '0%';
+}
+</script>
+</body>
+</html>

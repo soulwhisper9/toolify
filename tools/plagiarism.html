@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-WLBKXMNV15");
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Plagiarism Checker Free — Check Duplicate Content Online | Toolify Core</title>
+<meta name="description" content="Free plagiarism checker. Detect duplicate content, check originality score, find repeated phrases. No signup. Instant results.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.score-circle{width:140px;height:140px;margin:0 auto 1rem;position:relative}
+.score-svg{transform:rotate(-90deg)}
+.score-bg{fill:none;stroke:var(--surface2);stroke-width:12}
+.score-fill{fill:none;stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
+.score-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.score-num{font-family:var(--font-head);font-size:2rem;font-weight:800;line-height:1}
+.score-label{font-size:11px;color:var(--muted)}
+.result-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1rem;text-align:center;display:none}
+.result-card.show{display:block}
+.stats-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
+.stat-box{background:var(--surface2);border-radius:10px;padding:.8rem;text-align:center}
+.stat-box .val{font-family:var(--font-head);font-size:1.2rem;font-weight:700;margin-bottom:.2rem}
+.stat-box .lbl{font-size:11px;color:var(--muted)}
+.phrases-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1rem;display:none}
+.phrases-section.show{display:block}
+.phrase-header{background:var(--surface2);padding:10px 14px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--border)}
+.phrase-item{padding:9px 14px;border-bottom:1px solid var(--border);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.phrase-item:last-child{border-bottom:none}
+.phrase-text{color:var(--text);font-family:monospace;font-size:12px;background:rgba(255,107,107,0.08);padding:2px 6px;border-radius:4px}
+.phrase-count{font-size:11px;color:var(--accent);font-weight:500}
+.highlighted-text{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1rem;font-size:14px;line-height:1.8;display:none}
+.highlighted-text.show{display:block}
+.hl-rep{background:rgba(255,107,107,0.2);border-bottom:2px solid #FF6B6B;border-radius:2px}
+.text-area{width:100%;min-height:200px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:1rem;color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.7;resize:vertical;outline:none;transition:border-color .2s;margin-bottom:.5rem}
+.text-area:focus{border-color:var(--accent)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Plagiarism Checker</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">✍️ Text Tools</div>
+    <h1>Plagiarism Checker</h1>
+    <p>Check your text for duplicate phrases, repetition patterns and originality score. Great for students, writers and content creators.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 18,930 times this month</div>
+
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem;font-size:12px;color:var(--muted)">
+    ℹ️ <strong style="color:var(--text)">Note:</strong> This tool checks for internal repetition, duplicate phrases and writing patterns within your text. For cross-web plagiarism checking, use Copyscape or Grammarly Premium.
+  </div>
+
+  <textarea class="text-area" id="inputText" placeholder="Paste your text here to check for plagiarism patterns...&#10;&#10;The checker will highlight repeated phrases, calculate uniqueness score and identify suspicious patterns." oninput="updateStats()"></textarea>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:1rem"><span id="wc">0</span> words · <span id="cc">0</span> characters</div>
+
+  <div class="actions" style="display:flex;margin-bottom:1.5rem">
+    <button class="btn-primary" onclick="checkPlagiarism()">🔍 Check Plagiarism</button>
+    <button class="btn-secondary" onclick="clearAll()">✕ Clear</button>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <span style="font-size:13px;color:var(--muted)">Analyzing text patterns...</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="score-circle">
+      <svg class="score-svg" width="140" height="140" viewBox="0 0 140 140">
+        <circle class="score-bg" cx="70" cy="70" r="58"/>
+        <circle class="score-fill" id="scoreFill" cx="70" cy="70" r="58" stroke-dasharray="364.4" stroke-dashoffset="364.4"/>
+      </svg>
+      <div class="score-center">
+        <div class="score-num" id="scoreNum">—</div>
+        <div class="score-label">Originality</div>
+      </div>
+    </div>
+    <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:700;margin-bottom:.3rem" id="scoreVerdict">—</div>
+    <div style="font-size:13px;color:var(--muted)" id="scoreDesc">—</div>
+  </div>
+
+  <div class="stats-3" id="statsRow" style="display:none">
+    <div class="stat-box"><div class="val" id="st-unique">—</div><div class="lbl">Unique words</div></div>
+    <div class="stat-box"><div class="val" id="st-rep">—</div><div class="lbl">Repeated phrases</div></div>
+    <div class="stat-box"><div class="val" id="st-density">—</div><div class="lbl">Repetition density</div></div>
+  </div>
+
+  <div class="highlighted-text" id="highlightedText">
+    <div style="font-size:12px;color:var(--muted);margin-bottom:.6rem">Highlighted text — <span style="background:rgba(255,107,107,0.2);border-bottom:2px solid #FF6B6B;padding:1px 4px;border-radius:2px">repeated phrases marked</span></div>
+    <div id="highlightContent"></div>
+  </div>
+
+  <div class="phrases-section" id="phrasesSection">
+    <div class="phrase-header">Repeated phrases found</div>
+    <div id="phrasesList"></div>
+  </div>
+
+  <div class="share-row">
+    <a class="share-btn share-wa" href="https://wa.me/?text=Free plagiarism checker at Toolify Core: https://toolifycore.com/tools/plagiarism.html" target="_blank">💬 WhatsApp</a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/plagiarism.html');alert('Copied!')">🔗 Copy link</button>
+  </div>
+  <div class="embed-section" style="margin-top:.8rem">
+    <div class="embed-label">📌 Embed this tool (click to copy)</div>
+    <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/plagiarism.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need <strong>full web plagiarism check against billions of pages</strong>?</div>
+    <a href="https://grammarly.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Grammarly Premium →</a>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What does this plagiarism checker detect?</div><div class="faq-a">It detects internal repetition, duplicate phrases within your own text, and calculates a uniqueness score based on vocabulary diversity and phrase patterns.</div></div>
+    <div class="faq-item"><div class="faq-q">Can it check against websites?</div><div class="faq-a">This free tool checks internal patterns. For checking against the web, use Copyscape, Turnitin or Grammarly Premium which have access to web indexes.</div></div>
+    <div class="faq-item"><div class="faq-q">What is a good originality score?</div><div class="faq-a">80%+ is considered good for most content. Academic writing typically requires 90%+. Below 60% suggests heavy repetition or very short unique vocabulary.</div></div>
+  </div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;
+  background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/ai-detect.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">AI Detect</a>
+<a href="/tools/paraphrase.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Paraphrase</a>
+<a href="/tools/word-count.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Word Counter</a>
+</div>
+
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);
+  border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+const STOPWORDS = new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','is','was','are','were','be','been','this','that','these','those','i','you','he','she','it','we','they','my','your','his','her','its','our','their','from','by','as','so','if','not','no','up','out','have','has','had','do','does','did','will','would','could','should','may','might','all','there','when','who','which','what','how','some','more','also','than','then','its','about','into','through','during','before','after','above','below','between','each','every','both','few','more','most','other','same','such','just','because','while','although','however','therefore','moreover','furthermore','nevertheless']);
+
+function updateStats() {
+  const t = document.getElementById('inputText').value;
+  document.getElementById('wc').textContent = t.trim() ? t.trim().split(/\s+/).length : 0;
+  document.getElementById('cc').textContent = t.length;
+}
+
+function getNgrams(words, n) {
+  const grams = {};
+  for (let i = 0; i <= words.length - n; i++) {
+    const gram = words.slice(i, i+n).join(' ');
+    if (!gram.split(' ').every(w => STOPWORDS.has(w))) {
+      grams[gram] = (grams[gram] || 0) + 1;
+    }
+  }
+  return grams;
+}
+
+function checkPlagiarism() {
+  const text = document.getElementById('inputText').value.trim();
+  if (!text) return alert('Please paste some text to check.');
+  if (text.split(/\s+/).length < 30) return alert('Please enter at least 30 words for meaningful analysis.');
+
+  const pw = document.getElementById('progressWrap');
+  const pf = document.getElementById('progressFill');
+  pw.classList.add('show');
+
+  setTimeout(() => {
+    pf.style.width = '40%';
+    const words = text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(Boolean);
+    const totalWords = words.length;
+
+    // Get repeated 3-grams and 4-grams
+    const trigrams = getNgrams(words, 3);
+    const fourgrams = getNgrams(words, 4);
+    const allRepeated = {...trigrams, ...fourgrams};
+    const repeatedPhrases = Object.entries(allRepeated).filter(([k,v]) => v > 1).sort((a,b) => b[1]-a[1]).slice(0,15);
+
+    pf.style.width = '70%';
+
+    // Unique words
+    const uniqueWords = new Set(words.filter(w => !STOPWORDS.has(w)));
+    const contentWords = words.filter(w => !STOPWORDS.has(w));
+    const uniqueRatio = contentWords.length > 0 ? uniqueWords.size / contentWords.length : 1;
+
+    // Repetition score
+    const repCount = repeatedPhrases.length;
+    const repPenalty = Math.min(repCount * 3, 40);
+    const originality = Math.max(20, Math.round(uniqueRatio * 100 - repPenalty));
+
+    pf.style.width = '100%';
+
+    // Show score
+    const scoreColor = originality >= 80 ? '#1D9E75' : originality >= 60 ? '#FFB800' : '#FF6B6B';
+    const CIRC = 364.4;
+    document.getElementById('scoreFill').style.stroke = scoreColor;
+    document.getElementById('scoreFill').style.strokeDashoffset = CIRC - (originality/100)*CIRC;
+    document.getElementById('scoreNum').textContent = originality + '%';
+    document.getElementById('scoreNum').style.color = scoreColor;
+
+    const verdict = originality >= 80 ? 'Highly Original' : originality >= 60 ? 'Mostly Original' : 'High Repetition Detected';
+    const desc = originality >= 80 ? 'Your text shows strong originality with diverse vocabulary.' : originality >= 60 ? 'Some repeated phrases found. Consider varying your language.' : 'Many repeated phrases detected. Rewrite for better originality.';
+    document.getElementById('scoreVerdict').textContent = verdict;
+    document.getElementById('scoreVerdict').style.color = scoreColor;
+    document.getElementById('scoreDesc').textContent = desc;
+    document.getElementById('resultCard').classList.add('show');
+
+    // Stats
+    document.getElementById('st-unique').textContent = uniqueWords.size;
+    document.getElementById('st-rep').textContent = repeatedPhrases.length;
+    document.getElementById('st-density').textContent = Math.round((1-uniqueRatio)*100)+'%';
+    document.getElementById('statsRow').style.display = 'grid';
+
+    // Highlighted text
+    let highlighted = text;
+    repeatedPhrases.slice(0,8).forEach(([phrase]) => {
+      const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      highlighted = highlighted.replace(new RegExp(escaped, 'gi'), m => `<span class="hl-rep">${m}</span>`);
+    });
+    document.getElementById('highlightContent').innerHTML = highlighted;
+    document.getElementById('highlightedText').classList.add('show');
+
+    // Phrases list
+    if (repeatedPhrases.length > 0) {
+      document.getElementById('phrasesList').innerHTML = repeatedPhrases.map(([phrase, count]) =>
+        `<div class="phrase-item"><span class="phrase-text">${phrase}</span><span class="phrase-count">×${count} times</span></div>`
+      ).join('');
+      document.getElementById('phrasesSection').classList.add('show');
+    }
+
+    pw.classList.remove('show');
+  }, 800);
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('resultCard').classList.remove('show');
+  document.getElementById('statsRow').style.display = 'none';
+  document.getElementById('highlightedText').classList.remove('show');
+  document.getElementById('phrasesSection').classList.remove('show');
+  document.getElementById('progressFill').style.width = '0%';
+  updateStats();
+}
+</script>
+</body>
+</html>

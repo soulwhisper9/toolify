@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-WLBKXMNV15");
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>WebP Converter Free — Convert to WebP & From WebP | Toolify Core</title>
+<meta name="description" content="Convert images to WebP format or convert WebP to JPG/PNG free online. No upload. Runs in browser. Instant download.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="icon" href="/favicon.ico">
+<style>
+.dir-toggle{display:flex;gap:8px;margin-bottom:1.2rem}
+.dir-btn{flex:1;padding:10px;border:1px solid var(--border2);border-radius:10px;background:var(--surface);color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--font-body);transition:all .15s;text-align:center}
+.dir-btn.active{border-color:var(--accent);background:var(--accent-light);color:#B8AAFF;font-weight:500}
+.result-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.result-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.result-box img{width:100%;height:160px;object-fit:contain;background:#0D0D14;padding:.5rem}
+.result-info{padding:.7rem 1rem;font-size:12px}
+.result-label{font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:.2rem}
+.savings-pill{display:inline-block;background:rgba(29,158,117,0.15);color:#1D9E75;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:500;margin-top:.3rem}
+@media(max-width:600px){.result-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">WebP Converter</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🖼 Image Tools</div>
+    <h1>WebP Converter</h1>
+    <p>Convert JPG/PNG to WebP for faster websites, or convert WebP back to JPG/PNG. All in your browser — no upload.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 5,610 times this month</div>
+
+  <div class="dir-toggle">
+    <button class="dir-btn active" onclick="setDir('toWebp',this)">JPG/PNG → WebP</button>
+    <button class="dir-btn" onclick="setDir('fromWebp',this)">WebP → JPG/PNG</button>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept="image/*" multiple>
+    <div class="drop-icon">⚡</div>
+    <h3 id="dropTitle">Drop JPG or PNG files here</h3>
+    <p id="dropSub">Converts to WebP — smaller files, same quality</p>
+    <span class="drop-cta">Choose Images</span>
+  </div>
+
+  <div id="mainPanel" style="display:none">
+    <div style="display:flex;align-items:center;gap:1rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem">
+      <label style="font-size:13px;color:var(--muted)">Quality</label>
+      <input type="range" id="quality" min="10" max="100" value="85" style="flex:1;accent-color:var(--accent)" oninput="document.getElementById('qualVal').textContent=this.value+'%'">
+      <span id="qualVal" style="font-size:13px;font-weight:500;min-width:36px">85%</span>
+      <select id="outputFmt" style="background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font-body);font-size:13px;outline:none;display:none">
+        <option value="jpeg">JPG</option>
+        <option value="png">PNG</option>
+      </select>
+    </div>
+
+    <div class="result-row" id="resultRow"></div>
+
+    <div class="actions" style="display:flex">
+      <button class="btn-primary" onclick="convertAll()">⚡ Convert</button>
+      <button class="btn-secondary" onclick="resetAll()">Reset</button>
+    </div>
+
+    <div id="downloadSection" style="display:none;margin-top:.8rem;display:flex;flex-direction:column;gap:6px"></div>
+
+    <div class="share-row" style="margin-top:1rem">
+      <a class="share-btn share-wa" href="https://wa.me/?text=Free WebP converter at Toolify Core: https://toolifycore.com/tools/webp-convert.html" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn" onclick="navigator.clipboard.writeText('https://toolifycore.com/tools/webp-convert.html');alert('Copied!')">🔗 Copy link</button>
+    </div>
+    <div class="embed-section" style="margin-top:.8rem">
+      <div class="embed-label">📌 Embed this tool (click to copy)</div>
+      <div class="embed-code" onclick="navigator.clipboard.writeText(this.textContent);alert('Copied!')">&lt;iframe src="https://toolifycore.com/tools/webp-convert.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+    <div class="bookmark-tip" style="margin-top:.8rem">💡 <strong>Ctrl+D</strong> to bookmark</div>
+    <div class="affiliate-banner">
+      <div class="aff-text">Need <strong>advanced image optimization for your website</strong>?</div>
+      <a href="https://shortpixel.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try ShortPixel →</a>
+    </div>
+  </div>
+
+  <div class="faq" style="margin-top:2rem">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is WebP and why use it?</div><div class="faq-a">WebP is Google's modern image format. It produces files 25–35% smaller than JPG with the same visual quality. Google recommends WebP for faster website loading and better Core Web Vitals scores.</div></div>
+    <div class="faq-item"><div class="faq-q">Do all browsers support WebP?</div><div class="faq-a">Yes — all modern browsers including Chrome, Firefox, Safari, and Edge fully support WebP. It is now the standard format for web images.</div></div>
+    <div class="faq-item"><div class="faq-q">Why convert WebP back to JPG/PNG?</div><div class="faq-a">Some older software, apps, and services do not accept WebP. Converting back to JPG or PNG ensures maximum compatibility.</div></div>
+  </div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;
+  background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/png-to-jpg.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">PNG to JPG</a>
+<a href="/tools/img-compress.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Compress Image</a>
+<a href="/tools/remove-bg.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Remove BG</a>
+</div>
+
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);
+  border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+let files=[], direction='toWebp';
+const fmtSize=b=>b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';
+
+function setDir(dir,btn){
+  direction=dir;
+  document.querySelectorAll('.dir-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const toWebp=dir==='toWebp';
+  document.getElementById('dropTitle').textContent=toWebp?'Drop JPG or PNG files here':'Drop WebP files here';
+  document.getElementById('dropSub').textContent=toWebp?'Converts to WebP — smaller files, same quality':'Converts WebP back to JPG or PNG';
+  document.getElementById('fileInput').accept=toWebp?'image/jpeg,image/png,image/gif':'image/webp';
+  document.getElementById('outputFmt').style.display=toWebp?'none':'block';
+  resetAll();
+}
+
+document.getElementById('dropZone').addEventListener('dragover',e=>{e.preventDefault();document.getElementById('dropZone').classList.add('drag-over')});
+document.getElementById('dropZone').addEventListener('dragleave',()=>document.getElementById('dropZone').classList.remove('drag-over'));
+document.getElementById('dropZone').addEventListener('drop',e=>{e.preventDefault();document.getElementById('dropZone').classList.remove('drag-over');loadFiles(e.dataTransfer.files)});
+document.getElementById('fileInput').addEventListener('change',()=>loadFiles(document.getElementById('fileInput').files));
+
+function loadFiles(newFiles){
+  files=[...newFiles];
+  const rr=document.getElementById('resultRow');
+  rr.innerHTML=files.map((f,i)=>`
+    <div class="result-box">
+      <img src="${URL.createObjectURL(f)}" alt="${f.name}">
+      <div class="result-info">
+        <div class="result-label">Original</div>
+        <div style="font-size:12px;color:var(--text)">${f.name}</div>
+        <div style="font-size:11px;color:var(--muted)">${fmtSize(f.size)}</div>
+      </div>
+    </div>
+    <div class="result-box" id="outBox${i}">
+      <div style="height:160px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px">Click Convert →</div>
+      <div class="result-info"><div class="result-label">Output</div><div id="outInfo${i}" style="font-size:12px;color:var(--muted)">—</div></div>
+    </div>`).join('');
+  document.getElementById('mainPanel').style.display='block';
+}
+
+async function convertAll(){
+  const q=parseInt(document.getElementById('quality').value)/100;
+  const mime=direction==='toWebp'?'image/webp':'image/'+(document.getElementById('outputFmt').value||'jpeg');
+  const ext=direction==='toWebp'?'.webp':mime==='image/png'?'.png':'.jpg';
+  const dlSection=document.getElementById('downloadSection');
+  dlSection.innerHTML='';dlSection.style.display='flex';
+
+  for(let i=0;i<files.length;i++){
+    const blob=await convert(files[i],mime,q);
+    const url=URL.createObjectURL(blob);
+    const name=files[i].name.replace(/\.[^.]+$/,ext);
+    const saved=Math.max(0,Math.round((1-blob.size/files[i].size)*100));
+    document.getElementById('outBox'+i).querySelector('div').innerHTML=`<img src="${url}" style="width:100%;height:160px;object-fit:contain;background:#0D0D14;padding:.5rem" alt="converted">`;
+    document.getElementById('outInfo'+i).innerHTML=`${name}<br>${fmtSize(blob.size)}<span class="savings-pill">${saved>0?saved+'% smaller':'Converted'}</span>`;
+    dlSection.innerHTML+=`<a href="${url}" download="${name}" style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.6rem 1rem;text-decoration:none;color:var(--text);font-size:13px"><span>📄 ${name}</span><span style="color:var(--accent);font-size:12px">${fmtSize(blob.size)} ⬇</span></a>`;
+  }
+}
+
+function convert(file,mime,quality){
+  return new Promise(resolve=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        const c=document.createElement('canvas');c.width=img.width;c.height=img.height;
+        const ctx=c.getContext('2d');
+        if(mime!=='image/webp'){ctx.fillStyle='#FFFFFF';ctx.fillRect(0,0,c.width,c.height);}
+        ctx.drawImage(img,0,0);
+        c.toBlob(resolve,mime,quality);
+      };img.src=e.target.result;
+    };reader.readAsDataURL(file);
+  });
+}
+
+function resetAll(){files=[];document.getElementById('fileInput').value='';document.getElementById('mainPanel').style.display='none';document.getElementById('downloadSection').style.display='none';}
+</script>
+</body>
+</html>
