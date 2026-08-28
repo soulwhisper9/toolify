@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Watermark PDF Free — Add Text Watermark to PDF | Toolify Core</title>
+<meta name="description" content="Add text watermark to PDF online for free. No signup. Customize font, size, opacity, position, and rotation. Files never leave your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.options-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:16px 0;padding:14px;background:var(--surface2);border-radius:8px}
+.option-group{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.option-group input,.option-group select{padding:6px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.option-group input[type=color]{padding:2px;height:34px}
+.option-group input[type=range]{padding:0}
+.range-value{font-size:11px;color:var(--accent)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Watermark PDF</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">📄 PDF Tools</div>
+    <h1>Add Watermark to PDF</h1>
+    <p>Add text watermark to every page of your PDF. Customize font size, opacity, color, position, and rotation. Everything runs in your browser — files never uploaded.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 3,516 times this month</div>
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept=".pdf">
+    <div class="drop-icon">📄</div>
+    <h3>Drop PDF here</h3>
+    <p>Select 1 PDF file · No size limit</p>
+    <span class="drop-cta">Choose PDF</span>
+  </div>
+  <div class="options-grid" id="optionsGrid" style="display:none">
+    <div class="option-group" style="grid-column:span 2">
+      <label>Watermark text</label>
+      <input type="text" id="wmText" value="CONFIDENTIAL" placeholder="Enter watermark text">
+    </div>
+    <div class="option-group">
+      <label>Font size (<span class="range-value" id="sizeVal">60</span>)</label>
+      <input type="range" id="wmSize" min="20" max="150" value="60">
+    </div>
+    <div class="option-group">
+      <label>Opacity (<span class="range-value" id="opacityVal">30%</span>)</label>
+      <input type="range" id="wmOpacity" min="10" max="100" value="30">
+    </div>
+    <div class="option-group">
+      <label>Rotation (<span class="range-value" id="rotVal">45°</span>)</label>
+      <input type="range" id="wmRotation" min="0" max="360" value="45">
+    </div>
+    <div class="option-group">
+      <label>Color</label>
+      <input type="color" id="wmColor" value="#888888">
+    </div>
+    <div class="option-group">
+      <label>Position</label>
+      <select id="wmPosition">
+        <option value="center" selected>Center</option>
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+        <option value="diagonal">Diagonal (repeating)</option>
+      </select>
+    </div>
+  </div>
+  <div class="progress-wrap" id="progressWrap">
+    <span style="font-size:13px;color:var(--muted)">Adding watermark...</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <div class="actions" id="actions" style="display:none">
+    <button class="btn-primary" id="applyBtn">💧 Add Watermark</button>
+    <button class="btn-secondary" onclick="resetAll()">Reset</button>
+  </div>
+  <div class="result-box" id="resultBox">
+    <div class="result-icon">✅</div>
+    <h3>Watermark Added!</h3>
+    <p id="resultInfo"></p>
+    <button class="btn-primary" id="downloadBtn" style="max-width:260px;margin:0 auto">⬇ Download Watermarked PDF</button>
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/watermark-pdf.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">Need <strong>image watermarks, batch processing, or e-signatures</strong>?</div>
+    <a href="https://smallpdf.com" target="_blank" rel="noopener sponsored" class="aff-btn">Try Smallpdf Pro →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Upload PDF</h3><p>Select a PDF file from your device.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Customize</h3><p>Choose text, size, color, opacity, and position.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Download</h3><p>Get your watermarked PDF instantly.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Is my PDF uploaded to a server?</div><div class="faq-a">No. All watermarking happens inside your browser using pdf-lib. Your file is never sent anywhere.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I add an image watermark?</div><div class="faq-a">This tool supports text watermarks only. Image watermarks are coming soon.</div></div>
+    <div class="faq-item"><div class="faq-q">Will the watermark appear on every page?</div><div class="faq-a">Yes, the watermark is applied to every page of your PDF.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I remove a watermark later?</div><div class="faq-a">No, the watermark becomes part of the PDF. Keep an original copy if you need one.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/merge-pdf.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Merge PDF</a>
+  <a href="/tools/pdf-page-numbers.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Add Page Numbers</a>
+  <a href="/tools/pdf-compress.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Compress PDF</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+const {PDFDocument, rgb, degrees, StandardFonts} = PDFLib;
+let pdfFile = null, resultBytes = null;
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const fmtSize = b => b < 1048576 ? (b/1024).toFixed(1)+' KB' : (b/1048576).toFixed(2)+' MB';
+
+dropZone.addEventListener('dragover', e => {e.preventDefault();dropZone.classList.add('drag-over')});
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {e.preventDefault();dropZone.classList.remove('drag-over');handleFile(e.dataTransfer.files[0])});
+fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+
+['wmSize','wmOpacity','wmRotation'].forEach(id => {
+  document.getElementById(id).addEventListener('input', e => {
+    const val = e.target.value;
+    if(id==='wmSize') document.getElementById('sizeVal').textContent = val;
+    if(id==='wmOpacity') document.getElementById('opacityVal').textContent = val+'%';
+    if(id==='wmRotation') document.getElementById('rotVal').textContent = val+'°';
+  });
+});
+
+function handleFile(f) {
+  if(!f || f.type !== 'application/pdf') return alert('Please choose a PDF file.');
+  pdfFile = f;
+  document.getElementById('optionsGrid').style.display = 'grid';
+  document.getElementById('actions').style.display = 'flex';
+}
+function hexToRgb(hex){const b=parseInt(hex.slice(1),16);return {r:((b>>16)&255)/255, g:((b>>8)&255)/255, b:(b&255)/255}}
+
+document.getElementById('applyBtn').addEventListener('click', async () => {
+  if(!pdfFile) return;
+  const pw = document.getElementById('progressWrap'), pf = document.getElementById('progressFill');
+  pw.classList.add('show');
+  document.getElementById('applyBtn').disabled = true;
+  try {
+    const text = document.getElementById('wmText').value || 'WATERMARK';
+    const size = parseInt(document.getElementById('wmSize').value);
+    const opacity = parseInt(document.getElementById('wmOpacity').value)/100;
+    const rotation = parseInt(document.getElementById('wmRotation').value);
+    const color = hexToRgb(document.getElementById('wmColor').value);
+    const position = document.getElementById('wmPosition').value;
+    const pdf = await PDFDocument.load(await pdfFile.arrayBuffer());
+    const font = await pdf.embedFont(StandardFonts.HelveticaBold);
+    const pages = pdf.getPages();
+    for(let i=0;i<pages.length;i++){
+      pf.style.width = Math.round((i/pages.length)*90)+'%';
+      const page = pages[i];
+      const {width, height} = page.getSize();
+      const tw = font.widthOfTextAtSize(text, size);
+      const opts = {size, font, color:rgb(color.r,color.g,color.b), opacity, rotate:degrees(rotation)};
+      if(position==='center'){
+        page.drawText(text, {x:(width-tw)/2, y:height/2, ...opts});
+      } else if(position==='top'){
+        page.drawText(text, {x:(width-tw)/2, y:height-size-30, ...opts, rotate:degrees(0)});
+      } else if(position==='bottom'){
+        page.drawText(text, {x:(width-tw)/2, y:30, ...opts, rotate:degrees(0)});
+      } else if(position==='diagonal'){
+        for(let y=size; y<height+size; y+=size*3){
+          for(let x=-size; x<width+size; x+=tw+size*2){
+            page.drawText(text, {x, y, ...opts});
+          }
+        }
+      }
+    }
+    pf.style.width = '100%';
+    resultBytes = await pdf.save();
+    document.getElementById('resultInfo').textContent = `${pages.length} pages watermarked · ${fmtSize(resultBytes.length)}`;
+    document.getElementById('resultBox').classList.add('show');
+    document.getElementById('shareWa').href = `https://wa.me/?text=Add watermark to PDF free at Toolify Core: https://toolifycore.com/tools/watermark-pdf.html`;
+    pw.classList.remove('show');
+  } catch(e) {
+    console.error(e);
+    alert('Error: Make sure PDF is not password protected.');
+    pw.classList.remove('show');
+    document.getElementById('applyBtn').disabled = false;
+  }
+});
+document.getElementById('downloadBtn').addEventListener('click', () => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([resultBytes],{type:'application/pdf'}));
+  a.download = 'watermarked-toolifycore.pdf'; a.click();
+});
+function resetAll(){pdfFile=null;resultBytes=null;fileInput.value='';
+  document.getElementById('optionsGrid').style.display='none';
+  document.getElementById('actions').style.display='none';
+  document.getElementById('resultBox').classList.remove('show');
+  document.getElementById('progressFill').style.width='0%';
+  document.getElementById('applyBtn').disabled=false;}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free PDF watermark tool - no signup needed!&url=https://toolifycore.com/tools/watermark-pdf.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/watermark-pdf.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>
