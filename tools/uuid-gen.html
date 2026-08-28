@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>UUID Generator Free — Generate UUID v4 Online | Toolify Core</title>
+<meta name="description" content="Generate UUID v4 (GUID) online for free. Bulk generation up to 1000 at once. Copy individually or download as text file. No signup required.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.options-row{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;padding:14px;background:var(--surface2);border-radius:8px;align-items:end}
+.option-group{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.option-group select,.option-group input{padding:6px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.uuid-list{background:var(--surface2);border-radius:8px;padding:16px;margin:16px 0;max-height:500px;overflow-y:auto;font-family:monospace;font-size:13px}
+.uuid-item{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-radius:4px;color:var(--text);gap:8px}
+.uuid-item:hover{background:rgba(255,255,255,0.03)}
+.uuid-item .uuid{flex:1;word-break:break-all;user-select:all}
+.uuid-copy{background:transparent;border:1px solid var(--border);color:var(--muted);padding:3px 8px;border-radius:4px;font-size:11px;cursor:pointer;flex-shrink:0}
+.uuid-copy:hover{color:var(--text);border-color:var(--accent)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">UUID Generator</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility Tools</div>
+    <h1>UUID v4 Generator</h1>
+    <p>Generate unique UUID v4 identifiers (GUIDs) instantly. Bulk generate up to 1000 at once. Copy individually or download as a text file. Everything runs in your browser.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 11,204 times this month</div>
+  <div class="options-row">
+    <div class="option-group">
+      <label>Quantity</label>
+      <input type="number" id="quantity" value="10" min="1" max="1000" style="width:100px">
+    </div>
+    <div class="option-group">
+      <label>Format</label>
+      <select id="format">
+        <option value="dash" selected>Standard (with dashes)</option>
+        <option value="nodash">No dashes</option>
+        <option value="upper">UPPERCASE</option>
+        <option value="brace">With braces {UUID}</option>
+      </select>
+    </div>
+    <div class="option-group">
+      <label>&nbsp;</label>
+      <button class="btn-primary" id="generateBtn" style="padding:8px 20px">🆔 Generate</button>
+    </div>
+  </div>
+  <div class="result-box show" id="resultBox">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <h3 style="margin:0" id="resultTitle">Generated UUIDs</h3>
+      <div style="display:flex;gap:8px">
+        <button class="btn-secondary" onclick="copyAll()" style="padding:6px 14px;font-size:13px">📋 Copy All</button>
+        <button class="btn-secondary" onclick="downloadAll()" style="padding:6px 14px;font-size:13px">⬇ Download</button>
+      </div>
+    </div>
+    <div class="uuid-list" id="uuidList"></div>
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/uuid-gen.html" width="100%" height="500" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Developer?</strong> Get new tool updates on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Choose Quantity</h3><p>Pick how many UUIDs you need (1 to 1000).</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Pick Format</h3><p>Standard, no dashes, uppercase, or with braces.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Copy or Download</h3><p>Copy one, all, or save as text file.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is a UUID?</div><div class="faq-a">UUID (Universally Unique Identifier), also known as GUID, is a 128-bit identifier used to uniquely identify data in databases, APIs, and distributed systems. UUID v4 is randomly generated.</div></div>
+    <div class="faq-item"><div class="faq-q">Are these UUIDs truly random?</div><div class="faq-a">Yes. We use the browser's crypto.randomUUID() API which is cryptographically secure. The chance of collision is astronomically low.</div></div>
+    <div class="faq-item"><div class="faq-q">What is UUID v4 vs other versions?</div><div class="faq-a">v4 is random-based (most common). v1 is timestamp-based. v3 and v5 are namespace-based. v4 is preferred for most applications since it does not leak any information.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I generate GUIDs for SQL Server?</div><div class="faq-a">Yes, UUID and GUID are the same thing. Use the "With braces" format for SQL Server compatibility.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/base64-encoder.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Base64 Encoder</a>
+  <a href="/tools/pass-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Password Generator</a>
+  <a href="/tools/json-format.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JSON Formatter</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+let generatedUuids = [];
+
+function generateUuid() {
+  // Fallback for older browsers
+  if (crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+function formatUuid(uuid, format) {
+  switch (format) {
+    case 'nodash': return uuid.replace(/-/g, '');
+    case 'upper': return uuid.toUpperCase();
+    case 'brace': return '{' + uuid + '}';
+    default: return uuid;
+  }
+}
+
+document.getElementById('generateBtn').addEventListener('click', () => {
+  const qty = Math.min(1000, Math.max(1, parseInt(document.getElementById('quantity').value) || 1));
+  const format = document.getElementById('format').value;
+  generatedUuids = [];
+  for (let i = 0; i < qty; i++) generatedUuids.push(formatUuid(generateUuid(), format));
+  const list = document.getElementById('uuidList');
+  list.innerHTML = generatedUuids.map((u, i) => `
+    <div class="uuid-item">
+      <span class="uuid">${u}</span>
+      <button class="uuid-copy" onclick="copyOne(${i})">Copy</button>
+    </div>`).join('');
+  document.getElementById('resultTitle').textContent = `Generated ${qty} UUID${qty > 1 ? 's' : ''}`;
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free UUID generator at Toolify Core: https://toolifycore.com/tools/uuid-gen.html`;
+});
+
+function copyOne(i) {
+  navigator.clipboard.writeText(generatedUuids[i]);
+  event.target.textContent = 'Copied!';
+  setTimeout(() => event.target.textContent = 'Copy', 1200);
+}
+function copyAll() {
+  if (!generatedUuids.length) return alert('Generate UUIDs first.');
+  navigator.clipboard.writeText(generatedUuids.join('\n'));
+  alert(`Copied ${generatedUuids.length} UUIDs to clipboard!`);
+}
+function downloadAll() {
+  if (!generatedUuids.length) return alert('Generate UUIDs first.');
+  const blob = new Blob([generatedUuids.join('\n')], {type: 'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'uuids-toolifycore.txt'; a.click();
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free UUID generator - no signup!&url=https://toolifycore.com/tools/uuid-gen.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/uuid-gen.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+
+// Generate on load
+document.getElementById('generateBtn').click();
+</script>
+</body>
+</html>

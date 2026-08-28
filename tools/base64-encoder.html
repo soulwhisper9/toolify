@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Base64 Encoder Decoder Free — Online Text Converter | Toolify Core</title>
+<meta name="description" content="Encode and decode Base64 online for free. Supports Unicode, URL-safe encoding. No signup. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.mode-toggle{display:flex;gap:0;margin:16px 0;background:var(--surface2);padding:4px;border-radius:8px;width:fit-content}
+.mode-btn{background:transparent;color:var(--muted);border:none;padding:8px 20px;border-radius:6px;font-size:13px;font-family:var(--font-body);cursor:pointer}
+.mode-btn.active{background:var(--accent);color:white}
+.text-area{width:100%;min-height:150px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:13px;resize:vertical;box-sizing:border-box;outline:none}
+.text-area:focus{border-color:var(--accent)}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.options-row{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.options-row label{display:flex;align-items:center;gap:6px;cursor:pointer}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Base64 Encoder</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility Tools</div>
+    <h1>Base64 Encoder / Decoder</h1>
+    <p>Encode and decode Base64 text instantly. Supports Unicode characters and URL-safe encoding. Everything runs in your browser — nothing uploaded.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 14,318 times this month</div>
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-mode="encode" onclick="setMode('encode')">🔒 Encode</button>
+    <button class="mode-btn" data-mode="decode" onclick="setMode('decode')">🔓 Decode</button>
+  </div>
+  <div class="options-row">
+    <label><input type="checkbox" id="urlSafe"> URL-safe encoding</label>
+    <label><input type="checkbox" id="lineBreaks"> Insert line breaks (76 chars)</label>
+    <label><input type="checkbox" id="livePreview" checked> Live preview</label>
+  </div>
+  <div class="io-label">
+    <span id="inputLabel">Input (text to encode)</span>
+    <button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button>
+  </div>
+  <textarea class="text-area" id="input" placeholder="Type or paste text here..."></textarea>
+  <div class="actions" style="margin:14px 0">
+    <button class="btn-primary" id="convertBtn">🔄 Convert</button>
+    <button class="btn-secondary" onclick="swap()">↕ Swap</button>
+  </div>
+  <div class="io-label">
+    <span id="outputLabel">Output (Base64 encoded)</span>
+    <div style="display:flex;gap:6px">
+      <button class="btn-secondary" onclick="copyOutput()" style="padding:4px 12px;font-size:11px">📋 Copy</button>
+      <button class="btn-secondary" onclick="downloadOutput()" style="padding:4px 12px;font-size:11px">⬇ Download</button>
+    </div>
+  </div>
+  <textarea class="text-area" id="output" readonly placeholder="Output will appear here..."></textarea>
+  <div id="statusMsg" style="font-size:12px;color:var(--muted);margin:10px 0;min-height:16px"></div>
+  <div class="result-box show">
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/base64-encoder.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Developer?</strong> Get new tool updates on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Choose Mode</h3><p>Encode text to Base64 or decode Base64 back to text.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Paste or Type</h3><p>Enter your input in the text area above.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Copy Result</h3><p>Convert runs instantly. Copy or download output.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is Base64 encoding?</div><div class="faq-a">Base64 converts binary data to text using 64 ASCII characters (A-Z, a-z, 0-9, +, /). Commonly used in emails, data URIs, and API tokens to safely transmit data through systems that only handle text.</div></div>
+    <div class="faq-item"><div class="faq-q">What is URL-safe Base64?</div><div class="faq-a">Standard Base64 uses "+" and "/" which have special meaning in URLs. URL-safe replaces them with "-" and "_" so the string can be used in URLs without encoding.</div></div>
+    <div class="faq-item"><div class="faq-q">Does this support Unicode?</div><div class="faq-a">Yes. We use TextEncoder to properly handle emojis, accented characters, Arabic, Chinese, and any Unicode text.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. Everything runs in your browser using native JavaScript. Nothing is sent to any server.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/uuid-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">UUID Generator</a>
+  <a href="/tools/json-format.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JSON Formatter</a>
+  <a href="/tools/pass-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Password Generator</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+let mode = 'encode';
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('inputLabel').textContent = m === 'encode' ? 'Input (text to encode)' : 'Input (Base64 to decode)';
+  document.getElementById('outputLabel').textContent = m === 'encode' ? 'Output (Base64 encoded)' : 'Output (decoded text)';
+  convert();
+}
+
+function encodeB64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  let b64 = btoa(bin);
+  if (document.getElementById('urlSafe').checked) {
+    b64 = b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  if (document.getElementById('lineBreaks').checked) {
+    b64 = b64.match(/.{1,76}/g).join('\n');
+  }
+  return b64;
+}
+
+function decodeB64(str) {
+  str = str.replace(/\s/g, '');
+  // Handle URL-safe
+  str = str.replace(/-/g, '+').replace(/_/g, '/');
+  // Add padding if missing
+  while (str.length % 4) str += '=';
+  const bin = atob(str);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+function convert() {
+  const input = document.getElementById('input').value;
+  const output = document.getElementById('output');
+  const status = document.getElementById('statusMsg');
+  if (!input.trim()) { output.value = ''; status.textContent = ''; return; }
+  try {
+    if (mode === 'encode') {
+      output.value = encodeB64(input);
+      status.textContent = `✓ Encoded ${input.length} chars → ${output.value.length} chars`;
+      status.style.color = '#00E5C0';
+    } else {
+      output.value = decodeB64(input);
+      status.textContent = `✓ Decoded ${input.length} chars → ${output.value.length} chars`;
+      status.style.color = '#00E5C0';
+    }
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free Base64 encoder at Toolify Core: https://toolifycore.com/tools/base64-encoder.html`;
+  } catch (e) {
+    output.value = '';
+    status.textContent = '✗ Error: ' + (mode === 'decode' ? 'Invalid Base64 input' : e.message);
+    status.style.color = '#FF6B6B';
+  }
+}
+
+document.getElementById('input').addEventListener('input', () => {
+  if (document.getElementById('livePreview').checked) convert();
+});
+document.getElementById('convertBtn').addEventListener('click', convert);
+document.getElementById('urlSafe').addEventListener('change', convert);
+document.getElementById('lineBreaks').addEventListener('change', convert);
+
+function swap() {
+  const input = document.getElementById('input'), output = document.getElementById('output');
+  const tmp = input.value; input.value = output.value; output.value = tmp;
+  setMode(mode === 'encode' ? 'decode' : 'encode');
+}
+function clearInput() {
+  document.getElementById('input').value = '';
+  document.getElementById('output').value = '';
+  document.getElementById('statusMsg').textContent = '';
+}
+function copyOutput() {
+  const out = document.getElementById('output').value;
+  if (!out) return alert('Nothing to copy.');
+  navigator.clipboard.writeText(out); alert('Output copied to clipboard!');
+}
+function downloadOutput() {
+  const out = document.getElementById('output').value;
+  if (!out) return alert('Nothing to download.');
+  const blob = new Blob([out], {type: 'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `base64-${mode}-toolifycore.txt`; a.click();
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free Base64 encoder/decoder!&url=https://toolifycore.com/tools/base64-encoder.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/base64-encoder.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

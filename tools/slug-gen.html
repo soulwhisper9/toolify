@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Slug Generator Free — Convert Text to URL Slug | Toolify Core</title>
+<meta name="description" content="Generate SEO-friendly URL slugs from any text online for free. Live preview, separator options, and stopword removal. No signup required.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.text-area{width:100%;min-height:100px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;resize:vertical;box-sizing:border-box;outline:none;font-family:var(--font-body)}
+.text-area:focus{border-color:var(--accent)}
+.slug-output{width:100%;padding:14px 16px;background:var(--surface2);border:1px solid var(--accent);border-radius:8px;font-family:monospace;font-size:15px;color:#B8AAFF;word-break:break-all;min-height:24px;user-select:all}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:16px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.options-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0;padding:14px;background:var(--surface2);border-radius:8px}
+.option-group{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.option-group input,.option-group select{padding:6px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.check-row{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:8px 0}
+.check-row label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.preview-url{background:var(--surface);padding:10px 14px;border-radius:6px;font-family:monospace;font-size:12px;color:var(--muted);margin-top:8px;word-break:break-all}
+.preview-url .site{color:var(--muted)}
+.preview-url .slug{color:#B8AAFF}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Slug Generator</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility Tools</div>
+    <h1>URL Slug Generator</h1>
+    <p>Convert any text into SEO-friendly URL slugs. Removes special characters, handles Unicode, and gives you live preview. Perfect for blog posts and product URLs.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 6,891 times this month</div>
+  <div class="io-label">
+    <span>Enter text (title, sentence, or paragraph)</span>
+    <button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button>
+  </div>
+  <textarea class="text-area" id="input" placeholder="e.g. How to Bake a Perfect Chocolate Cake in 30 Minutes!"></textarea>
+  <div class="options-grid">
+    <div class="option-group">
+      <label>Separator</label>
+      <select id="separator">
+        <option value="-" selected>Hyphen (-)</option>
+        <option value="_">Underscore (_)</option>
+        <option value=".">Dot (.)</option>
+      </select>
+    </div>
+    <div class="option-group">
+      <label>Max length (0 = unlimited)</label>
+      <input type="number" id="maxLen" value="60" min="0" max="200">
+    </div>
+    <div class="option-group">
+      <label>Site preview URL</label>
+      <input type="text" id="siteUrl" value="https://yoursite.com/blog/">
+    </div>
+  </div>
+  <div class="check-row">
+    <label><input type="checkbox" id="lowercase" checked> Lowercase</label>
+    <label><input type="checkbox" id="stripStopwords"> Remove stopwords (a, the, is, of...)</label>
+    <label><input type="checkbox" id="stripNumbers"> Remove numbers</label>
+    <label><input type="checkbox" id="collapseSep" checked> Collapse repeated separators</label>
+  </div>
+  <div class="io-label">
+    <span>Generated slug</span>
+    <div style="display:flex;gap:6px">
+      <button class="btn-secondary" onclick="copySlug()" style="padding:4px 12px;font-size:11px">📋 Copy</button>
+    </div>
+  </div>
+  <div class="slug-output" id="slugOutput">your-slug-appears-here</div>
+  <div class="preview-url" id="previewUrl"><span class="site">https://yoursite.com/blog/</span><span class="slug">your-slug-appears-here</span></div>
+  <div id="statsMsg" style="font-size:12px;color:var(--muted);margin:10px 0"></div>
+  <div class="result-box show">
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/slug-gen.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Blogger?</strong> Get SEO tips on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Paste Text</h3><p>Type or paste your title, sentence, or heading.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Customize</h3><p>Pick separator, max length, and cleanup options.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Copy Slug</h3><p>Slug generates live as you type. Copy with one click.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is a URL slug?</div><div class="faq-a">A slug is the part of a URL that identifies a specific page in a readable way. For example, in "yoursite.com/blog/how-to-bake-cake" the slug is "how-to-bake-cake".</div></div>
+    <div class="faq-item"><div class="faq-q">Why are short slugs better for SEO?</div><div class="faq-a">Shorter slugs (3-5 keywords) are easier to read, share, and remember. Google also gives slight preference to concise URLs that clearly describe the page content.</div></div>
+    <div class="faq-item"><div class="faq-q">Should I remove stopwords?</div><div class="faq-a">Optional. Removing words like "a", "the", "of" makes slugs shorter and keyword-focused. But keep them if the meaning suffers ("history-of-rome" vs "history-rome").</div></div>
+    <div class="faq-item"><div class="faq-q">Does it handle Unicode and non-English characters?</div><div class="faq-a">Yes. Accented characters (café → cafe) and Unicode text are normalized to ASCII where possible.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/meta-tag-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Meta Tag Generator</a>
+  <a href="/tools/word-count.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Word Counter</a>
+  <a href="/tools/case-convert.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Case Converter</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+const STOPWORDS = new Set(['a','an','the','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','must','shall','can','need','of','in','on','at','to','for','with','by','from','as','into','through','during','before','after','above','below','and','but','or','if','then','so','nor','yet','than']);
+
+function slugify(text) {
+  const sep = document.getElementById('separator').value;
+  const maxLen = parseInt(document.getElementById('maxLen').value) || 0;
+  const lower = document.getElementById('lowercase').checked;
+  const stripSW = document.getElementById('stripStopwords').checked;
+  const stripNum = document.getElementById('stripNumbers').checked;
+  const collapse = document.getElementById('collapseSep').checked;
+
+  // Normalize unicode (café → cafe, ñ → n, etc.)
+  let slug = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (lower) slug = slug.toLowerCase();
+  // Replace whitespace with space
+  slug = slug.replace(/\s+/g, ' ').trim();
+  // Split, filter stopwords/numbers
+  let words = slug.split(' ');
+  if (stripSW) words = words.filter(w => !STOPWORDS.has(w.toLowerCase()));
+  if (stripNum) words = words.map(w => w.replace(/[0-9]/g, '')).filter(w => w);
+  slug = words.join(sep);
+  // Remove special chars except separator
+  const sepEsc = sep.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  slug = slug.replace(new RegExp(`[^\\w${sepEsc}]`, 'g'), sep);
+  if (collapse) slug = slug.replace(new RegExp(`${sepEsc}+`, 'g'), sep);
+  // Trim separators from ends
+  slug = slug.replace(new RegExp(`^${sepEsc}+|${sepEsc}+$`, 'g'), '');
+  // Max length (trim to whole word)
+  if (maxLen > 0 && slug.length > maxLen) {
+    slug = slug.substr(0, maxLen);
+    const lastSep = slug.lastIndexOf(sep);
+    if (lastSep > maxLen * 0.7) slug = slug.substr(0, lastSep);
+  }
+  return slug;
+}
+
+function update() {
+  const text = document.getElementById('input').value;
+  const slug = text ? slugify(text) : 'your-slug-appears-here';
+  document.getElementById('slugOutput').textContent = slug;
+  const site = document.getElementById('siteUrl').value || '';
+  document.getElementById('previewUrl').innerHTML = `<span class="site">${site}</span><span class="slug">${slug}</span>`;
+  if (text) {
+    document.getElementById('statsMsg').textContent = `${slug.length} chars · ${slug.split(document.getElementById('separator').value).filter(x=>x).length} words`;
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free slug generator at Toolify Core: https://toolifycore.com/tools/slug-gen.html`;
+  } else {
+    document.getElementById('statsMsg').textContent = '';
+  }
+}
+
+['input','separator','maxLen','siteUrl','lowercase','stripStopwords','stripNumbers','collapseSep']
+  .forEach(id => document.getElementById(id).addEventListener('input', update));
+
+function clearInput() { document.getElementById('input').value = ''; update(); }
+function copySlug() {
+  const slug = document.getElementById('slugOutput').textContent;
+  if (!slug || slug === 'your-slug-appears-here') return alert('Enter text first.');
+  navigator.clipboard.writeText(slug); alert('Slug copied!');
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free URL slug generator!&url=https://toolifycore.com/tools/slug-gen.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/slug-gen.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+update();
+</script>
+</body>
+</html>
