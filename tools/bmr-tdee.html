@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BMR TDEE Calculator Free — Daily Calorie Needs | Toolify Core</title>
+<meta name="description" content="Calculate your BMR (Basal Metabolic Rate) and TDEE (Total Daily Energy Expenditure) online for free. Get calorie targets for weight loss, maintenance, or gain.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:var(--font-body)}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.unit-toggle{display:flex;gap:0;background:var(--surface2);padding:3px;border-radius:6px;width:fit-content;margin-bottom:8px}
+.unit-btn{background:transparent;color:var(--muted);border:none;padding:5px 12px;border-radius:4px;font-size:12px;cursor:pointer}
+.unit-btn.active{background:#BA7517;color:white}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:24px;font-weight:700;color:#FAC775}
+.stat-card-sub{font-size:10px;color:var(--muted);margin-top:4px}
+.goal-list{margin:16px 0}
+.goal-row{background:var(--surface2);border-radius:8px;padding:14px 16px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}
+.goal-label{font-size:13px;color:var(--text)}
+.goal-desc{font-size:11px;color:var(--muted);margin-top:2px}
+.goal-val{font-family:var(--font-head);font-size:18px;font-weight:700;color:#FAC775}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">BMR & TDEE</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🧮 Calculators</div>
+    <h1>BMR &amp; TDEE Calculator</h1>
+    <p>Calculate your Basal Metabolic Rate and Total Daily Energy Expenditure. Get personalized calorie targets for weight loss, maintenance, or muscle gain.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 13,822 times this month</div>
+  <div class="unit-toggle">
+    <button class="unit-btn active" data-unit="metric" onclick="setUnit('metric')">Metric (kg / cm)</button>
+    <button class="unit-btn" data-unit="imperial" onclick="setUnit('imperial')">Imperial (lb / in)</button>
+  </div>
+  <div class="calc-grid">
+    <div class="calc-field">
+      <label>Gender</label>
+      <select id="gender">
+        <option value="male" selected>Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label>Age (years)</label>
+      <input type="number" id="age" value="30" min="15" max="100">
+    </div>
+    <div class="calc-field">
+      <label>Weight <span id="weightUnit">(kg)</span></label>
+      <input type="number" id="weight" value="70" min="30" step="0.1">
+    </div>
+    <div class="calc-field">
+      <label>Height <span id="heightUnit">(cm)</span></label>
+      <input type="number" id="height" value="175" min="100" step="0.1">
+    </div>
+    <div class="calc-field" style="grid-column:span 2">
+      <label>Activity level</label>
+      <select id="activity">
+        <option value="1.2">Sedentary (little or no exercise)</option>
+        <option value="1.375">Lightly active (light exercise 1-3 days/week)</option>
+        <option value="1.55" selected>Moderately active (moderate exercise 3-5 days/week)</option>
+        <option value="1.725">Very active (hard exercise 6-7 days/week)</option>
+        <option value="1.9">Extra active (very hard exercise + physical job)</option>
+      </select>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn-primary" id="calcBtn" style="background:#BA7517">🔥 Calculate</button>
+    <button class="btn-secondary" onclick="resetAll()">Reset</button>
+  </div>
+  <div class="result-box" id="resultBox">
+    <div class="result-icon">🔥</div>
+    <h3>Your Daily Calorie Needs</h3>
+    <div class="result-stats">
+      <div class="stat-card">
+        <div class="stat-card-label">BMR</div>
+        <div class="stat-card-value" id="bmrVal">-</div>
+        <div class="stat-card-sub">Calories at rest</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">TDEE</div>
+        <div class="stat-card-value" id="tdeeVal">-</div>
+        <div class="stat-card-sub">Total daily needs</div>
+      </div>
+    </div>
+    <h4 style="font-family:var(--font-head);font-size:14px;margin:16px 0 8px;color:var(--text)">Calorie Goals</h4>
+    <div class="goal-list">
+      <div class="goal-row"><div><div class="goal-label">Aggressive weight loss</div><div class="goal-desc">TDEE - 25% (approx 1 kg / 2 lb per week)</div></div><div class="goal-val" id="lossAgg">-</div></div>
+      <div class="goal-row"><div><div class="goal-label">Moderate weight loss</div><div class="goal-desc">TDEE - 20% (approx 0.7 kg / 1.5 lb per week)</div></div><div class="goal-val" id="lossMod">-</div></div>
+      <div class="goal-row"><div><div class="goal-label">Mild weight loss</div><div class="goal-desc">TDEE - 10% (approx 0.35 kg / 0.75 lb per week)</div></div><div class="goal-val" id="lossMild">-</div></div>
+      <div class="goal-row"><div><div class="goal-label">Maintenance</div><div class="goal-desc">Maintain current weight</div></div><div class="goal-val" id="maintain">-</div></div>
+      <div class="goal-row"><div><div class="goal-label">Mild weight gain</div><div class="goal-desc">TDEE + 10% (lean bulk)</div></div><div class="goal-val" id="gainMild">-</div></div>
+      <div class="goal-row"><div><div class="goal-label">Aggressive weight gain</div><div class="goal-desc">TDEE + 20% (fast muscle gain)</div></div><div class="goal-val" id="gainAgg">-</div></div>
+    </div>
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/bmr-tdee.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Fitness goals?</strong> Get health tips on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Enter Details</h3><p>Age, gender, weight, height, and activity level.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>BMR + TDEE</h3><p>Uses the Mifflin-St Jeor equation (most accurate).</p></div>
+      <div class="step"><div class="step-num">03</div><h3>See Targets</h3><p>Get calorie goals for loss, maintenance, or gain.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is BMR?</div><div class="faq-a">BMR (Basal Metabolic Rate) is the calories your body burns at complete rest just to keep you alive — breathing, circulation, cell production, brain function. It is around 60-70% of your total daily burn.</div></div>
+    <div class="faq-item"><div class="faq-q">What is TDEE?</div><div class="faq-a">TDEE (Total Daily Energy Expenditure) is your BMR multiplied by your activity level. This is roughly how many calories you burn in a full day including movement and exercise.</div></div>
+    <div class="faq-item"><div class="faq-q">Which formula do you use?</div><div class="faq-a">Mifflin-St Jeor equation, considered the most accurate for the general population. For men: BMR = 10×weight(kg) + 6.25×height(cm) - 5×age + 5. For women: subtract 161 instead of adding 5.</div></div>
+    <div class="faq-item"><div class="faq-q">How much should I eat to lose weight safely?</div><div class="faq-a">A moderate deficit of 15-20% below TDEE is sustainable and preserves muscle. Very aggressive cuts (over 25% deficit) work short-term but often cause muscle loss, fatigue, and rebound. Consult a doctor for medical advice.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/bmi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">BMI Calculator</a>
+  <a href="/tools/age-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Age Calculator</a>
+  <a href="/tools/compound-interest.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Compound Interest</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+let unit = 'metric';
+
+function setUnit(u) {
+  const w = parseFloat(document.getElementById('weight').value) || 0;
+  const h = parseFloat(document.getElementById('height').value) || 0;
+  if (u === 'imperial' && unit === 'metric') {
+    document.getElementById('weight').value = (w * 2.20462).toFixed(1);
+    document.getElementById('height').value = (h * 0.393701).toFixed(1);
+    document.getElementById('weightUnit').textContent = '(lb)';
+    document.getElementById('heightUnit').textContent = '(in)';
+  } else if (u === 'metric' && unit === 'imperial') {
+    document.getElementById('weight').value = (w / 2.20462).toFixed(1);
+    document.getElementById('height').value = (h / 0.393701).toFixed(1);
+    document.getElementById('weightUnit').textContent = '(kg)';
+    document.getElementById('heightUnit').textContent = '(cm)';
+  }
+  unit = u;
+  document.querySelectorAll('.unit-btn').forEach(b => b.classList.toggle('active', b.dataset.unit === u));
+}
+
+function calculate() {
+  const gender = document.getElementById('gender').value;
+  const age = parseInt(document.getElementById('age').value);
+  let weight = parseFloat(document.getElementById('weight').value);
+  let height = parseFloat(document.getElementById('height').value);
+  const activity = parseFloat(document.getElementById('activity').value);
+  if (!age || !weight || !height) return alert('Please fill all fields.');
+  // Convert to metric
+  if (unit === 'imperial') { weight /= 2.20462; height /= 0.393701; }
+  // Mifflin-St Jeor
+  let bmr = 10 * weight + 6.25 * height - 5 * age;
+  bmr += gender === 'male' ? 5 : -161;
+  const tdee = bmr * activity;
+  const fmt = n => Math.round(n).toLocaleString() + ' kcal';
+  document.getElementById('bmrVal').textContent = fmt(bmr);
+  document.getElementById('tdeeVal').textContent = fmt(tdee);
+  document.getElementById('lossAgg').textContent = fmt(tdee * 0.75);
+  document.getElementById('lossMod').textContent = fmt(tdee * 0.80);
+  document.getElementById('lossMild').textContent = fmt(tdee * 0.90);
+  document.getElementById('maintain').textContent = fmt(tdee);
+  document.getElementById('gainMild').textContent = fmt(tdee * 1.10);
+  document.getElementById('gainAgg').textContent = fmt(tdee * 1.20);
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free BMR TDEE calculator at Toolify Core: https://toolifycore.com/tools/bmr-tdee.html`;
+}
+
+document.getElementById('calcBtn').addEventListener('click', calculate);
+
+function resetAll() {
+  document.getElementById('age').value = 30;
+  document.getElementById('gender').value = 'male';
+  document.getElementById('activity').value = '1.55';
+  if (unit === 'metric') { document.getElementById('weight').value = 70; document.getElementById('height').value = 175; }
+  else { document.getElementById('weight').value = 154; document.getElementById('height').value = 68.9; }
+  document.getElementById('resultBox').classList.remove('show');
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free BMR TDEE calorie calculator!&url=https://toolifycore.com/tools/bmr-tdee.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/bmr-tdee.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

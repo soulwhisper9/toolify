@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>URL Encoder Decoder Free — Percent Encode Online | Toolify Core</title>
+<meta name="description" content="Encode and decode URLs online for free. Percent encoding for special characters, query strings, and URI components. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.mode-toggle{display:flex;gap:0;margin:16px 0;background:var(--surface2);padding:4px;border-radius:8px;width:fit-content}
+.mode-btn{background:transparent;color:var(--muted);border:none;padding:8px 20px;border-radius:6px;font-size:13px;font-family:var(--font-body);cursor:pointer}
+.mode-btn.active{background:var(--accent);color:white}
+.text-area{width:100%;min-height:130px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:13px;resize:vertical;box-sizing:border-box;outline:none}
+.text-area:focus{border-color:var(--accent)}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.options-row{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.options-row label{display:flex;align-items:center;gap:6px;cursor:pointer}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">URL Encoder</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility Tools</div>
+    <h1>URL Encoder / Decoder</h1>
+    <p>Encode and decode URLs with percent encoding. Handle special characters, query strings, and non-ASCII text. Everything runs in your browser.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 12,447 times this month</div>
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-mode="encode" onclick="setMode('encode')">🔒 Encode</button>
+    <button class="mode-btn" data-mode="decode" onclick="setMode('decode')">🔓 Decode</button>
+  </div>
+  <div class="options-row">
+    <label><input type="radio" name="type" value="component" checked> Component (encode reserved chars like &amp; = ? /)</label>
+    <label><input type="radio" name="type" value="full"> Full URI (keep &amp; = ? / as-is)</label>
+    <label><input type="checkbox" id="livePreview" checked> Live preview</label>
+  </div>
+  <div class="io-label">
+    <span id="inputLabel">Input (URL to encode)</span>
+    <button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button>
+  </div>
+  <textarea class="text-area" id="input" placeholder="Type or paste URL here..."></textarea>
+  <div class="actions" style="margin:14px 0">
+    <button class="btn-primary" id="convertBtn">🔄 Convert</button>
+    <button class="btn-secondary" onclick="swap()">↕ Swap</button>
+  </div>
+  <div class="io-label">
+    <span id="outputLabel">Output (URL encoded)</span>
+    <div style="display:flex;gap:6px">
+      <button class="btn-secondary" onclick="copyOutput()" style="padding:4px 12px;font-size:11px">📋 Copy</button>
+    </div>
+  </div>
+  <textarea class="text-area" id="output" readonly placeholder="Output will appear here..."></textarea>
+  <div id="statusMsg" style="font-size:12px;color:var(--muted);margin:10px 0;min-height:16px"></div>
+  <div class="result-box show">
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/url-encoder.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Developer?</strong> Get new tool updates on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Choose Mode</h3><p>Encode a URL for use in links, or decode a percent-encoded URL.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Pick Type</h3><p>Component encodes everything, Full URI keeps URL structure intact.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Copy Result</h3><p>Live preview updates as you type. Copy with one click.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is URL encoding?</div><div class="faq-a">URL encoding (percent encoding) replaces special characters with a % sign followed by hex codes. For example, a space becomes %20. This lets URLs safely contain characters that would otherwise break them.</div></div>
+    <div class="faq-item"><div class="faq-q">Component vs Full URI - which should I use?</div><div class="faq-a">Use Component when encoding a single value like a query parameter. Use Full URI when encoding a complete URL where you want to keep the structure (://, ?, &amp;, =) intact.</div></div>
+    <div class="faq-item"><div class="faq-q">Which characters need encoding?</div><div class="faq-a">Spaces, quotes, non-ASCII characters, and reserved characters like &amp; = ? / # % all need encoding in URLs. This tool handles all of them automatically.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. All encoding and decoding runs in your browser using native JavaScript. Nothing is sent anywhere.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/base64-encoder.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Base64 Encoder</a>
+  <a href="/tools/uuid-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">UUID Generator</a>
+  <a href="/tools/slug-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Slug Generator</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+let mode = 'encode';
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('inputLabel').textContent = m === 'encode' ? 'Input (URL to encode)' : 'Input (encoded URL to decode)';
+  document.getElementById('outputLabel').textContent = m === 'encode' ? 'Output (URL encoded)' : 'Output (decoded URL)';
+  convert();
+}
+
+function convert() {
+  const input = document.getElementById('input').value;
+  const output = document.getElementById('output');
+  const status = document.getElementById('statusMsg');
+  if (!input.trim()) { output.value = ''; status.textContent = ''; return; }
+  const type = document.querySelector('input[name="type"]:checked').value;
+  try {
+    if (mode === 'encode') {
+      output.value = type === 'component' ? encodeURIComponent(input) : encodeURI(input);
+      status.textContent = `✓ Encoded ${input.length} chars → ${output.value.length} chars`;
+      status.style.color = '#00E5C0';
+    } else {
+      output.value = type === 'component' ? decodeURIComponent(input) : decodeURI(input);
+      status.textContent = `✓ Decoded ${input.length} chars → ${output.value.length} chars`;
+      status.style.color = '#00E5C0';
+    }
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free URL encoder at Toolify Core: https://toolifycore.com/tools/url-encoder.html`;
+  } catch (e) {
+    output.value = '';
+    status.textContent = '✗ Error: ' + (mode === 'decode' ? 'Invalid URL encoding' : e.message);
+    status.style.color = '#FF6B6B';
+  }
+}
+
+document.getElementById('input').addEventListener('input', () => { if (document.getElementById('livePreview').checked) convert(); });
+document.getElementById('convertBtn').addEventListener('click', convert);
+document.querySelectorAll('input[name="type"]').forEach(r => r.addEventListener('change', convert));
+
+function swap() {
+  const input = document.getElementById('input'), output = document.getElementById('output');
+  const tmp = input.value; input.value = output.value; output.value = tmp;
+  setMode(mode === 'encode' ? 'decode' : 'encode');
+}
+function clearInput() { document.getElementById('input').value = ''; document.getElementById('output').value = ''; document.getElementById('statusMsg').textContent = ''; }
+function copyOutput() { const o = document.getElementById('output').value; if (!o) return alert('Nothing to copy.'); navigator.clipboard.writeText(o); alert('Copied!'); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free URL encoder/decoder!&url=https://toolifycore.com/tools/url-encoder.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/url-encoder.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JSON to CSV Converter Free — Online Converter | Toolify Core</title>
+<meta name="description" content="Convert JSON to CSV online for free. Handles arrays of objects, nested data, and custom delimiters. Download as .csv. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.text-area{width:100%;min-height:220px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:12px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.6}
+.text-area:focus{border-color:var(--accent)}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.options-row{display:flex;gap:12px;margin:12px 0;flex-wrap:wrap;padding:12px 14px;background:var(--surface2);border-radius:8px}
+.option-group{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.option-group select,.option-group input{padding:6px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">JSON to CSV</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility Tools</div>
+    <h1>JSON to CSV Converter</h1>
+    <p>Convert JSON to CSV spreadsheet format instantly. Works with arrays of objects and nested data. Ready to open in Excel or Google Sheets. Nothing uploaded.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 9,341 times this month</div>
+  <div class="io-label">
+    <span>JSON Input (array of objects)</span>
+    <div style="display:flex;gap:6px">
+      <button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button>
+      <button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button>
+    </div>
+  </div>
+  <textarea class="text-area" id="input" placeholder='[{"name":"Alice","age":30,"city":"Lahore"},{"name":"Bob","age":25,"city":"Karachi"}]'></textarea>
+  <div class="options-row">
+    <div class="option-group">
+      <label>Delimiter</label>
+      <select id="delimiter">
+        <option value="," selected>Comma (,)</option>
+        <option value=";">Semicolon (;)</option>
+        <option value="\t">Tab</option>
+        <option value="|">Pipe (|)</option>
+      </select>
+    </div>
+    <div class="option-group">
+      <label>Quote strings</label>
+      <select id="quotes">
+        <option value="auto" selected>Auto (only when needed)</option>
+        <option value="always">Always</option>
+        <option value="never">Never</option>
+      </select>
+    </div>
+    <div class="option-group">
+      <label>Nested keys separator</label>
+      <input type="text" id="nestSep" value="." maxlength="3" style="width:60px">
+    </div>
+    <div class="option-group" style="justify-content:flex-end">
+      <label>&nbsp;</label>
+      <button class="btn-primary" id="convertBtn" style="padding:8px 20px">📊 Convert to CSV</button>
+    </div>
+  </div>
+  <div id="statusMsg" style="font-size:12px;color:var(--muted);margin:8px 0;min-height:16px"></div>
+  <div class="io-label">
+    <span>CSV Output</span>
+    <div style="display:flex;gap:6px">
+      <button class="btn-secondary" onclick="copyCsv()" style="padding:4px 12px;font-size:11px">📋 Copy</button>
+      <button class="btn-secondary" onclick="downloadCsv()" style="padding:4px 12px;font-size:11px">⬇ Download .csv</button>
+    </div>
+  </div>
+  <textarea class="text-area" id="output" readonly placeholder="CSV output will appear here..."></textarea>
+  <div class="result-box show">
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/json-to-csv.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Developer?</strong> Get new tool updates on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Paste JSON</h3><p>Paste an array of objects like [{"a":1},{"a":2}].</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Set Options</h3><p>Pick delimiter, quoting, nested key separator.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Download</h3><p>Copy the CSV text or save as .csv for Excel.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What JSON structure works best?</div><div class="faq-a">An array of objects: [{"key1":"value","key2":"value"},...]. Each object becomes a CSV row. Keys become column headers. Nested objects are flattened using dot notation.</div></div>
+    <div class="faq-item"><div class="faq-q">Does it handle nested objects?</div><div class="faq-a">Yes. {"user":{"name":"Ali","city":"Lahore"}} becomes columns user.name and user.city. You can change the "." separator if needed.</div></div>
+    <div class="faq-item"><div class="faq-q">Which delimiter should I use?</div><div class="faq-a">Comma is standard for Excel English. Semicolon is used in European locales. Tab works for Google Sheets paste. Pipe is useful when your data contains commas.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my JSON uploaded?</div><div class="faq-a">No. All conversion runs in your browser. Your data never leaves your device — important if it contains sensitive info.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/json-format.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JSON Formatter</a>
+  <a href="/tools/base64-encoder.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Base64 Encoder</a>
+  <a href="/tools/url-encoder.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">URL Encoder</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+const SAMPLE = `[
+  {"id": 1, "name": "Ali Khan", "age": 28, "city": "Lahore", "role": "Developer"},
+  {"id": 2, "name": "Sara Ahmed", "age": 32, "city": "Karachi", "role": "Designer"},
+  {"id": 3, "name": "Omar Sheikh", "age": 25, "city": "Islamabad", "role": "Product Manager"},
+  {"id": 4, "name": "Ayesha Malik", "age": 30, "city": "Rawalpindi", "role": "Data Analyst"}
+]`;
+
+function flatten(obj, prefix, sep, out) {
+  for (const key in obj) {
+    const val = obj[key], k = prefix ? prefix + sep + key : key;
+    if (val && typeof val === 'object' && !Array.isArray(val)) flatten(val, k, sep, out);
+    else out[k] = Array.isArray(val) ? JSON.stringify(val) : val;
+  }
+}
+
+function jsonToCsv(data, delim, quotes, nestSep) {
+  if (!Array.isArray(data)) data = [data];
+  if (!data.length) return '';
+  // Flatten and collect headers
+  const rows = data.map(row => {
+    const flat = {};
+    if (row && typeof row === 'object') flatten(row, '', nestSep, flat);
+    else flat.value = row;
+    return flat;
+  });
+  const headers = [...new Set(rows.flatMap(r => Object.keys(r)))];
+  const needQuote = s => /[",\n\r]/.test(String(s)) || String(s).includes(delim);
+  const quote = s => '"' + String(s).replace(/"/g, '""') + '"';
+  const cell = v => {
+    if (v === null || v === undefined) return '';
+    const s = String(v);
+    if (quotes === 'always') return quote(s);
+    if (quotes === 'never') return s;
+    return needQuote(s) ? quote(s) : s;
+  };
+  const lines = [headers.map(cell).join(delim)];
+  rows.forEach(r => lines.push(headers.map(h => cell(r[h])).join(delim)));
+  return lines.join('\n');
+}
+
+function convert() {
+  const input = document.getElementById('input').value.trim();
+  const status = document.getElementById('statusMsg');
+  const output = document.getElementById('output');
+  if (!input) { output.value = ''; status.textContent = ''; return; }
+  try {
+    const data = JSON.parse(input);
+    const delim = document.getElementById('delimiter').value.replace('\\t', '\t');
+    const quotes = document.getElementById('quotes').value;
+    const nestSep = document.getElementById('nestSep').value || '.';
+    output.value = jsonToCsv(data, delim, quotes, nestSep);
+    const rows = Array.isArray(data) ? data.length : 1;
+    status.textContent = `✓ Converted ${rows} row${rows !== 1 ? 's' : ''}`;
+    status.style.color = '#00E5C0';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free JSON to CSV converter at Toolify Core: https://toolifycore.com/tools/json-to-csv.html`;
+  } catch (e) {
+    output.value = '';
+    status.textContent = '✗ Invalid JSON: ' + e.message;
+    status.style.color = '#FF6B6B';
+  }
+}
+
+document.getElementById('convertBtn').addEventListener('click', convert);
+document.getElementById('input').addEventListener('input', convert);
+['delimiter','quotes','nestSep'].forEach(id => document.getElementById(id).addEventListener('change', convert));
+
+function loadSample() { document.getElementById('input').value = SAMPLE; convert(); }
+function clearInput() { document.getElementById('input').value = ''; document.getElementById('output').value = ''; document.getElementById('statusMsg').textContent = ''; }
+function copyCsv() { const c = document.getElementById('output').value; if (!c) return alert('Convert first.'); navigator.clipboard.writeText(c); alert('CSV copied!'); }
+function downloadCsv() {
+  const c = document.getElementById('output').value;
+  if (!c) return alert('Convert first.');
+  const blob = new Blob([c], {type: 'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'data-toolifycore.csv'; a.click();
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free JSON to CSV converter!&url=https://toolifycore.com/tools/json-to-csv.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/json-to-csv.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+loadSample();
+</script>
+</body>
+</html>

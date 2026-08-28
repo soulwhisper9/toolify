@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JWT Decoder Free — Decode JSON Web Tokens Online | Toolify Core</title>
+<meta name="description" content="Decode JWT (JSON Web Token) online for free. See header, payload, and signature. Detects expiry and standard claims. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.text-area{width:100%;min-height:130px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:12px;resize:vertical;box-sizing:border-box;outline:none;word-break:break-all}
+.text-area:focus{border-color:var(--accent)}
+.jwt-parts{display:grid;grid-template-columns:1fr;gap:14px;margin:16px 0}
+.jwt-part{background:var(--surface2);border-radius:8px;padding:14px 16px;border-left:4px solid var(--accent)}
+.jwt-part.header{border-left-color:#FF6B6B}
+.jwt-part.payload{border-left-color:#B8AAFF}
+.jwt-part.signature{border-left-color:#00E5C0}
+.jwt-part-title{font-family:var(--font-head);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.jwt-part-body{font-family:monospace;font-size:12px;color:var(--text);white-space:pre-wrap;word-break:break-all;line-height:1.6}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.claim-list{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.claim{display:flex;justify-content:space-between;padding:4px 0;font-size:12px}
+.claim-key{color:var(--muted)}
+.claim-val{color:var(--text)}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;margin-left:6px}
+.status-valid{background:rgba(0,229,192,0.15);color:#00E5C0}
+.status-expired{background:rgba(255,107,107,0.15);color:#FF6B6B}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">JWT Decoder</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility Tools</div>
+    <h1>JWT Decoder</h1>
+    <p>Decode JSON Web Tokens (JWT) instantly. Inspect header, payload, and signature. Detects expiry, issuer, audience, and standard claims. Nothing uploaded.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 15,672 times this month</div>
+  <div class="io-label">
+    <span>JWT token (paste here)</span>
+    <div style="display:flex;gap:6px">
+      <button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button>
+      <button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button>
+    </div>
+  </div>
+  <textarea class="text-area" id="input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.abc123..."></textarea>
+  <div id="statusMsg" style="font-size:13px;color:var(--muted);margin:10px 0;min-height:20px"></div>
+  <div class="jwt-parts" id="jwtParts" style="display:none">
+    <div class="jwt-part header">
+      <div class="jwt-part-title">🔴 HEADER (Algorithm &amp; Token Type)</div>
+      <div class="jwt-part-body" id="jwtHeader">-</div>
+    </div>
+    <div class="jwt-part payload">
+      <div class="jwt-part-title">🟣 PAYLOAD (Claims / Data)</div>
+      <div class="jwt-part-body" id="jwtPayload">-</div>
+      <div class="claim-list" id="claimList"></div>
+    </div>
+    <div class="jwt-part signature">
+      <div class="jwt-part-title">🟢 SIGNATURE (Verification hash)</div>
+      <div class="jwt-part-body" id="jwtSignature">-</div>
+      <p style="font-size:11px;color:var(--muted);margin-top:8px">⚠️ We only decode. To verify signature you need the secret/public key on your server.</p>
+    </div>
+  </div>
+  <div class="result-box show">
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/jwt-decoder.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Developer?</strong> Get new tool updates on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Paste JWT</h3><p>Paste your JWT token — usually starts with "eyJ".</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Auto-Decode</h3><p>Header, payload, and signature parse instantly.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Inspect Claims</h3><p>See expiry, issuer, subject, and all custom claims.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is a JWT?</div><div class="faq-a">JWT (JSON Web Token) is a compact way to transmit claims between two parties. It has three parts separated by dots: header.payload.signature. Widely used for authentication in APIs and web apps.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I verify the signature here?</div><div class="faq-a">No. Signature verification requires the secret key (HS256) or public key (RS256/ES256) which should never leave your server. This tool only decodes — verification must happen server-side.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my JWT sent to a server?</div><div class="faq-a">No. All decoding happens in your browser using JavaScript. Your token never leaves your device — important since JWTs often contain sensitive user data.</div></div>
+    <div class="faq-item"><div class="faq-q">What are standard JWT claims?</div><div class="faq-a">Common: iss (issuer), sub (subject/user), aud (audience), exp (expiry), nbf (not before), iat (issued at), jti (unique token id). This tool highlights these automatically.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/base64-encoder.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Base64 Encoder</a>
+  <a href="/tools/json-format.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JSON Formatter</a>
+  <a href="/tools/hash-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Hash Generator</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+const SAMPLE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE5MDAwMDAwMDAsImlzcyI6InRvb2xpZnljb3JlIiwiYXVkIjoiYXBpIn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+
+function b64UrlDecode(s) {
+  s = s.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  const bin = atob(s);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+function fmtDate(ts) {
+  const d = new Date(ts * 1000);
+  return d.toLocaleString() + ' (' + d.toISOString() + ')';
+}
+
+function decodeJwt(token) {
+  const status = document.getElementById('statusMsg');
+  const parts = token.trim().split('.');
+  if (parts.length !== 3) {
+    status.innerHTML = '⚠️ Invalid JWT: must have 3 parts separated by dots';
+    status.style.color = '#FF6B6B';
+    document.getElementById('jwtParts').style.display = 'none';
+    return;
+  }
+  try {
+    const header = JSON.parse(b64UrlDecode(parts[0]));
+    const payload = JSON.parse(b64UrlDecode(parts[1]));
+    document.getElementById('jwtHeader').textContent = JSON.stringify(header, null, 2);
+    document.getElementById('jwtPayload').textContent = JSON.stringify(payload, null, 2);
+    document.getElementById('jwtSignature').textContent = parts[2];
+
+    // Standard claims list
+    const now = Math.floor(Date.now() / 1000);
+    const claims = [];
+    const claimMeta = {
+      iss: 'Issuer',
+      sub: 'Subject',
+      aud: 'Audience',
+      exp: 'Expires',
+      nbf: 'Not before',
+      iat: 'Issued at',
+      jti: 'JWT ID',
+    };
+    let expired = false;
+    for (const [key, label] of Object.entries(claimMeta)) {
+      if (payload[key] !== undefined) {
+        let val = payload[key];
+        if (['exp','nbf','iat'].includes(key) && typeof val === 'number') val = fmtDate(val);
+        claims.push(`<div class="claim"><span class="claim-key">${label} (${key})</span><span class="claim-val">${val}</span></div>`);
+      }
+    }
+    if (payload.exp) expired = payload.exp < now;
+    const badge = payload.exp
+      ? (expired ? '<span class="status-badge status-expired">EXPIRED</span>' : '<span class="status-badge status-valid">VALID (not expired)</span>')
+      : '';
+    document.getElementById('claimList').innerHTML = claims.length ? claims.join('') + badge : '<span style="font-size:12px;color:var(--muted)">No standard claims found</span>';
+
+    document.getElementById('jwtParts').style.display = 'grid';
+    status.innerHTML = `✓ Algorithm: <strong>${header.alg || '?'}</strong> · Type: <strong>${header.typ || '?'}</strong>` + badge;
+    status.style.color = '#00E5C0';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free JWT decoder at Toolify Core: https://toolifycore.com/tools/jwt-decoder.html`;
+  } catch (e) {
+    status.innerHTML = '⚠️ Failed to decode: ' + e.message;
+    status.style.color = '#FF6B6B';
+    document.getElementById('jwtParts').style.display = 'none';
+  }
+}
+
+document.getElementById('input').addEventListener('input', e => {
+  if (!e.target.value.trim()) {
+    document.getElementById('statusMsg').textContent = '';
+    document.getElementById('jwtParts').style.display = 'none';
+    return;
+  }
+  decodeJwt(e.target.value);
+});
+
+function loadSample() { document.getElementById('input').value = SAMPLE; decodeJwt(SAMPLE); }
+function clearInput() { document.getElementById('input').value = ''; document.getElementById('statusMsg').textContent = ''; document.getElementById('jwtParts').style.display = 'none'; }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free JWT decoder!&url=https://toolifycore.com/tools/jwt-decoder.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/jwt-decoder.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>
