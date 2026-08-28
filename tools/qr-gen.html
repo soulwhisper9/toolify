@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free QR Code Generator | ToolifyCore</title>
+<meta name="description" content="Generate QR codes free for any URL, text, WiFi or WhatsApp number. Works in your browser, no signup, no watermark, downloads instantly as PNG.">
+<link rel="canonical" href="https://toolifycore.com/tools/qr-gen.html">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://toolifycore.com/tools/qr-gen.html">
+<meta property="og:title" content="Free QR Code Generator | ToolifyCore">
+<meta property="og:description" content="Generate QR codes free for any URL, text, WiFi or WhatsApp number. No signup, no watermark.">
+<meta property="og:image" content="https://toolifycore.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-WLBKXMNV15');
+</script>
+
+<style>
+:root{
+  --bg:#0A0A0F; --card:#12121A; --purple:#7B61FF; --teal:#00C9A7;
+  --text:#F0EEF8; --muted:#8885A0; --border:rgba(123,97,255,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  line-height:1.6;min-height:100vh;
+}
+.wrap{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+header{padding:20px 0;border-bottom:1px solid var(--border);margin-bottom:32px}
+header a{color:var(--purple);text-decoration:none;font-weight:700;font-size:20px}
+h1{font-size:28px;margin-bottom:8px;line-height:1.25}
+.sub{color:var(--muted);margin-bottom:28px;font-size:15px}
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:24px;margin-bottom:20px;
+}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:500}
+textarea,input,select{
+  width:100%;padding:13px 15px;border-radius:9px;
+  border:1px solid var(--border);background:var(--bg);color:var(--text);
+  font-size:15px;font-family:inherit;outline:none;
+}
+textarea{min-height:96px;resize:vertical}
+textarea:focus,input:focus,select:focus{border-color:var(--purple)}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.row>div{flex:1;min-width:130px}
+.btn{
+  width:100%;padding:14px;margin-top:20px;border:none;border-radius:9px;
+  background:var(--purple);color:#fff;font-size:16px;font-weight:600;
+  cursor:pointer;font-family:inherit;
+}
+.btn:hover{opacity:.9}
+.btn-dl{background:var(--teal);color:#04241d}
+#output{text-align:center;padding:28px;display:none}
+#qrcode{display:inline-block;background:#fff;padding:16px;border-radius:12px}
+#qrcode img,#qrcode canvas{display:block}
+.status{
+  margin-top:14px;font-size:14px;padding:11px 14px;border-radius:8px;display:none;
+}
+.status.err{display:block;background:rgba(239,68,68,.12);color:#fca5a5;
+  border-left:3px solid #ef4444}
+.status.ok{display:block;background:rgba(0,201,167,.1);color:var(--teal);
+  border-left:3px solid var(--teal)}
+.tips{font-size:13.5px;color:var(--muted);margin-top:22px}
+.tips li{margin:7px 0 7px 18px}
+.rel{margin-top:28px;padding:18px 20px;background:var(--card);
+  border:1px solid var(--border);border-radius:11px}
+.rel p{font-size:13px;color:var(--muted);margin-bottom:10px}
+.rel a{display:inline-block;background:rgba(123,97,255,.12);color:var(--purple);
+  padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;
+  margin:4px 4px 0 0;border:1px solid var(--border)}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);
+  text-align:center;font-size:13px;color:var(--muted)}
+footer a{color:var(--muted);text-decoration:none;margin:0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a href="/">ToolifyCore</a>
+</header>
+
+<h1>Free QR Code Generator</h1>
+<p class="sub">Create a QR code for any link, text, WiFi network or WhatsApp number. Runs entirely in your browser. Nothing is uploaded. No signup, no watermark.</p>
+
+<div class="card">
+  <label for="qrType">What do you want to encode?</label>
+  <select id="qrType" onchange="switchType()">
+    <option value="text">Website URL or plain text</option>
+    <option value="wifi">WiFi network</option>
+    <option value="whatsapp">WhatsApp number</option>
+    <option value="phone">Phone number</option>
+    <option value="email">Email address</option>
+  </select>
+
+  <div id="fieldText" style="margin-top:16px">
+    <label for="qrInput">Content</label>
+    <textarea id="qrInput" placeholder="https://example.com or any text"></textarea>
+  </div>
+
+  <div id="fieldWifi" style="margin-top:16px;display:none">
+    <label for="wifiSsid">Network name (SSID)</label>
+    <input type="text" id="wifiSsid" placeholder="MyHomeWiFi">
+    <div style="margin-top:12px">
+      <label for="wifiPass">Password</label>
+      <input type="text" id="wifiPass" placeholder="Network password">
+    </div>
+    <div style="margin-top:12px">
+      <label for="wifiEnc">Security type</label>
+      <select id="wifiEnc">
+        <option value="WPA">WPA / WPA2 / WPA3</option>
+        <option value="WEP">WEP</option>
+        <option value="nopass">Open, no password</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="fieldSimple" style="margin-top:16px;display:none">
+    <label id="simpleLabel" for="simpleInput">Number</label>
+    <input type="text" id="simpleInput" placeholder="923001234567">
+  </div>
+
+  <div class="row">
+    <div>
+      <label for="qrSize">Size</label>
+      <select id="qrSize">
+        <option value="200">Small, 200px</option>
+        <option value="300" selected>Medium, 300px</option>
+        <option value="500">Large, 500px</option>
+        <option value="800">Print, 800px</option>
+      </select>
+    </div>
+    <div>
+      <label for="qrEcc">Error correction</label>
+      <select id="qrEcc">
+        <option value="L">Low</option>
+        <option value="M">Medium</option>
+        <option value="Q">Quartile</option>
+        <option value="H" selected>High, recommended</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn" onclick="makeQR()">Generate QR Code</button>
+  <div id="status" class="status"></div>
+</div>
+
+<div class="card" id="output">
+  <div id="qrcode"></div>
+  <button class="btn btn-dl" onclick="downloadQR()">Download PNG</button>
+</div>
+
+<div class="tips">
+  <strong style="color:var(--text)">Tips for reliable scanning</strong>
+  <ul>
+    <li>Test the code with your own phone before printing or sharing it.</li>
+    <li>Keep High error correction so the code still scans if partly damaged.</li>
+    <li>Print at 2cm by 2cm minimum. Larger is more reliable.</li>
+    <li>Avoid curved or reflective surfaces.</li>
+    <li>Add a short line of text nearby such as Scan for menu.</li>
+  </ul>
+</div>
+
+<div class="rel">
+  <p>You might also need:</p>
+  <a href="/tools/pass-gen.html">Password Generator</a>
+  <a href="/tools/unit-convert.html">Unit Converter</a>
+  <a href="/tools/currency-pkr.html">Currency Converter</a>
+  <a href="/tools/img-compress.html">Image Compressor</a>
+</div>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/about.html">About</a>
+  <a href="/privacy.html">Privacy</a>
+  <a href="/contact.html">Contact</a>
+  <a href="https://blog.toolifycore.com">Blog</a>
+  <p style="margin-top:12px">All tools run in your browser. Files and text never leave your device.</p>
+</footer>
+
+</div>
+
+<!-- QR library loaded with automatic fallback -->
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+if (typeof QRCode === 'undefined') {
+  document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>');
+}
+</script>
+
+<script>
+var lastCanvas = null;
+
+function switchType(){
+  var t = document.getElementById('qrType').value;
+  document.getElementById('fieldText').style.display   = (t==='text')  ? 'block':'none';
+  document.getElementById('fieldWifi').style.display   = (t==='wifi')  ? 'block':'none';
+  document.getElementById('fieldSimple').style.display =
+    (t==='whatsapp'||t==='phone'||t==='email') ? 'block':'none';
+
+  var lbl = document.getElementById('simpleLabel');
+  var inp = document.getElementById('simpleInput');
+  if(t==='whatsapp'){
+    lbl.textContent = 'WhatsApp number with country code, no plus sign';
+    inp.placeholder = '923001234567';
+  } else if(t==='phone'){
+    lbl.textContent = 'Phone number';
+    inp.placeholder = '+92 300 1234567';
+  } else if(t==='email'){
+    lbl.textContent = 'Email address';
+    inp.placeholder = 'name@example.com';
+  }
+  hideStatus();
+}
+
+function showStatus(msg, type){
+  var s = document.getElementById('status');
+  s.textContent = msg;
+  s.className = 'status ' + type;
+}
+function hideStatus(){
+  document.getElementById('status').className = 'status';
+}
+
+function buildContent(){
+  var t = document.getElementById('qrType').value;
+
+  if(t === 'text'){
+    return document.getElementById('qrInput').value.trim();
+  }
+
+  if(t === 'wifi'){
+    var ssid = document.getElementById('wifiSsid').value.trim();
+    var pass = document.getElementById('wifiPass').value;
+    var enc  = document.getElementById('wifiEnc').value;
+    if(!ssid) return '';
+    if(enc === 'nopass') return 'WIFI:T:nopass;S:' + ssid + ';;';
+    return 'WIFI:T:' + enc + ';S:' + ssid + ';P:' + pass + ';;';
+  }
+
+  var v = document.getElementById('simpleInput').value.trim();
+  if(!v) return '';
+  if(t === 'whatsapp') return 'https://wa.me/' + v.replace(/[^0-9]/g,'');
+  if(t === 'phone')    return 'tel:' + v.replace(/\s/g,'');
+  if(t === 'email')    return 'mailto:' + v;
+  return v;
+}
+
+function makeQR(){
+  hideStatus();
+
+  if(typeof QRCode === 'undefined'){
+    showStatus('QR library did not load. Check your connection and refresh the page.', 'err');
+    return;
+  }
+
+  var content = buildContent();
+  if(!content){
+    showStatus('Please enter something to encode first.', 'err');
+    document.getElementById('output').style.display = 'none';
+    return;
+  }
+  if(content.length > 2000){
+    showStatus('Content is too long. Keep it under 2000 characters.', 'err');
+    return;
+  }
+
+  var size = parseInt(document.getElementById('qrSize').value, 10);
+  var ecc  = document.getElementById('qrEcc').value;
+  var levels = {
+    L: QRCode.CorrectLevel.L,
+    M: QRCode.CorrectLevel.M,
+    Q: QRCode.CorrectLevel.Q,
+    H: QRCode.CorrectLevel.H
+  };
+
+  var box = document.getElementById('qrcode');
+  box.innerHTML = '';
+
+  try{
+    new QRCode(box, {
+      text: content,
+      width: size,
+      height: size,
+      colorDark: '#000000',
+      colorLight: '#ffffff',
+      correctLevel: levels[ecc]
+    });
+
+    document.getElementById('output').style.display = 'block';
+
+    setTimeout(function(){
+      lastCanvas = box.querySelector('canvas');
+      var img = box.querySelector('img');
+      if(lastCanvas || img){
+        showStatus('QR code generated. Scan it to test before you share it.', 'ok');
+        document.getElementById('output').scrollIntoView({behavior:'smooth', block:'nearest'});
+      } else {
+        showStatus('Something went wrong generating the code. Please try again.', 'err');
+      }
+    }, 120);
+
+  } catch(e){
+    showStatus('Could not generate the QR code. Try shorter content or a lower error correction level.', 'err');
+    document.getElementById('output').style.display = 'none';
+  }
+}
+
+function downloadQR(){
+  var box = document.getElementById('qrcode');
+  var canvas = box.querySelector('canvas');
+  var img = box.querySelector('img');
+  var dataUrl = '';
+
+  if(canvas){
+    dataUrl = canvas.toDataURL('image/png');
+  } else if(img && img.src){
+    dataUrl = img.src;
+  } else {
+    showStatus('Nothing to download. Generate a QR code first.', 'err');
+    return;
+  }
+
+  var a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = 'qr-code.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('qrInput').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)) makeQR();
+  });
+});
+</script>
+
+</body>
+</html>
