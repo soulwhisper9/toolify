@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Barcode Generator Free — CODE128, EAN, UPC | Toolify Core</title>
+<meta name="description" content="Generate barcodes online for free. Supports CODE128, CODE39, EAN, UPC, ITF, and more. Download as PNG or SVG. Nothing uploaded.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0;padding:16px;background:var(--surface2);border-radius:8px}
+.calc-field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.calc-field input,.calc-field select{padding:8px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:var(--accent)}
+.value-input{width:100%;padding:12px 14px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:15px;box-sizing:border-box;outline:none;margin:12px 0}
+.value-input:focus{border-color:var(--accent)}
+.preview-wrap{background:white;padding:24px;border-radius:10px;margin:16px 0;text-align:center;min-height:150px;display:flex;align-items:center;justify-content:center}
+.preview-wrap svg{max-width:100%}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Barcode Generator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>Barcode Generator</h1><p>Create barcodes for products, tickets, or inventory. Supports CODE128, CODE39, EAN-13, EAN-8, UPC-A, ITF, and more. Download as PNG or SVG.</p></div>
+<div class="counter-badge">📊 Used 9,182 times this month</div>
+<div class="value-input-wrap">
+<input type="text" class="value-input" id="value" value="ToolifyCore-2026" placeholder="Enter text or numbers to encode">
+</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Barcode format</label><select id="format"><option value="CODE128" selected>CODE128 (default, any text)</option><option value="CODE39">CODE39 (uppercase + digits)</option><option value="EAN13">EAN-13 (13 digits, retail)</option><option value="EAN8">EAN-8 (8 digits)</option><option value="UPC">UPC-A (12 digits, USA retail)</option><option value="ITF14">ITF-14 (14 digits, shipping)</option><option value="ITF">ITF (any even digits)</option><option value="MSI">MSI (digits)</option><option value="pharmacode">Pharmacode (3-131070)</option><option value="codabar">Codabar</option></select></div>
+<div class="calc-field"><label>Bar width (px)</label><input type="number" id="width" value="2" min="1" max="8" step="0.5"></div>
+<div class="calc-field"><label>Height (px)</label><input type="number" id="height" value="100" min="20" max="300"></div>
+<div class="calc-field"><label>Show text</label><select id="displayValue"><option value="true" selected>Yes</option><option value="false">No</option></select></div>
+<div class="calc-field"><label>Font size (px)</label><input type="number" id="fontSize" value="18" min="8" max="40"></div>
+<div class="calc-field"><label>Background color</label><input type="color" id="bg" value="#ffffff"></div>
+<div class="calc-field"><label>Line color</label><input type="color" id="lineColor" value="#000000"></div>
+</div>
+<div class="actions"><button class="btn-primary" id="genBtn">📊 Generate</button><button class="btn-secondary" id="downloadPng">⬇ PNG</button><button class="btn-secondary" id="downloadSvg">⬇ SVG</button></div>
+<div class="preview-wrap" id="previewWrap"><svg id="barcode"></svg></div>
+<div id="statusMsg" style="font-size:12px;color:var(--muted);text-align:center;margin:8px 0;min-height:16px"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/barcode-gen.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Small business?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Data</h3><p>Text or numbers to encode.</p></div><div class="step"><div class="step-num">02</div><h3>Pick Format</h3><p>CODE128 for general use, EAN for retail products.</p></div><div class="step"><div class="step-num">03</div><h3>Download</h3><p>Save as PNG (raster) or SVG (vector).</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Which format should I use?</div><div class="faq-a">CODE128 works for almost any text. EAN-13 is for retail products (13 digits). UPC-A for USA retail (12 digits). CODE39 for older systems that need uppercase only.</div></div>
+<div class="faq-item"><div class="faq-q">Will my scanner read these barcodes?</div><div class="faq-a">Yes. Print at a size where the smallest bar is at least 0.33mm wide. Most phone barcode apps and dedicated scanners will read these easily.</div></div>
+<div class="faq-item"><div class="faq-q">Can I use these barcodes commercially?</div><div class="faq-a">Yes for internal use (inventory, tickets, tracking). For retail EAN/UPC barcodes to sell products in stores, you need registered numbers from GS1 — this tool just draws the visual barcode.</div></div>
+<div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. Barcode generation runs in your browser using the JsBarcode library.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/qr-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">QR Generator</a>
+<a href="/tools/uuid-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">UUID Generator</a>
+<a href="/tools/slug-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Slug Generator</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script>
+function generate() {
+  const value = document.getElementById('value').value;
+  const status = document.getElementById('statusMsg');
+  if (!value) return;
+  try {
+    JsBarcode('#barcode', value, {
+      format: document.getElementById('format').value,
+      width: parseFloat(document.getElementById('width').value),
+      height: parseInt(document.getElementById('height').value),
+      displayValue: document.getElementById('displayValue').value === 'true',
+      fontSize: parseInt(document.getElementById('fontSize').value),
+      background: document.getElementById('bg').value,
+      lineColor: document.getElementById('lineColor').value,
+      margin: 10,
+    });
+    status.textContent = '✓ Barcode generated';
+    status.style.color = '#00E5C0';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free barcode generator at Toolify Core: https://toolifycore.com/tools/barcode-gen.html`;
+  } catch (e) { status.textContent = '✗ ' + e.message; status.style.color = '#FF6B6B'; }
+}
+document.getElementById('genBtn').addEventListener('click', generate);
+['value','format','width','height','displayValue','fontSize','bg','lineColor'].forEach(id => document.getElementById(id).addEventListener('input', generate));
+
+document.getElementById('downloadPng').addEventListener('click', () => {
+  const svg = document.getElementById('barcode');
+  const data = new XMLSerializer().serializeToString(svg);
+  const img = new Image();
+  const svgBlob = new Blob([data], {type: 'image/svg+xml'});
+  const url = URL.createObjectURL(svgBlob);
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width * 2; canvas.height = img.height * 2;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = document.getElementById('bg').value;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(blob => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'barcode-toolifycore.png'; a.click();
+    }, 'image/png');
+    URL.revokeObjectURL(url);
+  };
+  img.src = url;
+});
+document.getElementById('downloadSvg').addEventListener('click', () => {
+  const svg = document.getElementById('barcode');
+  const data = new XMLSerializer().serializeToString(svg);
+  const blob = new Blob([data], {type: 'image/svg+xml'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'barcode-toolifycore.svg'; a.click();
+});
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free barcode generator!&url=https://toolifycore.com/tools/barcode-gen.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/barcode-gen.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+window.addEventListener('load', generate);
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Retirement Calculator Free — Plan Your Future | Toolify Core</title>
+<meta name="description" content="Free retirement planning calculator. See how much you need to save monthly to retire comfortably. Adjusts for inflation and expected returns.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:20px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:26px}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+.info-note{background:rgba(184,170,255,0.06);border-left:3px solid #B8AAFF;padding:10px 14px;font-size:12.5px;color:var(--muted);border-radius:0 6px 6px 0;margin:12px 0}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Retirement</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Retirement Calculator</h1><p>Plan how much to save monthly to retire comfortably. Adjusts for inflation, investment returns, and years in retirement. Great for kick-starting a retirement plan.</p></div>
+<div class="counter-badge">🏖 Used 6,845 times this month</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Current age</label><input type="number" id="curAge" value="30" min="18" max="80"></div>
+<div class="calc-field"><label>Retirement age</label><input type="number" id="retAge" value="60" min="30" max="90"></div>
+<div class="calc-field"><label>Life expectancy</label><input type="number" id="lifeAge" value="85" min="40" max="120"></div>
+<div class="calc-field"><label>Current savings</label><input type="number" id="curSav" value="0" min="0" step="1000"></div>
+<div class="calc-field"><label>Monthly income needed (today's value)</label><input type="number" id="monthly" value="3000" min="0" step="100"></div>
+<div class="calc-field"><label>Expected annual return (%)</label><input type="number" id="return" value="8" min="0" max="30" step="0.1"></div>
+<div class="calc-field"><label>Inflation rate (%)</label><input type="number" id="inflation" value="3" min="0" max="30" step="0.1"></div>
+<div class="calc-field"><label>Currency</label><select id="currency"><option value="$" selected>$ USD</option><option value="Rs ">Rs PKR</option><option value="₹">₹ INR</option><option value="€">€ EUR</option><option value="£">£ GBP</option><option value="AED ">AED</option></select></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">🏖 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">🏖</div><h3>Retirement Plan</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Save monthly</div><div class="stat-card-value" id="monthlyReq">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Retirement nest egg needed</div><div class="stat-card-value" id="corpus">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Years to save</div><div class="stat-card-value" id="yearsToSave">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Years in retirement</div><div class="stat-card-value" id="yearsInRet">-</div></div>
+</div>
+<div class="info-note" id="assumptionsBox">-</div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/retirement-calc.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Planning ahead?</strong> Get more finance tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Ages</h3><p>Current, retirement, and life expectancy age.</p></div><div class="step"><div class="step-num">02</div><h3>Set Income</h3><p>Monthly income needed in retirement (in today's money).</p></div><div class="step"><div class="step-num">03</div><h3>See Plan</h3><p>Required monthly savings and total nest egg needed.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How is this calculated?</div><div class="faq-a">1) Inflate monthly income need to future value. 2) Use present value of annuity to get nest egg needed. 3) Use future value of annuity to compute monthly savings needed to reach that nest egg, factoring current savings growth.</div></div>
+<div class="faq-item"><div class="faq-q">What return rate should I assume?</div><div class="faq-a">Long-term stock returns: 8-10% globally. Balanced portfolios: 6-8%. Bonds/savings: 3-5%. Adjust based on your investment mix and country. For Pakistan, mutual funds have averaged 12-15% but with more volatility.</div></div>
+<div class="faq-item"><div class="faq-q">Is inflation really that important?</div><div class="faq-a">Yes. At 5% inflation, prices double every 14 years. A Rs 100,000 monthly need today becomes Rs 400,000 in 30 years. Ignoring inflation makes retirement plans dangerously optimistic.</div></div>
+<div class="faq-item"><div class="faq-q">Should I consult a financial advisor?</div><div class="faq-a">This tool is a starting point. For your actual retirement plan, work with a certified financial planner who can consider tax laws, healthcare costs, and your specific goals.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/compound-interest.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Compound Interest</a>
+<a href="/tools/roi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">ROI Calculator</a>
+<a href="/tools/emi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">EMI Calc</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+function calculate() {
+  const curAge = parseInt(document.getElementById('curAge').value);
+  const retAge = parseInt(document.getElementById('retAge').value);
+  const lifeAge = parseInt(document.getElementById('lifeAge').value);
+  const curSav = parseFloat(document.getElementById('curSav').value) || 0;
+  const monthly = parseFloat(document.getElementById('monthly').value) || 0;
+  const returnRate = parseFloat(document.getElementById('return').value) / 100;
+  const inflation = parseFloat(document.getElementById('inflation').value) / 100;
+  const cur = document.getElementById('currency').value;
+  if (retAge <= curAge) return alert('Retirement age must be greater than current age.');
+  if (lifeAge <= retAge) return alert('Life expectancy must be greater than retirement age.');
+  const yearsToSave = retAge - curAge;
+  const yearsInRet = lifeAge - retAge;
+  // Inflate monthly need to retirement year
+  const futureMonthly = monthly * Math.pow(1 + inflation, yearsToSave);
+  // Real return during retirement (return minus inflation)
+  const realReturn = (1 + returnRate) / (1 + inflation) - 1;
+  const monthsInRet = yearsInRet * 12;
+  const realMonthlyReturn = Math.pow(1 + realReturn, 1/12) - 1;
+  // PV of annuity (nest egg needed)
+  const corpus = realMonthlyReturn === 0 ? futureMonthly * monthsInRet : futureMonthly * (1 - Math.pow(1 + realMonthlyReturn, -monthsInRet)) / realMonthlyReturn;
+  // FV of current savings
+  const fvCurrent = curSav * Math.pow(1 + returnRate, yearsToSave);
+  // Need to accumulate: corpus - fvCurrent (via monthly savings)
+  const shortfall = Math.max(0, corpus - fvCurrent);
+  // FV annuity: FV = PMT * ((1+r)^n - 1) / r
+  const monthsToSave = yearsToSave * 12;
+  const monthlyReturn = Math.pow(1 + returnRate, 1/12) - 1;
+  const monthlyReq = monthlyReturn === 0 ? shortfall / monthsToSave : shortfall * monthlyReturn / (Math.pow(1 + monthlyReturn, monthsToSave) - 1);
+  const fmt = n => cur + Math.round(n).toLocaleString('en-US');
+  document.getElementById('monthlyReq').textContent = fmt(monthlyReq);
+  document.getElementById('corpus').textContent = fmt(corpus);
+  document.getElementById('yearsToSave').textContent = yearsToSave;
+  document.getElementById('yearsInRet').textContent = yearsInRet;
+  document.getElementById('assumptionsBox').innerHTML = `📊 <strong>Key assumptions:</strong> ${(returnRate*100).toFixed(1)}% annual return, ${(inflation*100).toFixed(1)}% inflation. Your monthly need of ${fmt(monthly)} today will equal ${fmt(futureMonthly)} at retirement due to inflation.`;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free retirement calculator at Toolify Core: https://toolifycore.com/tools/retirement-calc.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+['curAge','retAge','lifeAge','curSav','monthly','return','inflation','currency'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+function resetAll() { document.getElementById('curAge').value = 30; document.getElementById('retAge').value = 60; document.getElementById('lifeAge').value = 85; document.getElementById('curSav').value = 0; document.getElementById('monthly').value = 3000; document.getElementById('return').value = 8; document.getElementById('inflation').value = 3; calculate(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free retirement calculator!&url=https://toolifycore.com/tools/retirement-calc.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/retirement-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

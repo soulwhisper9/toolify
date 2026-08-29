@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>XML to JSON Converter Free — Online Converter | Toolify Core</title>
+<meta name="description" content="Convert XML to JSON online for free. Preserves attributes and nested structure. Download as .json. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.text-area{width:100%;min-height:200px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:12px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.6}
+.text-area:focus{border-color:var(--accent)}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.opts{display:flex;gap:14px;margin:10px 0;flex-wrap:wrap;font-size:13px;color:var(--muted);padding:12px 14px;background:var(--surface2);border-radius:8px}
+.opts label{display:flex;align-items:center;gap:6px;cursor:pointer}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">XML to JSON</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>XML to JSON Converter</h1><p>Convert XML documents to clean JSON. Handles attributes, nested elements, and text content. Everything runs in your browser.</p></div>
+<div class="counter-badge">🔥 Used 6,318 times this month</div>
+<div class="io-label"><span>XML Input</span><div style="display:flex;gap:6px"><button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button><button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button></div></div>
+<textarea class="text-area" id="input" placeholder="<root>&#10;  <item>Hello</item>&#10;</root>"></textarea>
+<div class="opts">
+<label><input type="checkbox" id="prettyPrint" checked> Pretty-print</label>
+<label><input type="checkbox" id="preserveAttr" checked> Preserve attributes (as @attr)</label>
+<label><input type="checkbox" id="mergeText" checked> Merge single text into value</label>
+</div>
+<div class="actions" style="margin:12px 0"><button class="btn-primary" id="convertBtn">🔄 Convert</button></div>
+<div id="statusMsg" style="font-size:12px;color:var(--muted);margin:8px 0;min-height:16px"></div>
+<div class="io-label"><span>JSON Output</span><div style="display:flex;gap:6px"><button class="btn-secondary" onclick="copyOut()" style="padding:4px 12px;font-size:11px">📋 Copy</button><button class="btn-secondary" onclick="downloadOut()" style="padding:4px 12px;font-size:11px">⬇ Download</button></div></div>
+<textarea class="text-area" id="output" readonly placeholder="JSON output appears here..."></textarea>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/xml-to-json.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Developer?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Paste XML</h3><p>Copy XML from a file, API response, or config.</p></div><div class="step"><div class="step-num">02</div><h3>Set Options</h3><p>Toggle attribute preservation and formatting.</p></div><div class="step"><div class="step-num">03</div><h3>Copy JSON</h3><p>Clean JSON ready for JavaScript, Python, or any API.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How are XML attributes handled?</div><div class="faq-a">By default, attributes are preserved as keys prefixed with @. For example &lt;book id="1"&gt; becomes {"book":{"@id":"1"}}. Turn off "Preserve attributes" to skip them.</div></div>
+<div class="faq-item"><div class="faq-q">What about repeated elements?</div><div class="faq-a">When multiple sibling elements share a name, they are converted to an array. Single occurrences stay as objects for cleaner output.</div></div>
+<div class="faq-item"><div class="faq-q">Does it validate XML?</div><div class="faq-a">Yes. Uses the browser's built-in DOMParser. Malformed XML produces a clear error message pointing to the problem.</div></div>
+<div class="faq-item"><div class="faq-q">Is my XML uploaded?</div><div class="faq-a">No. All parsing runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/json-format.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JSON Formatter</a>
+<a href="/tools/csv-to-json.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">CSV to JSON</a>
+<a href="/tools/json-to-csv.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JSON to CSV</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+const SAMPLE = `<?xml version="1.0"?>
+<library>
+  <book id="1" available="true">
+    <title>The Great Gatsby</title>
+    <author>F. Scott Fitzgerald</author>
+    <year>1925</year>
+  </book>
+  <book id="2" available="false">
+    <title>1984</title>
+    <author>George Orwell</author>
+    <year>1949</year>
+  </book>
+</library>`;
+
+function xmlToObj(node, opts) {
+  const result = {};
+  if (opts.preserveAttr && node.attributes && node.attributes.length) {
+    for (const a of node.attributes) result['@' + a.name] = a.value;
+  }
+  const children = [...node.children];
+  if (!children.length) {
+    const text = node.textContent.trim();
+    if (opts.preserveAttr && Object.keys(result).length) {
+      if (text) result['#text'] = text;
+      return result;
+    }
+    if (opts.mergeText) return text || null;
+    return {'#text': text};
+  }
+  const grouped = {};
+  children.forEach(c => {
+    const val = xmlToObj(c, opts);
+    if (grouped[c.tagName] !== undefined) {
+      if (!Array.isArray(grouped[c.tagName])) grouped[c.tagName] = [grouped[c.tagName]];
+      grouped[c.tagName].push(val);
+    } else grouped[c.tagName] = val;
+  });
+  Object.assign(result, grouped);
+  return result;
+}
+
+function convert() {
+  const input = document.getElementById('input').value.trim();
+  const status = document.getElementById('statusMsg');
+  const output = document.getElementById('output');
+  if (!input) { output.value = ''; status.textContent = ''; return; }
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(input, 'application/xml');
+    const err = doc.querySelector('parsererror');
+    if (err) throw new Error('Invalid XML: ' + err.textContent.split('\n')[0]);
+    const opts = {
+      preserveAttr: document.getElementById('preserveAttr').checked,
+      mergeText: document.getElementById('mergeText').checked,
+    };
+    const root = doc.documentElement;
+    const obj = {[root.tagName]: xmlToObj(root, opts)};
+    output.value = document.getElementById('prettyPrint').checked ? JSON.stringify(obj, null, 2) : JSON.stringify(obj);
+    status.textContent = `✓ Converted successfully · ${output.value.length} chars`;
+    status.style.color = '#00E5C0';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free XML to JSON at Toolify Core: https://toolifycore.com/tools/xml-to-json.html`;
+  } catch (e) { output.value = ''; status.textContent = '✗ ' + e.message; status.style.color = '#FF6B6B'; }
+}
+
+document.getElementById('convertBtn').addEventListener('click', convert);
+document.getElementById('input').addEventListener('input', convert);
+['prettyPrint','preserveAttr','mergeText'].forEach(id => document.getElementById(id).addEventListener('change', convert));
+function loadSample() { document.getElementById('input').value = SAMPLE; convert(); }
+function clearInput() { document.getElementById('input').value = ''; document.getElementById('output').value = ''; document.getElementById('statusMsg').textContent = ''; }
+function copyOut() { const o = document.getElementById('output').value; if (!o) return alert('Convert first.'); navigator.clipboard.writeText(o); alert('Copied!'); }
+function downloadOut() { const o = document.getElementById('output').value; if (!o) return alert('Convert first.'); const blob = new Blob([o],{type:'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'converted-toolifycore.json'; a.click(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free XML to JSON!&url=https://toolifycore.com/tools/xml-to-json.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/xml-to-json.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+loadSample();
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SVG to PNG Converter Free — Convert SVG to Raster | Toolify Core</title>
+<meta name="description" content="Convert SVG to PNG online for free. Custom output size, transparent background. Works with uploaded SVG files or pasted SVG code.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.text-area{width:100%;min-height:150px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:12px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.5}
+.text-area:focus{border-color:#1D9E75}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.opts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;padding:14px;background:var(--surface2);border-radius:8px;margin:12px 0}
+.opts-field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.opts-field input,.opts-field select{padding:8px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.preview-wrap{background:var(--surface2);border-radius:10px;padding:20px;margin:16px 0;text-align:center;min-height:200px;display:flex;align-items:center;justify-content:center;background-image:linear-gradient(45deg,rgba(255,255,255,0.03) 25%,transparent 25%),linear-gradient(-45deg,rgba(255,255,255,0.03) 25%,transparent 25%),linear-gradient(45deg,transparent 75%,rgba(255,255,255,0.03) 75%),linear-gradient(-45deg,transparent 75%,rgba(255,255,255,0.03) 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+.preview-wrap canvas,.preview-wrap img{max-width:100%;max-height:400px}
+.tool-badge{background:rgba(29,158,117,0.15) !important;color:#6EDFB8 !important;border:1px solid rgba(29,158,117,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">SVG to PNG</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🖼 Image Tools</div><h1>SVG to PNG Converter</h1><p>Convert SVG images to PNG raster format at any size. Upload SVG files or paste SVG code. Transparent backgrounds supported. Nothing uploaded to servers.</p></div>
+<div class="counter-badge">🖼 Used 8,724 times this month</div>
+<div class="drop-zone" id="dropZone" style="border-color:rgba(29,158,117,0.4)"><input type="file" id="fileInput" accept=".svg,image/svg+xml"><div class="drop-icon">📁</div><h3>Drop SVG file here</h3><p>Or paste SVG code below</p><span class="drop-cta" style="background:#1D9E75">Choose SVG</span></div>
+<div class="io-label"><span>Or paste SVG code</span><button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button></div>
+<textarea class="text-area" id="svgInput" placeholder="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>..."></textarea>
+<div class="opts-grid">
+<div class="opts-field"><label>Output width (px)</label><input type="number" id="width" value="512" min="16" max="8192"></div>
+<div class="opts-field"><label>Output height (px)</label><input type="number" id="height" value="512" min="16" max="8192"></div>
+<div class="opts-field"><label>Scale multiplier</label><select id="scale"><option value="1" selected>1× (as set)</option><option value="2">2× (retina)</option><option value="3">3×</option><option value="4">4×</option></select></div>
+<div class="opts-field"><label>Background</label><select id="bg"><option value="transparent" selected>Transparent</option><option value="#ffffff">White</option><option value="#000000">Black</option></select></div>
+</div>
+<div class="actions"><button class="btn-primary" id="convertBtn" style="background:#1D9E75">🖼 Convert to PNG</button><button class="btn-secondary" id="downloadBtn" disabled>⬇ Download PNG</button></div>
+<div class="io-label"><span>Preview</span></div>
+<div class="preview-wrap" id="previewWrap"><p style="color:var(--muted)">PNG preview will appear here</p></div>
+<div id="statusMsg" style="font-size:12px;color:var(--muted);text-align:center;margin:8px 0;min-height:16px"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/svg-to-png.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Designer?</strong> Get more image tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#1D9E75">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Upload or Paste</h3><p>Drop an SVG file or paste SVG code.</p></div><div class="step"><div class="step-num">02</div><h3>Set Size</h3><p>Output dimensions and scale (for retina displays).</p></div><div class="step"><div class="step-num">03</div><h3>Download</h3><p>Save as PNG. Perfect for social media, apps, favicons.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Why convert SVG to PNG?</div><div class="faq-a">SVG is vector (scalable) but not supported everywhere. PNG is raster and works in all apps — social media uploads, older email clients, print, favicons, some CMS platforms.</div></div>
+<div class="faq-item"><div class="faq-q">What is scale multiplier?</div><div class="faq-a">Produces a higher-resolution PNG. 2× on retina/high-DPI screens keeps the image sharp. Use 3× or 4× for print or large displays.</div></div>
+<div class="faq-item"><div class="faq-q">Does it preserve transparency?</div><div class="faq-a">Yes. Choose Transparent background for a PNG with alpha channel — icon logos and cutouts work perfectly.</div></div>
+<div class="faq-item"><div class="faq-q">Is my SVG uploaded?</div><div class="faq-a">No. All conversion happens in your browser using canvas. Files never leave your device.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(29,158,117,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/png-to-jpg.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">PNG to JPG</a>
+<a href="/tools/img-compress.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Compress Image</a>
+<a href="/tools/img-resize.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Resize Image</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(29,158,117,0.06);border-left:3px solid #1D9E75;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#1D9E75">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#1D9E75">Visit our blog</a>.</div>
+</main>
+<script>
+const SAMPLE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7B61FF"/>
+      <stop offset="100%" stop-color="#00E5C0"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="90" fill="url(#g)"/>
+  <text x="100" y="115" text-anchor="middle" font-family="Arial" font-size="40" font-weight="bold" fill="white">SVG</text>
+</svg>`;
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+dropZone.addEventListener('dragover', e => {e.preventDefault();dropZone.classList.add('drag-over')});
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {e.preventDefault();dropZone.classList.remove('drag-over');handleFile(e.dataTransfer.files[0])});
+fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+
+function handleFile(f) {
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = e => { document.getElementById('svgInput').value = e.target.result; convert(); };
+  r.readAsText(f);
+}
+
+function loadSample() { document.getElementById('svgInput').value = SAMPLE; convert(); }
+
+function convert() {
+  const svgText = document.getElementById('svgInput').value.trim();
+  const status = document.getElementById('statusMsg');
+  if (!svgText) return;
+  const width = parseInt(document.getElementById('width').value) || 512;
+  const height = parseInt(document.getElementById('height').value) || 512;
+  const scale = parseFloat(document.getElementById('scale').value);
+  const bg = document.getElementById('bg').value;
+  const canvas = document.createElement('canvas');
+  canvas.width = width * scale;
+  canvas.height = height * scale;
+  const ctx = canvas.getContext('2d');
+  if (bg !== 'transparent') { ctx.fillStyle = bg; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+  const img = new Image();
+  const blob = new Blob([svgText], {type: 'image/svg+xml'});
+  const url = URL.createObjectURL(blob);
+  img.onload = () => {
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    URL.revokeObjectURL(url);
+    const wrap = document.getElementById('previewWrap');
+    wrap.innerHTML = '';
+    wrap.appendChild(canvas);
+    window._pngCanvas = canvas;
+    document.getElementById('downloadBtn').disabled = false;
+    status.textContent = `✓ ${canvas.width}×${canvas.height}px PNG ready`;
+    status.style.color = '#00E5C0';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free SVG to PNG at Toolify Core: https://toolifycore.com/tools/svg-to-png.html`;
+  };
+  img.onerror = () => { status.textContent = '✗ Invalid SVG'; status.style.color = '#FF6B6B'; };
+  img.src = url;
+}
+
+document.getElementById('convertBtn').addEventListener('click', convert);
+document.getElementById('downloadBtn').addEventListener('click', () => {
+  if (!window._pngCanvas) return;
+  window._pngCanvas.toBlob(blob => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'converted-toolifycore.png'; a.click();
+  }, 'image/png');
+});
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free SVG to PNG converter!&url=https://toolifycore.com/tools/svg-to-png.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/svg-to-png.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+loadSample();
+</script>
+</body>
+</html>

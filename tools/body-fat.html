@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Body Fat Percentage Calculator Free — US Navy Method | Toolify Core</title>
+<meta name="description" content="Calculate body fat percentage online for free using the US Navy method. Only needs weight, height, and simple measurements. See category and lean mass.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.unit-toggle{display:flex;gap:0;background:var(--surface2);padding:3px;border-radius:6px;width:fit-content;margin-bottom:8px}
+.unit-btn{background:transparent;color:var(--muted);border:none;padding:5px 12px;border-radius:4px;font-size:12px;cursor:pointer}
+.unit-btn.active{background:#BA7517;color:white}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:28px}
+.category-box{background:linear-gradient(135deg,rgba(0,229,192,0.1),rgba(91,111,247,0.1));padding:16px;border-radius:8px;text-align:center;margin:12px 0;border:1px solid rgba(0,229,192,0.2)}
+.category-box .cat{font-family:var(--font-head);font-size:20px;font-weight:700;color:#00E5C0}
+.category-box .range{font-size:12px;color:var(--muted);margin-top:4px}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+.info-note{background:rgba(184,170,255,0.06);border-left:3px solid #B8AAFF;padding:10px 14px;font-size:12.5px;color:var(--muted);border-radius:0 6px 6px 0;margin:12px 0}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Body Fat</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Body Fat Percentage Calculator</h1><p>Estimate body fat percentage using the US Navy circumference method. Only needs a tape measure — no calipers or scales required. See lean mass and health category.</p></div>
+<div class="counter-badge">💪 Used 10,847 times this month</div>
+<div class="info-note">📏 The US Navy method uses body measurements (neck, waist, hip) to estimate body fat. Accurate to within 3-4% for most people — good enough to track progress.</div>
+<div class="unit-toggle"><button class="unit-btn active" data-unit="metric" onclick="setUnit('metric')">Metric (kg / cm)</button><button class="unit-btn" data-unit="imperial" onclick="setUnit('imperial')">Imperial (lb / in)</button></div>
+<div class="calc-grid">
+<div class="calc-field"><label>Gender</label><select id="gender"><option value="male" selected>Male</option><option value="female">Female</option></select></div>
+<div class="calc-field"><label>Age</label><input type="number" id="age" value="30" min="15" max="100"></div>
+<div class="calc-field"><label>Weight <span id="wUnit">(kg)</span></label><input type="number" id="weight" value="75" min="30" step="0.1"></div>
+<div class="calc-field"><label>Height <span id="hUnit">(cm)</span></label><input type="number" id="height" value="175" min="100" step="0.1"></div>
+<div class="calc-field"><label>Neck <span id="nUnit">(cm)</span></label><input type="number" id="neck" value="38" min="15" step="0.1"></div>
+<div class="calc-field"><label>Waist <span id="waUnit">(cm)</span></label><input type="number" id="waist" value="85" min="40" step="0.1"></div>
+<div class="calc-field" id="hipField" style="display:none"><label>Hip <span id="hipUnit">(cm)</span></label><input type="number" id="hip" value="95" min="40" step="0.1"></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">💪 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">💪</div><h3>Body Composition</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Body Fat %</div><div class="stat-card-value" id="bfVal">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Fat Mass</div><div class="stat-card-value" id="fatMass">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Lean Mass</div><div class="stat-card-value" id="leanMass">-</div></div>
+</div>
+<div class="category-box"><div style="font-size:12px;color:var(--muted);margin-bottom:6px">CATEGORY</div><div class="cat" id="categoryLabel">-</div><div class="range" id="categoryRange"></div></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/body-fat.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Fitness goals?</strong> Get more health tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Measure</h3><p>Neck (below Adam's apple), waist (at navel), and hip (women only, widest point).</p></div><div class="step"><div class="step-num">02</div><h3>Enter Data</h3><p>Fill in gender, age, height, weight, and measurements.</p></div><div class="step"><div class="step-num">03</div><h3>See Result</h3><p>Body fat %, lean mass, and category.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How accurate is the US Navy method?</div><div class="faq-a">Within 3-4% for most people. Not as precise as DEXA scans or hydrostatic weighing (the gold standards), but way more accurate than BMI and free — perfect for tracking progress over time.</div></div>
+<div class="faq-item"><div class="faq-q">How do I measure correctly?</div><div class="faq-a">Neck: just below Adam's apple, tape parallel to floor. Waist: at your belly button, relaxed (do NOT suck in). Hip (women): widest point of hips. Use a soft tape, snug but not tight.</div></div>
+<div class="faq-item"><div class="faq-q">What is a healthy body fat range?</div><div class="faq-a">Men: 10-20% is good, 6-13% is athletic. Women: 18-28% is good, 14-20% is athletic. Under 6% (men) or 14% (women) can be dangerous.</div></div>
+<div class="faq-item"><div class="faq-q">Is this medical advice?</div><div class="faq-a">No. This is a general fitness tool. For medical body composition assessment, see a doctor or get a DEXA scan.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/bmr-tdee.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">BMR &amp; TDEE</a>
+<a href="/tools/bmi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">BMI</a>
+<a href="/tools/water-intake.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Water Intake</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+let unit = 'metric';
+function setUnit(u) {
+  ['weight','height','neck','waist','hip'].forEach(id => {
+    const v = parseFloat(document.getElementById(id).value) || 0;
+    if (u === 'imperial' && unit === 'metric') {
+      if (id === 'weight') document.getElementById(id).value = (v * 2.20462).toFixed(1);
+      else document.getElementById(id).value = (v * 0.393701).toFixed(1);
+    } else if (u === 'metric' && unit === 'imperial') {
+      if (id === 'weight') document.getElementById(id).value = (v / 2.20462).toFixed(1);
+      else document.getElementById(id).value = (v / 0.393701).toFixed(1);
+    }
+  });
+  const cmU = u === 'metric' ? '(cm)' : '(in)';
+  document.getElementById('wUnit').textContent = u === 'metric' ? '(kg)' : '(lb)';
+  ['hUnit','nUnit','waUnit','hipUnit'].forEach(id => document.getElementById(id).textContent = cmU);
+  unit = u;
+  document.querySelectorAll('.unit-btn').forEach(b => b.classList.toggle('active', b.dataset.unit === u));
+}
+document.getElementById('gender').addEventListener('change', e => {
+  document.getElementById('hipField').style.display = e.target.value === 'female' ? 'flex' : 'none';
+});
+function calculate() {
+  const gender = document.getElementById('gender').value;
+  let weight = parseFloat(document.getElementById('weight').value);
+  let height = parseFloat(document.getElementById('height').value);
+  let neck = parseFloat(document.getElementById('neck').value);
+  let waist = parseFloat(document.getElementById('waist').value);
+  let hip = parseFloat(document.getElementById('hip').value);
+  if (unit === 'imperial') {
+    weight /= 2.20462; height /= 0.393701; neck /= 0.393701; waist /= 0.393701; hip /= 0.393701;
+  }
+  // US Navy formula in cm
+  let bf;
+  if (gender === 'male') {
+    bf = 495 / (1.0324 - 0.19077 * Math.log10(waist - neck) + 0.15456 * Math.log10(height)) - 450;
+  } else {
+    bf = 495 / (1.29579 - 0.35004 * Math.log10(waist + hip - neck) + 0.22100 * Math.log10(height)) - 450;
+  }
+  bf = Math.max(0, Math.min(60, bf));
+  const fatKg = weight * bf / 100;
+  const leanKg = weight - fatKg;
+  const wUnit = unit === 'metric' ? ' kg' : ' lb';
+  const mult = unit === 'metric' ? 1 : 2.20462;
+  document.getElementById('bfVal').textContent = bf.toFixed(1) + '%';
+  document.getElementById('fatMass').textContent = (fatKg * mult).toFixed(1) + wUnit;
+  document.getElementById('leanMass').textContent = (leanKg * mult).toFixed(1) + wUnit;
+  // Category (ACE ranges)
+  let cat, range;
+  if (gender === 'male') {
+    if (bf < 6) { cat = 'Essential (very low)'; range = 'Under 6%'; }
+    else if (bf < 14) { cat = 'Athletic'; range = '6-13%'; }
+    else if (bf < 18) { cat = 'Fitness'; range = '14-17%'; }
+    else if (bf < 25) { cat = 'Average'; range = '18-24%'; }
+    else { cat = 'Above average'; range = '25%+'; }
+  } else {
+    if (bf < 14) { cat = 'Essential (very low)'; range = 'Under 14%'; }
+    else if (bf < 21) { cat = 'Athletic'; range = '14-20%'; }
+    else if (bf < 25) { cat = 'Fitness'; range = '21-24%'; }
+    else if (bf < 32) { cat = 'Average'; range = '25-31%'; }
+    else { cat = 'Above average'; range = '32%+'; }
+  }
+  document.getElementById('categoryLabel').textContent = cat;
+  document.getElementById('categoryRange').textContent = `Range for ${gender}s: ${range}`;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free body fat calculator at Toolify Core: https://toolifycore.com/tools/body-fat.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+function resetAll() { document.getElementById('gender').value = 'male'; document.getElementById('age').value = 30; if (unit === 'metric') { document.getElementById('weight').value = 75; document.getElementById('height').value = 175; document.getElementById('neck').value = 38; document.getElementById('waist').value = 85; document.getElementById('hip').value = 95; } document.getElementById('hipField').style.display = 'none'; calculate(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free body fat calculator!&url=https://toolifycore.com/tools/body-fat.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/body-fat.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

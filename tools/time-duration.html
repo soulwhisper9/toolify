@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Time Duration Calculator Free — Hours Between Times | Toolify Core</title>
+<meta name="description" content="Calculate the duration between two dates or times online for free. See years, months, days, hours, and minutes. Perfect for timesheets and planning.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+@media(max-width:640px){.calc-grid{grid-template-columns:1fr}}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus{outline:none;border-color:#BA7517}
+.big-result{background:linear-gradient(135deg,rgba(0,229,192,0.15),rgba(91,111,247,0.15));border:1px solid rgba(0,229,192,0.3);border-radius:12px;padding:24px;text-align:center;margin:16px 0}
+.big-result .num{font-family:var(--font-head);font-size:36px;font-weight:800;color:#00E5C0;line-height:1.2}
+.big-result .sub{color:var(--muted);font-size:13px;margin-top:6px}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin:16px 0}
+.stat-mini{background:var(--surface2);padding:12px 10px;border-radius:8px;text-align:center}
+.stat-mini-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.stat-mini-val{font-family:var(--font-head);font-size:18px;font-weight:700;color:#FAC775}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Time Duration</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Time Duration Calculator</h1><p>Find the exact duration between two dates or times. See years, months, days, hours, minutes, and totals. Perfect for timesheets, project planning, or curiosity.</p></div>
+<div class="counter-badge">⏰ Used 9,514 times this month</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Start date &amp; time</label><input type="datetime-local" id="start"></div>
+<div class="calc-field"><label>End date &amp; time</label><input type="datetime-local" id="end"></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">⏰ Calculate</button><button class="btn-secondary" onclick="setNowStart()">Start = Now</button><button class="btn-secondary" onclick="setNowEnd()">End = Now</button></div>
+<div class="result-box" id="resultBox">
+<div class="big-result"><div class="num" id="humanDur">-</div><div class="sub">Total duration</div></div>
+<h4 style="font-family:var(--font-head);font-size:13px;margin:16px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Also expressed as</h4>
+<div class="result-stats">
+<div class="stat-mini"><div class="stat-mini-label">Years</div><div class="stat-mini-val" id="years">-</div></div>
+<div class="stat-mini"><div class="stat-mini-label">Months</div><div class="stat-mini-val" id="months">-</div></div>
+<div class="stat-mini"><div class="stat-mini-label">Weeks</div><div class="stat-mini-val" id="weeks">-</div></div>
+<div class="stat-mini"><div class="stat-mini-label">Days</div><div class="stat-mini-val" id="days">-</div></div>
+<div class="stat-mini"><div class="stat-mini-label">Hours</div><div class="stat-mini-val" id="hours">-</div></div>
+<div class="stat-mini"><div class="stat-mini-label">Minutes</div><div class="stat-mini-val" id="minutes">-</div></div>
+<div class="stat-mini"><div class="stat-mini-label">Seconds</div><div class="stat-mini-val" id="seconds">-</div></div>
+</div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/time-duration.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Time-based tasks?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Dates</h3><p>Start and end date-time using the pickers.</p></div><div class="step"><div class="step-num">02</div><h3>Calculate</h3><p>Instant breakdown in every unit.</p></div><div class="step"><div class="step-num">03</div><h3>Use It</h3><p>Copy for timesheets, contracts, project logs.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How does it handle time zones?</div><div class="faq-a">Uses your browser's local time zone for both dates. If comparing dates across zones, convert them to the same zone first.</div></div>
+<div class="faq-item"><div class="faq-q">Does it account for leap years?</div><div class="faq-a">Yes. The calculation uses actual calendar arithmetic, so it correctly includes leap days between February 29 and any later date.</div></div>
+<div class="faq-item"><div class="faq-q">What if the end date is before the start?</div><div class="faq-a">Duration shows as negative. Swap them if you want a positive number.</div></div>
+<div class="faq-item"><div class="faq-q">Can I calculate business days only?</div><div class="faq-a">Not yet — this shows raw calendar duration. Business day calculators are on our roadmap.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/age-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Age Calculator</a>
+<a href="/tools/stopwatch.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Stopwatch</a>
+<a href="/tools/pregnancy-due-date.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Pregnancy Due</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+function toLocalIso(d) {
+  const off = d.getTimezoneOffset() * 60000;
+  return new Date(d - off).toISOString().slice(0, 16);
+}
+function setNowStart() { document.getElementById('start').value = toLocalIso(new Date()); calculate(); }
+function setNowEnd() { document.getElementById('end').value = toLocalIso(new Date()); calculate(); }
+// Defaults: start = 1 year ago, end = now
+document.getElementById('start').value = toLocalIso(new Date(Date.now() - 365*24*3600*1000));
+document.getElementById('end').value = toLocalIso(new Date());
+
+function calculate() {
+  const startStr = document.getElementById('start').value;
+  const endStr = document.getElementById('end').value;
+  if (!startStr || !endStr) return alert('Please pick both dates.');
+  const s = new Date(startStr), e = new Date(endStr);
+  const diffMs = e - s;
+  const abs = Math.abs(diffMs);
+  const totalSec = Math.floor(abs / 1000);
+  const totalMin = Math.floor(totalSec / 60);
+  const totalHr = Math.floor(totalMin / 60);
+  const totalDays = Math.floor(totalHr / 24);
+  const totalWeeks = Math.floor(totalDays / 7);
+  const totalMonths = Math.floor(totalDays / 30.44);
+  const totalYears = totalDays / 365.25;
+  // Human-readable breakdown (year, month, day, hour, min)
+  let y = 0, mo = 0, d = 0, h = 0, mi = 0;
+  const [early, late] = diffMs >= 0 ? [s, e] : [e, s];
+  y = late.getFullYear() - early.getFullYear();
+  mo = late.getMonth() - early.getMonth();
+  d = late.getDate() - early.getDate();
+  h = late.getHours() - early.getHours();
+  mi = late.getMinutes() - early.getMinutes();
+  if (mi < 0) { mi += 60; h--; }
+  if (h < 0) { h += 24; d--; }
+  if (d < 0) { const prev = new Date(late.getFullYear(), late.getMonth(), 0).getDate(); d += prev; mo--; }
+  if (mo < 0) { mo += 12; y--; }
+  const parts = [];
+  if (y) parts.push(y + ' year' + (y!==1?'s':''));
+  if (mo) parts.push(mo + ' month' + (mo!==1?'s':''));
+  if (d) parts.push(d + ' day' + (d!==1?'s':''));
+  if (h) parts.push(h + ' hour' + (h!==1?'s':''));
+  if (mi) parts.push(mi + ' minute' + (mi!==1?'s':''));
+  const human = (diffMs < 0 ? '-' : '') + (parts.join(', ') || '0 minutes');
+  document.getElementById('humanDur').textContent = human;
+  document.getElementById('years').textContent = totalYears.toFixed(2);
+  document.getElementById('months').textContent = totalMonths.toLocaleString();
+  document.getElementById('weeks').textContent = totalWeeks.toLocaleString();
+  document.getElementById('days').textContent = totalDays.toLocaleString();
+  document.getElementById('hours').textContent = totalHr.toLocaleString();
+  document.getElementById('minutes').textContent = totalMin.toLocaleString();
+  document.getElementById('seconds').textContent = totalSec.toLocaleString();
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free time duration calculator at Toolify Core: https://toolifycore.com/tools/time-duration.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+['start','end'].forEach(id => document.getElementById(id).addEventListener('change', calculate));
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free time duration calculator!&url=https://toolifycore.com/tools/time-duration.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/time-duration.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

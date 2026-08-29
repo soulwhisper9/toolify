@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Credit Card Payoff Calculator Free — Time and Interest | Toolify Core</title>
+<meta name="description" content="Calculate how long to pay off your credit card debt online for free. See total interest cost. Compare fixed payment vs target payoff date.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.mode-toggle{display:flex;gap:0;background:var(--surface2);padding:4px;border-radius:8px;width:fit-content;margin:16px 0 8px}
+.mode-btn{background:transparent;color:var(--muted);border:none;padding:8px 20px;border-radius:6px;font-size:13px;cursor:pointer}
+.mode-btn.active{background:#BA7517;color:white}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:20px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:26px}
+.stat-card.warn .stat-card-value{color:#FF6B6B}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+.warning-note{background:rgba(255,107,107,0.08);border-left:3px solid #FF6B6B;padding:10px 14px;font-size:12.5px;color:var(--text);border-radius:0 6px 6px 0;margin:12px 0}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Credit Card Payoff</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Credit Card Payoff Calculator</h1><p>See how long it takes to eliminate credit card debt and how much interest you'll pay. Try fixed monthly payment or a target payoff date.</p></div>
+<div class="counter-badge">💳 Used 11,527 times this month</div>
+<div class="mode-toggle"><button class="mode-btn active" data-mode="payment" onclick="setMode('payment')">💰 Fixed monthly payment</button><button class="mode-btn" data-mode="months" onclick="setMode('months')">🎯 Target payoff months</button></div>
+<div class="calc-grid">
+<div class="calc-field"><label>Current balance</label><input type="number" id="balance" value="5000" min="0" step="0.01"></div>
+<div class="calc-field"><label>Interest rate (APR %)</label><input type="number" id="apr" value="22" min="0" max="60" step="0.01"></div>
+<div class="calc-field" id="paymentField"><label>Monthly payment</label><input type="number" id="payment" value="200" min="0" step="0.01"></div>
+<div class="calc-field" id="monthsField" style="display:none"><label>Pay off in (months)</label><input type="number" id="months" value="24" min="1" max="360"></div>
+<div class="calc-field"><label>Currency</label><select id="currency"><option value="$" selected>$ USD</option><option value="Rs ">Rs PKR</option><option value="₹">₹ INR</option><option value="€">€ EUR</option><option value="£">£ GBP</option><option value="AED ">AED</option></select></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">💳 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">💳</div><h3>Payoff Summary</h3>
+<div class="result-stats" id="statsGrid"></div>
+<div id="warnBox"></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/cc-payoff.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Paying off debt?</strong> Get finance tips on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Balance</h3><p>Current credit card balance and APR from your statement.</p></div><div class="step"><div class="step-num">02</div><h3>Pick Mode</h3><p>Fixed monthly payment, or set a target payoff date.</p></div><div class="step"><div class="step-num">03</div><h3>See Timeline</h3><p>Months to payoff, total interest paid, and total cost.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Why is credit card debt so expensive?</div><div class="faq-a">APRs of 18-30% compound monthly, meaning interest is charged on unpaid interest. Paying only the minimum can take 15+ years and double the total cost.</div></div>
+<div class="faq-item"><div class="faq-q">What is the best strategy to pay off cards fast?</div><div class="faq-a">Two main approaches: Avalanche (pay off highest APR first — saves the most money) or Snowball (pay off smallest balance first — quick psychological wins). Both beat only paying minimums.</div></div>
+<div class="faq-item"><div class="faq-q">Should I use a balance transfer card?</div><div class="faq-a">If you have good credit, a 0% intro APR balance transfer can pause interest for 12-21 months. But watch for transfer fees (usually 3-5%) and pay off before the intro period ends.</div></div>
+<div class="faq-item"><div class="faq-q">Is minimum payment enough?</div><div class="faq-a">Almost never. Minimums are designed to keep you in debt for decades. Always pay more than minimum. Even doubling minimum can cut payoff time in half.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/emi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">EMI Calc</a>
+<a href="/tools/auto-loan.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Auto Loan</a>
+<a href="/tools/compound-interest.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Compound Interest</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+let mode = 'payment';
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('paymentField').style.display = m === 'payment' ? 'flex' : 'none';
+  document.getElementById('monthsField').style.display = m === 'months' ? 'flex' : 'none';
+  calculate();
+}
+function fmtMonths(n) {
+  const y = Math.floor(n/12), m = n % 12;
+  if (y === 0) return m + ' month' + (m!==1?'s':'');
+  if (m === 0) return y + ' year' + (y!==1?'s':'');
+  return `${y} year${y!==1?'s':''}, ${m} month${m!==1?'s':''}`;
+}
+function calculate() {
+  const bal = parseFloat(document.getElementById('balance').value) || 0;
+  const apr = parseFloat(document.getElementById('apr').value) || 0;
+  const cur = document.getElementById('currency').value;
+  const r = (apr/100) / 12;
+  const fmt = n => cur + n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+  let months, monthlyPayment, totalPaid, totalInt;
+  const warn = document.getElementById('warnBox');
+  warn.innerHTML = '';
+  if (mode === 'payment') {
+    monthlyPayment = parseFloat(document.getElementById('payment').value) || 0;
+    const minInterest = bal * r;
+    if (monthlyPayment <= minInterest) {
+      warn.innerHTML = `<div class="warning-note">⚠ Your payment of ${fmt(monthlyPayment)} is less than the monthly interest (${fmt(minInterest)}). At this rate, you will NEVER pay off this balance — it will grow forever. Increase payment to at least ${fmt(Math.ceil(minInterest * 1.5))}.</div>`;
+      document.getElementById('statsGrid').innerHTML = '';
+      document.getElementById('resultBox').classList.add('show');
+      return;
+    }
+    // months = -log(1 - r*B/P) / log(1+r)
+    months = r === 0 ? bal / monthlyPayment : -Math.log(1 - (r * bal) / monthlyPayment) / Math.log(1 + r);
+    months = Math.ceil(months);
+    totalPaid = monthlyPayment * months;
+    totalInt = totalPaid - bal;
+  } else {
+    months = parseInt(document.getElementById('months').value) || 1;
+    monthlyPayment = r === 0 ? bal / months : bal * (r * Math.pow(1+r, months)) / (Math.pow(1+r, months) - 1);
+    totalPaid = monthlyPayment * months;
+    totalInt = totalPaid - bal;
+  }
+  document.getElementById('statsGrid').innerHTML = mode === 'payment' ? `
+    <div class="stat-card hi"><div class="stat-card-label">Time to Payoff</div><div class="stat-card-value">${fmtMonths(months)}</div></div>
+    <div class="stat-card"><div class="stat-card-label">Monthly Payment</div><div class="stat-card-value">${fmt(monthlyPayment)}</div></div>
+    <div class="stat-card warn"><div class="stat-card-label">Total Interest</div><div class="stat-card-value">${fmt(totalInt)}</div></div>
+    <div class="stat-card"><div class="stat-card-label">Total Paid</div><div class="stat-card-value">${fmt(totalPaid)}</div></div>
+  ` : `
+    <div class="stat-card hi"><div class="stat-card-label">Required Monthly Payment</div><div class="stat-card-value">${fmt(monthlyPayment)}</div></div>
+    <div class="stat-card"><div class="stat-card-label">Payoff Time</div><div class="stat-card-value">${fmtMonths(months)}</div></div>
+    <div class="stat-card warn"><div class="stat-card-label">Total Interest</div><div class="stat-card-value">${fmt(totalInt)}</div></div>
+    <div class="stat-card"><div class="stat-card-label">Total Paid</div><div class="stat-card-value">${fmt(totalPaid)}</div></div>
+  `;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free credit card payoff calculator at Toolify Core: https://toolifycore.com/tools/cc-payoff.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+['balance','apr','payment','months','currency'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+function resetAll() { document.getElementById('balance').value = 5000; document.getElementById('apr').value = 22; document.getElementById('payment').value = 200; document.getElementById('months').value = 24; calculate(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free credit card payoff calc!&url=https://toolifycore.com/tools/cc-payoff.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/cc-payoff.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

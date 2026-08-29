@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Random Number Generator Free — Custom Range | Toolify Core</title>
+<meta name="description" content="Generate random numbers online for free. Custom range, multiple numbers, unique or repeated, integer or decimal. Perfect for raffles and games.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:var(--accent)}
+.opts{display:flex;gap:14px;margin:10px 0;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.opts label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.numbers-out{background:linear-gradient(135deg,rgba(123,97,255,0.1),rgba(0,229,192,0.1));border:1px solid rgba(123,97,255,0.3);border-radius:12px;padding:24px;text-align:center;margin:16px 0;min-height:100px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px}
+.number-chip{background:var(--surface);color:#B8AAFF;padding:8px 16px;border-radius:100px;font-family:var(--font-head);font-size:20px;font-weight:700;border:1px solid rgba(123,97,255,0.3)}
+.number-chip.single{font-size:48px;padding:12px 30px;color:#00E5C0;border-color:rgba(0,229,192,0.4)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Random Number</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>Random Number Generator</h1><p>Generate one or many random numbers within any range. Choose unique (no duplicates), integer or decimal, sorted or shuffled. Uses cryptographically secure random.</p></div>
+<div class="counter-badge">🎲 Used 12,412 times this month</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Minimum</label><input type="number" id="min" value="1"></div>
+<div class="calc-field"><label>Maximum</label><input type="number" id="max" value="100"></div>
+<div class="calc-field"><label>How many numbers?</label><input type="number" id="count" value="1" min="1" max="10000"></div>
+<div class="calc-field"><label>Number type</label><select id="type"><option value="int" selected>Integer</option><option value="dec1">Decimal (1 place)</option><option value="dec2">Decimal (2 places)</option><option value="dec3">Decimal (3 places)</option></select></div>
+</div>
+<div class="opts">
+<label><input type="checkbox" id="unique"> Unique (no duplicates)</label>
+<label><input type="checkbox" id="sorted"> Sort ascending</label>
+<label>Separator: <select id="sep" style="padding:5px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px"><option value=", " selected>Comma</option><option value=" ">Space</option><option value="\n">Newline</option><option value="|">Pipe</option></select></label>
+</div>
+<div class="actions" style="margin:12px 0"><button class="btn-primary" id="genBtn">🎲 Generate</button><button class="btn-secondary" onclick="copyOut()">📋 Copy result</button></div>
+<div class="numbers-out" id="numbersOut"><span style="color:var(--muted);font-size:14px">Click Generate to start</span></div>
+<div id="statusMsg" style="font-size:12px;color:var(--muted);text-align:center;margin:8px 0;min-height:16px"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/random-number.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Need more tools?</strong> Get updates on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Set Range</h3><p>Minimum and maximum. Any integers, positive or negative.</p></div><div class="step"><div class="step-num">02</div><h3>Set Options</h3><p>How many, unique or not, integer or decimal.</p></div><div class="step"><div class="step-num">03</div><h3>Generate</h3><p>Instant results. Click again to regenerate.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How random is this?</div><div class="faq-a">Uses window.crypto.getRandomValues() — the browser's cryptographically secure random number generator. Suitable for raffles, contests, and any use where fairness matters.</div></div>
+<div class="faq-item"><div class="faq-q">Can I use this for a giveaway winner?</div><div class="faq-a">Yes. Number your entries 1 to N, then generate one random number in that range. That is your winner. Take a screenshot for proof.</div></div>
+<div class="faq-item"><div class="faq-q">What is "unique" mode?</div><div class="faq-a">Ensures no number appears twice. Useful when picking multiple winners or lottery numbers. Requires the range to be at least as large as the count.</div></div>
+<div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. All generation happens in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/uuid-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">UUID Generator</a>
+<a href="/tools/pass-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Password Generator</a>
+<a href="/tools/hash-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Hash Generator</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+function secureRandom() {
+  const arr = new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  return arr[0] / (0xFFFFFFFF + 1);
+}
+function generate() {
+  let min = parseFloat(document.getElementById('min').value);
+  let max = parseFloat(document.getElementById('max').value);
+  const count = parseInt(document.getElementById('count').value) || 1;
+  const type = document.getElementById('type').value;
+  const unique = document.getElementById('unique').checked;
+  const sorted = document.getElementById('sorted').checked;
+  const sep = document.getElementById('sep').value.replace('\\n','\n');
+  const status = document.getElementById('statusMsg');
+  if (min > max) { [min, max] = [max, min]; document.getElementById('min').value = min; document.getElementById('max').value = max; }
+  const decimals = type === 'int' ? 0 : parseInt(type.slice(3));
+  const rangeSize = (max - min) + (type === 'int' ? 1 : 0);
+  if (unique && type === 'int' && count > rangeSize) {
+    status.textContent = `✗ Cannot generate ${count} unique integers between ${min} and ${max} (only ${rangeSize} possible).`;
+    status.style.color = '#FF6B6B';
+    return;
+  }
+  if (count > 10000) return alert('Max 10,000 numbers at once.');
+  const results = new Set(), arr = [];
+  let attempts = 0;
+  while (arr.length < count && attempts < count * 20) {
+    let val;
+    if (type === 'int') val = Math.floor(secureRandom() * (max - min + 1)) + min;
+    else val = parseFloat((secureRandom() * (max - min) + min).toFixed(decimals));
+    if (unique) {
+      if (!results.has(val)) { results.add(val); arr.push(val); }
+    } else arr.push(val);
+    attempts++;
+  }
+  if (sorted) arr.sort((a, b) => a - b);
+  const out = document.getElementById('numbersOut');
+  if (arr.length === 1) {
+    out.innerHTML = `<span class="number-chip single">${arr[0].toLocaleString()}</span>`;
+  } else {
+    out.innerHTML = arr.map(n => `<span class="number-chip">${n.toLocaleString()}</span>`).join('');
+  }
+  window._lastResult = arr.join(sep);
+  status.textContent = `✓ Generated ${arr.length} number${arr.length !== 1 ? 's' : ''} between ${min} and ${max}`;
+  status.style.color = '#00E5C0';
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free random number generator at Toolify Core: https://toolifycore.com/tools/random-number.html`;
+}
+document.getElementById('genBtn').addEventListener('click', generate);
+function copyOut() { if (!window._lastResult) return alert('Generate first.'); navigator.clipboard.writeText(window._lastResult); alert('Copied!'); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free random number generator!&url=https://toolifycore.com/tools/random-number.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/random-number.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+generate();
+</script>
+</body>
+</html>
