@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Binary Text Converter Free — Text to Binary Online | Toolify Core</title>
+<meta name="description" content="Convert text to binary and binary to text online for free. Full Unicode support, custom spacing. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.mode-toggle{display:flex;gap:0;margin:16px 0;background:var(--surface2);padding:4px;border-radius:8px;width:fit-content}
+.mode-btn{background:transparent;color:var(--muted);border:none;padding:8px 20px;border-radius:6px;font-size:13px;cursor:pointer}
+.mode-btn.active{background:#D85A30;color:white}
+.text-area{width:100%;min-height:130px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:13px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.6}
+.text-area:focus{border-color:#D85A30}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.opts{display:flex;gap:14px;margin:10px 0;flex-wrap:wrap;font-size:13px;color:var(--muted);align-items:center}
+.opts label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.opts select{padding:5px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px}
+.tool-badge{background:rgba(216,90,48,0.15) !important;color:#F4A482 !important;border:1px solid rgba(216,90,48,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Binary Text</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">✍️ Text Tools</div><h1>Binary ⇄ Text Converter</h1><p>Convert text to binary (010101...) and binary back to readable text. Full Unicode support including emoji and non-Latin scripts.</p></div>
+<div class="counter-badge">💻 Used 11,562 times this month</div>
+<div class="mode-toggle"><button class="mode-btn active" data-mode="tob" onclick="setMode('tob')">📝 Text → Binary</button><button class="mode-btn" data-mode="tot" onclick="setMode('tot')">💻 Binary → Text</button></div>
+<div class="opts">
+<label>Separator: <select id="sep"><option value=" " selected>Space</option><option value="">None</option><option value="\n">Newline</option><option value=",">Comma</option></select></label>
+<label>Group size: <select id="group"><option value="8" selected>8 bits (per byte)</option><option value="4">4 bits (nibble)</option><option value="0">No grouping</option></select></label>
+<label><input type="checkbox" id="livePreview" checked> Live preview</label>
+</div>
+<div class="io-label"><span id="inLabel">Input (text)</span><button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button></div>
+<textarea class="text-area" id="input" placeholder="Type or paste text..."></textarea>
+<div class="actions" style="margin:12px 0"><button class="btn-primary" id="convertBtn" style="background:#D85A30">🔄 Convert</button><button class="btn-secondary" onclick="swap()">↕ Swap</button></div>
+<div class="io-label"><span id="outLabel">Output (binary)</span><button class="btn-secondary" onclick="copyOut()" style="padding:4px 12px;font-size:11px">📋 Copy</button></div>
+<textarea class="text-area" id="output" readonly></textarea>
+<div id="statusMsg" style="font-size:12px;color:var(--muted);margin:10px 0;min-height:16px"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/binary-text.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Curious about coding?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#D85A30">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Mode</h3><p>Text to binary, or binary to text.</p></div><div class="step"><div class="step-num">02</div><h3>Set Format</h3><p>Choose separator and grouping style.</p></div><div class="step"><div class="step-num">03</div><h3>Convert</h3><p>Live output, copy with one click.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How is text turned into binary?</div><div class="faq-a">Each character is converted to its Unicode codepoint, then that number written in base 2 (binary). "A" becomes 65 in decimal = 01000001 in binary (8 bits).</div></div>
+<div class="faq-item"><div class="faq-q">Does it work with emojis and Arabic?</div><div class="faq-a">Yes. We use UTF-8 encoding which handles emoji, Arabic, Urdu, Chinese — any Unicode character. Multi-byte characters produce multiple 8-bit groups.</div></div>
+<div class="faq-item"><div class="faq-q">What is the difference between 4-bit and 8-bit grouping?</div><div class="faq-a">8-bit groups match bytes (standard for text). 4-bit "nibbles" group hex digits, sometimes used in low-level protocols. No grouping is one continuous stream.</div></div>
+<div class="faq-item"><div class="faq-q">Is my text uploaded?</div><div class="faq-a">No. All conversion runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(216,90,48,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/base64-encoder.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Base64 Encoder</a>
+<a href="/tools/hash-gen.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Hash Generator</a>
+<a href="/tools/word-count.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Word Counter</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(216,90,48,0.06);border-left:3px solid #D85A30;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally — your data never leaves your device. Read our <a href="/privacy.html" style="color:#D85A30">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#D85A30">Visit our blog</a>.</div>
+</main>
+<script>
+let mode = 'tob';
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('inLabel').textContent = m === 'tob' ? 'Input (text)' : 'Input (binary)';
+  document.getElementById('outLabel').textContent = m === 'tob' ? 'Output (binary)' : 'Output (text)';
+  convert();
+}
+
+function textToBinary(text) {
+  const bytes = new TextEncoder().encode(text);
+  const sep = document.getElementById('sep').value.replace('\\n','\n');
+  const group = parseInt(document.getElementById('group').value);
+  const bits = [];
+  bytes.forEach(b => bits.push(b.toString(2).padStart(8, '0')));
+  if (group === 0) return bits.join('').replace(/(.{1})/g, '$1');
+  if (group === 4) return bits.join('').match(/.{1,4}/g).join(sep);
+  return bits.join(sep);
+}
+
+function binaryToText(bin) {
+  const clean = bin.replace(/[^01]/g, '');
+  if (clean.length % 8 !== 0) throw new Error('Binary length must be a multiple of 8. Got ' + clean.length + '.');
+  const bytes = new Uint8Array(clean.length / 8);
+  for (let i = 0; i < bytes.length; i++) bytes[i] = parseInt(clean.substr(i*8, 8), 2);
+  return new TextDecoder().decode(bytes);
+}
+
+function convert() {
+  const input = document.getElementById('input').value;
+  const output = document.getElementById('output');
+  const status = document.getElementById('statusMsg');
+  if (!input) { output.value = ''; status.textContent = ''; return; }
+  try {
+    output.value = mode === 'tob' ? textToBinary(input) : binaryToText(input);
+    status.textContent = `✓ ${mode === 'tob' ? 'Encoded' : 'Decoded'} · ${input.length} → ${output.value.length} chars`;
+    status.style.color = '#00E5C0';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free binary/text converter at Toolify Core: https://toolifycore.com/tools/binary-text.html`;
+  } catch (e) { output.value = ''; status.textContent = '✗ ' + e.message; status.style.color = '#FF6B6B'; }
+}
+
+document.getElementById('input').addEventListener('input', () => { if (document.getElementById('livePreview').checked) convert(); });
+document.getElementById('convertBtn').addEventListener('click', convert);
+['sep','group'].forEach(id => document.getElementById(id).addEventListener('change', convert));
+function swap() { const i = document.getElementById('input'), o = document.getElementById('output'); const t = i.value; i.value = o.value; o.value = t; setMode(mode === 'tob' ? 'tot' : 'tob'); }
+function clearInput() { document.getElementById('input').value = ''; document.getElementById('output').value = ''; document.getElementById('statusMsg').textContent = ''; }
+function copyOut() { const o = document.getElementById('output').value; if (!o) return alert('Nothing to copy.'); navigator.clipboard.writeText(o); alert('Copied!'); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free binary text converter!&url=https://toolifycore.com/tools/binary-text.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/binary-text.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

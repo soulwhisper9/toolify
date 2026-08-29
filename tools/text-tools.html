@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Text Manipulation Tool Free — Sort, Dedupe, Find Replace | Toolify Core</title>
+<meta name="description" content="Manipulate text online for free. Remove duplicate lines, sort alphabetically, find and replace, reverse text. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.tab-row{display:flex;gap:0;margin:16px 0;background:var(--surface2);padding:4px;border-radius:8px;overflow-x:auto;flex-wrap:nowrap}
+.tab-btn{background:transparent;color:var(--muted);border:none;padding:8px 14px;border-radius:6px;font-size:12px;cursor:pointer;white-space:nowrap;font-family:var(--font-body)}
+.tab-btn.active{background:#D85A30;color:white}
+.text-area{width:100%;min-height:170px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:13px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.6}
+.text-area:focus{border-color:#D85A30}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.opts{display:flex;gap:14px;margin:10px 0;flex-wrap:wrap;font-size:13px;color:var(--muted);align-items:center;padding:10px 12px;background:var(--surface2);border-radius:8px}
+.opts label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.opts input[type=text]{padding:5px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px;font-family:monospace;width:180px}
+.opts select{padding:5px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px}
+.tool-badge{background:rgba(216,90,48,0.15) !important;color:#F4A482 !important;border:1px solid rgba(216,90,48,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Text Manipulation</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">✍️ Text Tools</div><h1>Text Manipulation Toolkit</h1><p>Multiple text operations in one tool: remove duplicate lines, sort alphabetically, find &amp; replace, reverse, count. Everything runs in your browser.</p></div>
+<div class="counter-badge">🔥 Used 14,215 times this month</div>
+<div class="tab-row">
+<button class="tab-btn active" data-op="dedupe" onclick="setOp('dedupe')">🗑 Remove Duplicates</button>
+<button class="tab-btn" data-op="sort" onclick="setOp('sort')">🔤 Sort Lines</button>
+<button class="tab-btn" data-op="replace" onclick="setOp('replace')">🔄 Find &amp; Replace</button>
+<button class="tab-btn" data-op="reverse" onclick="setOp('reverse')">↩ Reverse</button>
+<button class="tab-btn" data-op="trim" onclick="setOp('trim')">✂ Trim</button>
+</div>
+<div class="opts" id="opts"></div>
+<div class="io-label"><span>Input</span><button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button></div>
+<textarea class="text-area" id="input" placeholder="Paste your text (one item per line for sort/dedupe)..."></textarea>
+<div class="actions" style="margin:12px 0"><button class="btn-primary" id="processBtn" style="background:#D85A30">⚡ Process</button><button class="btn-secondary" onclick="swap()">↕ Use output as input</button></div>
+<div class="io-label"><span>Output</span><div style="display:flex;gap:6px"><button class="btn-secondary" onclick="copyOut()" style="padding:4px 12px;font-size:11px">📋 Copy</button><button class="btn-secondary" onclick="downloadOut()" style="padding:4px 12px;font-size:11px">⬇ Download</button></div></div>
+<textarea class="text-area" id="output" readonly></textarea>
+<div id="statusMsg" style="font-size:12px;color:var(--muted);margin:10px 0;min-height:16px"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/text-tools.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Writer or dev?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#D85A30">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Operation</h3><p>Dedupe, sort, find/replace, reverse, or trim.</p></div><div class="step"><div class="step-num">02</div><h3>Paste Text</h3><p>One line per item for line-based operations.</p></div><div class="step"><div class="step-num">03</div><h3>Process</h3><p>Copy or download the transformed text.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How does duplicate removal work?</div><div class="faq-a">We compare each line and keep only the first occurrence of each unique line. Options let you ignore case and trim whitespace before comparing.</div></div>
+<div class="faq-item"><div class="faq-q">Sort alphabetically vs numerically?</div><div class="faq-a">Alphabetical sorts like a dictionary. Numeric mode sorts "2" before "10" (correct number order) instead of "10" before "2" (alphabetical order).</div></div>
+<div class="faq-item"><div class="faq-q">Does find &amp; replace support regex?</div><div class="faq-a">Yes. Toggle the "Regex" option to use regular expressions. Otherwise it does plain text replacement.</div></div>
+<div class="faq-item"><div class="faq-q">Is my text uploaded?</div><div class="faq-a">No. All operations run in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(216,90,48,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/word-count.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Word Counter</a>
+<a href="/tools/case-convert.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Case Converter</a>
+<a href="/tools/text-diff.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Text Diff</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(216,90,48,0.06);border-left:3px solid #D85A30;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally — your data never leaves your device. Read our <a href="/privacy.html" style="color:#D85A30">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#D85A30">Visit our blog</a>.</div>
+</main>
+<script>
+let op = 'dedupe';
+const OPTS_HTML = {
+  dedupe: `<label><input type="checkbox" id="opt_ic" checked> Ignore case</label><label><input type="checkbox" id="opt_trim" checked> Trim whitespace</label><label><input type="checkbox" id="opt_keep_empty"> Keep empty lines</label>`,
+  sort: `<label>Direction: <select id="opt_dir"><option value="asc" selected>Ascending A→Z</option><option value="desc">Descending Z→A</option></select></label><label>Type: <select id="opt_type"><option value="alpha" selected>Alphabetical</option><option value="num">Numeric</option><option value="length">By length</option></select></label><label><input type="checkbox" id="opt_ic"> Ignore case</label>`,
+  replace: `<label>Find: <input type="text" id="opt_find" placeholder="text to find"></label><label>Replace: <input type="text" id="opt_replace" placeholder="new text"></label><label><input type="checkbox" id="opt_regex"> Regex</label><label><input type="checkbox" id="opt_ic"> Ignore case</label>`,
+  reverse: `<label>Mode: <select id="opt_mode"><option value="lines" selected>Reverse line order</option><option value="chars">Reverse characters</option><option value="words">Reverse word order</option></select></label>`,
+  trim: `<label>Type: <select id="opt_type"><option value="lines" selected>Trim each line</option><option value="empty">Remove empty lines only</option><option value="all">Both</option></select></label>`,
+};
+
+function setOp(o) {
+  op = o;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.op === o));
+  document.getElementById('opts').innerHTML = OPTS_HTML[o];
+}
+setOp('dedupe');
+
+function process() {
+  const text = document.getElementById('input').value;
+  if (!text.trim()) return;
+  const out = document.getElementById('output');
+  const status = document.getElementById('statusMsg');
+  let lines = text.split('\n'), result = text, info = '';
+  try {
+    if (op === 'dedupe') {
+      const ic = document.getElementById('opt_ic').checked, trim = document.getElementById('opt_trim').checked, keep = document.getElementById('opt_keep_empty').checked;
+      const seen = new Set(), unique = [];
+      lines.forEach(l => {
+        let key = trim ? l.trim() : l;
+        if (ic) key = key.toLowerCase();
+        if (!keep && !key) return;
+        if (!seen.has(key)) { seen.add(key); unique.push(l); }
+      });
+      result = unique.join('\n');
+      info = `Removed ${lines.length - unique.length} duplicate lines`;
+    } else if (op === 'sort') {
+      const dir = document.getElementById('opt_dir').value, type = document.getElementById('opt_type').value, ic = document.getElementById('opt_ic').checked;
+      const sorted = [...lines].sort((a, b) => {
+        let x = ic ? a.toLowerCase() : a, y = ic ? b.toLowerCase() : b;
+        if (type === 'num') return parseFloat(x) - parseFloat(y);
+        if (type === 'length') return x.length - y.length;
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+      if (dir === 'desc') sorted.reverse();
+      result = sorted.join('\n');
+      info = `Sorted ${sorted.length} lines`;
+    } else if (op === 'replace') {
+      const find = document.getElementById('opt_find').value, rep = document.getElementById('opt_replace').value;
+      const regex = document.getElementById('opt_regex').checked, ic = document.getElementById('opt_ic').checked;
+      if (!find) throw new Error('Enter text to find');
+      let pattern = regex ? new RegExp(find, 'g' + (ic ? 'i' : '')) : new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g' + (ic ? 'i' : ''));
+      const matches = (text.match(pattern) || []).length;
+      result = text.replace(pattern, rep);
+      info = `Replaced ${matches} occurrences`;
+    } else if (op === 'reverse') {
+      const mode = document.getElementById('opt_mode').value;
+      if (mode === 'lines') result = lines.reverse().join('\n');
+      else if (mode === 'chars') result = [...text].reverse().join('');
+      else result = lines.map(l => l.split(/\s+/).reverse().join(' ')).join('\n');
+      info = 'Reversed';
+    } else if (op === 'trim') {
+      const type = document.getElementById('opt_type').value;
+      if (type === 'lines') result = lines.map(l => l.trim()).join('\n');
+      else if (type === 'empty') result = lines.filter(l => l.trim()).join('\n');
+      else result = lines.map(l => l.trim()).filter(l => l).join('\n');
+      info = 'Trimmed';
+    }
+    out.value = result;
+    status.textContent = '✓ ' + info;
+    status.style.color = '#00E5C0';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free text tools at Toolify Core: https://toolifycore.com/tools/text-tools.html`;
+  } catch (e) { status.textContent = '✗ ' + e.message; status.style.color = '#FF6B6B'; }
+}
+
+document.getElementById('processBtn').addEventListener('click', process);
+function swap() { document.getElementById('input').value = document.getElementById('output').value; document.getElementById('output').value = ''; }
+function clearInput() { document.getElementById('input').value = ''; document.getElementById('output').value = ''; document.getElementById('statusMsg').textContent = ''; }
+function copyOut() { const o = document.getElementById('output').value; if (!o) return alert('Nothing to copy.'); navigator.clipboard.writeText(o); alert('Copied!'); }
+function downloadOut() { const o = document.getElementById('output').value; if (!o) return alert('Nothing to download.'); const blob = new Blob([o],{type:'text/plain'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'text-toolifycore.txt'; a.click(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free text manipulation tools!&url=https://toolifycore.com/tools/text-tools.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/text-tools.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

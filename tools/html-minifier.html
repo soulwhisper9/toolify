@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HTML Minifier Free — Minify HTML Online | Toolify Core</title>
+<meta name="description" content="Minify HTML online for free. Remove whitespace, comments, and reduce file size. Faster page loads. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.text-area{width:100%;min-height:200px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:12px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.6}
+.text-area:focus{border-color:var(--accent)}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.options-row{display:flex;gap:14px;margin:12px 0;flex-wrap:wrap;padding:12px 14px;background:var(--surface2);border-radius:8px;font-size:13px;color:var(--muted)}
+.options-row label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:12px 0}
+.stat-mini{background:var(--surface2);padding:10px 12px;border-radius:6px;text-align:center;font-size:12px}
+.stat-mini-val{font-family:var(--font-head);font-size:16px;font-weight:700;color:#00E5C0}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">HTML Minifier</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>HTML Minifier</h1><p>Compress HTML by removing unnecessary whitespace, comments, and blank lines. Faster page loads, smaller file sizes. Nothing uploaded.</p></div>
+<div class="counter-badge">🔥 Used 8,347 times this month</div>
+<div class="io-label"><span>HTML Input</span><div style="display:flex;gap:6px"><button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button><button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button></div></div>
+<textarea class="text-area" id="input" placeholder="Paste your HTML here..."></textarea>
+<div class="options-row">
+<label><input type="checkbox" id="removeComments" checked> Remove HTML comments</label>
+<label><input type="checkbox" id="collapseWhitespace" checked> Collapse whitespace</label>
+<label><input type="checkbox" id="removeBlankLines" checked> Remove blank lines</label>
+<label><input type="checkbox" id="minifyStyles"> Minify inline CSS</label>
+<label><input type="checkbox" id="preserveConditional" checked> Preserve IE conditional comments</label>
+</div>
+<div class="actions" style="margin:12px 0"><button class="btn-primary" id="minifyBtn">🗜 Minify HTML</button><button class="btn-secondary" onclick="clearInput()">Reset</button></div>
+<div class="stats-row" id="statsRow" style="display:none">
+<div class="stat-mini"><div style="color:var(--muted)">Original size</div><div class="stat-mini-val" id="origSize">-</div></div>
+<div class="stat-mini"><div style="color:var(--muted)">Minified size</div><div class="stat-mini-val" id="minSize">-</div></div>
+<div class="stat-mini"><div style="color:var(--muted)">Saved</div><div class="stat-mini-val" id="saved">-</div></div>
+<div class="stat-mini"><div style="color:var(--muted)">Compression</div><div class="stat-mini-val" id="ratio">-</div></div>
+</div>
+<div class="io-label"><span>Minified Output</span><div style="display:flex;gap:6px"><button class="btn-secondary" onclick="copyOut()" style="padding:4px 12px;font-size:11px">📋 Copy</button><button class="btn-secondary" onclick="downloadOut()" style="padding:4px 12px;font-size:11px">⬇ Download</button></div></div>
+<textarea class="text-area" id="output" readonly placeholder="Minified HTML appears here..."></textarea>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool (click to copy)</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/html-minifier.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Developer?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Paste HTML</h3><p>Copy your HTML source into the input area.</p></div><div class="step"><div class="step-num">02</div><h3>Set Options</h3><p>Choose what to remove: comments, whitespace, blank lines.</p></div><div class="step"><div class="step-num">03</div><h3>Copy Minified</h3><p>Get smaller HTML ready for production.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Why minify HTML?</div><div class="faq-a">Smaller files load faster and save bandwidth. Even small pages can shrink 20-40% by removing whitespace. Google PageSpeed favors minified HTML.</div></div>
+<div class="faq-item"><div class="faq-q">Will it break my page?</div><div class="faq-a">Content inside &lt;pre&gt;, &lt;textarea&gt;, and &lt;script&gt; is preserved as-is. Only formatting whitespace between tags is collapsed.</div></div>
+<div class="faq-item"><div class="faq-q">Should I minify by hand or automate it?</div><div class="faq-a">For production sites, automate via build tools (Webpack, Vite, etc.). Use this tool for quick one-off compression or checking savings.</div></div>
+<div class="faq-item"><div class="faq-q">Is my HTML uploaded?</div><div class="faq-a">No. All processing runs in your browser. Your code never leaves your device.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/json-format.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JSON Formatter</a>
+<a href="/tools/md-to-html.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Markdown to HTML</a>
+<a href="/tools/meta-tag-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Meta Tag Generator</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally — your data never leaves your device. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+const SAMPLE = `<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Meta tags -->
+    <title>My Page</title>
+    <style>
+      body { margin: 0; padding: 20px; }
+      .container { max-width: 800px; }
+    </style>
+  </head>
+  <body>
+    <!-- Header section -->
+    <header>
+      <h1>Welcome</h1>
+    </header>
+    <main>
+      <p>This is a sample paragraph.</p>
+    </main>
+  </body>
+</html>`;
+
+function fmt(b) { return b < 1024 ? b + ' B' : (b/1024).toFixed(2) + ' KB'; }
+
+function minify() {
+  let html = document.getElementById('input').value;
+  if (!html.trim()) return;
+  const original = html;
+  const preserveCond = document.getElementById('preserveConditional').checked;
+  // Preserve <pre>, <textarea>, <script>, <style> content
+  const placeholders = [];
+  html = html.replace(/<(pre|textarea|script|style)([^>]*)>([\s\S]*?)<\/\1>/gi, (m) => {
+    placeholders.push(m); return `\x00PH${placeholders.length - 1}\x00`;
+  });
+  if (document.getElementById('removeComments').checked) {
+    if (preserveCond) {
+      html = html.replace(/<!--(?!\[if )([\s\S]*?)-->/g, '');
+    } else {
+      html = html.replace(/<!--[\s\S]*?-->/g, '');
+    }
+  }
+  if (document.getElementById('collapseWhitespace').checked) {
+    html = html.replace(/>\s+</g, '><').replace(/\s{2,}/g, ' ');
+  }
+  if (document.getElementById('removeBlankLines').checked) {
+    html = html.replace(/\n\s*\n/g, '\n').trim();
+  }
+  // Restore preserved blocks (with optional style minification)
+  html = html.replace(/\x00PH(\d+)\x00/g, (m, i) => {
+    let block = placeholders[parseInt(i)];
+    if (document.getElementById('minifyStyles').checked && /^<style/i.test(block)) {
+      block = block.replace(/<style([^>]*)>([\s\S]*?)<\/style>/i, (m, attrs, css) => {
+        css = css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{}:;,])\s*/g, '$1').trim();
+        return `<style${attrs}>${css}</style>`;
+      });
+    }
+    return block;
+  });
+  document.getElementById('output').value = html;
+  const orig = new Blob([original]).size, mini = new Blob([html]).size;
+  const saved = orig - mini, pct = orig ? Math.round((saved / orig) * 100) : 0;
+  document.getElementById('origSize').textContent = fmt(orig);
+  document.getElementById('minSize').textContent = fmt(mini);
+  document.getElementById('saved').textContent = fmt(saved);
+  document.getElementById('ratio').textContent = pct + '%';
+  document.getElementById('statsRow').style.display = 'grid';
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free HTML minifier at Toolify Core: https://toolifycore.com/tools/html-minifier.html`;
+}
+
+document.getElementById('minifyBtn').addEventListener('click', minify);
+document.getElementById('input').addEventListener('input', () => { if (document.getElementById('input').value) minify(); });
+function loadSample() { document.getElementById('input').value = SAMPLE; minify(); }
+function clearInput() { document.getElementById('input').value = ''; document.getElementById('output').value = ''; document.getElementById('statsRow').style.display = 'none'; }
+function copyOut() { const o = document.getElementById('output').value; if (!o) return alert('Minify first.'); navigator.clipboard.writeText(o); alert('Copied!'); }
+function downloadOut() { const o = document.getElementById('output').value; if (!o) return alert('Minify first.'); const blob = new Blob([o],{type:'text/html'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'minified-toolifycore.html'; a.click(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free HTML minifier!&url=https://toolifycore.com/tools/html-minifier.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/html-minifier.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

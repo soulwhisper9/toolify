@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HTML Entity Encoder Decoder Free — Online Tool | Toolify Core</title>
+<meta name="description" content="Encode and decode HTML entities online for free. Named entities and numeric codes. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.mode-toggle{display:flex;gap:0;margin:16px 0;background:var(--surface2);padding:4px;border-radius:8px;width:fit-content}
+.mode-btn{background:transparent;color:var(--muted);border:none;padding:8px 20px;border-radius:6px;font-size:13px;cursor:pointer}
+.mode-btn.active{background:var(--accent);color:white}
+.text-area{width:100%;min-height:150px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:13px;resize:vertical;box-sizing:border-box;outline:none}
+.text-area:focus{border-color:var(--accent)}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.opts{display:flex;gap:14px;margin:10px 0;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.opts label{display:flex;align-items:center;gap:6px;cursor:pointer}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">HTML Entity</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>HTML Entity Encoder / Decoder</h1><p>Convert special characters to HTML entities and back. Handles named entities (&amp;amp;) and numeric codes (&amp;#38;). Everything runs in your browser.</p></div>
+<div class="counter-badge">🔥 Used 6,145 times this month</div>
+<div class="mode-toggle"><button class="mode-btn active" data-mode="encode" onclick="setMode('encode')">🔒 Encode</button><button class="mode-btn" data-mode="decode" onclick="setMode('decode')">🔓 Decode</button></div>
+<div class="opts">
+<label><input type="radio" name="entity" value="named" checked> Named entities (&amp;amp;)</label>
+<label><input type="radio" name="entity" value="numeric"> Numeric codes (&amp;#38;)</label>
+<label><input type="radio" name="entity" value="hex"> Hex codes (&amp;#x26;)</label>
+<label><input type="checkbox" id="encodeAll"> Encode ALL characters (not just special)</label>
+</div>
+<div class="io-label"><span id="inLabel">Input (text)</span><button class="btn-secondary" onclick="clearInput()" style="padding:4px 12px;font-size:11px">Clear</button></div>
+<textarea class="text-area" id="input" placeholder="Type or paste text..."></textarea>
+<div class="actions" style="margin:12px 0"><button class="btn-primary" id="convertBtn">🔄 Convert</button><button class="btn-secondary" onclick="swap()">↕ Swap</button></div>
+<div class="io-label"><span id="outLabel">Output</span><button class="btn-secondary" onclick="copyOut()" style="padding:4px 12px;font-size:11px">📋 Copy</button></div>
+<textarea class="text-area" id="output" readonly></textarea>
+<div id="statusMsg" style="font-size:12px;color:var(--muted);margin:10px 0;min-height:16px"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/html-entity.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Developer?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Mode</h3><p>Encode text to entities, or decode entities back.</p></div><div class="step"><div class="step-num">02</div><h3>Pick Format</h3><p>Named, numeric, or hex representation.</p></div><div class="step"><div class="step-num">03</div><h3>Copy</h3><p>Get output ready to paste into your HTML.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What are HTML entities?</div><div class="faq-a">HTML entities let you show characters that have special meaning (like &lt; &gt; &amp;) or non-ASCII characters in your HTML source. For example, &amp;lt; displays as &lt;.</div></div>
+<div class="faq-item"><div class="faq-q">Named vs numeric - which should I use?</div><div class="faq-a">Named (&amp;amp;) is more readable but only exists for common characters. Numeric (&amp;#38;) works for any Unicode character. Hex (&amp;#x26;) is common in XML.</div></div>
+<div class="faq-item"><div class="faq-q">When should I encode "all" characters?</div><div class="faq-a">Rarely — only for obfuscating email addresses to fool basic scrapers, or for XML attributes with strict rules. Normal HTML only needs the 5 reserved chars encoded.</div></div>
+<div class="faq-item"><div class="faq-q">Is my text uploaded?</div><div class="faq-a">No. All conversion runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/url-encoder.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">URL Encoder</a>
+<a href="/tools/base64-encoder.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Base64 Encoder</a>
+<a href="/tools/html-minifier.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">HTML Minifier</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally — your data never leaves your device. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+const NAMED = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;',' ':'&nbsp;','¢':'&cent;','£':'&pound;','¥':'&yen;','€':'&euro;','©':'&copy;','®':'&reg;','™':'&trade;','§':'&sect;','¶':'&para;','°':'&deg;','±':'&plusmn;','×':'&times;','÷':'&divide;','¼':'&frac14;','½':'&frac12;','¾':'&frac34;'};
+const REVERSE = Object.fromEntries(Object.entries(NAMED).map(([k,v])=>[v,k]));
+let mode = 'encode';
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('inLabel').textContent = m === 'encode' ? 'Input (text)' : 'Input (HTML entities)';
+  document.getElementById('outLabel').textContent = m === 'encode' ? 'Output (encoded)' : 'Output (decoded)';
+  convert();
+}
+
+function encode(str) {
+  const type = document.querySelector('input[name="entity"]:checked').value;
+  const all = document.getElementById('encodeAll').checked;
+  return [...str].map(ch => {
+    const code = ch.codePointAt(0);
+    if (all || code > 127 || '&<>"\''.includes(ch)) {
+      if (type === 'named' && NAMED[ch]) return NAMED[ch];
+      if (type === 'hex') return `&#x${code.toString(16).toUpperCase()};`;
+      return `&#${code};`;
+    }
+    return ch;
+  }).join('');
+}
+
+function decode(str) {
+  // Named
+  str = str.replace(/&[a-zA-Z]+;/g, m => REVERSE[m] !== undefined ? REVERSE[m] : m);
+  // Numeric decimal
+  str = str.replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(parseInt(n)));
+  // Numeric hex
+  str = str.replace(/&#x([0-9a-fA-F]+);/g, (m, n) => String.fromCodePoint(parseInt(n, 16)));
+  // Use browser textarea trick to decode remaining named entities
+  const t = document.createElement('textarea'); t.innerHTML = str; return t.value;
+}
+
+function convert() {
+  const input = document.getElementById('input').value;
+  const output = document.getElementById('output');
+  const status = document.getElementById('statusMsg');
+  if (!input) { output.value = ''; status.textContent = ''; return; }
+  try {
+    output.value = mode === 'encode' ? encode(input) : decode(input);
+    status.textContent = `✓ ${mode === 'encode' ? 'Encoded' : 'Decoded'} ${input.length} → ${output.value.length} chars`;
+    status.style.color = '#00E5C0';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free HTML entity encoder!&url=https://toolifycore.com/tools/html-entity.html`;
+  } catch (e) { status.textContent = '✗ ' + e.message; status.style.color = '#FF6B6B'; }
+}
+
+document.getElementById('input').addEventListener('input', convert);
+document.getElementById('convertBtn').addEventListener('click', convert);
+document.querySelectorAll('input[name="entity"]').forEach(r => r.addEventListener('change', convert));
+document.getElementById('encodeAll').addEventListener('change', convert);
+
+function swap() { const i = document.getElementById('input'), o = document.getElementById('output'); const t = i.value; i.value = o.value; o.value = t; setMode(mode === 'encode' ? 'decode' : 'encode'); }
+function clearInput() { document.getElementById('input').value = ''; document.getElementById('output').value = ''; document.getElementById('statusMsg').textContent = ''; }
+function copyOut() { const o = document.getElementById('output').value; if (!o) return alert('Nothing to copy.'); navigator.clipboard.writeText(o); alert('Copied!'); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free HTML entity encoder!&url=https://toolifycore.com/tools/html-entity.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/html-entity.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

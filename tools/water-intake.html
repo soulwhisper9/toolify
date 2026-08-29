@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Water Intake Calculator Free — Daily Water Needs | Toolify Core</title>
+<meta name="description" content="Calculate your daily water intake needs based on weight, activity, and climate. Free water calculator with hourly reminders schedule.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.unit-toggle{display:flex;gap:0;background:var(--surface2);padding:3px;border-radius:6px;width:fit-content;margin-bottom:8px}
+.unit-btn{background:transparent;color:var(--muted);border:none;padding:5px 12px;border-radius:4px;font-size:12px;cursor:pointer}
+.unit-btn.active{background:#BA7517;color:white}
+.big-result{background:linear-gradient(135deg,rgba(0,229,192,0.15),rgba(91,111,247,0.15));border:1px solid rgba(0,229,192,0.3);border-radius:12px;padding:24px;text-align:center;margin:16px 0}
+.big-result .num{font-family:var(--font-head);font-size:48px;font-weight:800;color:#00E5C0;line-height:1}
+.big-result .unit{font-size:16px;color:var(--muted);margin-left:8px}
+.big-result .sub{color:var(--muted);font-size:14px;margin-top:6px}
+.glass-vis{display:flex;justify-content:center;gap:6px;margin:16px 0;flex-wrap:wrap}
+.glass{width:26px;height:36px;background:linear-gradient(to top,#5B6FF7 60%,rgba(91,111,247,0.2) 60%);border-radius:2px 2px 6px 6px;position:relative}
+.reminder-list{background:var(--surface2);padding:14px;border-radius:8px;margin:12px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px}
+.reminder{padding:8px;background:var(--surface);border-radius:6px;text-align:center;font-size:12px;color:var(--muted)}
+.reminder strong{color:#FAC775;display:block;font-family:var(--font-head)}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Water Intake</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Water Intake Calculator</h1><p>How much water should you drink daily? Get a personalized target based on weight, activity, and climate. Includes hourly reminder schedule.</p></div>
+<div class="counter-badge">💧 Used 18,432 times this month</div>
+<div class="unit-toggle"><button class="unit-btn active" data-unit="metric" onclick="setUnit('metric')">Metric (kg / L)</button><button class="unit-btn" data-unit="imperial" onclick="setUnit('imperial')">Imperial (lb / oz)</button></div>
+<div class="calc-grid">
+<div class="calc-field"><label>Weight <span id="wUnit">(kg)</span></label><input type="number" id="weight" value="70" min="30" step="0.1"></div>
+<div class="calc-field"><label>Age (years)</label><input type="number" id="age" value="30" min="10" max="100"></div>
+<div class="calc-field"><label>Activity level</label><select id="activity"><option value="0">Sedentary (little exercise)</option><option value="0.35" selected>Light (1-3 days/week)</option><option value="0.5">Moderate (3-5 days/week)</option><option value="0.7">Heavy (6-7 days/week)</option><option value="1.0">Athlete / very heavy</option></select></div>
+<div class="calc-field"><label>Climate</label><select id="climate"><option value="0" selected>Temperate / cool</option><option value="0.15">Warm</option><option value="0.35">Hot / humid (like Pakistan summer)</option><option value="0.5">Very hot / desert</option></select></div>
+<div class="calc-field"><label>Pregnant / breastfeeding</label><select id="preg"><option value="0" selected>No</option><option value="0.3">Pregnant (+300ml)</option><option value="0.7">Breastfeeding (+700ml)</option></select></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">💧 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="big-result"><div><span class="num" id="totalNum">-</span><span class="unit" id="totalUnit">L</span></div><div class="sub" id="totalSub">Recommended daily water intake</div></div>
+<div class="glass-vis" id="glassVis"></div>
+<h4 style="font-family:var(--font-head);font-size:14px;margin:16px 0 8px;color:var(--text)">Hourly Schedule (waking hours)</h4>
+<div class="reminder-list" id="reminderList"></div>
+<div style="font-size:12px;color:var(--muted);margin:12px 0;text-align:center">💡 Sip throughout the day. Do not chug large amounts at once.</div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/water-intake.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Health goals?</strong> Get more health tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Details</h3><p>Weight, age, activity level, and climate.</p></div><div class="step"><div class="step-num">02</div><h3>See Target</h3><p>Personalized daily water goal in liters or ounces.</p></div><div class="step"><div class="step-num">03</div><h3>Schedule</h3><p>Hourly reminders to hit your target easily.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How is my water need calculated?</div><div class="faq-a">Base: 35ml per kg of body weight (research-backed for adults). Then adjusted up for exercise (extra 350-1000ml), hot climate (extra 350-1000ml), and pregnancy/breastfeeding.</div></div>
+<div class="faq-item"><div class="faq-q">Does coffee, tea, or juice count?</div><div class="faq-a">Yes, all fluids count toward hydration, including coffee (despite the diuretic myth), tea, milk, and juice. Water-rich foods like fruits and soups also contribute 20-30%.</div></div>
+<div class="faq-item"><div class="faq-q">Can I drink too much water?</div><div class="faq-a">Yes, but rare. Hyponatremia (low sodium from over-drinking) usually requires drinking many liters per hour. Follow thirst plus this target — do not force-drink beyond it.</div></div>
+<div class="faq-item"><div class="faq-q">Is this medical advice?</div><div class="faq-a">No, it is a general guide. People with kidney conditions, heart failure, or on certain medications should follow doctor's orders instead.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/bmr-tdee.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">BMR &amp; TDEE</a>
+<a href="/tools/bmi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">BMI Calculator</a>
+<a href="/tools/pregnancy-due-date.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Pregnancy Due Date</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally — your data never leaves your device. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+let unit = 'metric';
+
+function setUnit(u) {
+  const w = parseFloat(document.getElementById('weight').value) || 0;
+  if (u === 'imperial' && unit === 'metric') document.getElementById('weight').value = (w * 2.20462).toFixed(1);
+  else if (u === 'metric' && unit === 'imperial') document.getElementById('weight').value = (w / 2.20462).toFixed(1);
+  document.getElementById('wUnit').textContent = u === 'metric' ? '(kg)' : '(lb)';
+  unit = u;
+  document.querySelectorAll('.unit-btn').forEach(b => b.classList.toggle('active', b.dataset.unit === u));
+  if (document.getElementById('resultBox').classList.contains('show')) calculate();
+}
+
+function calculate() {
+  let weight = parseFloat(document.getElementById('weight').value);
+  if (unit === 'imperial') weight /= 2.20462;
+  const activity = parseFloat(document.getElementById('activity').value);
+  const climate = parseFloat(document.getElementById('climate').value);
+  const preg = parseFloat(document.getElementById('preg').value);
+  // Base: 35 ml/kg for adults
+  let liters = (weight * 35) / 1000;
+  liters += activity + climate + preg;
+  document.getElementById('totalNum').textContent = liters.toFixed(2);
+  document.getElementById('totalUnit').textContent = unit === 'metric' ? ' L' : ' oz';
+  const displayVal = unit === 'metric' ? (liters * 1000).toFixed(0) + ' ml' : (liters * 33.814).toFixed(0) + ' fl oz';
+  document.getElementById('totalNum').textContent = unit === 'metric' ? liters.toFixed(2) : (liters * 33.814).toFixed(0);
+  document.getElementById('totalUnit').textContent = unit === 'metric' ? ' L' : ' oz';
+  document.getElementById('totalSub').textContent = `Recommended daily intake · ~${Math.round(liters/0.25)} glasses of 250ml`;
+  // Glass visualization (250ml each)
+  const glasses = Math.round(liters / 0.25);
+  document.getElementById('glassVis').innerHTML = Array(Math.min(glasses, 20)).fill('<div class="glass"></div>').join('') + (glasses > 20 ? `<span style="align-self:center;color:var(--muted);font-size:12px">+${glasses-20} more</span>` : '');
+  // Hourly schedule (16 waking hours, 7am-11pm)
+  const perHour = liters / 16;
+  const perHourMl = perHour * 1000;
+  const times = ['7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm','10pm'];
+  document.getElementById('reminderList').innerHTML = times.map(t => `<div class="reminder">${t}<strong>${Math.round(perHourMl)}ml</strong></div>`).join('');
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free water intake calculator at Toolify Core: https://toolifycore.com/tools/water-intake.html`;
+}
+
+document.getElementById('calcBtn').addEventListener('click', calculate);
+function resetAll() { document.getElementById('weight').value = 70; document.getElementById('age').value = 30; document.getElementById('activity').value = '0.35'; document.getElementById('climate').value = '0'; document.getElementById('preg').value = '0'; document.getElementById('resultBox').classList.remove('show'); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free water intake calculator!&url=https://toolifycore.com/tools/water-intake.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/water-intake.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cron Expression Generator Free — Cron Builder | Toolify Core</title>
+<meta name="description" content="Build and understand cron expressions online for free. Visual cron builder with human-readable output and preset schedules.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.cron-input{width:100%;padding:14px 16px;background:var(--surface2);color:#B8AAFF;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:16px;text-align:center;box-sizing:border-box;outline:none;letter-spacing:.05em}
+.cron-input:focus{border-color:var(--accent)}
+.human-box{background:linear-gradient(135deg,rgba(0,229,192,0.1),rgba(91,111,247,0.1));border:1px solid rgba(0,229,192,0.3);color:#00E5C0;padding:16px 20px;border-radius:8px;text-align:center;font-size:15px;margin:12px 0;font-family:var(--font-head);font-weight:600}
+.human-box.err{background:rgba(255,107,107,0.1);border-color:rgba(255,107,107,0.3);color:#FF6B6B}
+.presets{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin:16px 0}
+.preset-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:6px;font-size:12px;cursor:pointer;text-align:left;font-family:var(--font-body)}
+.preset-btn:hover{border-color:var(--accent);background:rgba(123,97,255,0.05)}
+.preset-btn .cron{color:#B8AAFF;font-family:monospace;font-size:11px;display:block;margin-top:4px}
+.field-legend{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0;font-size:11px;text-align:center;color:var(--muted)}
+.field-legend div{padding:6px;background:var(--surface2);border-radius:4px}
+.field-legend strong{color:#B8AAFF;display:block;font-family:monospace;font-size:14px}
+.builder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0;padding:14px;background:var(--surface2);border-radius:8px}
+.builder-field{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)}
+.builder-field select,.builder-field input{padding:6px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Cron Generator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>Cron Expression Generator</h1><p>Build cron schedules visually and get plain-English explanations. Includes common preset schedules for daily, hourly, and periodic jobs.</p></div>
+<div class="counter-badge">⏰ Used 8,124 times this month</div>
+<div style="margin:16px 0">
+<input class="cron-input" id="cronInput" value="0 9 * * *" placeholder="* * * * *">
+</div>
+<div class="field-legend">
+<div><strong>*</strong>Minute<br>0-59</div>
+<div><strong>*</strong>Hour<br>0-23</div>
+<div><strong>*</strong>Day<br>1-31</div>
+<div><strong>*</strong>Month<br>1-12</div>
+<div><strong>*</strong>Weekday<br>0-6</div>
+</div>
+<div class="human-box" id="humanBox">-</div>
+<div class="builder-grid">
+<div class="builder-field"><label>Preset schedule</label><select id="preset"><option value="">Custom (edit above)</option><option value="0 * * * *">Every hour</option><option value="0 0 * * *">Every day at midnight</option><option value="0 9 * * *">Every day at 9 AM</option><option value="0 9 * * 1-5">Weekdays at 9 AM</option><option value="0 0 * * 0">Every Sunday at midnight</option><option value="0 0 1 * *">First day of month</option><option value="0 0 1 1 *">Every January 1st</option><option value="*/5 * * * *">Every 5 minutes</option><option value="*/15 * * * *">Every 15 minutes</option><option value="*/30 * * * *">Every 30 minutes</option><option value="0 */2 * * *">Every 2 hours</option><option value="0 */6 * * *">Every 6 hours</option></select></div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:14px;margin:16px 0 8px;color:var(--text)">Quick presets</h4>
+<div class="presets" id="presetsList"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/cron-gen.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Developer?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Type or Pick</h3><p>Enter a cron expression or pick a preset.</p></div><div class="step"><div class="step-num">02</div><h3>See in English</h3><p>Live translation into plain human-readable schedule.</p></div><div class="step"><div class="step-num">03</div><h3>Use It</h3><p>Copy for crontab, GitHub Actions, or any scheduler.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is cron?</div><div class="faq-a">Cron is the standard task scheduler on Unix/Linux systems. A cron expression has 5 fields: minute, hour, day-of-month, month, day-of-week. Also used by GitHub Actions, cron-node, and many cloud schedulers.</div></div>
+<div class="faq-item"><div class="faq-q">What do * / , and - mean?</div><div class="faq-a">* means "any value". */5 means "every 5 units". 1-5 means "1 through 5". 1,3,5 means "specifically 1, 3, and 5". Combine them: */5 in minutes = every 5 minutes.</div></div>
+<div class="faq-item"><div class="faq-q">Weekday numbering — 0-6 or 1-7?</div><div class="faq-a">Standard cron uses 0-6 where 0 is Sunday. Some variants (Quartz) use 1-7. This tool uses standard: 0=Sun, 1=Mon, ..., 6=Sat.</div></div>
+<div class="faq-item"><div class="faq-q">Where can I use these expressions?</div><div class="faq-a">crontab on Linux/Mac, GitHub Actions workflows, Kubernetes CronJobs, node-cron in Node.js, APScheduler in Python, and most CI/CD platforms.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/regex-tester.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Regex Tester</a>
+<a href="/tools/json-format.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JSON Formatter</a>
+<a href="/tools/uuid-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">UUID Generator</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally — your data never leaves your device. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+const PRESETS = [
+  {label:'Every minute', cron:'* * * * *'},
+  {label:'Every 5 minutes', cron:'*/5 * * * *'},
+  {label:'Every hour', cron:'0 * * * *'},
+  {label:'Every 6 hours', cron:'0 */6 * * *'},
+  {label:'Daily at midnight', cron:'0 0 * * *'},
+  {label:'Daily at 9 AM', cron:'0 9 * * *'},
+  {label:'Weekdays 9 AM', cron:'0 9 * * 1-5'},
+  {label:'Weekly (Sunday)', cron:'0 0 * * 0'},
+  {label:'Monthly (1st)', cron:'0 0 1 * *'},
+  {label:'Yearly (Jan 1)', cron:'0 0 1 1 *'},
+];
+
+function parseField(f, min, max, names) {
+  if (f === '*') return 'every ' + (names ? 'value' : 'value');
+  if (f.startsWith('*/')) return `every ${f.slice(2)}`;
+  if (f.includes(',')) return f.split(',').map(x => names ? names[+x] : x).join(', ');
+  if (f.includes('-')) {
+    const [a, b] = f.split('-');
+    return `${names ? names[+a] : a} through ${names ? names[+b] : b}`;
+  }
+  return names ? names[+f] : f;
+}
+
+function humanize(cron) {
+  const parts = cron.trim().split(/\s+/);
+  if (parts.length !== 5) throw new Error('Cron must have 5 fields');
+  const [min, hr, dom, mon, dow] = parts;
+  const each = f => f === '*';
+  const parts_ = [];
+  // Time
+  if (each(min) && each(hr)) parts_.push('every minute');
+  else if (min === '0' && each(hr)) parts_.push('every hour on the hour');
+  else if (min.startsWith('*/') && each(hr)) parts_.push(`every ${min.slice(2)} minutes`);
+  else if (each(min) && !each(hr)) parts_.push(`every minute of hour ${hr}`);
+  else {
+    const h = each(hr) ? '*' : hr, m = each(min) ? '0' : min;
+    if (each(hr)) parts_.push(`at minute ${min} of every hour`);
+    else if (hr.startsWith('*/')) parts_.push(`at :${min.padStart(2,'0')} of every ${hr.slice(2)} hours`);
+    else parts_.push(`at ${(+hr%12||12)}:${(+min||0).toString().padStart(2,'0')} ${+hr>=12?'PM':'AM'}`);
+  }
+  // Day of month
+  if (!each(dom)) parts_.push('on day ' + parseField(dom));
+  // Month
+  if (!each(mon)) parts_.push('in ' + parseField(mon, 1, 12, ['',...MONTHS]));
+  // Day of week
+  if (!each(dow)) {
+    if (dow === '1-5') parts_.push('on weekdays');
+    else if (dow === '0,6' || dow === '6,0') parts_.push('on weekends');
+    else parts_.push('on ' + parseField(dow, 0, 6, DAYS));
+  }
+  return parts_.join(', ').replace(/^./, s => s.toUpperCase());
+}
+
+function update() {
+  const cron = document.getElementById('cronInput').value;
+  const box = document.getElementById('humanBox');
+  try {
+    box.textContent = '⏰ ' + humanize(cron);
+    box.classList.remove('err');
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free cron generator at Toolify Core: https://toolifycore.com/tools/cron-gen.html`;
+  } catch (e) {
+    box.textContent = '✗ ' + e.message;
+    box.classList.add('err');
+  }
+}
+
+document.getElementById('cronInput').addEventListener('input', update);
+document.getElementById('preset').addEventListener('change', e => { if (e.target.value) { document.getElementById('cronInput').value = e.target.value; update(); } });
+
+document.getElementById('presetsList').innerHTML = PRESETS.map(p => `<button class="preset-btn" onclick="loadPreset('${p.cron}')">${p.label}<span class="cron">${p.cron}</span></button>`).join('');
+function loadPreset(c) { document.getElementById('cronInput').value = c; update(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free cron expression generator!&url=https://toolifycore.com/tools/cron-gen.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/cron-gen.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+update();
+</script>
+</body>
+</html>

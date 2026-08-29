@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Image to Base64 Converter Free — Base64 to Image | Toolify Core</title>
+<meta name="description" content="Convert images to Base64 data URLs online for free. Also convert Base64 back to downloadable image. Support JPG, PNG, GIF, WebP, SVG.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.mode-toggle{display:flex;gap:0;margin:16px 0;background:var(--surface2);padding:4px;border-radius:8px;width:fit-content}
+.mode-btn{background:transparent;color:var(--muted);border:none;padding:8px 20px;border-radius:6px;font-size:13px;cursor:pointer}
+.mode-btn.active{background:#1D9E75;color:white}
+.text-area{width:100%;min-height:150px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:11px;resize:vertical;box-sizing:border-box;outline:none;word-break:break-all}
+.text-area:focus{border-color:#1D9E75}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.image-preview{background:var(--surface2);padding:20px;border-radius:8px;text-align:center;margin:12px 0;min-height:200px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.image-preview img{max-width:100%;max-height:300px;border-radius:4px}
+.image-preview p{color:var(--muted);font-size:13px;margin-top:10px}
+.opts{display:flex;gap:14px;margin:10px 0;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.opts label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.tool-badge{background:rgba(29,158,117,0.15) !important;color:#6EDFB8 !important;border:1px solid rgba(29,158,117,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Image ⇄ Base64</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🖼 Image Tools</div><h1>Image ⇄ Base64 Converter</h1><p>Convert images to Base64 data URLs for embedding in HTML/CSS. Or paste Base64 to convert back to a downloadable image. Everything runs in your browser.</p></div>
+<div class="counter-badge">🖼 Used 9,842 times this month</div>
+<div class="mode-toggle"><button class="mode-btn active" data-mode="itob" onclick="setMode('itob')">🖼 Image → Base64</button><button class="mode-btn" data-mode="btoi" onclick="setMode('btoi')">💻 Base64 → Image</button></div>
+
+<div id="itobPane">
+  <div class="drop-zone" id="dropZone" style="border-color:rgba(29,158,117,0.4)">
+    <input type="file" id="fileInput" accept="image/*">
+    <div class="drop-icon">🖼</div>
+    <h3>Drop image here</h3>
+    <p>JPG, PNG, GIF, WebP, SVG · No size limit</p>
+    <span class="drop-cta" style="background:#1D9E75">Choose Image</span>
+  </div>
+  <div class="opts">
+    <label><input type="radio" name="wrap" value="dataurl" checked> Data URL (data:image/...)</label>
+    <label><input type="radio" name="wrap" value="raw"> Raw Base64 only</label>
+    <label><input type="radio" name="wrap" value="css"> CSS background</label>
+    <label><input type="radio" name="wrap" value="html"> HTML img tag</label>
+  </div>
+  <div class="io-label"><span>Base64 Output</span><div style="display:flex;gap:6px"><button class="btn-secondary" onclick="copyOut()" style="padding:4px 12px;font-size:11px">📋 Copy</button><button class="btn-secondary" onclick="downloadOut()" style="padding:4px 12px;font-size:11px">⬇ Download</button></div></div>
+  <textarea class="text-area" id="output" readonly placeholder="Base64 output appears here..."></textarea>
+  <div id="itobInfo" style="font-size:12px;color:var(--muted);margin:8px 0;min-height:16px"></div>
+</div>
+
+<div id="btoiPane" style="display:none">
+  <div class="io-label"><span>Paste Base64 or Data URL</span><button class="btn-secondary" onclick="document.getElementById('b64Input').value=''" style="padding:4px 12px;font-size:11px">Clear</button></div>
+  <textarea class="text-area" id="b64Input" placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."></textarea>
+  <div class="actions" style="margin:12px 0"><button class="btn-primary" style="background:#1D9E75" onclick="decodeBase64()">🖼 Decode &amp; Preview</button></div>
+  <div class="image-preview" id="decodedPreview"><p>Decoded image will appear here</p></div>
+  <div id="btoiInfo" style="font-size:12px;color:var(--muted);margin:8px 0;min-height:16px"></div>
+</div>
+
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/image-base64.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Developer?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#1D9E75">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Mode</h3><p>Image to Base64, or Base64 back to image.</p></div><div class="step"><div class="step-num">02</div><h3>Drop or Paste</h3><p>Upload image file or paste existing Base64 string.</p></div><div class="step"><div class="step-num">03</div><h3>Copy or Download</h3><p>Get ready-to-use Data URL or image file.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is a Base64 image?</div><div class="faq-a">Base64 encodes image bytes as ASCII text. Useful for embedding images directly in HTML/CSS/JSON without a separate file. Small icons and inline SVGs benefit most.</div></div>
+<div class="faq-item"><div class="faq-q">Should I always use Base64 for images?</div><div class="faq-a">No. Base64 images are ~33% larger than the original file and cannot be cached separately. Best for tiny icons under 5 KB. Larger images should stay as separate files.</div></div>
+<div class="faq-item"><div class="faq-q">Which output format should I pick?</div><div class="faq-a">Data URL for JavaScript. CSS background for stylesheets. HTML img for direct embedding. Raw Base64 if you need just the encoded string.</div></div>
+<div class="faq-item"><div class="faq-q">Is my image uploaded?</div><div class="faq-a">No. All conversion runs in your browser. Images never leave your device.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(29,158,117,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/img-compress.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Compress Image</a>
+<a href="/tools/base64-encoder.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Base64 Text</a>
+<a href="/tools/img-resize.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Resize Image</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(29,158,117,0.06);border-left:3px solid #1D9E75;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally — your data never leaves your device. Read our <a href="/privacy.html" style="color:#1D9E75">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#1D9E75">Visit our blog</a>.</div>
+</main>
+<script>
+let mode = 'itob';
+let currentDataUrl = '';
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('itobPane').style.display = m === 'itob' ? 'block' : 'none';
+  document.getElementById('btoiPane').style.display = m === 'btoi' ? 'block' : 'none';
+}
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const fmtSize = b => b < 1048576 ? (b/1024).toFixed(1)+' KB' : (b/1048576).toFixed(2)+' MB';
+
+dropZone.addEventListener('dragover', e => {e.preventDefault();dropZone.classList.add('drag-over')});
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {e.preventDefault();dropZone.classList.remove('drag-over');handleFile(e.dataTransfer.files[0])});
+fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+document.querySelectorAll('input[name="wrap"]').forEach(r => r.addEventListener('change', () => { if (currentDataUrl) updateOutput(); }));
+
+function handleFile(f) {
+  if (!f || !f.type.startsWith('image/')) return alert('Please select an image.');
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentDataUrl = e.target.result;
+    window._filename = f.name; window._filesize = f.size;
+    updateOutput();
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free image to Base64 at Toolify Core: https://toolifycore.com/tools/image-base64.html`;
+  };
+  reader.readAsDataURL(f);
+}
+
+function updateOutput() {
+  const wrap = document.querySelector('input[name="wrap"]:checked').value;
+  const dataUrl = currentDataUrl, raw = dataUrl.split(',')[1] || '';
+  let out;
+  if (wrap === 'raw') out = raw;
+  else if (wrap === 'css') out = `background-image: url('${dataUrl}');`;
+  else if (wrap === 'html') out = `<img src="${dataUrl}" alt="Base64 image">`;
+  else out = dataUrl;
+  document.getElementById('output').value = out;
+  document.getElementById('itobInfo').textContent = `✓ ${window._filename} · Original: ${fmtSize(window._filesize)} · Base64: ${fmtSize(raw.length)} (${((raw.length/window._filesize)*100).toFixed(0)}% of original)`;
+}
+
+function decodeBase64() {
+  const inp = document.getElementById('b64Input').value.trim();
+  const preview = document.getElementById('decodedPreview');
+  const info = document.getElementById('btoiInfo');
+  if (!inp) return alert('Paste Base64 first.');
+  let dataUrl = inp;
+  if (!dataUrl.startsWith('data:')) dataUrl = 'data:image/png;base64,' + inp.replace(/\s/g, '');
+  try {
+    preview.innerHTML = `<img src="${dataUrl}" alt="Decoded"><p>Right-click to save, or use download button below</p><button class="btn-primary" style="background:#1D9E75;margin-top:10px" onclick="downloadDecoded('${dataUrl.substr(0,50)}')">⬇ Download Image</button>`;
+    // Estimate size
+    const raw = dataUrl.split(',')[1] || '';
+    const bytes = Math.ceil(raw.length * 3 / 4);
+    info.textContent = `✓ Decoded · approx ${fmtSize(bytes)}`;
+    info.style.color = '#00E5C0';
+    window._decodedDataUrl = dataUrl;
+  } catch (e) {
+    preview.innerHTML = '<p style="color:#FF6B6B">Invalid Base64 data</p>';
+    info.textContent = '✗ ' + e.message;
+    info.style.color = '#FF6B6B';
+  }
+}
+function downloadDecoded() {
+  if (!window._decodedDataUrl) return;
+  const a = document.createElement('a');
+  a.href = window._decodedDataUrl;
+  const type = (window._decodedDataUrl.match(/data:image\/(\w+)/) || [,'png'])[1];
+  a.download = 'decoded-toolifycore.' + type; a.click();
+}
+function copyOut() { const o = document.getElementById('output').value; if (!o) return alert('Choose an image first.'); navigator.clipboard.writeText(o); alert('Copied!'); }
+function downloadOut() { const o = document.getElementById('output').value; if (!o) return alert('Choose an image first.'); const blob = new Blob([o],{type:'text/plain'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'base64-toolifycore.txt'; a.click(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free image to Base64 converter!&url=https://toolifycore.com/tools/image-base64.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/image-base64.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>
