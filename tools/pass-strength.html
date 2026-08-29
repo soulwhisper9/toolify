@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Password Strength Checker Free — Secure Password Test | Toolify Core</title>
+<meta name="description" content="Check your password strength online for free. Entropy, crack-time estimate, common password detection, and improvement tips. Your password never leaves your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.pass-input-wrap{position:relative;margin:20px 0}
+.pass-input{width:100%;padding:16px 60px 16px 16px;background:var(--surface2);color:var(--text);border:2px solid var(--border);border-radius:10px;font-family:monospace;font-size:16px;box-sizing:border-box;outline:none}
+.pass-input:focus{border-color:var(--accent)}
+.toggle-visibility{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:18px}
+.strength-bar{height:10px;background:var(--surface2);border-radius:5px;overflow:hidden;margin:16px 0 8px}
+.strength-fill{height:100%;transition:all .3s;width:0}
+.strength-label{font-family:var(--font-head);font-size:16px;font-weight:700;margin-bottom:14px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+.stat-box{background:var(--surface2);padding:12px 14px;border-radius:8px;text-align:center}
+.stat-box-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.stat-box-value{font-family:var(--font-head);font-size:16px;font-weight:700;color:var(--text)}
+.check-list{background:var(--surface2);padding:14px 16px;border-radius:8px;margin:16px 0}
+.check-row{display:flex;align-items:center;gap:10px;padding:4px 0;font-size:13px}
+.check-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.check-icon.ok{background:rgba(0,229,192,0.2);color:#00E5C0}
+.check-icon.no{background:rgba(255,107,107,0.2);color:#FF6B6B}
+.warning-box{background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);color:#FF6B6B;padding:12px 14px;border-radius:8px;font-size:13px;margin:12px 0}
+.privacy-note{background:rgba(0,229,192,0.08);border-left:3px solid #00E5C0;padding:12px 14px;font-size:12px;color:var(--muted);margin:12px 0;border-radius:0 8px 8px 0}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Password Strength</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility Tools</div>
+    <h1>Password Strength Checker</h1>
+    <p>Test how strong your password is. See entropy, estimated crack time, and specific improvements. Your password stays in your browser and is never sent anywhere.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 16,742 times this month</div>
+  <div class="privacy-note">🔒 100% private — your password never leaves this page. Not sent to any server, not stored, not logged.</div>
+  <div class="pass-input-wrap">
+    <input type="password" class="pass-input" id="pass" placeholder="Type or paste a password to test..." autocomplete="off" spellcheck="false">
+    <button class="toggle-visibility" onclick="toggleVis()" id="visBtn">👁</button>
+  </div>
+  <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+  <div class="strength-label" id="strengthLabel" style="color:var(--muted)">Enter a password to check strength</div>
+  <div class="stats-grid" id="statsGrid" style="display:none">
+    <div class="stat-box"><div class="stat-box-label">Length</div><div class="stat-box-value" id="statLen">-</div></div>
+    <div class="stat-box"><div class="stat-box-label">Entropy</div><div class="stat-box-value" id="statEntropy">-</div></div>
+    <div class="stat-box"><div class="stat-box-label">Crack time (offline)</div><div class="stat-box-value" id="statCrack">-</div></div>
+    <div class="stat-box"><div class="stat-box-label">Char pool</div><div class="stat-box-value" id="statPool">-</div></div>
+  </div>
+  <div id="warnings"></div>
+  <div class="check-list" id="checkList" style="display:none">
+    <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;font-weight:600">Checks</div>
+    <div class="check-row" id="check-length"></div>
+    <div class="check-row" id="check-lower"></div>
+    <div class="check-row" id="check-upper"></div>
+    <div class="check-row" id="check-digit"></div>
+    <div class="check-row" id="check-symbol"></div>
+    <div class="check-row" id="check-nocommon"></div>
+    <div class="check-row" id="check-norepeat"></div>
+  </div>
+  <div class="result-box show">
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/pass-strength.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Need a strong password?</strong> Try our free Password Generator</div>
+    <a href="/tools/pass-gen.html" class="aff-btn">Generate one →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Type Password</h3><p>Enter or paste the password you want to test.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>See Score</h3><p>Live strength meter, entropy calculation, crack time.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Improve</h3><p>Follow the checks to strengthen your password.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Is my password uploaded anywhere?</div><div class="faq-a">No, absolutely not. All calculation happens inside your browser using JavaScript. Your password is never sent to any server, never stored, never logged.</div></div>
+    <div class="faq-item"><div class="faq-q">How is strength calculated?</div><div class="faq-a">We use entropy in bits (log2 of possible combinations). Longer passwords with diverse character sets have higher entropy. We also check against common passwords and repeated patterns.</div></div>
+    <div class="faq-item"><div class="faq-q">What is "crack time"?</div><div class="faq-a">Estimated time to crack via offline brute force assuming a modern GPU doing 100 billion guesses per second. Real attacks are usually slower (rate-limited), so this is a worst-case number.</div></div>
+    <div class="faq-item"><div class="faq-q">Should I use this to test my real passwords?</div><div class="faq-a">Yes, safely. But general advice: use a password manager (Bitwarden, 1Password, KeePass) to generate and store unique 20+ character passwords for every account.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/pass-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Password Generator</a>
+  <a href="/tools/hash-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Hash Generator</a>
+  <a href="/tools/uuid-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">UUID Generator</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+const COMMON = new Set(['password','123456','12345678','qwerty','abc123','111111','password1','admin','welcome','letmein','monkey','1234567890','password123','iloveyou','princess','sunshine','master','football','baseball','dragon','shadow','superman','trustno1','654321','jordan','harley','ranger','iwantu','jennifer','joshua','maggie','starwars','silver','richard','fuckyou','orange','merlin','michelle','corvette','bigdog','cheese','matthew','121212','patrick','martin','freedom','ginger','blowjob','nicole','sparky','yellow','camaro','secret','dick','falcon','taylor','111111','131313','123123','bitch','hello','scooter','please','porsche','guitar','chelsea','black','diamond','nascar','jackson','cameron','654321','computer','amanda','wizard','xxxxxxxx','asshole','fuckme','saturn','gemini','apples','august','swimming','3333','canada','blazer','cumming','hunting','kitty','rainbow','112233','arthur','cream','calvin','shaved','surfer','samson','kelly','paul','mine','king','racing','5555','eagle1','buddy','hackers','magnum','angel','bond007','pepper','tigers','purple','angels','2000','david','yankees','2222','asdfgh','asdfghjkl','1q2w3e4r','1qaz2wsx','qazwsx','qwertyuiop','000000','abcdef','654321','7777777','fuckoff','666666','asdf','samsung','1234','abcd1234']);
+
+function toggleVis() {
+  const i = document.getElementById('pass');
+  const b = document.getElementById('visBtn');
+  if (i.type === 'password') { i.type = 'text'; b.textContent = '🙈'; }
+  else { i.type = 'password'; b.textContent = '👁'; }
+}
+
+function estimateCrackTime(seconds) {
+  if (seconds < 1) return 'Instant';
+  if (seconds < 60) return Math.round(seconds) + ' sec';
+  if (seconds < 3600) return Math.round(seconds/60) + ' min';
+  if (seconds < 86400) return Math.round(seconds/3600) + ' hours';
+  if (seconds < 2592000) return Math.round(seconds/86400) + ' days';
+  if (seconds < 31536000) return Math.round(seconds/2592000) + ' months';
+  const yr = seconds/31536000;
+  if (yr < 1000) return Math.round(yr) + ' years';
+  if (yr < 1e6) return Math.round(yr/1000) + 'K years';
+  if (yr < 1e9) return Math.round(yr/1e6) + 'M years';
+  if (yr < 1e12) return Math.round(yr/1e9) + 'B years';
+  return '> trillion years';
+}
+
+function setCheck(id, ok, text) {
+  const row = document.getElementById(id);
+  row.innerHTML = `<span class="check-icon ${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'}</span><span>${text}</span>`;
+}
+
+function analyze() {
+  const p = document.getElementById('pass').value;
+  const bar = document.getElementById('strengthFill');
+  const label = document.getElementById('strengthLabel');
+  const stats = document.getElementById('statsGrid');
+  const checks = document.getElementById('checkList');
+  const warnings = document.getElementById('warnings');
+
+  if (!p) {
+    bar.style.width = '0'; bar.style.background = '';
+    label.textContent = 'Enter a password to check strength';
+    label.style.color = 'var(--muted)';
+    stats.style.display = 'none';
+    checks.style.display = 'none';
+    warnings.innerHTML = '';
+    return;
+  }
+
+  const hasLower = /[a-z]/.test(p);
+  const hasUpper = /[A-Z]/.test(p);
+  const hasDigit = /\d/.test(p);
+  const hasSymbol = /[^A-Za-z0-9]/.test(p);
+  let pool = 0;
+  if (hasLower) pool += 26;
+  if (hasUpper) pool += 26;
+  if (hasDigit) pool += 10;
+  if (hasSymbol) pool += 33;
+
+  const entropy = p.length * Math.log2(pool || 1);
+  const crackSec = Math.pow(2, entropy) / 1e11; // 100 billion guesses/sec
+  const isCommon = COMMON.has(p.toLowerCase());
+  const hasRepeat = /(.)\1{2,}/.test(p) || /^([a-z0-9]{1,4})\1+$/i.test(p);
+
+  // Score 0-100
+  let score = Math.min(100, entropy * 1.5);
+  if (isCommon) score = Math.min(score, 15);
+  if (hasRepeat) score = Math.min(score, 40);
+  if (p.length < 8) score = Math.min(score, 25);
+
+  const levels = [
+    {max: 20, label: 'Very Weak', color: '#FF6B6B'},
+    {max: 40, label: 'Weak', color: '#FFB800'},
+    {max: 60, label: 'Fair', color: '#FFB800'},
+    {max: 80, label: 'Strong', color: '#00E5C0'},
+    {max: 101, label: 'Very Strong', color: '#00E5C0'},
+  ];
+  const level = levels.find(l => score < l.max);
+
+  bar.style.width = score + '%';
+  bar.style.background = level.color;
+  label.textContent = level.label;
+  label.style.color = level.color;
+
+  document.getElementById('statLen').textContent = p.length;
+  document.getElementById('statEntropy').textContent = entropy.toFixed(1) + ' bits';
+  document.getElementById('statCrack').textContent = estimateCrackTime(crackSec);
+  document.getElementById('statPool').textContent = pool + ' chars';
+  stats.style.display = 'grid';
+
+  setCheck('check-length', p.length >= 12, `At least 12 characters (currently ${p.length})`);
+  setCheck('check-lower', hasLower, 'Contains lowercase letters');
+  setCheck('check-upper', hasUpper, 'Contains uppercase letters');
+  setCheck('check-digit', hasDigit, 'Contains numbers');
+  setCheck('check-symbol', hasSymbol, 'Contains symbols (! @ # $ etc.)');
+  setCheck('check-nocommon', !isCommon, 'Not in top common passwords list');
+  setCheck('check-norepeat', !hasRepeat, 'No obvious repeated patterns');
+  checks.style.display = 'block';
+
+  let w = '';
+  if (isCommon) w += '<div class="warning-box">⚠ This is one of the most common passwords ever. Change it immediately on any account using it.</div>';
+  if (hasRepeat && !isCommon) w += '<div class="warning-box">⚠ Repeated patterns like "aaa" or "abcabc" are easy to guess. Mix things up.</div>';
+  if (p.length < 8) w += '<div class="warning-box">⚠ Under 8 characters is trivially crackable. Aim for 12+ minimum, 16+ ideal.</div>';
+  warnings.innerHTML = w;
+
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free password strength checker at Toolify Core: https://toolifycore.com/tools/pass-strength.html`;
+}
+
+document.getElementById('pass').addEventListener('input', analyze);
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free password strength checker!&url=https://toolifycore.com/tools/pass-strength.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/pass-strength.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

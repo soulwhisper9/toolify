@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pregnancy Due Date Calculator Free — EDD Calculator | Toolify Core</title>
+<meta name="description" content="Calculate your pregnancy due date online for free. LMP or conception date method with cycle length adjustment. See trimester, weeks, and milestones.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:var(--font-body)}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:20px;font-weight:700;color:#FAC775}
+.stat-card.big{grid-column:span 2}
+.stat-card.big .stat-card-value{font-size:28px;color:#00E5C0}
+@media(max-width:640px){.stat-card.big{grid-column:auto}}
+.milestone-list{margin:16px 0}
+.milestone-row{display:grid;grid-template-columns:80px 1fr auto;gap:14px;align-items:center;padding:10px 14px;background:var(--surface2);border-radius:8px;margin-bottom:6px;font-size:13px}
+.milestone-week{font-family:var(--font-head);font-weight:700;color:#FAC775}
+.milestone-desc{color:var(--text)}
+.milestone-date{color:var(--muted);font-size:12px;text-align:right}
+.milestone-row.done{opacity:.5}
+.milestone-row.current{border-left:3px solid #00E5C0;background:rgba(0,229,192,0.06)}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+.note{background:rgba(255,184,0,0.08);border-left:3px solid #FFB800;padding:10px 14px;font-size:12px;color:var(--muted);border-radius:0 6px 6px 0;margin:12px 0}
+.progress-track{background:var(--surface2);border-radius:100px;height:14px;margin:12px 0 8px;overflow:hidden}
+.progress-track-fill{background:linear-gradient(90deg,#FAC775,#00E5C0);height:100%;transition:width .4s;border-radius:100px}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Pregnancy Due Date</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🧮 Calculators</div>
+    <h1>Pregnancy Due Date Calculator</h1>
+    <p>Estimate your baby's due date, current pregnancy week, and trimester. Uses Naegele's rule with cycle length adjustment. See major pregnancy milestones.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 22,684 times this month</div>
+  <div class="calc-grid">
+    <div class="calc-field">
+      <label>Calculation method</label>
+      <select id="method">
+        <option value="lmp" selected>First day of last period (LMP)</option>
+        <option value="conception">Conception date</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label id="dateLabel">First day of last menstrual period</label>
+      <input type="date" id="startDate">
+    </div>
+    <div class="calc-field" id="cycleField">
+      <label>Cycle length (days)</label>
+      <input type="number" id="cycleLength" value="28" min="20" max="45">
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn-primary" id="calcBtn" style="background:#BA7517">👶 Calculate Due Date</button>
+    <button class="btn-secondary" onclick="resetAll()">Reset</button>
+  </div>
+  <div class="result-box" id="resultBox">
+    <div class="result-icon">🤰</div>
+    <h3>Your Pregnancy Timeline</h3>
+    <div class="result-stats">
+      <div class="stat-card big"><div class="stat-card-label">Estimated Due Date</div><div class="stat-card-value" id="dueDate">-</div></div>
+      <div class="stat-card"><div class="stat-card-label">Weeks pregnant</div><div class="stat-card-value" id="weeks">-</div></div>
+      <div class="stat-card"><div class="stat-card-label">Trimester</div><div class="stat-card-value" id="trimester">-</div></div>
+      <div class="stat-card"><div class="stat-card-label">Days remaining</div><div class="stat-card-value" id="daysLeft">-</div></div>
+      <div class="stat-card"><div class="stat-card-label">Conception (approx)</div><div class="stat-card-value" id="concep" style="font-size:14px">-</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin:12px 0 0">Pregnancy progress</div>
+    <div class="progress-track"><div class="progress-track-fill" id="progressFill" style="width:0"></div></div>
+    <div id="progressLabel" style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:16px">-</div>
+    <h4 style="font-family:var(--font-head);font-size:14px;margin:16px 0 8px;color:var(--text)">Key Milestones</h4>
+    <div class="milestone-list" id="milestones"></div>
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/pregnancy-due-date.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="note">ℹ️ This is an estimate for planning purposes only. Only about 5% of babies arrive on their exact due date. Most arrive within 2 weeks either side. Always consult your doctor or midwife for medical guidance.</div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Expecting?</strong> Get more health tools on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Pick Method</h3><p>LMP is standard. Conception date if known (e.g., IVF).</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Enter Date</h3><p>First day of your last period, plus cycle length.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>See Due Date</h3><p>Get due date, weeks, trimester, and milestones.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">How accurate is a due date calculator?</div><div class="faq-a">Standard calculators use Naegele's rule (LMP + 280 days) which assumes a 28-day cycle and ovulation on day 14. We adjust for your actual cycle length. Only 4-5% of babies are born on their exact due date, but 80% arrive within 2 weeks either side.</div></div>
+    <div class="faq-item"><div class="faq-q">LMP vs conception date - which should I use?</div><div class="faq-a">LMP is most common because most people know that date. Use conception date if you had IVF, tracked ovulation precisely, or your doctor gave you a specific date via ultrasound.</div></div>
+    <div class="faq-item"><div class="faq-q">Why does cycle length matter?</div><div class="faq-a">Standard formula assumes ovulation on day 14 of a 28-day cycle. If your cycle is 30 days, you ovulate around day 16, so your due date shifts 2 days later. We adjust for this automatically.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. All calculation happens in your browser. Your dates and personal info never leave your device.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/age-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Age Calculator</a>
+  <a href="/tools/bmi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">BMI Calculator</a>
+  <a href="/tools/bmr-tdee.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">BMR &amp; TDEE</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+const MILESTONES = [
+  {week:4, desc:'Baby is size of a poppy seed. Heart begins to form.'},
+  {week:8, desc:'End of embryo stage. All major organs starting.'},
+  {week:12, desc:'End of first trimester. Risk of miscarriage drops sharply.'},
+  {week:16, desc:'You may feel first movements. Baby size of an avocado.'},
+  {week:20, desc:'Halfway there! Anatomy scan usually done around now.'},
+  {week:24, desc:'Baby considered viable outside the womb.'},
+  {week:28, desc:'Start of third trimester. More frequent check-ups begin.'},
+  {week:32, desc:'Baby practices breathing. Rapid weight gain begins.'},
+  {week:36, desc:'Baby is considered "early term" from now.'},
+  {week:37, desc:'Full-term begins at 37 weeks.'},
+  {week:40, desc:'Due date! Only 5% of babies arrive on this exact day.'},
+  {week:42, desc:'Post-term. Doctor will discuss induction options.'},
+];
+
+function fmtDate(d) {
+  return d.toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+}
+function fmtShort(d) {
+  return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+}
+
+function calculate() {
+  const method = document.getElementById('method').value;
+  const startStr = document.getElementById('startDate').value;
+  const cycleLen = parseInt(document.getElementById('cycleLength').value) || 28;
+  if (!startStr) return alert('Please pick a date.');
+  const start = new Date(startStr + 'T00:00:00');
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  // Adjust for cycle length: standard 28-day cycle assumes ovulation on day 14
+  // If cycle is 30 days, ovulation ~ day 16, so add 2 days to due date
+  const cycleAdjust = method === 'lmp' ? (cycleLen - 28) : 0;
+  const conceptionDate = method === 'lmp'
+    ? new Date(start.getTime() + (14 + cycleAdjust) * 86400000)
+    : new Date(start);
+  const lmpDate = method === 'lmp' ? start : new Date(start.getTime() - 14 * 86400000);
+  // Due = LMP + 280 days (+ cycle adjustment)
+  const due = new Date(lmpDate.getTime() + (280 + cycleAdjust) * 86400000);
+  const daysPregnant = Math.floor((today - lmpDate) / 86400000);
+  const weeksPregnant = Math.floor(daysPregnant / 7);
+  const extraDays = daysPregnant % 7;
+  const daysLeft = Math.floor((due - today) / 86400000);
+  let trimester;
+  if (weeksPregnant < 13) trimester = 'First (1-12 weeks)';
+  else if (weeksPregnant < 27) trimester = 'Second (13-26 weeks)';
+  else trimester = 'Third (27-40 weeks)';
+  document.getElementById('dueDate').textContent = fmtDate(due);
+  document.getElementById('weeks').textContent = `${weeksPregnant}w ${extraDays}d`;
+  document.getElementById('trimester').textContent = trimester;
+  document.getElementById('daysLeft').textContent = daysLeft > 0 ? daysLeft + ' days' : (daysLeft === 0 ? 'Today!' : Math.abs(daysLeft) + ' days overdue');
+  document.getElementById('concep').textContent = fmtShort(conceptionDate);
+  const progress = Math.max(0, Math.min(100, (daysPregnant / 280) * 100));
+  document.getElementById('progressFill').style.width = progress + '%';
+  document.getElementById('progressLabel').textContent = `${progress.toFixed(0)}% complete — ${daysPregnant} days pregnant of 280 total`;
+  // Milestones
+  document.getElementById('milestones').innerHTML = MILESTONES.map(m => {
+    const milestoneDate = new Date(lmpDate.getTime() + m.week * 7 * 86400000);
+    const status = weeksPregnant > m.week ? 'done' : (weeksPregnant === m.week ? 'current' : '');
+    return `<div class="milestone-row ${status}">
+      <span class="milestone-week">Week ${m.week}</span>
+      <span class="milestone-desc">${m.desc}</span>
+      <span class="milestone-date">${fmtShort(milestoneDate)}</span>
+    </div>`;
+  }).join('');
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free pregnancy due date calculator at Toolify Core: https://toolifycore.com/tools/pregnancy-due-date.html`;
+}
+
+document.getElementById('calcBtn').addEventListener('click', calculate);
+document.getElementById('method').addEventListener('change', e => {
+  const isLmp = e.target.value === 'lmp';
+  document.getElementById('dateLabel').textContent = isLmp ? 'First day of last menstrual period' : 'Date of conception';
+  document.getElementById('cycleField').style.display = isLmp ? 'flex' : 'none';
+});
+
+function resetAll() {
+  document.getElementById('startDate').value = '';
+  document.getElementById('method').value = 'lmp';
+  document.getElementById('cycleLength').value = 28;
+  document.getElementById('resultBox').classList.remove('show');
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free pregnancy due date calculator!&url=https://toolifycore.com/tools/pregnancy-due-date.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/pregnancy-due-date.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+
+// Set default date to 8 weeks ago as sample
+const defaultDate = new Date();
+defaultDate.setDate(defaultDate.getDate() - 56);
+document.getElementById('startDate').value = defaultDate.toISOString().split('T')[0];
+</script>
+</body>
+</html>

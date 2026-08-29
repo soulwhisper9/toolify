@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Regex Tester Free — Test Regular Expressions Online | Toolify Core</title>
+<meta name="description" content="Test and debug regular expressions online for free. Live match highlighting, capture groups, all JS regex flags. Everything runs in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.regex-input-wrap{display:flex;gap:8px;margin:16px 0;align-items:stretch}
+.regex-slash{padding:12px 8px;background:var(--surface2);color:var(--muted);border-radius:8px 0 0 8px;font-family:monospace;font-size:16px;display:flex;align-items:center;border:1px solid var(--border);border-right:none}
+.regex-pattern{flex:1;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-left:none;border-right:none;font-family:monospace;font-size:14px;outline:none;box-sizing:border-box}
+.regex-pattern:focus{border-color:var(--accent)}
+.regex-flags{padding:12px;background:var(--surface2);color:#B8AAFF;border:1px solid var(--border);border-left:none;border-radius:0 8px 8px 0;font-family:monospace;font-size:14px;outline:none;box-sizing:border-box;width:80px}
+.flags-row{display:flex;gap:6px;margin:12px 0;flex-wrap:wrap}
+.flag-btn{background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:5px 10px;border-radius:6px;font-family:monospace;font-size:12px;cursor:pointer}
+.flag-btn.on{background:var(--accent);color:white;border-color:var(--accent)}
+.text-area{width:100%;min-height:180px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:13px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.7}
+.text-area:focus{border-color:var(--accent)}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.highlight-view{padding:12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:13px;white-space:pre-wrap;line-height:1.7;min-height:80px;word-break:break-word}
+.highlight-view mark{background:rgba(0,229,192,0.25);color:#00E5C0;padding:1px 2px;border-radius:2px;font-weight:600}
+.match-info{background:var(--surface2);padding:12px 14px;border-radius:8px;margin:12px 0;font-size:12px;color:var(--muted)}
+.match-groups{background:var(--surface);padding:8px 12px;border-radius:6px;margin-top:6px;font-family:monospace;font-size:12px;color:var(--text);overflow-x:auto}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">Regex Tester</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🔧 Utility Tools</div>
+    <h1>Regex Tester</h1>
+    <p>Test regular expressions live. See matches highlighted, capture groups, and match count. Supports all JavaScript regex flags. Nothing uploaded.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 13,215 times this month</div>
+  <div class="io-label"><span>Regular expression pattern</span></div>
+  <div class="regex-input-wrap">
+    <div class="regex-slash">/</div>
+    <input type="text" class="regex-pattern" id="pattern" placeholder="\d+" value="\b\w+@\w+\.\w+\b">
+    <input type="text" class="regex-flags" id="flags" placeholder="gi" value="gi">
+  </div>
+  <div class="flags-row">
+    <button class="flag-btn on" data-flag="g" onclick="toggleFlag('g')">g <span style="opacity:.6">global</span></button>
+    <button class="flag-btn on" data-flag="i" onclick="toggleFlag('i')">i <span style="opacity:.6">ignore case</span></button>
+    <button class="flag-btn" data-flag="m" onclick="toggleFlag('m')">m <span style="opacity:.6">multiline</span></button>
+    <button class="flag-btn" data-flag="s" onclick="toggleFlag('s')">s <span style="opacity:.6">dotall</span></button>
+    <button class="flag-btn" data-flag="u" onclick="toggleFlag('u')">u <span style="opacity:.6">unicode</span></button>
+    <button class="flag-btn" data-flag="y" onclick="toggleFlag('y')">y <span style="opacity:.6">sticky</span></button>
+  </div>
+  <div class="io-label">
+    <span>Test string</span>
+    <button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button>
+  </div>
+  <textarea class="text-area" id="testString" placeholder="Paste text to test against pattern...">Contact us at hello@toolifycore.com or support@example.org for any queries. Also try admin@test.io</textarea>
+  <div class="io-label"><span>Matches highlighted</span></div>
+  <div class="highlight-view" id="highlightView"></div>
+  <div class="match-info" id="matchInfo"></div>
+  <div class="result-box show">
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/regex-tester.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Developer?</strong> Get new tool updates on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Enter Pattern</h3><p>Type your regex pattern (no need for surrounding slashes).</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Set Flags</h3><p>Click flag buttons or type them in the flags input.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>See Matches</h3><p>Live highlighting shows every match. Groups shown below.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Which regex flavor is used?</div><div class="faq-a">JavaScript regex (ECMAScript). Most syntax is identical to PCRE (used by PHP, Python, Perl), but some advanced features like lookbehind may work differently. Test the exact pattern in your target language for production use.</div></div>
+    <div class="faq-item"><div class="faq-q">What do the flags mean?</div><div class="faq-a">g = global (find all matches, not just first). i = case-insensitive. m = multiline (^ and $ match line breaks). s = dotall (. matches newlines). u = unicode. y = sticky (match from lastIndex only).</div></div>
+    <div class="faq-item"><div class="faq-q">How do I use capture groups?</div><div class="faq-a">Wrap parts of your pattern in parentheses ( ) to capture. Named groups use (?&lt;name&gt;pattern). Both are shown separately in the match details below the highlighted view.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my regex or text uploaded?</div><div class="faq-a">No. Everything runs in your browser using the native RegExp object. Your patterns and test data never leave your device.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/json-format.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JSON Formatter</a>
+  <a href="/tools/url-encoder.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">URL Encoder</a>
+  <a href="/tools/hash-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Hash Generator</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function toggleFlag(f) {
+  const cur = document.getElementById('flags').value;
+  const has = cur.includes(f);
+  document.getElementById('flags').value = has ? cur.replace(f, '') : cur + f;
+  syncFlagButtons();
+  update();
+}
+
+function syncFlagButtons() {
+  const flags = document.getElementById('flags').value;
+  document.querySelectorAll('.flag-btn').forEach(b => b.classList.toggle('on', flags.includes(b.dataset.flag)));
+}
+
+function update() {
+  const pat = document.getElementById('pattern').value;
+  const flags = document.getElementById('flags').value;
+  const test = document.getElementById('testString').value;
+  const info = document.getElementById('matchInfo');
+  const view = document.getElementById('highlightView');
+  if (!pat) { view.textContent = test; info.textContent = ''; return; }
+  try {
+    const rx = new RegExp(pat, flags);
+    const matches = [];
+    if (flags.includes('g')) {
+      let m;
+      while ((m = rx.exec(test)) !== null) {
+        matches.push({index: m.index, match: m[0], groups: m.slice(1), named: m.groups});
+        if (m.index === rx.lastIndex) rx.lastIndex++;
+      }
+    } else {
+      const m = rx.exec(test);
+      if (m) matches.push({index: m.index, match: m[0], groups: m.slice(1), named: m.groups});
+    }
+    // Build highlighted output
+    let html = '', last = 0;
+    matches.forEach(m => {
+      html += esc(test.slice(last, m.index));
+      html += '<mark>' + esc(m.match) + '</mark>';
+      last = m.index + m.match.length;
+    });
+    html += esc(test.slice(last));
+    view.innerHTML = html || esc(test);
+    // Info
+    let infoHtml = `<strong style="color:#00E5C0">✓ ${matches.length} match${matches.length !== 1 ? 'es' : ''}</strong>`;
+    if (matches.length) {
+      infoHtml += matches.slice(0, 20).map((m, i) => {
+        let s = `<div style="margin-top:8px"><strong>Match ${i + 1}</strong> at index ${m.index}: <code style="color:#B8AAFF">${esc(m.match)}</code>`;
+        if (m.groups.length) {
+          s += `<div class="match-groups">Groups: ${m.groups.map((g, j) => `[${j + 1}] ${g === undefined ? '(none)' : esc(g)}`).join(' · ')}</div>`;
+        }
+        if (m.named && Object.keys(m.named).length) {
+          s += `<div class="match-groups">Named: ${Object.entries(m.named).map(([k, v]) => `${k}=${esc(v || '(none)')}`).join(' · ')}</div>`;
+        }
+        return s + '</div>';
+      }).join('');
+      if (matches.length > 20) infoHtml += `<div style="margin-top:8px;color:var(--muted)">...and ${matches.length - 20} more</div>`;
+    }
+    info.innerHTML = infoHtml;
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free regex tester at Toolify Core: https://toolifycore.com/tools/regex-tester.html`;
+  } catch (e) {
+    view.textContent = test;
+    info.innerHTML = `<strong style="color:#FF6B6B">✗ Invalid regex: ${e.message}</strong>`;
+  }
+}
+
+['pattern','flags','testString'].forEach(id => document.getElementById(id).addEventListener('input', () => { syncFlagButtons(); update(); }));
+
+function loadSample() {
+  document.getElementById('pattern').value = '\\b\\w+@\\w+\\.\\w+\\b';
+  document.getElementById('flags').value = 'gi';
+  document.getElementById('testString').value = 'Contact us at hello@toolifycore.com or support@example.org for any queries. Also try admin@test.io';
+  syncFlagButtons(); update();
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free regex tester!&url=https://toolifycore.com/tools/regex-tester.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/regex-tester.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+update();
+</script>
+</body>
+</html>

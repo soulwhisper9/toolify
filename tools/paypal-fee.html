@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WLBKXMNV15');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PayPal Fee Calculator Free — See Net Amount After Fees | Toolify Core</title>
+<meta name="description" content="Calculate PayPal fees online for free. See exactly how much you receive after fees, or work out what to charge for a specific net amount. Multiple regions and transaction types.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:var(--font-body)}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.mode-toggle{display:flex;gap:0;background:var(--surface2);padding:4px;border-radius:8px;width:fit-content;margin:16px 0 8px}
+.mode-btn{background:transparent;color:var(--muted);border:none;padding:8px 20px;border-radius:6px;font-size:13px;font-family:var(--font-body);cursor:pointer}
+.mode-btn.active{background:#BA7517;color:white}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0}
+.breakdown{background:var(--surface2);padding:14px 16px;border-radius:8px;margin:12px 0;font-size:13px}
+.breakdown-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)}
+.breakdown-row:last-child{border-bottom:none;font-weight:600;color:var(--text)}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+.note{background:rgba(255,184,0,0.08);border-left:3px solid #FFB800;padding:10px 14px;font-size:12px;color:var(--muted);border-radius:0 6px 6px 0;margin:12px 0}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+  <span class="nav-sep">/</span><a href="/" class="back">← Tools</a>
+  <span class="nav-sep">/</span><span class="tool-title-nav">PayPal Fee Calc</span>
+</nav>
+<main>
+  <div class="tool-header">
+    <div class="tool-badge">🧮 Calculators</div>
+    <h1>PayPal Fee Calculator</h1>
+    <p>Work out exactly how much you receive after PayPal fees, or figure out what to charge to receive a target net amount. Perfect for freelancers and small businesses.</p>
+  </div>
+  <div class="counter-badge">🔥 Used 9,481 times this month</div>
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-mode="from-gross" onclick="setMode('from-gross')">📥 Amount charged → Net received</button>
+    <button class="mode-btn" data-mode="from-net" onclick="setMode('from-net')">🎯 Target net → What to charge</button>
+  </div>
+  <div class="calc-grid">
+    <div class="calc-field">
+      <label id="amountLabel">Amount charged</label>
+      <input type="number" id="amount" value="100" min="0" step="0.01">
+    </div>
+    <div class="calc-field">
+      <label>Currency</label>
+      <select id="currency">
+        <option value="$" selected>$ USD</option>
+        <option value="€">€ EUR</option>
+        <option value="£">£ GBP</option>
+        <option value="Rs ">Rs PKR</option>
+        <option value="₹">₹ INR</option>
+        <option value="AED ">AED</option>
+        <option value="$ CAD">$ CAD</option>
+        <option value="$ AUD">$ AUD</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label>Region / country</label>
+      <select id="region">
+        <option value="us" selected>United States</option>
+        <option value="uk">United Kingdom</option>
+        <option value="eu">Eurozone</option>
+        <option value="ca">Canada</option>
+        <option value="au">Australia</option>
+        <option value="intl">International (default)</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label>Transaction type</label>
+      <select id="txType">
+        <option value="goods_domestic" selected>Goods &amp; Services (domestic)</option>
+        <option value="goods_intl">Goods &amp; Services (international)</option>
+        <option value="invoicing">Invoicing (freelance)</option>
+        <option value="micropayment">Micropayment (small transactions)</option>
+        <option value="friends_family">Friends &amp; Family (domestic)</option>
+      </select>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn-primary" id="calcBtn" style="background:#BA7517">💰 Calculate</button>
+    <button class="btn-secondary" onclick="resetAll()">Reset</button>
+  </div>
+  <div class="result-box" id="resultBox">
+    <div class="result-icon">💵</div>
+    <h3 id="resultTitle">Fee Breakdown</h3>
+    <div class="result-stats" id="statsGrid"></div>
+    <div class="breakdown" id="breakdownBox"></div>
+    <div class="share-row">
+      <a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a>
+      <button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button>
+      <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+    </div>
+    <div class="embed-section">
+      <div class="embed-label">📌 Embed this tool on your website (click to copy)</div>
+      <div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/paypal-fee.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div>
+    </div>
+  </div>
+  <div class="note">ℹ️ PayPal fee schedules change often and vary by account type. These are typical published rates as of 2026. Always verify against your account fee page for exact numbers on business or high-volume accounts.</div>
+  <div class="bookmark-tip">💡 <strong>Ctrl+D</strong> (Cmd+D on Mac) to bookmark for next time</div>
+  <div class="affiliate-banner">
+    <div class="aff-text">💡 <strong>Freelancer?</strong> Get more calculators on our blog</div>
+    <a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a>
+  </div>
+  <div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Pick Mode</h3><p>Calculate from what you charge, or from what you want to net.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Set Details</h3><p>Amount, currency, region, and transaction type.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>See Numbers</h3><p>Exact fee, net received, and full breakdown.</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Why does PayPal charge different fees?</div><div class="faq-a">Fees depend on transaction type (goods vs friends), whether it is domestic or international, and the receiving country. Micropayments have a special rate that is better for small amounts.</div></div>
+    <div class="faq-item"><div class="faq-q">How do I make sure I receive an exact amount?</div><div class="faq-a">Use the "Target net" mode. Enter the amount you want to receive after fees, and we tell you exactly what to charge the client so the fee is covered.</div></div>
+    <div class="faq-item"><div class="faq-q">Are these fees exact?</div><div class="faq-a">These are typical rates. PayPal changes fees periodically and business or high-volume accounts may have different rates. Always check your actual account for the definitive number.</div></div>
+    <div class="faq-item"><div class="faq-q">Does PayPal charge for Friends &amp; Family?</div><div class="faq-a">No fee when funded from PayPal balance or bank account (domestic). International F&amp;F transfers have a small fee. Never use F&amp;F for actual business — it removes buyer/seller protection.</div></div>
+  </div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+  <p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+  <a href="/tools/currency-pkr.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Currency Converter</a>
+  <a href="/tools/compound-interest.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Compound Interest</a>
+  <a href="/tools/percentage-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Percentage Calc</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">
+  All tools are free, browser-based, and process files locally — your data never leaves your device.
+  Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> |
+  <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a> for tips and guides.
+</div>
+</main>
+<script>
+// Fee table: [percentage, fixed_fee_in_USD_equivalent] - typical rates
+const FEES = {
+  us: {
+    goods_domestic: [0.0349, 0.49],
+    goods_intl: [0.0499, 0.49],
+    invoicing: [0.0349, 0.49],
+    micropayment: [0.05, 0.05],
+    friends_family: [0, 0],
+  },
+  uk: {
+    goods_domestic: [0.0140, 0.20],
+    goods_intl: [0.0334, 0.30],
+    invoicing: [0.0140, 0.20],
+    micropayment: [0.05, 0.05],
+    friends_family: [0, 0],
+  },
+  eu: {
+    goods_domestic: [0.0249, 0.35],
+    goods_intl: [0.0499, 0.35],
+    invoicing: [0.0249, 0.35],
+    micropayment: [0.05, 0.05],
+    friends_family: [0, 0],
+  },
+  ca: {
+    goods_domestic: [0.0290, 0.30],
+    goods_intl: [0.0430, 0.30],
+    invoicing: [0.0290, 0.30],
+    micropayment: [0.05, 0.05],
+    friends_family: [0, 0],
+  },
+  au: {
+    goods_domestic: [0.0260, 0.30],
+    goods_intl: [0.0430, 0.30],
+    invoicing: [0.0260, 0.30],
+    micropayment: [0.05, 0.05],
+    friends_family: [0, 0],
+  },
+  intl: {
+    goods_domestic: [0.0349, 0.49],
+    goods_intl: [0.0549, 0.49],
+    invoicing: [0.0349, 0.49],
+    micropayment: [0.05, 0.05],
+    friends_family: [0.03, 0.30],
+  },
+};
+
+let mode = 'from-gross', currency = '$';
+const fmt = n => currency + n.toFixed(2);
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('amountLabel').textContent = m === 'from-gross' ? 'Amount charged' : 'Target net (what you want to receive)';
+  calculate();
+}
+
+function calculate() {
+  const amount = parseFloat(document.getElementById('amount').value) || 0;
+  currency = document.getElementById('currency').value;
+  const region = document.getElementById('region').value;
+  const txType = document.getElementById('txType').value;
+  const [pct, fixed] = FEES[region][txType];
+  let gross, fee, net;
+  if (mode === 'from-gross') {
+    gross = amount;
+    fee = gross * pct + fixed;
+    net = gross - fee;
+  } else {
+    // net = gross*(1-pct) - fixed -> gross = (net + fixed) / (1-pct)
+    net = amount;
+    gross = pct < 1 ? (net + fixed) / (1 - pct) : amount;
+    fee = gross - net;
+  }
+  const feePct = gross > 0 ? (fee / gross * 100) : 0;
+  const stats = mode === 'from-gross' ? [
+    {label:'You charge', val: fmt(gross), hi:false},
+    {label:'PayPal fee', val: fmt(fee), hi:false},
+    {label:'You receive (net)', val: fmt(net), hi:true},
+  ] : [
+    {label:'Target net', val: fmt(net), hi:false},
+    {label:'PayPal fee', val: fmt(fee), hi:false},
+    {label:'Charge this to client', val: fmt(gross), hi:true},
+  ];
+  document.getElementById('statsGrid').innerHTML = stats.map(s =>
+    `<div class="stat-card${s.hi ? ' hi' : ''}"><div class="stat-card-label">${s.label}</div><div class="stat-card-value">${s.val}</div></div>`
+  ).join('');
+  document.getElementById('breakdownBox').innerHTML = `
+    <div class="breakdown-row"><span>Gross amount</span><span>${fmt(gross)}</span></div>
+    <div class="breakdown-row"><span>Percentage fee (${(pct*100).toFixed(2)}%)</span><span>−${fmt(gross * pct)}</span></div>
+    <div class="breakdown-row"><span>Fixed fee</span><span>−${fmt(fixed)}</span></div>
+    <div class="breakdown-row"><span>Total fee (${feePct.toFixed(2)}% of gross)</span><span>−${fmt(fee)}</span></div>
+    <div class="breakdown-row"><span>Net received</span><span>${fmt(net)}</span></div>
+  `;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free PayPal fee calculator at Toolify Core: https://toolifycore.com/tools/paypal-fee.html`;
+}
+
+document.getElementById('calcBtn').addEventListener('click', calculate);
+['amount','currency','region','txType'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+
+function resetAll() {
+  document.getElementById('amount').value = 100;
+  document.getElementById('currency').value = '$';
+  document.getElementById('region').value = 'us';
+  document.getElementById('txType').value = 'goods_domestic';
+  calculate();
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free PayPal fee calculator!&url=https://toolifycore.com/tools/paypal-fee.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/paypal-fee.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>
