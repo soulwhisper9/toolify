@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CSS Border Radius Generator Free — Rounded Corners | Toolify Core</title>
+<meta name="description" content="Generate CSS border-radius with visual preview. Individual corners, elliptical radii, and copy-ready CSS.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.gen-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+@media(max-width:768px){.gen-grid{grid-template-columns:1fr}}
+.controls{background:var(--surface2);padding:16px;border-radius:10px}
+.link-check{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:13px;color:var(--muted);padding:8px 10px;background:var(--surface);border-radius:6px}
+.slider-row{display:grid;grid-template-columns:100px 1fr 60px;gap:10px;align-items:center;margin-bottom:8px}
+.slider-row label{font-size:12px;color:var(--muted)}
+.slider-row input[type=range]{width:100%}
+.slider-row .val{color:#6EDFB8;font-family:monospace;font-size:13px;text-align:right}
+.dims-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.dims-row .field{display:flex;flex-direction:column;gap:4px}
+.dims-row .field label{font-size:12px;color:var(--muted)}
+.dims-row .field input{padding:8px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.preview-area{background:linear-gradient(135deg,#3a3a4a 25%,transparent 25%),linear-gradient(-135deg,#3a3a4a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#3a3a4a 75%),linear-gradient(-45deg,transparent 75%,#3a3a4a 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0;background-color:#2a2a3a;border-radius:10px;padding:40px;display:flex;align-items:center;justify-content:center;min-height:300px}
+.radius-box{background:linear-gradient(135deg,#7B61FF,#00E5C0);width:200px;height:200px}
+.code-out{background:var(--surface2);padding:14px 16px;border-radius:8px;font-family:monospace;font-size:13px;color:#6EDFB8;word-break:break-all;margin:12px 0;line-height:1.6}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Border Radius</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>CSS Border Radius Generator</h1><p>Design perfect rounded corners. Control each corner individually, use elliptical radii, and copy production-ready CSS.</p></div>
+<div class="counter-badge">📐 Used 11,283 times this month</div>
+<div class="gen-grid">
+<div class="controls">
+<div class="link-check"><input type="checkbox" id="linkAll"> Link all corners together</div>
+<div class="slider-row"><label>Top-left</label><input type="range" id="tl" min="0" max="200" value="12"><span class="val" id="tlVal">12px</span></div>
+<div class="slider-row"><label>Top-right</label><input type="range" id="tr" min="0" max="200" value="12"><span class="val" id="trVal">12px</span></div>
+<div class="slider-row"><label>Bottom-right</label><input type="range" id="br" min="0" max="200" value="12"><span class="val" id="brVal">12px</span></div>
+<div class="slider-row"><label>Bottom-left</label><input type="range" id="bl" min="0" max="200" value="12"><span class="val" id="blVal">12px</span></div>
+<div class="dims-row">
+<div class="field"><label>Box width</label><input type="number" id="width" value="200" min="50" max="500"></div>
+<div class="field"><label>Box height</label><input type="number" id="height" value="200" min="50" max="500"></div>
+</div>
+<div style="margin-top:14px"><label style="font-size:12px;color:var(--muted);display:block;margin-bottom:6px">Box color</label><input type="color" id="boxColor" value="#7B61FF" style="width:50px;height:32px;border:none;padding:0;background:transparent"></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:14px">
+<button class="btn-secondary" onclick="preset(0)" style="font-size:11px;padding:5px 10px">Square</button>
+<button class="btn-secondary" onclick="preset(12)" style="font-size:11px;padding:5px 10px">Small</button>
+<button class="btn-secondary" onclick="preset(24)" style="font-size:11px;padding:5px 10px">Medium</button>
+<button class="btn-secondary" onclick="preset(50)" style="font-size:11px;padding:5px 10px">Large</button>
+<button class="btn-secondary" onclick="preset(999)" style="font-size:11px;padding:5px 10px">Pill</button>
+<button class="btn-secondary" onclick="presetAsymm()" style="font-size:11px;padding:5px 10px">Blob</button>
+</div>
+</div>
+<div class="preview-area"><div class="radius-box" id="radiusBox"></div></div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px">CSS output</h4>
+<div class="code-out" id="cssOut">border-radius: 12px;</div>
+<div class="actions"><button class="btn-primary" onclick="copyCss()">📋 Copy CSS</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/border-radius-gen.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Designing UI?</strong> Get more CSS tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Adjust Corners</h3><p>Each corner independent or all linked.</p></div><div class="step"><div class="step-num">02</div><h3>Live Preview</h3><p>See rounded shape update instantly.</p></div><div class="step"><div class="step-num">03</div><h3>Copy CSS</h3><p>Ready to paste into your stylesheet.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How do I make a circle?</div><div class="faq-a">Set width = height and border-radius = 50%. For a pill button, keep both radii = height/2 or use a very large value.</div></div>
+<div class="faq-item"><div class="faq-q">Percentage vs pixel radius?</div><div class="faq-a">Percentage scales with the box size. Pixels stay fixed. For circles and pills, use percentages. For UI cards, use fixed pixels (usually 8-16px).</div></div>
+<div class="faq-item"><div class="faq-q">Can I make elliptical corners?</div><div class="faq-a">Yes — CSS supports `border-radius: 50px / 20px` for elliptical shapes. That's advanced use; this tool focuses on symmetric radii.</div></div>
+<div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. Everything runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/box-shadow-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Box Shadow</a>
+<a href="/tools/css-gradient-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">CSS Gradient</a>
+<a href="/tools/color-gradient.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Color Palette</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+const CORNERS = ['tl','tr','br','bl'];
+CORNERS.forEach(c => {
+  document.getElementById(c).addEventListener('input', e => {
+    if (document.getElementById('linkAll').checked) {
+      CORNERS.forEach(o => { if (o !== c) document.getElementById(o).value = e.target.value; });
+    }
+    update();
+  });
+});
+['width','height','boxColor','linkAll'].forEach(id => document.getElementById(id).addEventListener('input', update));
+
+function update() {
+  const w = parseInt(document.getElementById('width').value) || 200;
+  const h = parseInt(document.getElementById('height').value) || 200;
+  const tl = document.getElementById('tl').value, tr = document.getElementById('tr').value, br = document.getElementById('br').value, bl = document.getElementById('bl').value;
+  document.getElementById('tlVal').textContent = tl + 'px';
+  document.getElementById('trVal').textContent = tr + 'px';
+  document.getElementById('brVal').textContent = br + 'px';
+  document.getElementById('blVal').textContent = bl + 'px';
+  const box = document.getElementById('radiusBox');
+  box.style.width = w + 'px';
+  box.style.height = h + 'px';
+  box.style.background = document.getElementById('boxColor').value;
+  const radius = tl === tr && tr === br && br === bl
+    ? `${tl}px`
+    : `${tl}px ${tr}px ${br}px ${bl}px`;
+  box.style.borderRadius = radius;
+  document.getElementById('cssOut').textContent = `border-radius: ${radius};`;
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free border radius generator at Toolify Core: https://toolifycore.com/tools/border-radius-gen.html`;
+}
+function preset(v) { CORNERS.forEach(c => document.getElementById(c).value = v); update(); }
+function presetAsymm() { document.getElementById('tl').value = 45; document.getElementById('tr').value = 90; document.getElementById('br').value = 45; document.getElementById('bl').value = 90; update(); }
+function copyCss() { navigator.clipboard.writeText(document.getElementById('cssOut').textContent); alert('CSS copied!'); }
+function resetAll() { CORNERS.forEach(c => document.getElementById(c).value = 12); document.getElementById('width').value = 200; document.getElementById('height').value = 200; document.getElementById('boxColor').value = '#7B61FF'; document.getElementById('linkAll').checked = false; update(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free border radius generator!&url=https://toolifycore.com/tools/border-radius-gen.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/border-radius-gen.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+update();
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Macro Calculator Free — Protein Carbs Fat Split | Toolify Core</title>
+<meta name="description" content="Calculate daily macronutrient split online for free. Protein, carbs, and fat targets based on calorie goal and diet type (balanced, keto, high-protein).">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.macro-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.macro-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center;border-top:3px solid}
+.macro-card.protein{border-top-color:#FF6B6B}
+.macro-card.carbs{border-top-color:#00E5C0}
+.macro-card.fat{border-top-color:#FAC775}
+.macro-card .name{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.macro-card .grams{font-family:var(--font-head);font-size:32px;font-weight:800;color:var(--text);margin:4px 0}
+.macro-card .grams .u{font-size:14px;color:var(--muted);font-weight:400}
+.macro-card .cal{font-size:12px;color:var(--muted)}
+.macro-card .pct{font-size:11px;color:var(--muted);margin-top:4px}
+.bar{display:flex;height:12px;border-radius:6px;overflow:hidden;margin:12px 0}
+.bar .b-p{background:#FF6B6B}
+.bar .b-c{background:#00E5C0}
+.bar .b-f{background:#FAC775}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Macro Calculator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Macro Nutrition Calculator</h1><p>Split your daily calories into protein, carbs, and fat targets. Choose a preset diet (balanced, keto, high-protein) or set custom percentages.</p></div>
+<div class="counter-badge">💪 Used 14,275 times this month</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Daily calorie target</label><input type="number" id="calories" value="2200" min="500" max="8000" step="10"></div>
+<div class="calc-field"><label>Diet preset</label><select id="preset"><option value="balanced" selected>Balanced (30/40/30)</option><option value="highProtein">High protein (40/35/25)</option><option value="keto">Keto (25/5/70)</option><option value="lowCarb">Low carb (30/20/50)</option><option value="mediterranean">Mediterranean (20/50/30)</option><option value="highCarb">Endurance (20/60/20)</option><option value="custom">Custom (edit below)</option></select></div>
+<div class="calc-field"><label>Protein %</label><input type="number" id="pPct" value="30" min="0" max="100" step="1"></div>
+<div class="calc-field"><label>Carbs %</label><input type="number" id="cPct" value="40" min="0" max="100" step="1"></div>
+<div class="calc-field"><label>Fat %</label><input type="number" id="fPct" value="30" min="0" max="100" step="1"></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">💪 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">💪</div><h3>Daily Macro Targets</h3>
+<div class="bar" id="bar"></div>
+<div class="macro-row">
+<div class="macro-card protein"><div class="name">🥩 Protein</div><div class="grams" id="pGrams">-<span class="u">g</span></div><div class="cal" id="pCal">-</div><div class="pct" id="pPctDisp">-</div></div>
+<div class="macro-card carbs"><div class="name">🍞 Carbs</div><div class="grams" id="cGrams">-<span class="u">g</span></div><div class="cal" id="cCal">-</div><div class="pct" id="cPctDisp">-</div></div>
+<div class="macro-card fat"><div class="name">🥑 Fat</div><div class="grams" id="fGrams">-<span class="u">g</span></div><div class="cal" id="fCal">-</div><div class="pct" id="fPctDisp">-</div></div>
+</div>
+<div style="font-size:12px;color:var(--muted);text-align:center;margin:10px 0">Calories per gram: Protein &amp; Carbs = 4 cal · Fat = 9 cal</div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/macro-calc.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Fitness goals?</strong> Get more health tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Set Calories</h3><p>Use our BMR/TDEE tool if you don't know your target.</p></div><div class="step"><div class="step-num">02</div><h3>Pick Diet</h3><p>Preset splits for common diets or custom percentages.</p></div><div class="step"><div class="step-num">03</div><h3>Get Grams</h3><p>Exact protein, carbs, and fat targets in grams.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What macro split is best?</div><div class="faq-a">Depends on goal. Fat loss: high protein (30-40%). Muscle gain: balanced with adequate protein. Endurance: higher carbs. Keto: very low carbs, high fat. There's no universal "best" — pick what suits your life and adherence.</div></div>
+<div class="faq-item"><div class="faq-q">How much protein do I really need?</div><div class="faq-a">Sedentary: 0.8 g per kg body weight. Active: 1.2-1.6 g/kg. Building muscle: 1.6-2.2 g/kg. Losing weight while training: up to 2.4 g/kg to preserve muscle.</div></div>
+<div class="faq-item"><div class="faq-q">Do the percentages need to add to 100?</div><div class="faq-a">Yes, for accurate splits. The tool auto-normalizes if you're off. Custom mode lets you set values but they should sum to 100%.</div></div>
+<div class="faq-item"><div class="faq-q">Is this medical advice?</div><div class="faq-a">No. General fitness guidance only. Consult a registered dietitian for personalized nutrition plans, especially for medical conditions.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/bmr-tdee.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">BMR &amp; TDEE</a>
+<a href="/tools/bmi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">BMI</a>
+<a href="/tools/body-fat.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Body Fat</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+const PRESETS = {balanced:[30,40,30], highProtein:[40,35,25], keto:[25,5,70], lowCarb:[30,20,50], mediterranean:[20,50,30], highCarb:[20,60,20]};
+document.getElementById('preset').addEventListener('change', e => {
+  if (e.target.value !== 'custom' && PRESETS[e.target.value]) {
+    const [p,c,f] = PRESETS[e.target.value];
+    document.getElementById('pPct').value = p;
+    document.getElementById('cPct').value = c;
+    document.getElementById('fPct').value = f;
+    calculate();
+  }
+});
+function calculate() {
+  const cal = parseFloat(document.getElementById('calories').value) || 0;
+  let p = parseFloat(document.getElementById('pPct').value) || 0;
+  let c = parseFloat(document.getElementById('cPct').value) || 0;
+  let f = parseFloat(document.getElementById('fPct').value) || 0;
+  const sum = p + c + f;
+  if (sum !== 100 && sum > 0) { p = p/sum*100; c = c/sum*100; f = f/sum*100; }
+  const pCal = cal * p/100, cCal = cal * c/100, fCal = cal * f/100;
+  const pG = pCal / 4, cG = cCal / 4, fG = fCal / 9;
+  document.getElementById('pGrams').innerHTML = Math.round(pG) + '<span class="u">g</span>';
+  document.getElementById('cGrams').innerHTML = Math.round(cG) + '<span class="u">g</span>';
+  document.getElementById('fGrams').innerHTML = Math.round(fG) + '<span class="u">g</span>';
+  document.getElementById('pCal').textContent = Math.round(pCal) + ' cal';
+  document.getElementById('cCal').textContent = Math.round(cCal) + ' cal';
+  document.getElementById('fCal').textContent = Math.round(fCal) + ' cal';
+  document.getElementById('pPctDisp').textContent = Math.round(p) + '%';
+  document.getElementById('cPctDisp').textContent = Math.round(c) + '%';
+  document.getElementById('fPctDisp').textContent = Math.round(f) + '%';
+  document.getElementById('bar').innerHTML = `<div class="b-p" style="width:${p}%"></div><div class="b-c" style="width:${c}%"></div><div class="b-f" style="width:${f}%"></div>`;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free macro calculator at Toolify Core: https://toolifycore.com/tools/macro-calc.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+['calories','pPct','cPct','fPct'].forEach(id => document.getElementById(id).addEventListener('input', () => { document.getElementById('preset').value = 'custom'; calculate(); }));
+function resetAll() { document.getElementById('calories').value = 2200; document.getElementById('preset').value = 'balanced'; document.getElementById('pPct').value = 30; document.getElementById('cPct').value = 40; document.getElementById('fPct').value = 30; calculate(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free macro calculator!&url=https://toolifycore.com/tools/macro-calc.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/macro-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

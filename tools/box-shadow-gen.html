@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CSS Box Shadow Generator Free — Live Preview | Toolify Core</title>
+<meta name="description" content="Generate CSS box-shadow with live preview. Adjust offset, blur, spread, color, and inset. Copy production-ready CSS code.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.gen-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+@media(max-width:768px){.gen-grid{grid-template-columns:1fr}}
+.controls{background:var(--surface2);padding:16px;border-radius:10px}
+.slider-row{display:grid;grid-template-columns:80px 1fr 60px;gap:10px;align-items:center;margin-bottom:10px}
+.slider-row label{font-size:12px;color:var(--muted)}
+.slider-row input[type=range]{width:100%}
+.slider-row .val{color:#6EDFB8;font-family:monospace;font-size:13px;text-align:right}
+.color-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.color-row input[type=color]{width:50px;height:32px;border:none;padding:0;background:transparent;cursor:pointer}
+.color-row input[type=text]{flex:1;padding:8px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-family:monospace;font-size:12px}
+.check-row{display:flex;gap:14px;margin-top:12px;font-size:13px;color:var(--muted)}
+.check-row label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.preview-area{background:linear-gradient(135deg,#3a3a4a 25%,transparent 25%),linear-gradient(-135deg,#3a3a4a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#3a3a4a 75%),linear-gradient(-45deg,transparent 75%,#3a3a4a 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0;background-color:#2a2a3a;border-radius:10px;padding:60px;display:flex;align-items:center;justify-content:center;min-height:300px}
+.shadow-box{width:150px;height:150px;background:#7B61FF;border-radius:12px}
+.code-out{background:var(--surface2);padding:14px 16px;border-radius:8px;font-family:monospace;font-size:13px;color:#6EDFB8;word-break:break-all;margin:12px 0;line-height:1.6}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Box Shadow</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>CSS Box Shadow Generator</h1><p>Visual box-shadow builder with live preview. Adjust offset, blur, spread, color, and inset. Copy production-ready CSS instantly.</p></div>
+<div class="counter-badge">🎨 Used 15,847 times this month</div>
+<div class="gen-grid">
+<div class="controls">
+<div class="slider-row"><label>Horizontal</label><input type="range" id="hOffset" min="-100" max="100" value="4"><span class="val" id="hVal">4px</span></div>
+<div class="slider-row"><label>Vertical</label><input type="range" id="vOffset" min="-100" max="100" value="8"><span class="val" id="vVal">8px</span></div>
+<div class="slider-row"><label>Blur</label><input type="range" id="blur" min="0" max="150" value="24"><span class="val" id="blurVal">24px</span></div>
+<div class="slider-row"><label>Spread</label><input type="range" id="spread" min="-50" max="50" value="0"><span class="val" id="spreadVal">0px</span></div>
+<div class="slider-row"><label>Opacity</label><input type="range" id="opacity" min="0" max="100" value="30"><span class="val" id="opVal">30%</span></div>
+<div class="color-row"><label style="font-size:12px;color:var(--muted)">Color</label><input type="color" id="color" value="#000000"><input type="text" id="colorHex" value="#000000"></div>
+<div class="check-row"><label><input type="checkbox" id="inset"> Inset (inner shadow)</label></div>
+<div style="margin-top:14px"><label style="font-size:12px;color:var(--muted);display:block;margin-bottom:6px">Box color</label><input type="color" id="boxColor" value="#7B61FF" style="width:50px;height:32px;border:none;padding:0;background:transparent"></div>
+</div>
+<div class="preview-area"><div class="shadow-box" id="shadowBox"></div></div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px">CSS output</h4>
+<div class="code-out" id="cssOut">box-shadow: 4px 8px 24px 0 rgba(0, 0, 0, 0.3);</div>
+<div class="actions"><button class="btn-primary" onclick="copyCss()">📋 Copy CSS</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/box-shadow-gen.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Designer or developer?</strong> Get more design tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Adjust Sliders</h3><p>Offset, blur, spread, and color.</p></div><div class="step"><div class="step-num">02</div><h3>Live Preview</h3><p>See the shadow update in real time.</p></div><div class="step"><div class="step-num">03</div><h3>Copy CSS</h3><p>Paste into your stylesheet.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is spread?</div><div class="faq-a">Spread expands or contracts the shadow before blur is applied. Positive values make it larger, negative values shrink it. Rare in design — usually 0.</div></div>
+<div class="faq-item"><div class="faq-q">What is inset?</div><div class="faq-a">Inset creates an inner shadow (shadow drawn inside the box instead of outside). Great for pressed button effects.</div></div>
+<div class="faq-item"><div class="faq-q">Can I stack multiple shadows?</div><div class="faq-a">Yes in CSS — separate them with commas: `box-shadow: shadow1, shadow2`. This tool generates one shadow at a time; combine them manually.</div></div>
+<div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. Everything runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/border-radius-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Border Radius</a>
+<a href="/tools/css-gradient-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">CSS Gradient</a>
+<a href="/tools/color-gradient.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Color Gradient</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+function hexToRgba(hex, op) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r}, ${g}, ${b}, ${op})`;
+}
+function update() {
+  const h = document.getElementById('hOffset').value;
+  const v = document.getElementById('vOffset').value;
+  const bl = document.getElementById('blur').value;
+  const s = document.getElementById('spread').value;
+  const op = document.getElementById('opacity').value;
+  const c = document.getElementById('color').value;
+  const inset = document.getElementById('inset').checked;
+  const boxColor = document.getElementById('boxColor').value;
+  document.getElementById('hVal').textContent = h + 'px';
+  document.getElementById('vVal').textContent = v + 'px';
+  document.getElementById('blurVal').textContent = bl + 'px';
+  document.getElementById('spreadVal').textContent = s + 'px';
+  document.getElementById('opVal').textContent = op + '%';
+  document.getElementById('colorHex').value = c;
+  const shadow = `${inset?'inset ':''}${h}px ${v}px ${bl}px ${s}px ${hexToRgba(c, op/100)}`;
+  document.getElementById('shadowBox').style.boxShadow = shadow;
+  document.getElementById('shadowBox').style.background = boxColor;
+  document.getElementById('cssOut').textContent = `box-shadow: ${shadow};`;
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free box shadow generator at Toolify Core: https://toolifycore.com/tools/box-shadow-gen.html`;
+}
+['hOffset','vOffset','blur','spread','opacity','color','inset','boxColor'].forEach(id => document.getElementById(id).addEventListener('input', update));
+document.getElementById('colorHex').addEventListener('input', e => { if (/^#[0-9a-fA-F]{6}$/.test(e.target.value)) { document.getElementById('color').value = e.target.value; update(); }});
+function copyCss() { navigator.clipboard.writeText(document.getElementById('cssOut').textContent); alert('CSS copied!'); }
+function resetAll() { document.getElementById('hOffset').value = 4; document.getElementById('vOffset').value = 8; document.getElementById('blur').value = 24; document.getElementById('spread').value = 0; document.getElementById('opacity').value = 30; document.getElementById('color').value = '#000000'; document.getElementById('inset').checked = false; document.getElementById('boxColor').value = '#7B61FF'; update(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free box shadow generator!&url=https://toolifycore.com/tools/box-shadow-gen.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/box-shadow-gen.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+update();
+</script>
+</body>
+</html>

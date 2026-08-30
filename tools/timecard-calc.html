@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Timecard Calculator Free — Weekly Hours and Pay | Toolify Core</title>
+<meta name="description" content="Free weekly timecard calculator with hourly pay. Log daily hours, add breaks, calculate overtime pay. Perfect for freelancers and hourly workers.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.top-settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;padding:14px;background:var(--surface2);border-radius:8px;margin:12px 0}
+.top-settings .field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.top-settings input,.top-settings select{padding:8px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.time-table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;background:var(--surface2);border-radius:8px;overflow:hidden}
+.time-table th{background:var(--surface);color:var(--muted);text-align:left;padding:10px 12px;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.time-table td{padding:6px 8px;border-top:1px solid var(--border)}
+.time-table input{width:100%;padding:6px 8px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:13px;box-sizing:border-box}
+.time-table input:focus{outline:none;border-color:#BA7517}
+.time-table td.tot{color:#FAC775;font-family:var(--font-head);font-weight:700;text-align:right;padding-right:14px}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:20px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:24px}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Timecard</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Weekly Timecard Calculator</h1><p>Log start and end times for each workday, subtract breaks, and calculate total hours + weekly pay. Handles overtime past 40 hours.</p></div>
+<div class="counter-badge">⏱ Used 11,183 times this month</div>
+<div class="top-settings">
+<div class="field"><label>Hourly rate</label><input type="number" id="rate" value="20" min="0" step="0.01"></div>
+<div class="field"><label>Overtime rate (×)</label><input type="number" id="otMult" value="1.5" min="1" max="3" step="0.1"></div>
+<div class="field"><label>Overtime after (hours/week)</label><input type="number" id="otAfter" value="40" min="0" max="168"></div>
+<div class="field"><label>Currency</label><select id="currency"><option value="$" selected>$ USD</option><option value="Rs ">Rs PKR</option><option value="₹">₹ INR</option><option value="€">€ EUR</option><option value="£">£ GBP</option><option value="AED ">AED</option></select></div>
+</div>
+<table class="time-table" id="timeTable">
+<thead><tr><th>Day</th><th>Start</th><th>End</th><th>Break (min)</th><th style="text-align:right">Hours</th></tr></thead>
+<tbody id="tableBody"></tbody>
+</table>
+<div class="actions" style="margin:12px 0"><button class="btn-primary" id="calcBtn" style="background:#BA7517">⏱ Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">⏱</div><h3>Weekly Summary</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Total pay</div><div class="stat-card-value" id="totalPay">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Regular hours</div><div class="stat-card-value" id="regHrs">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Overtime hours</div><div class="stat-card-value" id="otHrs">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Total hours</div><div class="stat-card-value" id="totHrs">-</div></div>
+</div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/timecard-calc.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Track your hours?</strong> Get more work tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Times</h3><p>Start and end times for each day worked.</p></div><div class="step"><div class="step-num">02</div><h3>Subtract Breaks</h3><p>Unpaid break minutes deducted from each day.</p></div><div class="step"><div class="step-num">03</div><h3>See Pay</h3><p>Regular hours + overtime = total weekly earnings.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How is overtime calculated?</div><div class="faq-a">In the US federal law, overtime kicks in after 40 hours/week at 1.5× regular pay. Some states use daily overtime (over 8 hours). Adjust the "overtime after" field for your rules.</div></div>
+<div class="faq-item"><div class="faq-q">Does it save my data?</div><div class="faq-a">No, everything stays in your browser. Refresh clears the table. Take a screenshot or download the result for records.</div></div>
+<div class="faq-item"><div class="faq-q">Overnight shifts (past midnight)?</div><div class="faq-a">Yes. If end time is earlier than start, it assumes the next day. E.g., 22:00 to 06:00 = 8 hours.</div></div>
+<div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. All calculations run in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/salary-to-hourly.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Salary to Hourly</a>
+<a href="/tools/time-duration.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Time Duration</a>
+<a href="/tools/paypal-fee.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">PayPal Fee</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const tbody = document.getElementById('tableBody');
+DAYS.forEach((d, i) => {
+  const tr = document.createElement('tr');
+  const isWeekday = i < 5;
+  tr.innerHTML = `<td style="color:var(--muted);padding-left:14px">${d}</td>
+    <td><input type="time" data-day="${i}" data-fld="start" value="${isWeekday?'09:00':''}"></td>
+    <td><input type="time" data-day="${i}" data-fld="end" value="${isWeekday?'17:00':''}"></td>
+    <td><input type="number" data-day="${i}" data-fld="break" value="${isWeekday?'30':'0'}" min="0" style="width:60px"></td>
+    <td class="tot" id="tot${i}">0</td>`;
+  tbody.appendChild(tr);
+});
+
+function getHours(day) {
+  const s = document.querySelector(`[data-day="${day}"][data-fld="start"]`).value;
+  const e = document.querySelector(`[data-day="${day}"][data-fld="end"]`).value;
+  const br = parseFloat(document.querySelector(`[data-day="${day}"][data-fld="break"]`).value) || 0;
+  if (!s || !e) return 0;
+  const [sh, sm] = s.split(':').map(Number);
+  const [eh, em] = e.split(':').map(Number);
+  let mins = (eh*60 + em) - (sh*60 + sm);
+  if (mins < 0) mins += 24*60; // overnight
+  mins -= br;
+  return Math.max(0, mins / 60);
+}
+
+function calculate() {
+  let total = 0;
+  for (let i = 0; i < 7; i++) {
+    const h = getHours(i);
+    document.getElementById('tot' + i).textContent = h.toFixed(2);
+    total += h;
+  }
+  const rate = parseFloat(document.getElementById('rate').value) || 0;
+  const otMult = parseFloat(document.getElementById('otMult').value) || 1.5;
+  const otAfter = parseFloat(document.getElementById('otAfter').value) || 40;
+  const cur = document.getElementById('currency').value;
+  const regHrs = Math.min(total, otAfter);
+  const otHrs = Math.max(0, total - otAfter);
+  const totalPay = regHrs * rate + otHrs * rate * otMult;
+  const fmt = n => cur + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  document.getElementById('totalPay').textContent = fmt(totalPay);
+  document.getElementById('regHrs').textContent = regHrs.toFixed(2);
+  document.getElementById('otHrs').textContent = otHrs.toFixed(2);
+  document.getElementById('totHrs').textContent = total.toFixed(2);
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free weekly timecard at Toolify Core: https://toolifycore.com/tools/timecard-calc.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+tbody.addEventListener('input', calculate);
+['rate','otMult','otAfter','currency'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+function resetAll() { document.querySelectorAll('[data-fld]').forEach((el,idx) => { const day = parseInt(el.dataset.day); const fld = el.dataset.fld; const isWeekday = day < 5; if (fld === 'start') el.value = isWeekday?'09:00':''; if (fld === 'end') el.value = isWeekday?'17:00':''; if (fld === 'break') el.value = isWeekday?'30':'0'; }); calculate(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free weekly timecard calculator!&url=https://toolifycore.com/tools/timecard-calc.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/timecard-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

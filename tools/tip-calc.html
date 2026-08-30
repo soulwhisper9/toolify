@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tip Calculator Free — Split Bill Between Friends | Toolify Core</title>
+<meta name="description" content="Calculate restaurant tip and split the bill online for free. Custom tip percentages and per-person amount. Multi-currency.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.tip-buttons{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.tip-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:20px;font-size:13px;cursor:pointer}
+.tip-btn.active{background:#BA7517;color:white;border-color:#BA7517}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:28px}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Tip Calculator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Tip Calculator</h1><p>Calculate restaurant tip and split the total between friends. Quick tip presets or custom percentage. Perfect for dining out.</p></div>
+<div class="counter-badge">🍽 Used 31,842 times this month</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Bill amount</label><input type="number" id="bill" value="1000" min="0" step="0.01"></div>
+<div class="calc-field"><label>Tip %</label><input type="number" id="tipPct" value="15" min="0" max="100" step="0.1"></div>
+<div class="calc-field"><label>Split between</label><input type="number" id="people" value="1" min="1" max="100"></div>
+<div class="calc-field"><label>Currency</label><select id="currency"><option value="Rs " selected>Rs PKR</option><option value="₹">₹ INR</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="£">£ GBP</option><option value="AED ">AED</option></select></div>
+</div>
+<div class="tip-buttons">
+<button class="tip-btn" data-tip="10" onclick="setTip(10)">10%</button>
+<button class="tip-btn active" data-tip="15" onclick="setTip(15)">15%</button>
+<button class="tip-btn" data-tip="18" onclick="setTip(18)">18%</button>
+<button class="tip-btn" data-tip="20" onclick="setTip(20)">20% (Standard US)</button>
+<button class="tip-btn" data-tip="25" onclick="setTip(25)">25% (Great service)</button>
+</div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">🍽</div><h3>Bill Breakdown</h3>
+<div class="result-stats">
+<div class="stat-card"><div class="stat-card-label">Tip amount</div><div class="stat-card-value" id="tipVal">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Total bill</div><div class="stat-card-value" id="totalVal">-</div></div>
+<div class="stat-card hi"><div class="stat-card-label">Per person</div><div class="stat-card-value" id="perPerson">-</div></div>
+</div>
+<div style="font-size:13px;color:var(--muted);text-align:center;margin:10px 0" id="summary">-</div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/tip-calc.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Dining out?</strong> Get more calculators on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Bill</h3><p>Total amount from the receipt.</p></div><div class="step"><div class="step-num">02</div><h3>Pick Tip %</h3><p>Use presets or custom percentage.</p></div><div class="step"><div class="step-num">03</div><h3>Split It</h3><p>Divide the total between people evenly.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is the standard tip percentage?</div><div class="faq-a">USA: 18-22% (standard). UK/Europe: 10-15% often included as service charge. Middle East/Asia: 5-10% or often not expected. Check the bill first — service may already be included.</div></div>
+<div class="faq-item"><div class="faq-q">Should I tip on tax?</div><div class="faq-a">Convention is to tip on the pre-tax amount, but many people tip on the total for simplicity. Both are acceptable.</div></div>
+<div class="faq-item"><div class="faq-q">How to split unevenly?</div><div class="faq-a">This calculator splits evenly. For different orders per person, calculate each subtotal separately, apply the tip percentage, and add each person's share of tax.</div></div>
+<div class="faq-item"><div class="faq-q">Do delivery drivers get tips?</div><div class="faq-a">Yes, especially in the US. 10-20% of the order total is standard, minimum $2-5 for small orders.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/discount-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Discount</a>
+<a href="/tools/gst-vat.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">GST / VAT</a>
+<a href="/tools/percentage-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Percentage</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+function setTip(pct) {
+  document.getElementById('tipPct').value = pct;
+  document.querySelectorAll('.tip-btn').forEach(b => b.classList.toggle('active', parseInt(b.dataset.tip) === pct));
+  calculate();
+}
+function calculate() {
+  const bill = parseFloat(document.getElementById('bill').value) || 0;
+  const pct = parseFloat(document.getElementById('tipPct').value) || 0;
+  const people = parseInt(document.getElementById('people').value) || 1;
+  const cur = document.getElementById('currency').value;
+  const tip = bill * (pct/100);
+  const total = bill + tip;
+  const per = total / people;
+  const fmt = n => cur + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  document.getElementById('tipVal').textContent = fmt(tip);
+  document.getElementById('totalVal').textContent = fmt(total);
+  document.getElementById('perPerson').textContent = fmt(per);
+  document.getElementById('summary').textContent = people > 1 ? `Each of ${people} people pays ${fmt(per)}` : `Total to pay: ${fmt(total)}`;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free tip calculator at Toolify Core: https://toolifycore.com/tools/tip-calc.html`;
+}
+document.getElementById('tipPct').addEventListener('input', () => { document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active')); calculate(); });
+['bill','people','currency'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free tip calculator!&url=https://toolifycore.com/tools/tip-calc.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/tip-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

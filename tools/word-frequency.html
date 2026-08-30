@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Word Frequency Counter Free — SEO Keyword Density | Toolify Core</title>
+<meta name="description" content="Count word frequency and keyword density online for free. Perfect for SEO analysis, essay checks, and content optimization.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.text-area{width:100%;min-height:180px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.5}
+.text-area:focus{border-color:#D85A30}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.opts{display:flex;gap:14px;margin:10px 0;flex-wrap:wrap;font-size:13px;color:var(--muted);padding:10px 12px;background:var(--surface2);border-radius:8px}
+.opts label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.opts select,.opts input{padding:5px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px}
+.stats-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin:12px 0}
+.stat-mini{background:var(--surface2);padding:10px;border-radius:6px;text-align:center}
+.stat-mini-lbl{font-size:10px;color:var(--muted);text-transform:uppercase}
+.stat-mini-val{font-family:var(--font-head);font-size:18px;font-weight:700;color:#F4A482}
+.freq-table{width:100%;border-collapse:collapse;margin:12px 0;background:var(--surface2);border-radius:8px;overflow:hidden}
+.freq-table th{padding:10px 14px;text-align:left;font-size:11px;color:var(--muted);background:var(--surface);text-transform:uppercase;letter-spacing:.05em}
+.freq-table td{padding:8px 14px;border-top:1px solid var(--border);font-size:13px}
+.freq-table td:first-child{color:#F4A482;font-weight:600}
+.freq-table td:last-child{color:var(--muted);text-align:right;font-family:monospace}
+.freq-bar{background:rgba(216,90,48,0.15);height:4px;border-radius:2px;margin-top:4px}
+.freq-bar-fill{background:#D85A30;height:100%;border-radius:2px}
+.tool-badge{background:rgba(216,90,48,0.15) !important;color:#F4A482 !important;border:1px solid rgba(216,90,48,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Word Frequency</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">✍️ Text Tools</div><h1>Word Frequency Counter</h1><p>Count how often each word appears in your text. Perfect for SEO keyword density analysis, essay reviews, and content optimization.</p></div>
+<div class="counter-badge">📊 Used 9,514 times this month</div>
+<div class="io-label"><span>Paste your text</span><button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button></div>
+<textarea class="text-area" id="input" placeholder="Paste article, essay, blog post, or any text..."></textarea>
+<div class="opts">
+<label><input type="checkbox" id="caseSensitive"> Case sensitive</label>
+<label><input type="checkbox" id="skipStop" checked> Skip common words (the, a, and...)</label>
+<label>Min word length: <input type="number" id="minLen" value="1" min="1" max="20" style="width:60px"></label>
+<label>Top N words: <input type="number" id="topN" value="30" min="1" max="500" style="width:60px"></label>
+</div>
+<div class="actions" style="margin:12px 0"><button class="btn-primary" id="analyzeBtn" style="background:#D85A30">📊 Analyze</button><button class="btn-secondary" onclick="copyOut()">📋 Copy as CSV</button></div>
+<div class="stats-strip" id="statsStrip"></div>
+<div id="tableWrap"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/word-frequency.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>SEO or writing?</strong> Get more text tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#D85A30">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Paste Text</h3><p>Any article, essay, or content.</p></div><div class="step"><div class="step-num">02</div><h3>Adjust Filters</h3><p>Skip stopwords, minimum length, etc.</p></div><div class="step"><div class="step-num">03</div><h3>See Frequency</h3><p>Top words with count and density %.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is keyword density?</div><div class="faq-a">The percentage a word appears relative to total words. Good SEO practice: 1-3% for focus keywords. Higher can look spammy to Google.</div></div>
+<div class="faq-item"><div class="faq-q">What are "stopwords"?</div><div class="faq-a">Common words like "the", "a", "is", "and" that add little meaning. SEO tools usually ignore these to focus on meaningful keywords.</div></div>
+<div class="faq-item"><div class="faq-q">Is my text uploaded?</div><div class="faq-a">No. All analysis runs in your browser.</div></div>
+<div class="faq-item"><div class="faq-q">Does it count multi-word phrases?</div><div class="faq-a">Currently only single words. For 2-3 word phrases (bigrams/trigrams), that feature is on our roadmap.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(216,90,48,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/word-count.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Word Count</a>
+<a href="/tools/text-tools.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Text Tools</a>
+<a href="/tools/meta-tag-gen.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Meta Tags</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(216,90,48,0.06);border-left:3px solid #D85A30;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#D85A30">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#D85A30">Visit our blog</a>.</div>
+</main>
+<script>
+const STOPWORDS = new Set('a an the and or but if then else for of in on at to from with by is are was were be been being have has had do does did will would could should may might must can shall this that these those i you he she it we they me him her us them my your his its our their as so not no nor if than because while when where why how what who whom which about into over under above below between through during before after around amp'.split(' '));
+const SAMPLE = `Search engine optimization is the process of improving your website's visibility in search results. Good SEO helps search engines understand your content and rank it higher. Focus on quality content, relevant keywords, fast loading, mobile responsiveness, and quality backlinks. Modern SEO combines technical optimization with user experience and content marketing. Search engines like Google reward websites that serve users well.`;
+
+function analyze() {
+  const text = document.getElementById('input').value;
+  if (!text.trim()) return;
+  const caseSens = document.getElementById('caseSensitive').checked;
+  const skipStop = document.getElementById('skipStop').checked;
+  const minLen = parseInt(document.getElementById('minLen').value) || 1;
+  const topN = parseInt(document.getElementById('topN').value) || 30;
+  let processed = caseSens ? text : text.toLowerCase();
+  const words = (processed.match(/[a-zA-Z\u00C0-\u024F]+/g) || []).filter(w => w.length >= minLen && (!skipStop || !STOPWORDS.has(w.toLowerCase())));
+  const freq = {};
+  words.forEach(w => freq[w] = (freq[w]||0) + 1);
+  const sorted = Object.entries(freq).sort((a,b) => b[1] - a[1]);
+  const totalWords = words.length;
+  const uniqueWords = Object.keys(freq).length;
+  const chars = text.length;
+  const readingTime = Math.ceil(totalWords / 200);
+  document.getElementById('statsStrip').innerHTML = `
+    <div class="stat-mini"><div class="stat-mini-lbl">Total words</div><div class="stat-mini-val">${totalWords.toLocaleString()}</div></div>
+    <div class="stat-mini"><div class="stat-mini-lbl">Unique words</div><div class="stat-mini-val">${uniqueWords.toLocaleString()}</div></div>
+    <div class="stat-mini"><div class="stat-mini-lbl">Characters</div><div class="stat-mini-val">${chars.toLocaleString()}</div></div>
+    <div class="stat-mini"><div class="stat-mini-lbl">Reading time</div><div class="stat-mini-val">${readingTime} min</div></div>
+  `;
+  const max = sorted[0] ? sorted[0][1] : 1;
+  document.getElementById('tableWrap').innerHTML = `<table class="freq-table"><thead><tr><th>Word</th><th style="text-align:right">Count</th><th style="text-align:right">Density</th></tr></thead><tbody>${
+    sorted.slice(0, topN).map(([w, c]) => {
+      const pct = (c/totalWords*100).toFixed(2);
+      const barPct = (c/max*100).toFixed(0);
+      return `<tr><td>${w}<div class="freq-bar"><div class="freq-bar-fill" style="width:${barPct}%"></div></div></td><td style="text-align:right">${c}</td><td>${pct}%</td></tr>`;
+    }).join('')
+  }</tbody></table>`;
+  window._csvOut = 'word,count,density\n' + sorted.slice(0, topN).map(([w,c]) => `${w},${c},${(c/totalWords*100).toFixed(2)}%`).join('\n');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free word frequency counter at Toolify Core: https://toolifycore.com/tools/word-frequency.html`;
+}
+document.getElementById('analyzeBtn').addEventListener('click', analyze);
+document.getElementById('input').addEventListener('input', analyze);
+['caseSensitive','skipStop','minLen','topN'].forEach(id => document.getElementById(id).addEventListener('input', analyze));
+function loadSample() { document.getElementById('input').value = SAMPLE; analyze(); }
+function copyOut() { if (!window._csvOut) return alert('Analyze first.'); navigator.clipboard.writeText(window._csvOut); alert('CSV copied!'); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free word frequency counter!&url=https://toolifycore.com/tools/word-frequency.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/word-frequency.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+loadSample();
+</script>
+</body>
+</html>

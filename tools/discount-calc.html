@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Discount Calculator Free — Sale Price and Savings | Toolify Core</title>
+<meta name="description" content="Calculate discount price and savings online for free. Enter original price and percent off to see sale price. Also stack multiple discounts.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:28px}
+.stat-card.save .stat-card-value{color:#FF6B6B}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Discount Calculator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Discount Calculator</h1><p>Calculate the sale price and money saved on any discount. Optionally stack a second discount (like coupon on top of sale) and apply tax.</p></div>
+<div class="counter-badge">🛍 Used 24,517 times this month</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Original price</label><input type="number" id="original" value="5000" min="0" step="0.01"></div>
+<div class="calc-field"><label>Discount 1 (%)</label><input type="number" id="disc1" value="20" min="0" max="100" step="0.1"></div>
+<div class="calc-field"><label>Additional discount 2 (%)</label><input type="number" id="disc2" value="0" min="0" max="100" step="0.1"></div>
+<div class="calc-field"><label>Tax after discount (%)</label><input type="number" id="tax" value="0" min="0" max="50" step="0.1"></div>
+<div class="calc-field"><label>Currency</label><select id="currency"><option value="Rs " selected>Rs PKR</option><option value="₹">₹ INR</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="£">£ GBP</option><option value="AED ">AED</option></select></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">🛍 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">🛍</div><h3>Discount Breakdown</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Final price</div><div class="stat-card-value" id="finalPrice">-</div></div>
+<div class="stat-card save"><div class="stat-card-label">You save</div><div class="stat-card-value" id="saved">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Effective discount</div><div class="stat-card-value" id="effDisc">-</div></div>
+</div>
+<div style="font-size:13px;color:var(--muted);text-align:center;margin:10px 0" id="summary">-</div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/discount-calc.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Shopping smart?</strong> Get more calculators on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Price</h3><p>Original price of the item.</p></div><div class="step"><div class="step-num">02</div><h3>Add Discounts</h3><p>Percent off, plus optional coupon stack.</p></div><div class="step"><div class="step-num">03</div><h3>See Final</h3><p>Sale price, savings, and effective discount.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How is discount calculated?</div><div class="faq-a">Sale price = Original × (1 - discount/100). At 20% off, Rs 5000 becomes 5000 × 0.80 = Rs 4000. You save Rs 1000.</div></div>
+<div class="faq-item"><div class="faq-q">How do stacked discounts work?</div><div class="faq-a">Second discount applies to the already-discounted price, not the original. 20% + 10% is NOT 30% off — it's 28%. Retailers rarely stack, but coupons on top of sales usually do.</div></div>
+<div class="faq-item"><div class="faq-q">When is tax applied?</div><div class="faq-a">In most places, tax applies to the final discounted price. So after all discounts are applied, tax is added.</div></div>
+<div class="faq-item"><div class="faq-q">What is a good discount to wait for?</div><div class="faq-a">Electronics: 15-30% is common on sales, 40%+ is great. Clothing: 30-50% typical, 70%+ end-of-season. Cars: negotiate 5-10% off MSRP.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/tip-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Tip</a>
+<a href="/tools/gst-vat.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">GST / VAT</a>
+<a href="/tools/percentage-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Percentage</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+function calculate() {
+  const orig = parseFloat(document.getElementById('original').value) || 0;
+  const d1 = parseFloat(document.getElementById('disc1').value) || 0;
+  const d2 = parseFloat(document.getElementById('disc2').value) || 0;
+  const tax = parseFloat(document.getElementById('tax').value) || 0;
+  const cur = document.getElementById('currency').value;
+  const after1 = orig * (1 - d1/100);
+  const after2 = after1 * (1 - d2/100);
+  const final = after2 * (1 + tax/100);
+  const saved = orig - after2;
+  const effDisc = orig ? ((orig - after2) / orig) * 100 : 0;
+  const fmt = n => cur + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  document.getElementById('finalPrice').textContent = fmt(final);
+  document.getElementById('saved').textContent = fmt(saved);
+  document.getElementById('effDisc').textContent = effDisc.toFixed(1) + '%';
+  document.getElementById('summary').textContent = tax > 0 ? `After ${effDisc.toFixed(1)}% off and ${tax}% tax, you pay ${fmt(final)}` : `${fmt(orig)} → ${fmt(after2)}. You save ${fmt(saved)}.`;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free discount calculator at Toolify Core: https://toolifycore.com/tools/discount-calc.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+['original','disc1','disc2','tax','currency'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+function resetAll() { document.getElementById('original').value = 5000; document.getElementById('disc1').value = 20; document.getElementById('disc2').value = 0; document.getElementById('tax').value = 0; calculate(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free discount calculator!&url=https://toolifycore.com/tools/discount-calc.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/discount-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

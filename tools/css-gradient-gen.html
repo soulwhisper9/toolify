@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CSS Gradient Generator Free — Linear and Radial | Toolify Core</title>
+<meta name="description" content="Generate CSS linear and radial gradients with color stops and angle control. Copy production-ready CSS code.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.gen-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+@media(max-width:768px){.gen-grid{grid-template-columns:1fr}}
+.controls{background:var(--surface2);padding:16px;border-radius:10px}
+.type-toggle{display:flex;gap:0;background:var(--surface);padding:3px;border-radius:6px;margin-bottom:12px}
+.type-btn{flex:1;background:transparent;color:var(--muted);border:none;padding:6px 12px;border-radius:4px;font-size:12px;cursor:pointer}
+.type-btn.active{background:var(--accent);color:white}
+.slider-row{display:grid;grid-template-columns:80px 1fr 60px;gap:10px;align-items:center;margin-bottom:8px}
+.slider-row label{font-size:12px;color:var(--muted)}
+.slider-row input[type=range]{width:100%}
+.slider-row .val{color:#6EDFB8;font-family:monospace;font-size:12px;text-align:right}
+.stop-list{margin:12px 0}
+.stop-row{display:grid;grid-template-columns:40px 1fr 60px auto;gap:8px;align-items:center;margin-bottom:6px;padding:6px 8px;background:var(--surface);border-radius:6px}
+.stop-row input[type=color]{width:34px;height:28px;border:none;padding:0;background:transparent;cursor:pointer}
+.stop-row input[type=range]{width:100%}
+.stop-row .pct{font-family:monospace;font-size:12px;color:var(--muted);text-align:right}
+.stop-row button{background:transparent;border:1px solid var(--border);color:#FF6B6B;padding:2px 8px;border-radius:4px;font-size:11px;cursor:pointer}
+.preview-area{background:linear-gradient(135deg,#3a3a4a 25%,transparent 25%),linear-gradient(-135deg,#3a3a4a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#3a3a4a 75%),linear-gradient(-45deg,transparent 75%,#3a3a4a 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0;background-color:#2a2a3a;border-radius:10px;padding:20px;display:flex;align-items:center;justify-content:center;min-height:300px}
+.gradient-box{width:100%;height:280px;border-radius:12px}
+.code-out{background:var(--surface2);padding:14px 16px;border-radius:8px;font-family:monospace;font-size:12px;color:#6EDFB8;word-break:break-all;margin:12px 0;line-height:1.6}
+.presets{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.presets button{width:32px;height:32px;border-radius:6px;border:2px solid var(--border);cursor:pointer;padding:0}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">CSS Gradient</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>CSS Gradient Generator</h1><p>Design linear and radial gradients with unlimited color stops. Adjust angle, position, and copy production-ready CSS code.</p></div>
+<div class="counter-badge">🌈 Used 17,491 times this month</div>
+<div class="gen-grid">
+<div class="controls">
+<div class="type-toggle"><button class="type-btn active" data-type="linear" onclick="setType('linear')">↗ Linear</button><button class="type-btn" data-type="radial" onclick="setType('radial')">◎ Radial</button></div>
+<div class="slider-row" id="angleRow"><label>Angle</label><input type="range" id="angle" min="0" max="360" value="135"><span class="val" id="angleVal">135°</span></div>
+<div id="radialShape" style="display:none">
+<label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px">Shape</label>
+<select id="rShape" style="padding:8px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:12px;width:100%;margin-bottom:10px"><option value="ellipse">Ellipse</option><option value="circle">Circle</option></select>
+</div>
+<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px">Color Stops</div>
+<div class="stop-list" id="stopList"></div>
+<button class="btn-secondary" onclick="addStop()" style="width:100%;margin-top:4px">+ Add color stop</button>
+<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px">Presets</div>
+<div class="presets" id="presetsList"></div>
+</div>
+<div class="preview-area"><div class="gradient-box" id="gradientBox"></div></div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px">CSS output</h4>
+<div class="code-out" id="cssOut">background: linear-gradient(...);</div>
+<div class="actions"><button class="btn-primary" onclick="copyCss()">📋 Copy CSS</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/css-gradient-gen.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Designing UI?</strong> Get more CSS tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Type</h3><p>Linear (directional) or radial (from center).</p></div><div class="step"><div class="step-num">02</div><h3>Add Colors</h3><p>Two or more color stops with positions.</p></div><div class="step"><div class="step-num">03</div><h3>Copy CSS</h3><p>Ready to paste into your stylesheet.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Linear vs radial?</div><div class="faq-a">Linear flows in a straight line at any angle. Radial spreads outward from a center point (ellipse or circle). Linear is more common; radial is great for spotlights and orbs.</div></div>
+<div class="faq-item"><div class="faq-q">What angle should I use?</div><div class="faq-a">0° is bottom-to-top, 90° is left-to-right, 180° top-to-bottom, 270° right-to-left. 135° (top-left to bottom-right) is the most popular for modern UI.</div></div>
+<div class="faq-item"><div class="faq-q">Can I use more than 2 colors?</div><div class="faq-a">Yes, add as many color stops as you need. Position each between 0% and 100%.</div></div>
+<div class="faq-item"><div class="faq-q">How is this different from Color Palette?</div><div class="faq-a">Color Palette shows a preview of hex colors. This tool builds actual CSS gradient code for use in your stylesheet.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/box-shadow-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Box Shadow</a>
+<a href="/tools/border-radius-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Border Radius</a>
+<a href="/tools/color-gradient.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Color Palette</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+let type = 'linear';
+let stops = [{color:'#7B61FF', pos:0},{color:'#00E5C0', pos:100}];
+const PRESETS = [
+  [{color:'#FF6B6B',pos:0},{color:'#FFD93D',pos:100}],
+  [{color:'#7B61FF',pos:0},{color:'#00E5C0',pos:100}],
+  [{color:'#667eea',pos:0},{color:'#764ba2',pos:100}],
+  [{color:'#f093fb',pos:0},{color:'#f5576c',pos:100}],
+  [{color:'#4facfe',pos:0},{color:'#00f2fe',pos:100}],
+  [{color:'#43e97b',pos:0},{color:'#38f9d7',pos:100}],
+  [{color:'#fa709a',pos:0},{color:'#fee140',pos:100}],
+  [{color:'#30cfd0',pos:0},{color:'#330867',pos:100}],
+];
+function setType(t) {
+  type = t;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.toggle('active', b.dataset.type === t));
+  document.getElementById('angleRow').style.display = t === 'linear' ? 'grid' : 'none';
+  document.getElementById('radialShape').style.display = t === 'radial' ? 'block' : 'none';
+  update();
+}
+function renderStops() {
+  const list = document.getElementById('stopList');
+  list.innerHTML = stops.map((s, i) => `
+    <div class="stop-row">
+      <input type="color" value="${s.color}" onchange="stops[${i}].color=this.value; update()">
+      <input type="range" min="0" max="100" value="${s.pos}" oninput="stops[${i}].pos=parseInt(this.value); renderStops(); update()">
+      <span class="pct">${s.pos}%</span>
+      <button onclick="removeStop(${i})" ${stops.length <= 2 ? 'disabled style=opacity:.3' : ''}>×</button>
+    </div>
+  `).join('');
+}
+function addStop() {
+  stops.push({color:'#ffffff', pos: 50});
+  stops.sort((a,b) => a.pos - b.pos);
+  renderStops(); update();
+}
+function removeStop(i) {
+  if (stops.length <= 2) return;
+  stops.splice(i,1);
+  renderStops(); update();
+}
+function renderPresets() {
+  const p = document.getElementById('presetsList');
+  p.innerHTML = PRESETS.map((preset, i) => {
+    const bg = `linear-gradient(135deg, ${preset.map(s => `${s.color} ${s.pos}%`).join(', ')})`;
+    return `<button style="background:${bg}" onclick="loadPreset(${i})" title="Preset ${i+1}"></button>`;
+  }).join('');
+}
+function loadPreset(i) { stops = JSON.parse(JSON.stringify(PRESETS[i])); renderStops(); update(); }
+
+function update() {
+  const angle = document.getElementById('angle').value;
+  const shape = document.getElementById('rShape').value;
+  document.getElementById('angleVal').textContent = angle + '°';
+  const stopStr = stops.map(s => `${s.color} ${s.pos}%`).join(', ');
+  const gradient = type === 'linear'
+    ? `linear-gradient(${angle}deg, ${stopStr})`
+    : `radial-gradient(${shape}, ${stopStr})`;
+  document.getElementById('gradientBox').style.background = gradient;
+  document.getElementById('cssOut').textContent = `background: ${gradient};`;
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free CSS gradient generator at Toolify Core: https://toolifycore.com/tools/css-gradient-gen.html`;
+}
+document.getElementById('angle').addEventListener('input', update);
+document.getElementById('rShape').addEventListener('change', update);
+function copyCss() { navigator.clipboard.writeText(document.getElementById('cssOut').textContent); alert('CSS copied!'); }
+function resetAll() { stops = [{color:'#7B61FF', pos:0},{color:'#00E5C0', pos:100}]; document.getElementById('angle').value = 135; setType('linear'); renderStops(); update(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free CSS gradient generator!&url=https://toolifycore.com/tools/css-gradient-gen.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/css-gradient-gen.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+renderStops(); renderPresets(); update();
+</script>
+</body>
+</html>

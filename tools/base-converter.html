@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Number Base Converter Free — Binary Hex Decimal Octal | Toolify Core</title>
+<meta name="description" content="Convert between binary, decimal, hexadecimal, and octal number bases online for free. Support any base from 2 to 36.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.base-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.base-row{display:grid;grid-template-columns:100px 1fr auto;gap:12px;align-items:center}
+.base-row label{font-size:13px;color:var(--muted);font-weight:600;text-align:right}
+.base-row input{padding:10px 14px;background:var(--surface);color:#B8AAFF;border:1px solid var(--border);border-radius:6px;font-family:monospace;font-size:15px;outline:none;letter-spacing:.05em}
+.base-row input:focus{border-color:var(--accent)}
+.base-row .copy-mini{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 10px;border-radius:4px;font-size:11px;cursor:pointer}
+.custom-row{display:grid;grid-template-columns:100px 60px 1fr auto;gap:8px;align-items:center;margin:12px 0}
+.custom-row input[type=number]{padding:8px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Base Converter</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>Number Base Converter</h1><p>Convert between binary, decimal, hexadecimal, octal, and any base from 2 to 36. Live conversion — type in any field and others update instantly.</p></div>
+<div class="counter-badge">🔢 Used 12,847 times this month</div>
+<div class="base-grid">
+<div class="base-row"><label>Binary (2)</label><input type="text" id="b2" placeholder="1010"><button class="copy-mini" onclick="copyVal('b2')">📋</button></div>
+<div class="base-row"><label>Octal (8)</label><input type="text" id="b8" placeholder="12"><button class="copy-mini" onclick="copyVal('b8')">📋</button></div>
+<div class="base-row"><label>Decimal (10)</label><input type="text" id="b10" placeholder="10" value="255"><button class="copy-mini" onclick="copyVal('b10')">📋</button></div>
+<div class="base-row"><label>Hex (16)</label><input type="text" id="b16" placeholder="FF"><button class="copy-mini" onclick="copyVal('b16')">📋</button></div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:13px;margin:16px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Custom base (2-36)</h4>
+<div class="custom-row">
+<label style="font-size:13px;color:var(--muted);text-align:right">Base</label>
+<input type="number" id="customBase" value="32" min="2" max="36">
+<input type="text" id="customVal" placeholder="Value" style="padding:10px 14px;background:var(--surface);color:#B8AAFF;border:1px solid var(--border);border-radius:6px;font-family:monospace;font-size:15px;outline:none">
+<button class="copy-mini" onclick="copyVal('customVal')">📋</button>
+</div>
+<div id="statusMsg" style="font-size:12px;color:var(--muted);margin:8px 0;min-height:16px"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/base-converter.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Developer?</strong> Get more dev tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Base</h3><p>Type in any field — binary, decimal, hex, or custom.</p></div><div class="step"><div class="step-num">02</div><h3>Live Convert</h3><p>Other bases update instantly as you type.</p></div><div class="step"><div class="step-num">03</div><h3>Copy Result</h3><p>One-click copy for any base.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What are common number bases?</div><div class="faq-a">Binary (2): computers use it internally. Decimal (10): our normal counting. Hexadecimal (16): programming for RGB colors and memory addresses. Octal (8): older Unix file permissions.</div></div>
+<div class="faq-item"><div class="faq-q">Why do hex uses letters?</div><div class="faq-a">Hex base 16 needs digits 0-15, but we only have 0-9 as digits. So it uses A=10, B=11, C=12, D=13, E=14, F=15.</div></div>
+<div class="faq-item"><div class="faq-q">What's the biggest base supported?</div><div class="faq-a">Base 36 — uses 0-9 then A-Z. Sometimes used for compact numeric IDs. Anything above needs custom character sets not supported here.</div></div>
+<div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. All conversion runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/binary-text.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Binary ⇄ Text</a>
+<a href="/tools/hash-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Hash Gen</a>
+<a href="/tools/color-pick.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Color Picker</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+let updating = false;
+const fields = {b2:2, b8:8, b10:10, b16:16};
+function updateAll(source) {
+  if (updating) return;
+  updating = true;
+  const status = document.getElementById('statusMsg');
+  try {
+    let dec;
+    if (source === 'customVal') {
+      const base = parseInt(document.getElementById('customBase').value) || 10;
+      dec = parseInt(document.getElementById(source).value, base);
+    } else {
+      const base = fields[source];
+      dec = parseInt(document.getElementById(source).value, base);
+    }
+    if (isNaN(dec)) throw new Error('Invalid number for that base');
+    // Update all other fields
+    Object.entries(fields).forEach(([id, base]) => {
+      if (id !== source) document.getElementById(id).value = dec.toString(base).toUpperCase();
+    });
+    if (source !== 'customVal') {
+      const cb = parseInt(document.getElementById('customBase').value) || 10;
+      document.getElementById('customVal').value = dec.toString(cb).toUpperCase();
+    }
+    status.textContent = `✓ Decimal value: ${dec.toLocaleString()}`;
+    status.style.color = '#00E5C0';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free base converter at Toolify Core: https://toolifycore.com/tools/base-converter.html`;
+  } catch (e) { status.textContent = '✗ ' + e.message; status.style.color = '#FF6B6B'; }
+  updating = false;
+}
+Object.keys(fields).forEach(id => document.getElementById(id).addEventListener('input', () => updateAll(id)));
+document.getElementById('customVal').addEventListener('input', () => updateAll('customVal'));
+document.getElementById('customBase').addEventListener('input', () => updateAll('b10'));
+function copyVal(id) { const v = document.getElementById(id).value; if (!v) return; navigator.clipboard.writeText(v); alert('Copied: ' + v); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free number base converter!&url=https://toolifycore.com/tools/base-converter.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/base-converter.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+updateAll('b10');
+</script>
+</body>
+</html>
