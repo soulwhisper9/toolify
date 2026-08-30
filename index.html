@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Toolify Core — Free Online Tools, Calculators, Converters & Generators</title>
+<meta name="description" content="90+ free browser-based tools. Calculators, image editors, PDF utilities, text tools, and generators. No signup, no ads, everything runs locally in your browser.">
+<meta property="og:title" content="Toolify Core — Free Online Tools">
+<meta property="og:description" content="90+ free browser-based tools. Calculators, image editors, PDF utilities, text tools, and generators.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://toolifycore.com/">
+<link rel="canonical" href="https://toolifycore.com/">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0F;--surface:#12121A;--surface2:#1A1A24;--border:#2A2A38;--text:#EDECF5;--muted:#8885A0;--accent:#7B61FF;--accent2:#00E5C0;--font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent2)}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.top-nav{padding:16px 0;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,0.95);backdrop-filter:blur(10px);z-index:100}
+.nav-inner{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--font-head);font-weight:800;font-size:20px;color:var(--text)}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-links{display:flex;gap:20px;font-size:14px}
+.nav-links a{color:var(--muted)}
+.nav-links a:hover{color:var(--accent)}
+.hero{padding:64px 0 40px;text-align:center;background:radial-gradient(ellipse at top,rgba(123,97,255,0.08),transparent 50%)}
+.hero h1{font-family:var(--font-head);font-size:clamp(32px,5vw,54px);font-weight:800;line-height:1.15;margin:0 0 14px;background:linear-gradient(135deg,#FFF 30%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(15px,1.5vw,18px);color:var(--muted);max-width:640px;margin:0 auto 24px}
+.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:24px}
+.hero-stat{display:flex;flex-direction:column;gap:2px}
+.hero-stat .num{font-family:var(--font-head);font-size:28px;font-weight:800;color:var(--accent2)}
+.hero-stat .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.search-wrap{max-width:640px;margin:24px auto 0;position:relative}
+.search-wrap input{width:100%;padding:14px 20px 14px 50px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:12px;font-family:var(--font-body);font-size:15px;outline:none;transition:.2s;box-sizing:border-box}
+.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(123,97,255,0.1)}
+.search-wrap::before{content:'🔍';position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.5}
+.filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:24px 0 32px}
+.filter-tab{background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:8px 16px;border-radius:24px;font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;transition:.2s}
+.filter-tab:hover{border-color:var(--accent);color:var(--text)}
+.filter-tab.active{background:var(--accent);color:white;border-color:var(--accent)}
+.filter-tab .count{opacity:.7;font-size:11px;margin-left:4px}
+main{padding-bottom:80px}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin:16px 0}
+.tool-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:20px;transition:.2s;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:8px;min-height:130px}
+.tool-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(123,97,255,0.15)}
+.tool-badge-mini{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;align-self:flex-start;margin-bottom:4px}
+.badge-calc{background:rgba(186,117,23,0.15);color:#FAC775}
+.badge-util{background:rgba(123,97,255,0.15);color:#B8AAFF}
+.badge-image{background:rgba(29,158,117,0.15);color:#6EDFB8}
+.badge-text{background:rgba(216,90,48,0.15);color:#F4A482}
+.badge-pdf{background:rgba(255,107,107,0.15);color:#FF9F9F}
+.tool-card h3{font-family:var(--font-head);font-size:16px;font-weight:700;margin:0}
+.tool-card p{font-size:13px;color:var(--muted);margin:0;flex-grow:1}
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty h3{font-family:var(--font-head);color:var(--text);margin:0 0 6px}
+footer{padding:32px 0 24px;border-top:1px solid var(--border);color:var(--muted);font-size:13px;text-align:center}
+footer a{color:var(--muted);margin:0 10px}
+footer a:hover{color:var(--accent)}
+.footer-blog{background:rgba(123,97,255,0.05);padding:20px;border-radius:12px;margin:24px 0;text-align:center}
+.footer-blog h3{font-family:var(--font-head);color:var(--text);margin:0 0 6px;font-size:18px}
+.footer-blog a{background:var(--accent);color:white;padding:8px 16px;border-radius:8px;display:inline-block;margin-top:8px;font-size:13px;font-weight:500}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+<div class="container nav-inner">
+<a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
+<div class="nav-links"><a href="https://blog.toolifycore.com">Blog</a><a href="/privacy.html">Privacy</a></div>
+</div>
+</nav>
+<header class="hero">
+<div class="container">
+<h1>Free online tools that just work</h1>
+<p>Calculators, converters, image editors, PDF utilities, and generators. Everything runs in your browser — no signup, no ads, no data leaves your device.</p>
+<div class="hero-stats">
+<div class="hero-stat"><span class="num" id="statTools">0</span><span class="lbl">Free tools</span></div>
+<div class="hero-stat"><span class="num">5</span><span class="lbl">Categories</span></div>
+<div class="hero-stat"><span class="num">100%</span><span class="lbl">Browser-based</span></div>
+</div>
+<div class="search-wrap"><input type="text" id="searchInput" placeholder="Search tools…" autocomplete="off"></div>
+</div>
+</header>
+<main>
+<div class="container">
+<div class="filters" id="filters"></div>
+<div class="tool-grid" id="toolGrid"></div>
+<div class="empty" id="emptyState" style="display:none"><h3>No tools found</h3><p>Try a different search term or clear filters.</p></div>
+<div class="footer-blog"><h3>Get more from Toolify Core</h3><p>Guides, tutorials, and deep dives on our blog.</p><a href="https://blog.toolifycore.com" target="_blank" rel="noopener">Visit Blog →</a></div>
+</div>
+</main>
+<footer><div class="container">© 2026 Toolify Core · Built with focus on speed and privacy · <a href="/privacy.html">Privacy</a> · <a href="https://blog.toolifycore.com">Blog</a></div></footer>
+
+<script>
+/* =====================================================================
+   TOOLS DIRECTORY — auto-computes hero counter + filter counts
+   Categories: calc | util | image | text | pdf
+
+   IMPORTANT — VERIFY BEFORE DEPLOY:
+   The "EXISTING TOOLS" block below is a best-guess list based on
+   related-tools chips referenced across tools built in batches 1-8.
+   Check your actual /tools/ folder:
+     curl -s "https://api.github.com/repos/soulwhisper9/toolify/contents/tools" \
+       | python3 -c "import sys,json; [print(f['name']) for f in json.load(sys.stdin)]"
+   Then:
+   - REMOVE any entry whose file doesn't exist
+   - ADD entries for files that exist but aren't listed
+   - Array length auto-updates the hero stat and filter counts
+   ===================================================================== */
+
+const TOOLS = [
+
+  // ═══ EXISTING TOOLS (verify slugs match /tools/ folder) ═══
+  {slug:'age-calc', name:'Age Calculator', desc:'Calculate exact age in years, months, days', cat:'calc'},
+  {slug:'bmi-calc', name:'BMI Calculator', desc:'Body mass index for metric and imperial units', cat:'calc'},
+  {slug:'percentage-calc', name:'Percentage Calculator', desc:'Percentage of, change, and increase calculations', cat:'calc'},
+  {slug:'emi-calc', name:'EMI Calculator', desc:'Monthly EMI for home, car, and personal loans', cat:'calc'},
+  {slug:'json-format', name:'JSON Formatter', desc:'Beautify and validate JSON with syntax highlighting', cat:'util'},
+  {slug:'currency-pkr', name:'PKR Currency Converter', desc:'Convert PKR to USD, EUR, GBP, INR, AED, and more', cat:'util'},
+  {slug:'unit-converter', name:'Unit Converter', desc:'Length, weight, temperature, volume, area', cat:'util'},
+  {slug:'timer-stopwatch', name:'Timer & Stopwatch', desc:'Countdown timer and lap stopwatch', cat:'util'},
+  {slug:'password-gen', name:'Password Generator', desc:'Strong random passwords with custom length and rules', cat:'util'},
+  {slug:'qr-gen', name:'QR Code Generator', desc:'Create QR codes for URLs, text, WiFi, contacts', cat:'util'},
+  {slug:'image-compress', name:'Image Compress', desc:'Reduce image file size without quality loss', cat:'image'},
+  {slug:'jpg-to-webp', name:'JPG to WebP', desc:'Convert JPG images to smaller WebP format', cat:'image'},
+  {slug:'png-to-jpg', name:'PNG to JPG', desc:'Convert PNG images to JPG with quality control', cat:'image'},
+  {slug:'image-resize', name:'Image Resize', desc:'Resize images by dimensions or percentage', cat:'image'},
+  {slug:'image-crop', name:'Image Crop', desc:'Crop images to any aspect ratio', cat:'image'},
+  {slug:'favicon-check', name:'Favicon Checker', desc:'Preview how your favicon looks in browser tabs', cat:'image'},
+  {slug:'word-count', name:'Word Count', desc:'Word, character, and sentence counter', cat:'text'},
+  {slug:'lorem-ipsum', name:'Lorem Ipsum Generator', desc:'Generate placeholder text in paragraphs or words', cat:'text'},
+  {slug:'character-count', name:'Character Count', desc:'Count characters with and without spaces', cat:'text'},
+
+  // ═══ BATCH 1 — PDF ═══
+  {slug:'jpg-to-pdf', name:'JPG to PDF', desc:'Combine multiple JPG images into a single PDF', cat:'pdf'},
+  {slug:'pdf-to-jpg', name:'PDF to JPG', desc:'Extract each PDF page as a separate JPG image', cat:'pdf'},
+  {slug:'watermark-pdf', name:'Watermark PDF', desc:'Add text or image watermarks to any PDF', cat:'pdf'},
+  {slug:'pdf-page-numbers', name:'PDF Page Numbers', desc:'Add page numbers with position control', cat:'pdf'},
+
+  // ═══ BATCH 2 ═══
+  {slug:'heic-to-jpg', name:'HEIC to JPG', desc:'Convert iPhone HEIC photos to universal JPG', cat:'image'},
+  {slug:'compound-interest', name:'Compound Interest', desc:'Calculate compound interest with any frequency', cat:'calc'},
+  {slug:'uuid-gen', name:'UUID Generator', desc:'Generate v4 UUIDs single or in bulk', cat:'util'},
+  {slug:'base64-encoder', name:'Base64 Encoder', desc:'Encode and decode text to and from Base64', cat:'util'},
+  {slug:'slug-gen', name:'URL Slug Generator', desc:'Convert any title into a clean SEO-friendly slug', cat:'util'},
+  {slug:'meta-tag-gen', name:'Meta Tag Generator', desc:'Generate SEO and Open Graph meta tags', cat:'util'},
+
+  // ═══ BATCH 3 ═══
+  {slug:'url-encoder', name:'URL Encoder', desc:'Encode and decode URL query parameters safely', cat:'util'},
+  {slug:'hash-gen', name:'Hash Generator', desc:'MD5, SHA-1, SHA-256, SHA-512 for text or files', cat:'util'},
+  {slug:'jwt-decoder', name:'JWT Decoder', desc:'Decode JWT tokens and inspect header and payload', cat:'util'},
+  {slug:'md-to-html', name:'Markdown to HTML', desc:'Convert Markdown to clean HTML with live preview', cat:'util'},
+  {slug:'json-to-csv', name:'JSON to CSV', desc:'Convert JSON arrays to CSV format instantly', cat:'util'},
+  {slug:'bmr-tdee', name:'BMR & TDEE Calculator', desc:'Base metabolic rate and total daily energy expenditure', cat:'calc'},
+
+  // ═══ BATCH 4 ═══
+  {slug:'regex-tester', name:'Regex Tester', desc:'Test regular expressions with real-time match highlighting', cat:'util'},
+  {slug:'text-diff', name:'Text Diff Checker', desc:'Compare two text blocks with change highlights', cat:'text'},
+  {slug:'pass-strength', name:'Password Strength Checker', desc:'Analyze strength and crack time estimates', cat:'util'},
+  {slug:'paypal-fee', name:'PayPal Fee Calculator', desc:'Calculate fees for domestic and international payments', cat:'calc'},
+  {slug:'pregnancy-due-date', name:'Pregnancy Due Date', desc:'Calculate due date from last menstrual period', cat:'calc'},
+  {slug:'color-gradient', name:'Color Palette Generator', desc:'Generate harmonious color palettes and gradients', cat:'util'},
+
+  // ═══ BATCH 5 ═══
+  {slug:'csv-to-json', name:'CSV to JSON', desc:'Convert CSV files to JSON with header detection', cat:'util'},
+  {slug:'html-minifier', name:'HTML Minifier', desc:'Compress HTML by removing whitespace and comments', cat:'util'},
+  {slug:'html-entity', name:'HTML Entity Encoder', desc:'Encode special characters to HTML entities', cat:'util'},
+  {slug:'water-intake', name:'Daily Water Intake', desc:'Recommended daily water intake by weight', cat:'calc'},
+  {slug:'roi-calc', name:'ROI Calculator', desc:'Return on investment and annualized returns', cat:'calc'},
+  {slug:'salary-to-hourly', name:'Salary to Hourly', desc:'Convert annual salary to hourly, weekly, monthly', cat:'calc'},
+  {slug:'binary-text', name:'Binary to Text', desc:'Convert between binary and human-readable text', cat:'text'},
+  {slug:'text-tools', name:'Text Tools Suite', desc:'Trim, sort, deduplicate, and clean text', cat:'text'},
+  {slug:'image-base64', name:'Image to Base64', desc:'Convert images to Base64 data URIs', cat:'image'},
+  {slug:'blur-image', name:'Blur Image', desc:'Apply blur effects for privacy or aesthetics', cat:'image'},
+  {slug:'cron-gen', name:'Cron Expression Builder', desc:'Build cron schedules with human-readable output', cat:'util'},
+
+  // ═══ BATCH 6 ═══
+  {slug:'xml-to-json', name:'XML to JSON', desc:'Convert XML documents to JSON format', cat:'util'},
+  {slug:'gst-vat', name:'GST & VAT Calculator', desc:'Add or remove GST/VAT with regional presets', cat:'calc'},
+  {slug:'auto-loan', name:'Auto Loan Calculator', desc:'Car loan EMI with down payment and breakdown', cat:'calc'},
+  {slug:'cc-payoff', name:'Credit Card Payoff', desc:'Time and interest to pay off credit card debt', cat:'calc'},
+  {slug:'body-fat', name:'Body Fat Percentage', desc:'Calculate body fat using US Navy method', cat:'calc'},
+  {slug:'time-duration', name:'Time Duration Calculator', desc:'Calculate hours and minutes between two times', cat:'util'},
+  {slug:'random-number', name:'Random Number Generator', desc:'Generate random numbers with custom ranges', cat:'util'},
+  {slug:'bionic-reading', name:'Bionic Reading Converter', desc:'Convert text to bolded-prefix bionic reading format', cat:'text'},
+  {slug:'svg-to-png', name:'SVG to PNG', desc:'Convert SVG vectors to PNG at any resolution', cat:'image'},
+  {slug:'barcode-gen', name:'Barcode Generator', desc:'Generate Code 128, EAN-13, and UPC barcodes', cat:'util'},
+  {slug:'retirement-calc', name:'Retirement Calculator', desc:'Plan retirement savings with monthly contributions', cat:'calc'},
+
+  // ═══ BATCH 7 ═══
+  {slug:'inflation-calc', name:'Inflation Calculator', desc:'Calculate purchasing power over time with regional presets', cat:'calc'},
+  {slug:'tip-calc', name:'Tip Calculator', desc:'Restaurant tip and bill split with preset percentages', cat:'calc'},
+  {slug:'discount-calc', name:'Discount Calculator', desc:'Discount amount, final price, and stacked discounts', cat:'calc'},
+  {slug:'timestamp-converter', name:'Unix Timestamp Converter', desc:'Convert Unix timestamps to human dates and back', cat:'util'},
+  {slug:'base-converter', name:'Number Base Converter', desc:'Between binary, octal, decimal, hex, and custom bases', cat:'util'},
+  {slug:'fuel-cost-calc', name:'Fuel Cost Calculator', desc:'Trip fuel cost by distance, mileage, and fuel price', cat:'calc'},
+  {slug:'yaml-to-json', name:'YAML to JSON', desc:'Convert YAML to JSON and back with validation', cat:'util'},
+  {slug:'timecard-calc', name:'Timecard Calculator', desc:'Weekly hours worked with overtime beyond 40 hrs', cat:'calc'},
+  {slug:'word-frequency', name:'Word Frequency Counter', desc:'Keyword density analysis with stopword filtering', cat:'text'},
+  {slug:'macro-calc', name:'Macro Calculator', desc:'Daily protein, carbs, fat targets for any diet plan', cat:'calc'},
+  {slug:'box-shadow-gen', name:'CSS Box Shadow Generator', desc:'Visual box-shadow builder with live preview', cat:'util'},
+  {slug:'border-radius-gen', name:'CSS Border Radius Generator', desc:'Craft any border-radius with per-corner control', cat:'util'},
+  {slug:'css-gradient-gen', name:'CSS Gradient Generator', desc:'Linear and radial gradients with unlimited color stops', cat:'util'},
+
+  // ═══ BATCH 8 ═══
+  {slug:'favicon-gen', name:'Favicon Generator', desc:'Multi-size favicons from any image with HTML meta tags', cat:'image'},
+  {slug:'fake-data-gen', name:'Fake Data Generator', desc:'Test data with names, emails, addresses in JSON, CSV, table', cat:'util'},
+  {slug:'image-crop-circle', name:'Circle Image Crop', desc:'Round profile pictures with transparent PNG output', cat:'image'},
+  {slug:'wpm-tester', name:'Typing Speed Test', desc:'WPM and accuracy tracker with difficulty levels', cat:'util'},
+  {slug:'dividend-yield', name:'Dividend Yield Calculator', desc:'Stock dividend yield and annual income projections', cat:'calc'},
+  {slug:'break-even', name:'Break-Even Calculator', desc:'Business break-even in units and revenue with projections', cat:'calc'},
+  {slug:'calories-burned', name:'Calories Burned Calculator', desc:'MET-based calorie burn for 30+ activities', cat:'calc'},
+  {slug:'meme-gen', name:'Meme Generator', desc:'Top and bottom text with classic Impact font', cat:'image'},
+  {slug:'signature-pad', name:'Signature Pad', desc:'Draw and download signatures as transparent PNG', cat:'util'},
+  {slug:'qr-reader', name:'QR Code Reader', desc:'Decode QR codes from any uploaded image', cat:'util'},
+  {slug:'reverse-case', name:'Case Converter', desc:'12 case transformations: upper, lower, camel, snake, and more', cat:'text'},
+  {slug:'simple-vs-compound', name:'Simple vs Compound Interest', desc:'Side-by-side comparison with year-by-year breakdown', cat:'calc'},
+  {slug:'color-picker-from-image', name:'Color Picker from Image', desc:'Click any pixel to get hex, RGB, and HSL values', cat:'image'},
+];
+
+const CATEGORIES = [
+  {key:'all', label:'All', icon:'✨'},
+  {key:'calc', label:'Calculators', icon:'🧮'},
+  {key:'util', label:'Utility', icon:'🔧'},
+  {key:'image', label:'Image', icon:'🖼'},
+  {key:'text', label:'Text', icon:'✍'},
+  {key:'pdf', label:'PDF', icon:'📄'},
+];
+
+let activeCat = 'all', searchQ = '';
+const badgeClass = c => ({calc:'badge-calc',util:'badge-util',image:'badge-image',text:'badge-text',pdf:'badge-pdf'}[c]);
+const badgeLabel = c => ({calc:'Calculator',util:'Utility',image:'Image',text:'Text',pdf:'PDF'}[c]);
+
+function render() {
+  document.getElementById('statTools').textContent = TOOLS.length;
+  document.querySelector('.search-wrap input').placeholder = `Search ${TOOLS.length} tools…`;
+  const filters = document.getElementById('filters');
+  filters.innerHTML = CATEGORIES.map(c => {
+    const n = c.key === 'all' ? TOOLS.length : TOOLS.filter(t => t.cat === c.key).length;
+    return `<button class="filter-tab ${activeCat === c.key ? 'active' : ''}" data-cat="${c.key}">${c.icon} ${c.label} <span class="count">${n}</span></button>`;
+  }).join('');
+  filters.querySelectorAll('.filter-tab').forEach(b => b.addEventListener('click', () => { activeCat = b.dataset.cat; render(); }));
+  const grid = document.getElementById('toolGrid');
+  let list = TOOLS.slice();
+  if (activeCat !== 'all') list = list.filter(t => t.cat === activeCat);
+  if (searchQ) { const q = searchQ.toLowerCase(); list = list.filter(t => t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || t.slug.includes(q)); }
+  list.sort((a,b) => a.name.localeCompare(b.name));
+  if (!list.length) { grid.innerHTML = ''; document.getElementById('emptyState').style.display = 'block'; return; }
+  document.getElementById('emptyState').style.display = 'none';
+  grid.innerHTML = list.map(t => `
+    <a href="/tools/${t.slug}.html" class="tool-card">
+      <span class="tool-badge-mini ${badgeClass(t.cat)}">${badgeLabel(t.cat)}</span>
+      <h3>${t.name}</h3>
+      <p>${t.desc}</p>
+    </a>
+  `).join('');
+}
+document.getElementById('searchInput').addEventListener('input', e => { searchQ = e.target.value.trim(); render(); });
+render();
+</script>
+</body>
+</html>

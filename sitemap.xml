@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://toolifycore.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+
+  <!-- Existing tools (verify slugs match /tools/ folder) -->
+  <url><loc>https://toolifycore.com/tools/age-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/bmi-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/percentage-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/emi-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/json-format.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/currency-pkr.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/unit-converter.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/timer-stopwatch.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/password-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/qr-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/image-compress.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/jpg-to-webp.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/png-to-jpg.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/image-resize.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/image-crop.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/favicon-check.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/word-count.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/lorem-ipsum.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/character-count.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Batch 1 - PDF -->
+  <url><loc>https://toolifycore.com/tools/jpg-to-pdf.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/pdf-to-jpg.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/watermark-pdf.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/pdf-page-numbers.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Batch 2 -->
+  <url><loc>https://toolifycore.com/tools/heic-to-jpg.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/compound-interest.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/uuid-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/base64-encoder.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/slug-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/meta-tag-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Batch 3 -->
+  <url><loc>https://toolifycore.com/tools/url-encoder.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/hash-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/jwt-decoder.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/md-to-html.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/json-to-csv.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/bmr-tdee.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Batch 4 -->
+  <url><loc>https://toolifycore.com/tools/regex-tester.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/text-diff.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/pass-strength.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/paypal-fee.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/pregnancy-due-date.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/color-gradient.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Batch 5 -->
+  <url><loc>https://toolifycore.com/tools/csv-to-json.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/html-minifier.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/html-entity.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/water-intake.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/roi-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/salary-to-hourly.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/binary-text.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/text-tools.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/image-base64.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/blur-image.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/cron-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Batch 6 -->
+  <url><loc>https://toolifycore.com/tools/xml-to-json.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/gst-vat.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/auto-loan.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/cc-payoff.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/body-fat.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/time-duration.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/random-number.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/bionic-reading.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/svg-to-png.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/barcode-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/retirement-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Batch 7 -->
+  <url><loc>https://toolifycore.com/tools/inflation-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/tip-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/discount-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/timestamp-converter.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/base-converter.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/fuel-cost-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/yaml-to-json.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/timecard-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/word-frequency.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/macro-calc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/box-shadow-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/border-radius-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/css-gradient-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Batch 8 -->
+  <url><loc>https://toolifycore.com/tools/favicon-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/fake-data-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/image-crop-circle.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/wpm-tester.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/dividend-yield.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/break-even.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/calories-burned.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/meme-gen.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/signature-pad.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/qr-reader.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/reverse-case.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/simple-vs-compound.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolifycore.com/tools/color-picker-from-image.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Static pages -->
+  <url><loc>https://toolifycore.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>
