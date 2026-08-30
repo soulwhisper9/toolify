@@ -5,261 +5,471 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Toolify Core — Free Online Tools, Calculators, Converters & Generators</title>
-<meta name="description" content="90+ free browser-based tools. Calculators, image editors, PDF utilities, text tools, and generators. No signup, no ads, everything runs locally in your browser.">
-<meta property="og:title" content="Toolify Core — Free Online Tools">
-<meta property="og:description" content="90+ free browser-based tools. Calculators, image editors, PDF utilities, text tools, and generators.">
+<title>Toolify Core — 100 Free Online Tools, Calculators &amp; Converters</title>
+<meta name="description" content="100 free browser-based tools: calculators, PDF utilities, image editors, text tools and developer generators. No signup, no uploads, nothing leaves your device.">
+<meta name="keywords" content="free online tools, calculator, pdf tools, image converter, text tools, developer tools">
+<link rel="canonical" href="https://toolifycore.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://toolifycore.com/">
-<link rel="canonical" href="https://toolifycore.com/">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:title" content="Toolify Core — 100 Free Online Tools">
+<meta property="og:description" content="Calculators, PDF utilities, image editors, text tools and developer generators. All free, all in your browser.">
+<meta property="og:site_name" content="Toolify Core">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Toolify Core — 100 Free Online Tools">
+<meta name="twitter:description" content="Calculators, PDF utilities, image editors, text tools and developer generators. All free, all in your browser.">
+<meta name="theme-color" content="#0A0A0F">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0A0A0F;--surface:#12121A;--surface2:#1A1A24;--border:#2A2A38;--text:#EDECF5;--muted:#8885A0;--accent:#7B61FF;--accent2:#00E5C0;--font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif}
+:root{
+--bg:#0A0A0F;--surface:#12121A;--surface2:#171722;--surface3:#1E1E2C;
+--border:#26263A;--border2:#33334A;
+--text:#EDECF5;--muted:#8885A0;--dim:#5F5D75;
+--accent:#7B61FF;--accent2:#00E5C0;--gold:#FAC775;--coral:#F4A482;--mint:#6EDFB8;--rose:#FF9F9F;
+--font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+--radius:14px;
+}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--accent);text-decoration:none}
-a:hover{color:var(--accent2)}
-.container{max-width:1200px;margin:0 auto;padding:0 20px}
-.top-nav{padding:16px 0;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,0.95);backdrop-filter:blur(10px);z-index:100}
-.nav-inner{display:flex;justify-content:space-between;align-items:center}
-.logo{display:flex;align-items:center;gap:8px;font-family:var(--font-head);font-weight:800;font-size:20px;color:var(--text)}
-.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.nav-links{display:flex;gap:20px;font-size:14px}
-.nav-links a{color:var(--muted)}
-.nav-links a:hover{color:var(--accent)}
-.hero{padding:64px 0 40px;text-align:center;background:radial-gradient(ellipse at top,rgba(123,97,255,0.08),transparent 50%)}
-.hero h1{font-family:var(--font-head);font-size:clamp(32px,5vw,54px);font-weight:800;line-height:1.15;margin:0 0 14px;background:linear-gradient(135deg,#FFF 30%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:clamp(15px,1.5vw,18px);color:var(--muted);max-width:640px;margin:0 auto 24px}
-.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:24px}
-.hero-stat{display:flex;flex-direction:column;gap:2px}
-.hero-stat .num{font-family:var(--font-head);font-size:28px;font-weight:800;color:var(--accent2)}
-.hero-stat .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-.search-wrap{max-width:640px;margin:24px auto 0;position:relative}
-.search-wrap input{width:100%;padding:14px 20px 14px 50px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:12px;font-family:var(--font-body);font-size:15px;outline:none;transition:.2s;box-sizing:border-box}
-.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(123,97,255,0.1)}
-.search-wrap::before{content:'🔍';position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.5}
-.filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:24px 0 32px}
-.filter-tab{background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:8px 16px;border-radius:24px;font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;transition:.2s}
-.filter-tab:hover{border-color:var(--accent);color:var(--text)}
-.filter-tab.active{background:var(--accent);color:white;border-color:var(--accent)}
-.filter-tab .count{opacity:.7;font-size:11px;margin-left:4px}
-main{padding-bottom:80px}
-.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin:16px 0}
-.tool-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:20px;transition:.2s;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:8px;min-height:130px}
-.tool-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(123,97,255,0.15)}
-.tool-badge-mini{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;align-self:flex-start;margin-bottom:4px}
-.badge-calc{background:rgba(186,117,23,0.15);color:#FAC775}
-.badge-util{background:rgba(123,97,255,0.15);color:#B8AAFF}
-.badge-image{background:rgba(29,158,117,0.15);color:#6EDFB8}
-.badge-text{background:rgba(216,90,48,0.15);color:#F4A482}
-.badge-pdf{background:rgba(255,107,107,0.15);color:#FF9F9F}
-.tool-card h3{font-family:var(--font-head);font-size:16px;font-weight:700;margin:0}
-.tool-card p{font-size:13px;color:var(--muted);margin:0;flex-grow:1}
-.empty{text-align:center;padding:48px 20px;color:var(--muted)}
-.empty h3{font-family:var(--font-head);color:var(--text);margin:0 0 6px}
-footer{padding:32px 0 24px;border-top:1px solid var(--border);color:var(--muted);font-size:13px;text-align:center}
-footer a{color:var(--muted);margin:0 10px}
+.container{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------- nav ---------- */
+.top-nav{padding:14px 0;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,.88);backdrop-filter:blur(14px);z-index:200}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--font-head);font-weight:800;font-size:19px;color:var(--text);letter-spacing:-.01em}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 4px 14px rgba(123,97,255,.35)}
+.nav-links{display:flex;gap:6px;align-items:center;font-size:13.5px}
+.nav-links a{color:var(--muted);padding:6px 12px;border-radius:8px;transition:.18s}
+.nav-links a:hover{color:var(--text);background:var(--surface2)}
+.nav-cta{background:var(--accent)!important;color:#fff!important;font-weight:500}
+.nav-cta:hover{background:#6A4FF0!important}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 32px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 800px 400px at 50% -10%,rgba(123,97,255,.16),transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:1}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border2);padding:5px 14px;border-radius:24px;font-size:12.5px;color:var(--muted);margin-bottom:20px}
+.hero-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);box-shadow:0 0 8px var(--accent2)}
+.hero h1{font-family:var(--font-head);font-size:clamp(30px,5.4vw,52px);font-weight:800;line-height:1.1;margin:0 0 16px;letter-spacing:-.02em}
+.hero h1 .grad{background:linear-gradient(120deg,var(--accent2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{font-size:clamp(14.5px,1.6vw,17px);color:var(--muted);max-width:600px;margin:0 auto 26px}
+
+/* search */
+.search-wrap{max-width:600px;margin:0 auto;position:relative}
+.search-wrap input{width:100%;padding:15px 56px 15px 48px;background:var(--surface2);color:var(--text);border:1px solid var(--border2);border-radius:14px;font-family:var(--font-body);font-size:15px;outline:none;transition:.2s}
+.search-wrap input::placeholder{color:var(--dim)}
+.search-wrap input:focus{border-color:var(--accent);background:var(--surface3);box-shadow:0 0 0 4px rgba(123,97,255,.12)}
+.search-ico{position:absolute;left:17px;top:50%;transform:translateY(-50%);font-size:15px;opacity:.55;pointer-events:none}
+.search-kbd{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:var(--surface3);border:1px solid var(--border2);color:var(--dim);font-size:11px;padding:3px 8px;border-radius:6px;font-family:var(--font-body);pointer-events:none}
+.search-hint{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.search-hint b{color:var(--muted);font-weight:500}
+
+/* trust strip */
+.trust{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:26px}
+.trust-item{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border);padding:7px 14px;border-radius:10px;font-size:12.5px;color:var(--muted)}
+.trust-item b{color:var(--text);font-weight:600}
+
+/* ---------- section shell ---------- */
+.section{padding:38px 0 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.sec-head h2{font-family:var(--font-head);font-size:20px;font-weight:700;margin:0;letter-spacing:-.01em}
+.sec-head .note{font-size:12.5px;color:var(--dim)}
+
+/* ---------- highlight rail ---------- */
+.rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+.rail-card{background:linear-gradient(160deg,var(--surface3),var(--surface2));border:1px solid var(--border2);border-radius:var(--radius);padding:16px 17px;display:flex;flex-direction:column;gap:5px;color:var(--text);transition:.2s;position:relative;overflow:hidden}
+.rail-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 100% 0%,rgba(123,97,255,.14),transparent 60%);opacity:0;transition:.25s}
+.rail-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.rail-card:hover::after{opacity:1}
+.rail-ico{font-size:20px;line-height:1;margin-bottom:3px}
+.rail-card h3{font-family:var(--font-head);font-size:14.5px;font-weight:700;margin:0}
+.rail-card p{font-size:12.5px;color:var(--muted);margin:0}
+.rail-tag{position:absolute;top:12px;right:12px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:20px;background:rgba(0,229,192,.14);color:var(--accent2)}
+.rail-tag.hot{background:rgba(255,159,159,.14);color:var(--rose)}
+
+/* ---------- filters ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.filter-tab{background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:8px 15px;border-radius:22px;font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;transition:.18s;white-space:nowrap}
+.filter-tab:hover{border-color:var(--border2);color:var(--text)}
+.filter-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 14px rgba(123,97,255,.3)}
+.filter-tab .count{opacity:.65;font-size:11px;margin-left:5px}
+
+/* ---------- grid ---------- */
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(242px,1fr));gap:12px}
+.tool-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:17px 18px;transition:.18s;color:var(--text);display:flex;flex-direction:column;gap:6px;min-height:118px;position:relative}
+.tool-card:hover{border-color:var(--accent);background:var(--surface3);transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,0,0,.35)}
+.tc-top{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.tc-ico{font-size:15px;line-height:1}
+.badge{display:inline-block;padding:2.5px 9px;border-radius:20px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.b-calc{background:rgba(186,117,23,.16);color:var(--gold)}
+.b-util{background:rgba(123,97,255,.16);color:#B8AAFF}
+.b-image{background:rgba(29,158,117,.16);color:var(--mint)}
+.b-text{background:rgba(216,90,48,.16);color:var(--coral)}
+.b-pdf{background:rgba(255,107,107,.16);color:var(--rose)}
+.tool-card h3{font-family:var(--font-head);font-size:14.5px;font-weight:700;margin:0;letter-spacing:-.005em}
+.tool-card p{font-size:12.5px;color:var(--muted);margin:0;flex-grow:1;line-height:1.5}
+.new-dot{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--accent2);background:rgba(0,229,192,.12);padding:2px 7px;border-radius:20px}
+
+.empty{text-align:center;padding:52px 20px;color:var(--muted);grid-column:1/-1}
+.empty h3{font-family:var(--font-head);color:var(--text);margin:0 0 6px;font-size:17px}
+
+/* ---------- value props ---------- */
+.value-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.value-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.value-card .vi{font-size:22px;margin-bottom:8px;display:block}
+.value-card h3{font-family:var(--font-head);font-size:15px;font-weight:700;margin:0 0 5px}
+.value-card p{font-size:13px;color:var(--muted);margin:0;line-height:1.55}
+
+/* ---------- faq / seo copy ---------- */
+.prose{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 24px}
+.prose h2{font-family:var(--font-head);font-size:19px;font-weight:700;margin:0 0 12px}
+.prose h3{font-family:var(--font-head);font-size:14.5px;font-weight:700;margin:20px 0 5px;color:var(--text)}
+.prose p{font-size:13.5px;color:var(--muted);margin:0 0 10px;line-height:1.65}
+.prose a{color:var(--accent2)}
+
+/* ---------- blog cta ---------- */
+.blog-cta{background:linear-gradient(135deg,rgba(123,97,255,.1),rgba(0,229,192,.07));border:1px solid var(--border2);border-radius:18px;padding:28px 24px;text-align:center}
+.blog-cta h3{font-family:var(--font-head);font-size:19px;margin:0 0 6px;font-weight:700}
+.blog-cta p{color:var(--muted);font-size:13.5px;margin:0 0 16px}
+.blog-cta a{background:var(--accent);color:#fff;padding:11px 24px;border-radius:10px;display:inline-block;font-size:13.5px;font-weight:600;transition:.2s}
+.blog-cta a:hover{background:#6A4FF0;transform:translateY(-1px)}
+
+/* ---------- footer ---------- */
+footer{margin-top:52px;padding:26px 0;border-top:1px solid var(--border);color:var(--dim);font-size:12.5px;text-align:center}
+footer a{color:var(--muted);margin:0 9px}
 footer a:hover{color:var(--accent)}
-.footer-blog{background:rgba(123,97,255,0.05);padding:20px;border-radius:12px;margin:24px 0;text-align:center}
-.footer-blog h3{font-family:var(--font-head);color:var(--text);margin:0 0 6px;font-size:18px}
-.footer-blog a{background:var(--accent);color:white;padding:8px 16px;border-radius:8px;display:inline-block;margin-top:8px;font-size:13px;font-weight:500}
+
+@media(max-width:620px){
+.hero{padding:38px 0 24px}
+.nav-links a:not(.nav-cta){display:none}
+.search-kbd{display:none}
+.tool-grid{grid-template-columns:1fr 1fr;gap:10px}
+.tool-card{padding:14px;min-height:104px}
+.tool-card h3{font-size:13.5px}
+.tool-card p{font-size:11.5px}
+}
+@media(max-width:390px){.tool-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+
 <nav class="top-nav">
 <div class="container nav-inner">
-<a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a>
-<div class="nav-links"><a href="https://blog.toolifycore.com">Blog</a><a href="/privacy.html">Privacy</a></div>
+<a href="/" class="logo"><span class="logo-icon">⚡</span>Toolify Core</a>
+<div class="nav-links">
+<a href="#tools">All tools</a>
+<a href="#why">Why us</a>
+<a href="https://blog.toolifycore.com" class="nav-cta">Blog</a>
+</div>
 </div>
 </nav>
+
 <header class="hero">
-<div class="container">
-<h1>Free online tools that just work</h1>
-<p>Calculators, converters, image editors, PDF utilities, and generators. Everything runs in your browser — no signup, no ads, no data leaves your device.</p>
-<div class="hero-stats">
-<div class="hero-stat"><span class="num" id="statTools">0</span><span class="lbl">Free tools</span></div>
-<div class="hero-stat"><span class="num">5</span><span class="lbl">Categories</span></div>
-<div class="hero-stat"><span class="num">100%</span><span class="lbl">Browser-based</span></div>
+<div class="container hero-inner">
+<div class="hero-pill"><span class="dot"></span><span id="pillCount">100 tools</span> · updated this week</div>
+<h1>Every tool you need.<br><span class="grad">None of the nonsense.</span></h1>
+<p class="sub">Calculators, PDF utilities, image editors, text tools and developer generators. Free forever, no account, and your files never leave your device.</p>
+<div class="search-wrap">
+<span class="search-ico">🔍</span>
+<input type="text" id="searchInput" placeholder="Search tools…" autocomplete="off" spellcheck="false">
+<span class="search-kbd">/</span>
 </div>
-<div class="search-wrap"><input type="text" id="searchInput" placeholder="Search tools…" autocomplete="off"></div>
+<div class="search-hint">Try <b>pdf</b>, <b>loan</b>, <b>compress</b>, <b>json</b> or <b>zakat</b></div>
+<div class="trust">
+<div class="trust-item">🔒 <b>Private</b> — nothing uploaded</div>
+<div class="trust-item">⚡ <b>Instant</b> — no signup</div>
+<div class="trust-item">💸 <b>Free</b> — no limits</div>
+</div>
 </div>
 </header>
+
 <main>
 <div class="container">
+
+<!-- Fresh additions -->
+<section class="section" id="new">
+<div class="sec-head"><h2>✨ Just added</h2><span class="note">Newest tools on the site</span></div>
+<div class="rail" id="newRail"></div>
+</section>
+
+<!-- Most used -->
+<section class="section" id="popular">
+<div class="sec-head"><h2>🔥 Most used</h2><span class="note">What people reach for first</span></div>
+<div class="rail" id="popRail"></div>
+</section>
+
+<!-- Full directory -->
+<section class="section" id="tools">
+<div class="sec-head"><h2>All tools</h2><span class="note" id="showingNote"></span></div>
 <div class="filters" id="filters"></div>
 <div class="tool-grid" id="toolGrid"></div>
-<div class="empty" id="emptyState" style="display:none"><h3>No tools found</h3><p>Try a different search term or clear filters.</p></div>
-<div class="footer-blog"><h3>Get more from Toolify Core</h3><p>Guides, tutorials, and deep dives on our blog.</p><a href="https://blog.toolifycore.com" target="_blank" rel="noopener">Visit Blog →</a></div>
+</section>
+
+<!-- Value props -->
+<section class="section" id="why">
+<div class="sec-head"><h2>Why Toolify Core</h2></div>
+<div class="value-grid">
+<div class="value-card"><span class="vi">🛡</span><h3>Your files stay yours</h3><p>Every tool runs entirely in your browser using JavaScript. Nothing is uploaded to a server, so there is no file to leak, no retention policy to read, and no account to delete.</p></div>
+<div class="value-card"><span class="vi">🚀</span><h3>No waiting, no queues</h3><p>Because processing happens locally, there is no upload time and no "your file is 4th in queue" screen. Most tools return a result the moment you stop typing.</p></div>
+<div class="value-card"><span class="vi">📴</span><h3>Works when Wi-Fi doesn't</h3><p>Once a tool page has loaded, most of them keep working with a weak or dropped connection. Handy on mobile data or a patchy café network.</p></div>
+<div class="value-card"><span class="vi">🌍</span><h3>Built for real currencies</h3><p>Financial tools default to PKR and support INR, USD, EUR, GBP and AED. Tax tools cover local rules like FBR slabs, GST/VAT and Zakat, not just US defaults.</p></div>
+</div>
+</section>
+
+<!-- SEO copy + FAQ -->
+<section class="section">
+<div class="prose">
+<h2>Free online tools that respect your time</h2>
+<p>Toolify Core is a collection of 100 single-purpose web tools. Each one does one job, loads in under a second, and works on phones as well as desktops. There is no dashboard to learn and no free-tier meter counting your conversions.</p>
+
+<h3>What can I do here?</h3>
+<p><b>Calculators</b> cover money and health: loan EMI, compound interest, break-even analysis, retirement planning, BMI, macros and calories burned. <b>PDF tools</b> handle merging, splitting, rotating, compressing, watermarking and page numbering. <b>Image tools</b> convert between JPG, PNG, WebP, HEIC and SVG, plus resizing, cropping, blurring and background removal. <b>Text tools</b> count words, compare drafts, check readability and reformat casing. <b>Developer utilities</b> include JSON, YAML, XML and CSV converters, hashing, JWT decoding, regex testing and cron building.</p>
+
+<h3>Are these tools really free?</h3>
+<p>Yes. There is no paid tier, no watermark on output, and no daily conversion cap. The site is supported by occasional affiliate links on the blog, not by charging for the tools.</p>
+
+<h3>Do you store my files or text?</h3>
+<p>No. Tools process data locally in your browser. Files you drop in are read into memory, processed, and discarded when you close the tab. See the <a href="/privacy.html">privacy policy</a> for specifics.</p>
+
+<h3>Can I use these tools commercially?</h3>
+<p>Yes, output from these tools is yours to use for personal, academic or commercial work. Calculators are provided for guidance and are not a substitute for professional financial, medical or legal advice.</p>
+
+<h3>Can I embed a tool on my own site?</h3>
+<p>Most tool pages include a copy-paste iframe snippet near the bottom. Embedding is free — a link back is appreciated but not required.</p>
+</div>
+</section>
+
+<section class="section">
+<div class="blog-cta">
+<h3>Guides, comparisons and how-tos</h3>
+<p>Deep dives on the topics behind the tools — file formats, tax rules, SEO and developer workflows.</p>
+<a href="https://blog.toolifycore.com" target="_blank" rel="noopener">Read the blog →</a>
+</div>
+</section>
+
 </div>
 </main>
-<footer><div class="container">© 2026 Toolify Core · Built with focus on speed and privacy · <a href="/privacy.html">Privacy</a> · <a href="https://blog.toolifycore.com">Blog</a></div></footer>
+
+<footer>
+<div class="container">
+<div style="margin-bottom:8px"><a href="#tools">Tools</a>·<a href="/privacy.html">Privacy</a>·<a href="https://blog.toolifycore.com">Blog</a></div>
+© 2026 Toolify Core · Built for speed and privacy
+</div>
+</footer>
 
 <script>
-/* =====================================================================
-   TOOLS DIRECTORY — auto-computes hero counter + filter counts
-   Categories: calc | util | image | text | pdf
+/* ═══════════════════════════════════════════════════════════════
+   TOOLS DIRECTORY — 100 tools, verified against /tools/ folder
+   cat: calc | util | image | text | pdf
+   k:   extra search keywords (aliases users actually type)
+   n:   true  = show in "Just added"
+   p:   true  = show in "Most used"
+   Counters, filters and sections all derive from this array.
+   ═══════════════════════════════════════════════════════════════ */
+const T=[
+// ── Calculators ──
+{s:'age-calc',n:'Age Calculator',d:'Exact age in years, months and days from any birth date',c:'calc',i:'🎂',k:'birthday dob date of birth',p:1},
+{s:'auto-loan',n:'Auto Loan Calculator',d:'Car loan EMI with down payment and full interest breakdown',c:'calc',i:'🚗',k:'car finance vehicle installment'},
+{s:'bmi-calc',n:'BMI Calculator',d:'Body mass index with metric and imperial units',c:'calc',i:'⚖️',k:'body mass weight height obesity',p:1},
+{s:'bmr-tdee',n:'BMR & TDEE Calculator',d:'Base metabolic rate and total daily energy expenditure',c:'calc',i:'🔥',k:'metabolism maintenance calories'},
+{s:'body-fat',n:'Body Fat Percentage',d:'Body fat estimate using the US Navy measurement method',c:'calc',i:'📐',k:'navy method composition'},
+{s:'break-even',n:'Break-Even Calculator',d:'Units and revenue needed to cover costs, with projections',c:'calc',i:'📊',k:'business startup contribution margin fixed cost',n2:1},
+{s:'calories-burned',n:'Calories Burned',d:'MET-based calorie burn across 30+ activities and sports',c:'calc',i:'🏃',k:'exercise workout met activity',n2:1},
+{s:'cc-payoff',n:'Credit Card Payoff',d:'Months and total interest to clear credit card debt',c:'calc',i:'💳',k:'debt snowball minimum payment'},
+{s:'compound-interest',n:'Compound Interest',d:'Growth with any compounding frequency and contributions',c:'calc',i:'📈',k:'savings investment growth',p:1},
+{s:'discount-calc',n:'Discount Calculator',d:'Sale price, savings and stacked discounts with tax',c:'calc',i:'🏷',k:'sale percent off markdown coupon'},
+{s:'dividend-yield',n:'Dividend Yield',d:'Yield percentage and annual income from your holdings',c:'calc',i:'💰',k:'stock share income investing',n2:1},
+{s:'emi-calc',n:'EMI Calculator',d:'Monthly installment for home, car and personal loans',c:'calc',i:'🏦',k:'loan mortgage installment amortization',p:1},
+{s:'fbr-tax',n:'FBR Income Tax',d:'Pakistan income tax by current FBR salary slabs',c:'calc',i:'🇵🇰',k:'pakistan salary tax slab withholding',p:1},
+{s:'fuel-cost-calc',n:'Fuel Cost Calculator',d:'Trip cost from distance, mileage and fuel price',c:'calc',i:'⛽',k:'petrol diesel mileage travel trip'},
+{s:'gst-vat',n:'GST & VAT Calculator',d:'Add or remove GST/VAT with regional rate presets',c:'calc',i:'🧾',k:'sales tax inclusive exclusive'},
+{s:'inflation-calc',n:'Inflation Calculator',d:'Purchasing power over time with country presets',c:'calc',i:'📉',k:'purchasing power cpi value of money'},
+{s:'macro-calc',n:'Macro Calculator',d:'Daily protein, carb and fat targets for any diet plan',c:'calc',i:'🥗',k:'protein carbs fat keto diet nutrition'},
+{s:'paypal-fee',n:'PayPal Fee Calculator',d:'Fees for domestic and cross-border payments',c:'calc',i:'💵',k:'freelance invoice payment charges'},
+{s:'percentage-calc',n:'Percentage Calculator',d:'Percent of, percent change and increase or decrease',c:'calc',i:'％',k:'percent increase decrease difference',p:1},
+{s:'pregnancy-due-date',n:'Pregnancy Due Date',d:'Estimated due date and trimester from your last period',c:'calc',i:'🤰',k:'lmp trimester baby edd'},
+{s:'retirement-calc',n:'Retirement Calculator',d:'Savings projection with monthly contributions and returns',c:'calc',i:'🏖',k:'pension nest egg fire savings'},
+{s:'roi-calc',n:'ROI Calculator',d:'Return on investment plus annualized return rate',c:'calc',i:'📊',k:'return profit investment gain'},
+{s:'salary-to-hourly',n:'Salary to Hourly',d:'Annual salary converted to hourly, weekly and monthly',c:'calc',i:'⏱',k:'wage pay rate freelance hourly'},
+{s:'simple-vs-compound',n:'Simple vs Compound',d:'Side-by-side comparison with year-by-year breakdown',c:'calc',i:'⚖️',k:'interest comparison difference',n2:1},
+{s:'timecard-calc',n:'Timecard Calculator',d:'Weekly hours worked with overtime past 40 hours',c:'calc',i:'🗓',k:'timesheet payroll shift overtime'},
+{s:'tip-calc',n:'Tip Calculator',d:'Restaurant tip and bill split with quick presets',c:'calc',i:'🍽',k:'gratuity restaurant split bill'},
+{s:'water-intake',n:'Daily Water Intake',d:'Recommended daily water based on weight and activity',c:'calc',i:'💧',k:'hydration drink liters'},
+{s:'zakat-calc',n:'Zakat Calculator',d:'Zakat due on gold, silver, cash and business assets',c:'calc',i:'🕌',k:'islamic nisab gold silver charity',p:1},
 
-   IMPORTANT — VERIFY BEFORE DEPLOY:
-   The "EXISTING TOOLS" block below is a best-guess list based on
-   related-tools chips referenced across tools built in batches 1-8.
-   Check your actual /tools/ folder:
-     curl -s "https://api.github.com/repos/soulwhisper9/toolify/contents/tools" \
-       | python3 -c "import sys,json; [print(f['name']) for f in json.load(sys.stdin)]"
-   Then:
-   - REMOVE any entry whose file doesn't exist
-   - ADD entries for files that exist but aren't listed
-   - Array length auto-updates the hero stat and filter counts
-   ===================================================================== */
+// ── Utility / developer ──
+{s:'barcode-gen',n:'Barcode Generator',d:'Code 128, EAN-13 and UPC barcodes ready to print',c:'util',i:'▐',k:'ean upc code128 retail sku'},
+{s:'base-converter',n:'Number Base Converter',d:'Binary, octal, decimal, hex and custom bases 2–36',c:'util',i:'🔢',k:'binary hex octal radix'},
+{s:'base64-encoder',n:'Base64 Encoder',d:'Encode and decode text to and from Base64',c:'util',i:'🔐',k:'encode decode b64'},
+{s:'border-radius-gen',n:'Border Radius Generator',d:'Per-corner CSS border-radius with live preview',c:'util',i:'⬜',k:'css rounded corners design'},
+{s:'box-shadow-gen',n:'Box Shadow Generator',d:'Visual CSS box-shadow builder with instant preview',c:'util',i:'🌑',k:'css shadow depth elevation'},
+{s:'color-gradient',n:'Color Palette Generator',d:'Harmonious palettes and gradient colour sets',c:'util',i:'🎨',k:'palette colours scheme design'},
+{s:'color-pick',n:'Color Picker',d:'Pick colours and convert between hex, RGB and HSL',c:'util',i:'🖌',k:'hex rgb hsl colour'},
+{s:'cron-gen',n:'Cron Expression Builder',d:'Build cron schedules with plain-English output',c:'util',i:'⏰',k:'crontab schedule job linux'},
+{s:'css-gradient-gen',n:'CSS Gradient Generator',d:'Linear and radial gradients with unlimited colour stops',c:'util',i:'🌈',k:'css linear radial background design',n2:1},
+{s:'csv-to-json',n:'CSV to JSON',d:'Convert CSV files to JSON with header detection',c:'util',i:'🔄',k:'spreadsheet convert data'},
+{s:'currency-pkr',n:'PKR Currency Converter',d:'Rupee to USD, EUR, GBP, INR, AED and more',c:'util',i:'💱',k:'pakistan rupee exchange rate dollar',p:1},
+{s:'fake-data-gen',n:'Fake Data Generator',d:'Test names, emails and addresses as JSON, CSV or table',c:'util',i:'🎲',k:'mock dummy seed test qa faker',n2:1},
+{s:'hash-gen',n:'Hash Generator',d:'MD5, SHA-1, SHA-256 and SHA-512 for text or files',c:'util',i:'#️⃣',k:'md5 sha checksum digest'},
+{s:'html-entity',n:'HTML Entity Encoder',d:'Encode and decode special characters safely',c:'util',i:'&',k:'escape ampersand encode'},
+{s:'html-minifier',n:'HTML Minifier',d:'Strip whitespace and comments to shrink page weight',c:'util',i:'🗜',k:'compress minify optimize'},
+{s:'json-format',n:'JSON Formatter',d:'Beautify, validate and inspect JSON structures',c:'util',i:'{ }',k:'beautify pretty print validate lint',p:1},
+{s:'json-to-csv',n:'JSON to CSV',d:'Flatten JSON arrays into spreadsheet-ready CSV',c:'util',i:'📋',k:'convert export spreadsheet'},
+{s:'jwt-decoder',n:'JWT Decoder',d:'Decode tokens and inspect header, payload and expiry',c:'util',i:'🎫',k:'token auth bearer jsonwebtoken'},
+{s:'md-to-html',n:'Markdown to HTML',d:'Convert Markdown to clean HTML with live preview',c:'util',i:'📝',k:'md markdown convert readme'},
+{s:'meta-tag-gen',n:'Meta Tag Generator',d:'SEO title, description and Open Graph tags',c:'util',i:'🏷',k:'seo opengraph og twitter card'},
+{s:'pass-gen',n:'Password Generator',d:'Strong random passwords with custom length and rules',c:'util',i:'🔑',k:'random secure strong passphrase',p:1},
+{s:'pass-strength',n:'Password Strength',d:'Strength scoring with realistic crack-time estimates',c:'util',i:'🛡',k:'secure check entropy'},
+{s:'qr-gen',n:'QR Code Generator',d:'QR codes for links, text, WiFi and contact cards',c:'util',i:'⬛',k:'qrcode wifi vcard scan',p:1},
+{s:'qr-reader',n:'QR Code Reader',d:'Decode a QR code from any uploaded image',c:'util',i:'📷',k:'scan decode qrcode read',n2:1},
+{s:'random-number',n:'Random Number Generator',d:'Random numbers, ranges and no-repeat draws',c:'util',i:'🎰',k:'rng lottery pick draw dice'},
+{s:'regex-tester',n:'Regex Tester',d:'Test patterns with live match highlighting and groups',c:'util',i:'✳️',k:'regular expression pattern match'},
+{s:'signature-pad',n:'Signature Pad',d:'Draw a signature and save it as a transparent PNG',c:'util',i:'✍️',k:'sign contract esign draw',n2:1},
+{s:'slug-gen',n:'URL Slug Generator',d:'Turn any title into a clean SEO-friendly slug',c:'util',i:'🔗',k:'permalink url seo handle'},
+{s:'stopwatch',n:'Timer & Stopwatch',d:'Countdown timer plus lap-capable stopwatch',c:'util',i:'⏲',k:'countdown lap clock pomodoro'},
+{s:'time-duration',n:'Time Duration',d:'Hours and minutes between any two times',c:'util',i:'⌛',k:'between times difference hours'},
+{s:'timestamp-converter',n:'Unix Timestamp Converter',d:'Epoch to human date and back, with live clock',c:'util',i:'🕰',k:'epoch unix date convert'},
+{s:'unit-convert',n:'Unit Converter',d:'Length, weight, temperature, volume and area',c:'util',i:'📏',k:'metric imperial km miles kg celsius',p:1},
+{s:'url-encoder',n:'URL Encoder',d:'Percent-encode and decode query parameters safely',c:'util',i:'🌐',k:'percent encode uri query'},
+{s:'uuid-gen',n:'UUID Generator',d:'Version 4 UUIDs, single or generated in bulk',c:'util',i:'🆔',k:'guid unique identifier v4'},
+{s:'wpm-tester',n:'Typing Speed Test',d:'WPM and accuracy with three difficulty levels',c:'util',i:'⌨️',k:'typing wpm keyboard practice test',n2:1},
+{s:'xml-to-json',n:'XML to JSON',d:'Convert XML documents into clean JSON',c:'util',i:'🔀',k:'convert parse feed'},
+{s:'yaml-to-json',n:'YAML to JSON',d:'Two-way YAML and JSON conversion with validation',c:'util',i:'📄',k:'yml kubernetes config convert'},
 
-const TOOLS = [
+// ── Image ──
+{s:'blur-image',n:'Blur Image',d:'Blur a whole image or a region for privacy',c:'image',i:'🌫',k:'censor pixelate hide face privacy'},
+{s:'color-picker-from-image',n:'Colour Picker from Image',d:'Click any pixel to grab its hex, RGB and HSL',c:'image',i:'🎯',k:'eyedropper sample hex from photo',n2:1},
+{s:'favicon-gen',n:'Favicon Generator',d:'All favicon sizes from one image, with meta tags',c:'image',i:'⭐',k:'icon site favicon apple touch',n2:1},
+{s:'heic-to-jpg',n:'HEIC to JPG',d:'Convert iPhone HEIC photos to universal JPG',c:'image',i:'📱',k:'iphone apple photo convert',p:1},
+{s:'image-base64',n:'Image to Base64',d:'Turn images into Base64 data URIs for HTML or CSS',c:'image',i:'🧬',k:'data uri inline encode'},
+{s:'image-crop-circle',n:'Circle Image Crop',d:'Round profile pictures with transparent PNG output',c:'image',i:'⭕',k:'avatar profile dp round circle',n2:1},
+{s:'img-compress',n:'Image Compressor',d:'Shrink file size while keeping the picture sharp',c:'image',i:'📦',k:'reduce size optimize shrink jpeg',p:1},
+{s:'img-crop',n:'Image Crop',d:'Crop to any aspect ratio or freeform selection',c:'image',i:'✂️',k:'trim cut aspect ratio'},
+{s:'img-resize',n:'Image Resize',d:'Resize by pixel dimensions or percentage',c:'image',i:'🔍',k:'scale dimensions px resize photo',p:1},
+{s:'meme-gen',n:'Meme Generator',d:'Top and bottom text in the classic Impact style',c:'image',i:'😂',k:'caption impact funny text on image',n2:1},
+{s:'png-to-jpg',n:'PNG to JPG',d:'Convert PNG to JPG with adjustable quality',c:'image',i:'🖼',k:'convert format photo'},
+{s:'remove-bg',n:'Background Remover',d:'Cut the background out of a photo or product shot',c:'image',i:'🪄',k:'transparent cutout isolate subject',p:1},
+{s:'svg-to-png',n:'SVG to PNG',d:'Rasterise SVG vectors at any output resolution',c:'image',i:'📐',k:'vector raster convert export'},
+{s:'webp-convert',n:'WebP Converter',d:'Convert to and from WebP for lighter pages',c:'image',i:'🌐',k:'jpg to webp png convert optimize'},
 
-  // ═══ EXISTING TOOLS (verify slugs match /tools/ folder) ═══
-  {slug:'age-calc', name:'Age Calculator', desc:'Calculate exact age in years, months, days', cat:'calc'},
-  {slug:'bmi-calc', name:'BMI Calculator', desc:'Body mass index for metric and imperial units', cat:'calc'},
-  {slug:'percentage-calc', name:'Percentage Calculator', desc:'Percentage of, change, and increase calculations', cat:'calc'},
-  {slug:'emi-calc', name:'EMI Calculator', desc:'Monthly EMI for home, car, and personal loans', cat:'calc'},
-  {slug:'json-format', name:'JSON Formatter', desc:'Beautify and validate JSON with syntax highlighting', cat:'util'},
-  {slug:'currency-pkr', name:'PKR Currency Converter', desc:'Convert PKR to USD, EUR, GBP, INR, AED, and more', cat:'util'},
-  {slug:'unit-converter', name:'Unit Converter', desc:'Length, weight, temperature, volume, area', cat:'util'},
-  {slug:'timer-stopwatch', name:'Timer & Stopwatch', desc:'Countdown timer and lap stopwatch', cat:'util'},
-  {slug:'password-gen', name:'Password Generator', desc:'Strong random passwords with custom length and rules', cat:'util'},
-  {slug:'qr-gen', name:'QR Code Generator', desc:'Create QR codes for URLs, text, WiFi, contacts', cat:'util'},
-  {slug:'image-compress', name:'Image Compress', desc:'Reduce image file size without quality loss', cat:'image'},
-  {slug:'jpg-to-webp', name:'JPG to WebP', desc:'Convert JPG images to smaller WebP format', cat:'image'},
-  {slug:'png-to-jpg', name:'PNG to JPG', desc:'Convert PNG images to JPG with quality control', cat:'image'},
-  {slug:'image-resize', name:'Image Resize', desc:'Resize images by dimensions or percentage', cat:'image'},
-  {slug:'image-crop', name:'Image Crop', desc:'Crop images to any aspect ratio', cat:'image'},
-  {slug:'favicon-check', name:'Favicon Checker', desc:'Preview how your favicon looks in browser tabs', cat:'image'},
-  {slug:'word-count', name:'Word Count', desc:'Word, character, and sentence counter', cat:'text'},
-  {slug:'lorem-ipsum', name:'Lorem Ipsum Generator', desc:'Generate placeholder text in paragraphs or words', cat:'text'},
-  {slug:'character-count', name:'Character Count', desc:'Count characters with and without spaces', cat:'text'},
+// ── Text ──
+{s:'ai-detect',n:'AI Content Detector',d:'Estimate how likely text was machine generated',c:'text',i:'🤖',k:'chatgpt detector generated content',p:1},
+{s:'binary-text',n:'Binary to Text',d:'Convert between binary and readable text',c:'text',i:'0️⃣',k:'binary ascii decode convert'},
+{s:'bionic-reading',n:'Bionic Reading',d:'Bold word prefixes to help you read faster',c:'text',i:'👁',k:'speed reading focus adhd'},
+{s:'case-convert',n:'Case Converter',d:'Upper, lower, title and sentence case in one click',c:'text',i:'🔠',k:'uppercase lowercase title capitalize'},
+{s:'lorem-ipsum',n:'Lorem Ipsum Generator',d:'Placeholder text by paragraph, sentence or word',c:'text',i:'📃',k:'dummy filler placeholder text'},
+{s:'paraphrase',n:'Paraphrasing Tool',d:'Reword sentences while keeping the original meaning',c:'text',i:'♻️',k:'rewrite reword rephrase spinner',p:1},
+{s:'plagiarism',n:'Plagiarism Checker',d:'Compare text against sources for duplicate passages',c:'text',i:'🔎',k:'duplicate copy originality check',p:1},
+{s:'reverse-case',n:'Advanced Case Converter',d:'12 transforms: camelCase, snake_case, reverse and more',c:'text',i:'🔤',k:'camel snake kebab pascal reverse alternating',n2:1},
+{s:'text-diff',n:'Text Diff Checker',d:'Compare two drafts with highlighted differences',c:'text',i:'🔍',k:'compare difference changes versions'},
+{s:'text-tools',n:'Text Tools Suite',d:'Trim, sort, dedupe and clean messy text',c:'text',i:'🧰',k:'sort remove duplicates trim clean lines'},
+{s:'word-count',n:'Word Counter',d:'Words, characters, sentences and reading time',c:'text',i:'🔢',k:'character count essay length reading time',p:1},
+{s:'word-frequency',n:'Word Frequency',d:'Keyword density analysis with stopword filtering',c:'text',i:'📊',k:'keyword density seo repeated words'},
 
-  // ═══ BATCH 1 — PDF ═══
-  {slug:'jpg-to-pdf', name:'JPG to PDF', desc:'Combine multiple JPG images into a single PDF', cat:'pdf'},
-  {slug:'pdf-to-jpg', name:'PDF to JPG', desc:'Extract each PDF page as a separate JPG image', cat:'pdf'},
-  {slug:'watermark-pdf', name:'Watermark PDF', desc:'Add text or image watermarks to any PDF', cat:'pdf'},
-  {slug:'pdf-page-numbers', name:'PDF Page Numbers', desc:'Add page numbers with position control', cat:'pdf'},
-
-  // ═══ BATCH 2 ═══
-  {slug:'heic-to-jpg', name:'HEIC to JPG', desc:'Convert iPhone HEIC photos to universal JPG', cat:'image'},
-  {slug:'compound-interest', name:'Compound Interest', desc:'Calculate compound interest with any frequency', cat:'calc'},
-  {slug:'uuid-gen', name:'UUID Generator', desc:'Generate v4 UUIDs single or in bulk', cat:'util'},
-  {slug:'base64-encoder', name:'Base64 Encoder', desc:'Encode and decode text to and from Base64', cat:'util'},
-  {slug:'slug-gen', name:'URL Slug Generator', desc:'Convert any title into a clean SEO-friendly slug', cat:'util'},
-  {slug:'meta-tag-gen', name:'Meta Tag Generator', desc:'Generate SEO and Open Graph meta tags', cat:'util'},
-
-  // ═══ BATCH 3 ═══
-  {slug:'url-encoder', name:'URL Encoder', desc:'Encode and decode URL query parameters safely', cat:'util'},
-  {slug:'hash-gen', name:'Hash Generator', desc:'MD5, SHA-1, SHA-256, SHA-512 for text or files', cat:'util'},
-  {slug:'jwt-decoder', name:'JWT Decoder', desc:'Decode JWT tokens and inspect header and payload', cat:'util'},
-  {slug:'md-to-html', name:'Markdown to HTML', desc:'Convert Markdown to clean HTML with live preview', cat:'util'},
-  {slug:'json-to-csv', name:'JSON to CSV', desc:'Convert JSON arrays to CSV format instantly', cat:'util'},
-  {slug:'bmr-tdee', name:'BMR & TDEE Calculator', desc:'Base metabolic rate and total daily energy expenditure', cat:'calc'},
-
-  // ═══ BATCH 4 ═══
-  {slug:'regex-tester', name:'Regex Tester', desc:'Test regular expressions with real-time match highlighting', cat:'util'},
-  {slug:'text-diff', name:'Text Diff Checker', desc:'Compare two text blocks with change highlights', cat:'text'},
-  {slug:'pass-strength', name:'Password Strength Checker', desc:'Analyze strength and crack time estimates', cat:'util'},
-  {slug:'paypal-fee', name:'PayPal Fee Calculator', desc:'Calculate fees for domestic and international payments', cat:'calc'},
-  {slug:'pregnancy-due-date', name:'Pregnancy Due Date', desc:'Calculate due date from last menstrual period', cat:'calc'},
-  {slug:'color-gradient', name:'Color Palette Generator', desc:'Generate harmonious color palettes and gradients', cat:'util'},
-
-  // ═══ BATCH 5 ═══
-  {slug:'csv-to-json', name:'CSV to JSON', desc:'Convert CSV files to JSON with header detection', cat:'util'},
-  {slug:'html-minifier', name:'HTML Minifier', desc:'Compress HTML by removing whitespace and comments', cat:'util'},
-  {slug:'html-entity', name:'HTML Entity Encoder', desc:'Encode special characters to HTML entities', cat:'util'},
-  {slug:'water-intake', name:'Daily Water Intake', desc:'Recommended daily water intake by weight', cat:'calc'},
-  {slug:'roi-calc', name:'ROI Calculator', desc:'Return on investment and annualized returns', cat:'calc'},
-  {slug:'salary-to-hourly', name:'Salary to Hourly', desc:'Convert annual salary to hourly, weekly, monthly', cat:'calc'},
-  {slug:'binary-text', name:'Binary to Text', desc:'Convert between binary and human-readable text', cat:'text'},
-  {slug:'text-tools', name:'Text Tools Suite', desc:'Trim, sort, deduplicate, and clean text', cat:'text'},
-  {slug:'image-base64', name:'Image to Base64', desc:'Convert images to Base64 data URIs', cat:'image'},
-  {slug:'blur-image', name:'Blur Image', desc:'Apply blur effects for privacy or aesthetics', cat:'image'},
-  {slug:'cron-gen', name:'Cron Expression Builder', desc:'Build cron schedules with human-readable output', cat:'util'},
-
-  // ═══ BATCH 6 ═══
-  {slug:'xml-to-json', name:'XML to JSON', desc:'Convert XML documents to JSON format', cat:'util'},
-  {slug:'gst-vat', name:'GST & VAT Calculator', desc:'Add or remove GST/VAT with regional presets', cat:'calc'},
-  {slug:'auto-loan', name:'Auto Loan Calculator', desc:'Car loan EMI with down payment and breakdown', cat:'calc'},
-  {slug:'cc-payoff', name:'Credit Card Payoff', desc:'Time and interest to pay off credit card debt', cat:'calc'},
-  {slug:'body-fat', name:'Body Fat Percentage', desc:'Calculate body fat using US Navy method', cat:'calc'},
-  {slug:'time-duration', name:'Time Duration Calculator', desc:'Calculate hours and minutes between two times', cat:'util'},
-  {slug:'random-number', name:'Random Number Generator', desc:'Generate random numbers with custom ranges', cat:'util'},
-  {slug:'bionic-reading', name:'Bionic Reading Converter', desc:'Convert text to bolded-prefix bionic reading format', cat:'text'},
-  {slug:'svg-to-png', name:'SVG to PNG', desc:'Convert SVG vectors to PNG at any resolution', cat:'image'},
-  {slug:'barcode-gen', name:'Barcode Generator', desc:'Generate Code 128, EAN-13, and UPC barcodes', cat:'util'},
-  {slug:'retirement-calc', name:'Retirement Calculator', desc:'Plan retirement savings with monthly contributions', cat:'calc'},
-
-  // ═══ BATCH 7 ═══
-  {slug:'inflation-calc', name:'Inflation Calculator', desc:'Calculate purchasing power over time with regional presets', cat:'calc'},
-  {slug:'tip-calc', name:'Tip Calculator', desc:'Restaurant tip and bill split with preset percentages', cat:'calc'},
-  {slug:'discount-calc', name:'Discount Calculator', desc:'Discount amount, final price, and stacked discounts', cat:'calc'},
-  {slug:'timestamp-converter', name:'Unix Timestamp Converter', desc:'Convert Unix timestamps to human dates and back', cat:'util'},
-  {slug:'base-converter', name:'Number Base Converter', desc:'Between binary, octal, decimal, hex, and custom bases', cat:'util'},
-  {slug:'fuel-cost-calc', name:'Fuel Cost Calculator', desc:'Trip fuel cost by distance, mileage, and fuel price', cat:'calc'},
-  {slug:'yaml-to-json', name:'YAML to JSON', desc:'Convert YAML to JSON and back with validation', cat:'util'},
-  {slug:'timecard-calc', name:'Timecard Calculator', desc:'Weekly hours worked with overtime beyond 40 hrs', cat:'calc'},
-  {slug:'word-frequency', name:'Word Frequency Counter', desc:'Keyword density analysis with stopword filtering', cat:'text'},
-  {slug:'macro-calc', name:'Macro Calculator', desc:'Daily protein, carbs, fat targets for any diet plan', cat:'calc'},
-  {slug:'box-shadow-gen', name:'CSS Box Shadow Generator', desc:'Visual box-shadow builder with live preview', cat:'util'},
-  {slug:'border-radius-gen', name:'CSS Border Radius Generator', desc:'Craft any border-radius with per-corner control', cat:'util'},
-  {slug:'css-gradient-gen', name:'CSS Gradient Generator', desc:'Linear and radial gradients with unlimited color stops', cat:'util'},
-
-  // ═══ BATCH 8 ═══
-  {slug:'favicon-gen', name:'Favicon Generator', desc:'Multi-size favicons from any image with HTML meta tags', cat:'image'},
-  {slug:'fake-data-gen', name:'Fake Data Generator', desc:'Test data with names, emails, addresses in JSON, CSV, table', cat:'util'},
-  {slug:'image-crop-circle', name:'Circle Image Crop', desc:'Round profile pictures with transparent PNG output', cat:'image'},
-  {slug:'wpm-tester', name:'Typing Speed Test', desc:'WPM and accuracy tracker with difficulty levels', cat:'util'},
-  {slug:'dividend-yield', name:'Dividend Yield Calculator', desc:'Stock dividend yield and annual income projections', cat:'calc'},
-  {slug:'break-even', name:'Break-Even Calculator', desc:'Business break-even in units and revenue with projections', cat:'calc'},
-  {slug:'calories-burned', name:'Calories Burned Calculator', desc:'MET-based calorie burn for 30+ activities', cat:'calc'},
-  {slug:'meme-gen', name:'Meme Generator', desc:'Top and bottom text with classic Impact font', cat:'image'},
-  {slug:'signature-pad', name:'Signature Pad', desc:'Draw and download signatures as transparent PNG', cat:'util'},
-  {slug:'qr-reader', name:'QR Code Reader', desc:'Decode QR codes from any uploaded image', cat:'util'},
-  {slug:'reverse-case', name:'Case Converter', desc:'12 case transformations: upper, lower, camel, snake, and more', cat:'text'},
-  {slug:'simple-vs-compound', name:'Simple vs Compound Interest', desc:'Side-by-side comparison with year-by-year breakdown', cat:'calc'},
-  {slug:'color-picker-from-image', name:'Color Picker from Image', desc:'Click any pixel to get hex, RGB, and HSL values', cat:'image'},
+// ── PDF ──
+{s:'jpg-to-pdf',n:'JPG to PDF',d:'Combine several images into one ordered PDF',c:'pdf',i:'📎',k:'image to pdf combine photos scan',p:1},
+{s:'merge-pdf',n:'Merge PDF',d:'Join multiple PDFs into a single document',c:'pdf',i:'🔗',k:'combine join append pdfs',p:1},
+{s:'pdf-compress',n:'Compress PDF',d:'Reduce PDF file size for email and uploads',c:'pdf',i:'🗜',k:'shrink reduce size optimize',p:1},
+{s:'pdf-info',n:'PDF Info',d:'Inspect page count, size, metadata and encryption',c:'pdf',i:'ℹ️',k:'metadata properties inspect details'},
+{s:'pdf-page-numbers',n:'Add Page Numbers',d:'Number PDF pages with position and format control',c:'pdf',i:'#️⃣',k:'pagination numbering footer'},
+{s:'pdf-rotate',n:'Rotate PDF',d:'Rotate selected pages or the whole document',c:'pdf',i:'🔄',k:'turn orientation landscape sideways'},
+{s:'pdf-to-jpg',n:'PDF to JPG',d:'Export every PDF page as a separate image',c:'pdf',i:'🖼',k:'convert extract pages images'},
+{s:'split-pdf',n:'Split PDF',d:'Break a PDF into pages or custom ranges',c:'pdf',i:'✂️',k:'extract separate pages divide'},
+{s:'watermark-pdf',n:'Watermark PDF',d:'Stamp text or an image watermark on every page',c:'pdf',i:'💧',k:'stamp brand confidential draft'},
 ];
 
-const CATEGORIES = [
-  {key:'all', label:'All', icon:'✨'},
-  {key:'calc', label:'Calculators', icon:'🧮'},
-  {key:'util', label:'Utility', icon:'🔧'},
-  {key:'image', label:'Image', icon:'🖼'},
-  {key:'text', label:'Text', icon:'✍'},
-  {key:'pdf', label:'PDF', icon:'📄'},
+const CATS=[
+{k:'all',l:'All tools',i:'✨'},
+{k:'calc',l:'Calculators',i:'🧮'},
+{k:'util',l:'Utility & Dev',i:'🔧'},
+{k:'image',l:'Image',i:'🖼'},
+{k:'text',l:'Text & Writing',i:'✍'},
+{k:'pdf',l:'PDF',i:'📄'},
 ];
+const BCLS={calc:'b-calc',util:'b-util',image:'b-image',text:'b-text',pdf:'b-pdf'};
+const BLBL={calc:'Calculator',util:'Utility',image:'Image',text:'Text',pdf:'PDF'};
 
-let activeCat = 'all', searchQ = '';
-const badgeClass = c => ({calc:'badge-calc',util:'badge-util',image:'badge-image',text:'badge-text',pdf:'badge-pdf'}[c]);
-const badgeLabel = c => ({calc:'Calculator',util:'Utility',image:'Image',text:'Text',pdf:'PDF'}[c]);
+let cat='all',q='';
 
-function render() {
-  document.getElementById('statTools').textContent = TOOLS.length;
-  document.querySelector('.search-wrap input').placeholder = `Search ${TOOLS.length} tools…`;
-  const filters = document.getElementById('filters');
-  filters.innerHTML = CATEGORIES.map(c => {
-    const n = c.key === 'all' ? TOOLS.length : TOOLS.filter(t => t.cat === c.key).length;
-    return `<button class="filter-tab ${activeCat === c.key ? 'active' : ''}" data-cat="${c.key}">${c.icon} ${c.label} <span class="count">${n}</span></button>`;
-  }).join('');
-  filters.querySelectorAll('.filter-tab').forEach(b => b.addEventListener('click', () => { activeCat = b.dataset.cat; render(); }));
-  const grid = document.getElementById('toolGrid');
-  let list = TOOLS.slice();
-  if (activeCat !== 'all') list = list.filter(t => t.cat === activeCat);
-  if (searchQ) { const q = searchQ.toLowerCase(); list = list.filter(t => t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || t.slug.includes(q)); }
-  list.sort((a,b) => a.name.localeCompare(b.name));
-  if (!list.length) { grid.innerHTML = ''; document.getElementById('emptyState').style.display = 'block'; return; }
-  document.getElementById('emptyState').style.display = 'none';
-  grid.innerHTML = list.map(t => `
-    <a href="/tools/${t.slug}.html" class="tool-card">
-      <span class="tool-badge-mini ${badgeClass(t.cat)}">${badgeLabel(t.cat)}</span>
-      <h3>${t.name}</h3>
-      <p>${t.desc}</p>
-    </a>
-  `).join('');
+function card(t,isNew){
+  return `<a href="/tools/${t.s}.html" class="tool-card">
+    ${isNew?'<span class="new-dot">NEW</span>':''}
+    <div class="tc-top"><span class="tc-ico">${t.i}</span><span class="badge ${BCLS[t.c]}">${BLBL[t.c]}</span></div>
+    <h3>${t.n}</h3><p>${t.d}</p></a>`;
 }
-document.getElementById('searchInput').addEventListener('input', e => { searchQ = e.target.value.trim(); render(); });
+function railCard(t,tag,cls){
+  return `<a href="/tools/${t.s}.html" class="rail-card">
+    ${tag?`<span class="rail-tag ${cls||''}">${tag}</span>`:''}
+    <span class="rail-ico">${t.i}</span>
+    <h3>${t.n}</h3><p>${t.d}</p></a>`;
+}
+
+function render(){
+  document.getElementById('pillCount').textContent = T.length + ' tools';
+  document.getElementById('searchInput').placeholder = `Search ${T.length} tools…`;
+
+  // rails
+  document.getElementById('newRail').innerHTML = T.filter(t=>t.n2).slice(0,8).map(t=>railCard(t,'New')).join('');
+  document.getElementById('popRail').innerHTML = T.filter(t=>t.p).slice(0,8).map(t=>railCard(t,'Popular','hot')).join('');
+
+  // filters
+  const f=document.getElementById('filters');
+  f.innerHTML=CATS.map(c=>{
+    const n = c.k==='all' ? T.length : T.filter(t=>t.c===c.k).length;
+    return `<button class="filter-tab ${cat===c.k?'active':''}" data-c="${c.k}">${c.i} ${c.l}<span class="count">${n}</span></button>`;
+  }).join('');
+  f.querySelectorAll('.filter-tab').forEach(b=>b.onclick=()=>{cat=b.dataset.c;render();});
+
+  // grid
+  let list=T.slice();
+  if(cat!=='all') list=list.filter(t=>t.c===cat);
+  if(q){
+    const s=q.toLowerCase();
+    list=list.filter(t=>(t.n+' '+t.d+' '+t.s+' '+(t.k||'')).toLowerCase().includes(s));
+  }
+  list.sort((a,b)=>a.n.localeCompare(b.n));
+  const g=document.getElementById('toolGrid');
+  document.getElementById('showingNote').textContent = `Showing ${list.length} of ${T.length}`;
+  g.innerHTML = list.length
+    ? list.map(t=>card(t,t.n2)).join('')
+    : `<div class="empty"><h3>Nothing matched "${q}"</h3><p>Try a shorter word, or browse a category above.</p></div>`;
+}
+
+const si=document.getElementById('searchInput');
+si.addEventListener('input',e=>{q=e.target.value.trim();if(q)cat='all';render();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='/'&&document.activeElement!==si){e.preventDefault();si.focus();}
+  if(e.key==='Escape'&&document.activeElement===si){si.value='';q='';render();si.blur();}
+});
 render();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"Toolify Core",
+  "url":"https://toolifycore.com/",
+  "description":"100 free browser-based tools: calculators, PDF utilities, image editors, text tools and developer generators.",
+  "potentialAction":{
+    "@type":"SearchAction",
+    "target":{"@type":"EntryPoint","urlTemplate":"https://toolifycore.com/?q={search_term_string}"},
+    "query-input":"required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Are the tools on Toolify Core really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. There is no paid tier, no watermark on output and no daily conversion cap. The site is supported by affiliate links on the blog, not by charging for the tools."}},
+    {"@type":"Question","name":"Do you store my files or text?","acceptedAnswer":{"@type":"Answer","text":"No. Tools process data locally in your browser. Files are read into memory, processed, and discarded when you close the tab. Nothing is uploaded to a server."}},
+    {"@type":"Question","name":"Can I use the output commercially?","acceptedAnswer":{"@type":"Answer","text":"Yes. Output is yours to use for personal, academic or commercial work. Calculators are for guidance and are not a substitute for professional financial, medical or legal advice."}},
+    {"@type":"Question","name":"Can I embed a Toolify Core tool on my own website?","acceptedAnswer":{"@type":"Answer","text":"Most tool pages include a copy-paste iframe snippet near the bottom of the page. Embedding is free and a link back is appreciated but not required."}}
+  ]
+}
 </script>
 </body>
 </html>
