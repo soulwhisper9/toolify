@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Break-Even Calculator Free — Business Units and Revenue | Toolify Core</title>
+<meta name="description" content="Calculate break-even point for your business in units and revenue. Includes contribution margin and profit projections at any sales level.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:28px}
+.projection-table{width:100%;border-collapse:collapse;margin:12px 0;background:var(--surface2);border-radius:8px;overflow:hidden;font-size:13px}
+.projection-table th{padding:10px 14px;background:var(--surface);color:var(--muted);text-align:right;text-transform:uppercase;letter-spacing:.05em;font-size:11px}
+.projection-table th:first-child{text-align:left}
+.projection-table td{padding:8px 14px;border-top:1px solid var(--border);text-align:right;color:var(--text)}
+.projection-table td:first-child{text-align:left;color:var(--muted)}
+.projection-table tr.be td{color:#00E5C0;font-weight:600}
+.projection-table tr.profit td{color:#6EDFB8}
+.projection-table tr.loss td{color:#FF6B6B}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Break-Even</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Break-Even Calculator</h1><p>Calculate how many units you need to sell to cover costs. See the break-even revenue point and profit projections at different sales volumes.</p></div>
+<div class="counter-badge">📊 Used 9,182 times this month</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Fixed costs (monthly)</label><input type="number" id="fixed" value="50000" min="0" step="100"></div>
+<div class="calc-field"><label>Selling price per unit</label><input type="number" id="price" value="500" min="0" step="0.01"></div>
+<div class="calc-field"><label>Variable cost per unit</label><input type="number" id="varCost" value="200" min="0" step="0.01"></div>
+<div class="calc-field"><label>Currency</label><select id="currency"><option value="Rs " selected>Rs PKR</option><option value="₹">₹ INR</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="£">£ GBP</option><option value="AED ">AED</option></select></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">📊 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">📊</div><h3>Break-Even Analysis</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Break-even units</div><div class="stat-card-value" id="beUnits">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Break-even revenue</div><div class="stat-card-value" id="beRev">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Contribution margin</div><div class="stat-card-value" id="cm">-</div></div>
+<div class="stat-card"><div class="stat-card-label">CM ratio</div><div class="stat-card-value" id="cmRatio">-</div></div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 6px">Profit at different volumes</h4>
+<div style="overflow-x:auto"><table class="projection-table" id="projTable"></table></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/break-even.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Starting a business?</strong> Get more business tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Costs</h3><p>Fixed costs (rent, salaries) + variable per unit.</p></div><div class="step"><div class="step-num">02</div><h3>Set Price</h3><p>What you charge per unit sold.</p></div><div class="step"><div class="step-num">03</div><h3>See Break-Even</h3><p>Units + revenue needed to cover costs.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Fixed vs variable costs?</div><div class="faq-a">Fixed: costs regardless of production — rent, salaries, subscriptions, loan payments. Variable: costs that scale with each unit — raw materials, packaging, shipping, transaction fees.</div></div>
+<div class="faq-item"><div class="faq-q">What is contribution margin?</div><div class="faq-a">Price - variable cost = amount that "contributes" to fixed costs and profit. A Rs 500 product with Rs 200 variable cost has a Rs 300 contribution margin per unit.</div></div>
+<div class="faq-item"><div class="faq-q">Why break-even matters?</div><div class="faq-a">Below break-even: losing money. Above: making profit. Every startup needs to know this number to plan cash flow, pricing, and marketing spend.</div></div>
+<div class="faq-item"><div class="faq-q">How to reduce break-even?</div><div class="faq-a">Options: lower fixed costs, reduce variable costs (better suppliers), raise price (if market allows), or improve conversion so each visitor buys more.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/roi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">ROI</a>
+<a href="/tools/paypal-fee.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">PayPal Fee</a>
+<a href="/tools/discount-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Discount</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+function calculate() {
+  const fixed = parseFloat(document.getElementById('fixed').value) || 0;
+  const price = parseFloat(document.getElementById('price').value) || 0;
+  const varCost = parseFloat(document.getElementById('varCost').value) || 0;
+  const cur = document.getElementById('currency').value;
+  const cm = price - varCost;
+  const beUnits = cm > 0 ? Math.ceil(fixed / cm) : 0;
+  const beRev = beUnits * price;
+  const cmRatio = price > 0 ? (cm / price * 100) : 0;
+  const fmt = n => cur + n.toLocaleString('en-US', {maximumFractionDigits: 2});
+  document.getElementById('beUnits').textContent = beUnits.toLocaleString();
+  document.getElementById('beRev').textContent = fmt(beRev);
+  document.getElementById('cm').textContent = fmt(cm);
+  document.getElementById('cmRatio').textContent = cmRatio.toFixed(1) + '%';
+  // Projections at 0.5x, 1x, 1.25x, 1.5x, 2x, 3x break-even
+  const multipliers = [0, 0.5, 0.75, 1, 1.25, 1.5, 2, 3];
+  let html = '<thead><tr><th>Units sold</th><th>Revenue</th><th>Variable cost</th><th>Fixed cost</th><th>Profit / Loss</th></tr></thead><tbody>';
+  multipliers.forEach(m => {
+    const units = Math.round(beUnits * m);
+    const rev = units * price;
+    const vc = units * varCost;
+    const profit = rev - vc - fixed;
+    const cls = m === 1 ? 'be' : (profit > 0 ? 'profit' : 'loss');
+    html += `<tr class="${cls}"><td>${units.toLocaleString()} ${m===1?'(BE)':''}</td><td>${fmt(rev)}</td><td>${fmt(vc)}</td><td>${fmt(fixed)}</td><td>${profit >= 0 ? '+' : ''}${fmt(profit)}</td></tr>`;
+  });
+  html += '</tbody>';
+  document.getElementById('projTable').innerHTML = html;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free break-even calculator at Toolify Core: https://toolifycore.com/tools/break-even.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+['fixed','price','varCost','currency'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+function resetAll() { document.getElementById('fixed').value = 50000; document.getElementById('price').value = 500; document.getElementById('varCost').value = 200; calculate(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free break-even calculator!&url=https://toolifycore.com/tools/break-even.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/break-even.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

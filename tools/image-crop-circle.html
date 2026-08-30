@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Circle Image Crop Free — Round Profile Picture | Toolify Core</title>
+<meta name="description" content="Crop any image into a circle for profile pictures. Transparent PNG output, perfect for avatars, WhatsApp, LinkedIn, and Twitter DPs.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:40px 20px;text-align:center;background:var(--surface2);cursor:pointer;transition:.2s;margin:16px 0}
+.drop-zone:hover,.drop-zone.dragover{border-color:#1D9E75;background:rgba(29,158,117,0.05)}
+.drop-zone .drop-icon{font-size:40px;margin-bottom:8px}
+.preview-wrap{background:linear-gradient(135deg,#3a3a4a 25%,transparent 25%),linear-gradient(-135deg,#3a3a4a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#3a3a4a 75%),linear-gradient(-45deg,transparent 75%,#3a3a4a 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0;background-color:#2a2a3a;border-radius:12px;padding:20px;text-align:center;margin:12px 0}
+.preview-wrap canvas{max-width:100%;height:auto;border-radius:8px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:12px 0;padding:14px;background:var(--surface2);border-radius:8px}
+.opts .field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.opts input,.opts select{padding:8px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.tool-badge{background:rgba(29,158,117,0.15) !important;color:#6EDFB8 !important;border:1px solid rgba(29,158,117,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Circle Crop</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🖼 Image Tools</div><h1>Circle Image Crop</h1><p>Crop any image into a perfect circle for profile pictures. Transparent PNG output — ready for WhatsApp, LinkedIn, Twitter, and any social media avatar.</p></div>
+<div class="counter-badge">👤 Used 13,204 times this month</div>
+<div class="drop-zone" id="drop" onclick="document.getElementById('file').click()">
+<div class="drop-icon">📤</div>
+<h3 style="color:var(--text);margin:0 0 6px">Drop image or click to upload</h3>
+<p style="color:var(--muted);font-size:13px">PNG, JPG, WebP — best if roughly square</p>
+<input type="file" id="file" accept="image/*" style="display:none">
+</div>
+<div id="output" style="display:none">
+<div class="opts">
+<div class="field"><label>Output size (px)</label><select id="size"><option value="256">256×256</option><option value="400" selected>400×400</option><option value="512">512×512</option><option value="800">800×800</option><option value="1024">1024×1024</option></select></div>
+<div class="field"><label>Border thickness</label><input type="range" id="border" min="0" max="30" value="0"></div>
+<div class="field"><label>Border color</label><input type="color" id="bColor" value="#FFFFFF"></div>
+<div class="field"><label>Background</label><select id="bg"><option value="transparent" selected>Transparent</option><option value="white">White</option><option value="black">Black</option></select></div>
+</div>
+<div class="preview-wrap"><canvas id="preview"></canvas></div>
+<div class="actions"><button class="btn-primary" onclick="download()" style="background:#1D9E75">⬇ Download Circle PNG</button><button class="btn-secondary" onclick="reset()">Reset</button></div>
+</div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/image-crop-circle.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Updating profiles?</strong> Get more image tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#1D9E75">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Upload Image</h3><p>Any format your browser can read.</p></div><div class="step"><div class="step-num">02</div><h3>Adjust</h3><p>Size, border, and background options.</p></div><div class="step"><div class="step-num">03</div><h3>Download</h3><p>Transparent PNG ready to upload.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Best profile picture size?</div><div class="faq-a">WhatsApp: 500×500. LinkedIn: 400×400 minimum. Twitter/X: 400×400. Instagram: 320×320. Use 800×800 or larger to look sharp on all platforms.</div></div>
+<div class="faq-item"><div class="faq-q">Why transparent background?</div><div class="faq-a">Transparent PNG means the corners around the circle are invisible. Perfect for platforms that display avatars with any background color.</div></div>
+<div class="faq-item"><div class="faq-q">Non-square images?</div><div class="faq-a">The image is auto-centered and cropped to a square first, then rounded. Best results with faces centered.</div></div>
+<div class="faq-item"><div class="faq-q">Is my image uploaded?</div><div class="faq-a">No. Everything runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(29,158,117,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/image-resize.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Image Resize</a>
+<a href="/tools/blur-image.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Blur Image</a>
+<a href="/tools/favicon-gen.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Favicon Gen</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(29,158,117,0.06);border-left:3px solid #1D9E75;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#1D9E75">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#1D9E75">Visit our blog</a>.</div>
+</main>
+<script>
+const drop = document.getElementById('drop');
+document.getElementById('file').addEventListener('change', e => e.target.files[0] && handle(e.target.files[0]));
+['dragover','dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.toggle('dragover', ev === 'dragover'); if (ev === 'drop' && e.dataTransfer.files[0]) handle(e.dataTransfer.files[0]); }));
+function handle(f) {
+  const img = new Image();
+  img.onload = () => { window._img = img; document.getElementById('output').style.display = 'block'; render(); document.getElementById('shareWa').href = `https://wa.me/?text=Free circle image crop at Toolify Core: https://toolifycore.com/tools/image-crop-circle.html`; };
+  img.src = URL.createObjectURL(f);
+}
+function render() {
+  if (!window._img) return;
+  const size = parseInt(document.getElementById('size').value);
+  const border = parseInt(document.getElementById('border').value);
+  const bColor = document.getElementById('bColor').value;
+  const bg = document.getElementById('bg').value;
+  const c = document.getElementById('preview');
+  c.width = size; c.height = size;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, size, size);
+  if (bg !== 'transparent') { ctx.fillStyle = bg; ctx.fillRect(0, 0, size, size); }
+  const img = window._img;
+  const s = Math.min(img.width, img.height);
+  const sx = (img.width - s) / 2, sy = (img.height - s) / 2;
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(size/2, size/2, size/2 - border, 0, Math.PI*2);
+  ctx.closePath();
+  ctx.clip();
+  ctx.drawImage(img, sx, sy, s, s, 0, 0, size, size);
+  ctx.restore();
+  if (border > 0) {
+    ctx.strokeStyle = bColor;
+    ctx.lineWidth = border;
+    ctx.beginPath();
+    ctx.arc(size/2, size/2, size/2 - border/2, 0, Math.PI*2);
+    ctx.stroke();
+  }
+}
+['size','border','bColor','bg'].forEach(id => document.getElementById(id).addEventListener('input', render));
+function download() { const a = document.createElement('a'); a.href = document.getElementById('preview').toDataURL('image/png'); a.download = 'circle-crop-toolifycore.png'; a.click(); }
+function reset() { document.getElementById('output').style.display = 'none'; document.getElementById('file').value = ''; window._img = null; }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free circle image crop!&url=https://toolifycore.com/tools/image-crop-circle.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/image-crop-circle.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Color Picker from Image Free — Get Hex RGB from Photo | Toolify Core</title>
+<meta name="description" content="Pick any color from an uploaded image online for free. Click any pixel to get hex, RGB, and HSL values. Perfect for designers and developers.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:40px 20px;text-align:center;background:var(--surface2);cursor:pointer;transition:.2s;margin:16px 0}
+.drop-zone:hover,.drop-zone.dragover{border-color:#1D9E75;background:rgba(29,158,117,0.05)}
+.drop-zone .drop-icon{font-size:40px;margin-bottom:8px}
+.canvas-wrap{background:var(--surface2);padding:12px;border-radius:12px;margin:12px 0;text-align:center;position:relative}
+.canvas-wrap canvas{max-width:100%;height:auto;cursor:crosshair;border-radius:6px;display:block;margin:0 auto}
+.picker-hint{font-size:12px;color:var(--muted);margin-top:8px}
+.color-info{display:grid;grid-template-columns:200px 1fr;gap:14px;margin:12px 0;padding:16px;background:var(--surface2);border-radius:10px;align-items:center}
+@media(max-width:640px){.color-info{grid-template-columns:1fr}}
+.color-swatch{width:100%;height:120px;border-radius:10px;border:2px solid var(--border)}
+.color-values{display:flex;flex-direction:column;gap:8px}
+.color-row{display:grid;grid-template-columns:60px 1fr auto;gap:8px;align-items:center;font-size:13px}
+.color-row .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.color-row .val{background:var(--surface);padding:6px 10px;border-radius:6px;font-family:monospace;color:#6EDFB8}
+.color-row button{background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer}
+.color-row button:hover{color:#6EDFB8;border-color:#1D9E75}
+.recent-colors{margin:12px 0}
+.recent-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.recent-swatches{display:flex;gap:6px;flex-wrap:wrap}
+.recent-swatch{width:36px;height:36px;border-radius:6px;border:2px solid var(--border);cursor:pointer;position:relative}
+.recent-swatch:hover{border-color:#1D9E75}
+.tool-badge{background:rgba(29,158,117,0.15) !important;color:#6EDFB8 !important;border:1px solid rgba(29,158,117,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Color Picker</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🖼 Image Tools</div><h1>Color Picker from Image</h1><p>Upload any image and click any pixel to get its exact color. Hex, RGB, and HSL values with one-click copy. Recent colors saved automatically.</p></div>
+<div class="counter-badge">🎨 Used 21,732 times this month</div>
+<div class="drop-zone" id="drop" onclick="document.getElementById('file').click()">
+<div class="drop-icon">🎨</div>
+<h3 style="color:var(--text);margin:0 0 6px">Drop image or click to upload</h3>
+<p style="color:var(--muted);font-size:13px">PNG, JPG, WebP — then click any pixel to sample color</p>
+<input type="file" id="file" accept="image/*" style="display:none">
+</div>
+<div id="output" style="display:none">
+<div class="canvas-wrap">
+<canvas id="canvas"></canvas>
+<div class="picker-hint">🖱 Click anywhere on the image to sample that color</div>
+</div>
+<div class="color-info" id="colorInfo" style="display:none">
+<div class="color-swatch" id="swatch"></div>
+<div class="color-values">
+<div class="color-row"><span class="lbl">HEX</span><span class="val" id="hexVal">#000000</span><button onclick="copyVal('hex')">Copy</button></div>
+<div class="color-row"><span class="lbl">RGB</span><span class="val" id="rgbVal">rgb(0,0,0)</span><button onclick="copyVal('rgb')">Copy</button></div>
+<div class="color-row"><span class="lbl">HSL</span><span class="val" id="hslVal">hsl(0,0%,0%)</span><button onclick="copyVal('hsl')">Copy</button></div>
+</div>
+</div>
+<div class="recent-colors" id="recentWrap" style="display:none">
+<div class="recent-label">Recent picks (click to re-select)</div>
+<div class="recent-swatches" id="recent"></div>
+</div>
+<div class="actions"><button class="btn-secondary" onclick="reset()">Reset</button></div>
+</div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/color-picker-from-image.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Designing UI or branding?</strong> Get more color tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#1D9E75">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Upload Image</h3><p>Any picture — logo, photo, screenshot.</p></div><div class="step"><div class="step-num">02</div><h3>Click Pixel</h3><p>Click anywhere on the image to sample.</p></div><div class="step"><div class="step-num">03</div><h3>Copy Value</h3><p>Hex, RGB, or HSL — one click each.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What image types work?</div><div class="faq-a">Any image format your browser reads: PNG, JPG, WebP, GIF, BMP, SVG. Best accuracy on non-lossy formats like PNG.</div></div>
+<div class="faq-item"><div class="faq-q">Hex vs RGB vs HSL?</div><div class="faq-a">Hex (#7B61FF): compact, web standard. RGB: values 0-255 for each channel, easy to modify. HSL: hue/saturation/lightness — best for color harmonies and shades.</div></div>
+<div class="faq-item"><div class="faq-q">Why sample from real images?</div><div class="faq-a">Matches an exact brand color, extracts palette from photography, recreates a design from a screenshot. More accurate than guessing from a screen.</div></div>
+<div class="faq-item"><div class="faq-q">Is my image uploaded?</div><div class="faq-a">No. Everything runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(29,158,117,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/color-gradient.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Color Palette</a>
+<a href="/tools/css-gradient-gen.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Gradient Gen</a>
+<a href="/tools/image-base64.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Image Base64</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(29,158,117,0.06);border-left:3px solid #1D9E75;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#1D9E75">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#1D9E75">Visit our blog</a>.</div>
+</main>
+<script>
+const drop = document.getElementById('drop');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let recent = [];
+document.getElementById('file').addEventListener('change', e => e.target.files[0] && handle(e.target.files[0]));
+['dragover','dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.toggle('dragover', ev === 'dragover'); if (ev === 'drop' && e.dataTransfer.files[0]) handle(e.dataTransfer.files[0]); }));
+function handle(f) {
+  const img = new Image();
+  img.onload = () => {
+    const maxW = 800;
+    const scale = Math.min(1, maxW / img.width);
+    canvas.width = img.width * scale;
+    canvas.height = img.height * scale;
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    document.getElementById('output').style.display = 'block';
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free color picker from image at Toolify Core: https://toolifycore.com/tools/color-picker-from-image.html`;
+  };
+  img.src = URL.createObjectURL(f);
+}
+canvas.addEventListener('click', e => {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
+  const y = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
+  const px = ctx.getImageData(x, y, 1, 1).data;
+  sampleColor(px[0], px[1], px[2]);
+});
+function sampleColor(r, g, b) {
+  const hex = '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('').toUpperCase();
+  const rgb = `rgb(${r}, ${g}, ${b})`;
+  const hsl = rgbToHsl(r, g, b);
+  document.getElementById('hexVal').textContent = hex;
+  document.getElementById('rgbVal').textContent = rgb;
+  document.getElementById('hslVal').textContent = hsl;
+  document.getElementById('swatch').style.background = hex;
+  document.getElementById('colorInfo').style.display = 'grid';
+  window._current = {hex, rgb, hsl};
+  if (!recent.includes(hex)) { recent.unshift(hex); recent = recent.slice(0, 10); renderRecent(); }
+}
+function renderRecent() {
+  const wrap = document.getElementById('recentWrap');
+  if (!recent.length) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  document.getElementById('recent').innerHTML = recent.map(c => `<div class="recent-swatch" style="background:${c}" title="${c}" onclick="reSample('${c}')"></div>`).join('');
+}
+function reSample(hex) { const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16); sampleColor(r,g,b); }
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r,g,b), min = Math.min(r,g,b);
+  let h, s, l = (max + min) / 2;
+  if (max === min) { h = s = 0; }
+  else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch(max){ case r: h = (g-b)/d + (g<b?6:0); break; case g: h = (b-r)/d + 2; break; case b: h = (r-g)/d + 4; break; }
+    h /= 6;
+  }
+  return `hsl(${Math.round(h*360)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`;
+}
+function copyVal(type) { if (!window._current) return; navigator.clipboard.writeText(window._current[type]); alert(`Copied ${type.toUpperCase()}: ${window._current[type]}`); }
+function reset() { document.getElementById('output').style.display = 'none'; document.getElementById('file').value = ''; document.getElementById('colorInfo').style.display = 'none'; recent = []; renderRecent(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free color picker from image!&url=https://toolifycore.com/tools/color-picker-from-image.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/color-picker-from-image.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

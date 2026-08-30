@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dividend Yield Calculator Free — Stock Income | Toolify Core</title>
+<meta name="description" content="Calculate dividend yield percentage and annual dividend income for any stock. Yield-on-cost and total portfolio income.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:28px}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Dividend Yield</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Dividend Yield Calculator</h1><p>Calculate the dividend yield percentage and annual income for any stock. See total portfolio income based on your holdings.</p></div>
+<div class="counter-badge">💰 Used 8,314 times this month</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Stock price per share</label><input type="number" id="price" value="150" min="0" step="0.01"></div>
+<div class="calc-field"><label>Annual dividend per share</label><input type="number" id="dividend" value="4.50" min="0" step="0.01"></div>
+<div class="calc-field"><label>Number of shares owned</label><input type="number" id="shares" value="100" min="0" step="1"></div>
+<div class="calc-field"><label>Payment frequency</label><select id="freq"><option value="4" selected>Quarterly</option><option value="12">Monthly</option><option value="2">Semi-annually</option><option value="1">Annually</option></select></div>
+<div class="calc-field"><label>Currency</label><select id="currency"><option value="$" selected>$ USD</option><option value="Rs ">Rs PKR</option><option value="₹">₹ INR</option><option value="€">€ EUR</option><option value="£">£ GBP</option><option value="AED ">AED</option></select></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">💰 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">💰</div><h3>Dividend Analysis</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Dividend yield</div><div class="stat-card-value" id="yieldVal">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Annual income</div><div class="stat-card-value" id="annualInc">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Per payment</div><div class="stat-card-value" id="perPay">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Investment value</div><div class="stat-card-value" id="investVal">-</div></div>
+</div>
+<div style="font-size:13px;color:var(--muted);text-align:center;margin:10px 0" id="summary">-</div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/dividend-yield.html" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Building an income portfolio?</strong> Get more investment tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Stock</h3><p>Current price and annual dividend.</p></div><div class="step"><div class="step-num">02</div><h3>Add Shares</h3><p>Number of shares you own or plan to buy.</p></div><div class="step"><div class="step-num">03</div><h3>See Income</h3><p>Yield %, annual and per-payment income.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is dividend yield?</div><div class="faq-a">Annual dividend as a percentage of share price. Yield = (annual dividend / price) × 100. A $150 stock paying $4.50/year = 3% yield.</div></div>
+<div class="faq-item"><div class="faq-q">What is a good dividend yield?</div><div class="faq-a">2-4%: solid dividend stocks. 4-6%: high-yield. Above 7%: check sustainability — very high yields sometimes signal falling stock price or unsustainable payouts.</div></div>
+<div class="faq-item"><div class="faq-q">Do dividends compound?</div><div class="faq-a">Only if reinvested (DRIP). Otherwise you get cash payouts. Reinvesting is one of the most powerful long-term wealth building tools.</div></div>
+<div class="faq-item"><div class="faq-q">Are dividends taxed?</div><div class="faq-a">Yes, in most countries. Rates vary — check your local tax laws. In the US, qualified dividends often get preferential rates.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/compound-interest.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Compound Interest</a>
+<a href="/tools/roi-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">ROI</a>
+<a href="/tools/retirement-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Retirement</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+function calculate() {
+  const p = parseFloat(document.getElementById('price').value) || 0;
+  const d = parseFloat(document.getElementById('dividend').value) || 0;
+  const s = parseInt(document.getElementById('shares').value) || 0;
+  const f = parseInt(document.getElementById('freq').value);
+  const cur = document.getElementById('currency').value;
+  const yield_ = p ? (d / p * 100) : 0;
+  const annual = d * s;
+  const perPay = annual / f;
+  const investVal = p * s;
+  const fmt = n => cur + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  document.getElementById('yieldVal').textContent = yield_.toFixed(2) + '%';
+  document.getElementById('annualInc').textContent = fmt(annual);
+  document.getElementById('perPay').textContent = fmt(perPay);
+  document.getElementById('investVal').textContent = fmt(investVal);
+  document.getElementById('summary').textContent = s > 0 ? `${s} shares × ${fmt(d)}/yr = ${fmt(annual)} annual dividend income` : `Enter your share count to see total income`;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free dividend yield calculator at Toolify Core: https://toolifycore.com/tools/dividend-yield.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+['price','dividend','shares','freq','currency'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+function resetAll() { document.getElementById('price').value = 150; document.getElementById('dividend').value = 4.50; document.getElementById('shares').value = 100; calculate(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free dividend yield calculator!&url=https://toolifycore.com/tools/dividend-yield.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/dividend-yield.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

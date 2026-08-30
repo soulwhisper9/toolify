@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Case Converter Free — Upper Lower Camel Snake Case | Toolify Core</title>
+<meta name="description" content="Convert text between cases: UPPER, lower, Title, camelCase, snake_case, kebab-case, PascalCase, and reverse text. All in your browser.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.text-area{width:100%;min-height:120px;padding:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.5}
+.text-area:focus{border-color:#D85A30}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:500}
+.case-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:12px 0}
+.case-btn{background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:10px 12px;border-radius:8px;font-size:13px;cursor:pointer;text-align:left;transition:.2s}
+.case-btn:hover{border-color:#D85A30;background:rgba(216,90,48,0.08)}
+.case-btn .name{font-weight:600;color:#F4A482;font-size:12px;display:block;margin-bottom:2px}
+.case-btn .ex{color:var(--muted);font-size:11px;font-family:monospace}
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;font-size:12px;color:var(--muted);padding:8px 12px;background:var(--surface2);border-radius:6px}
+.stats span strong{color:#F4A482;font-family:monospace}
+.tool-badge{background:rgba(216,90,48,0.15) !important;color:#F4A482 !important;border:1px solid rgba(216,90,48,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Case Converter</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">✍️ Text Tools</div><h1>Case Converter</h1><p>Transform text between cases: UPPER, lower, Title, Sentence, camelCase, snake_case, kebab-case, PascalCase, or reverse text entirely.</p></div>
+<div class="counter-badge">🔤 Used 20,918 times this month</div>
+<div class="io-label"><span>Input text</span><button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button></div>
+<textarea class="text-area" id="input" placeholder="Paste or type text here..."></textarea>
+<div class="stats"><span>Words: <strong id="wc">0</strong></span><span>Characters: <strong id="cc">0</strong></span><span>Lines: <strong id="lc">0</strong></span></div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px">Pick a transformation</h4>
+<div class="case-buttons">
+<button class="case-btn" onclick="convert('upper')"><span class="name">UPPER CASE</span><span class="ex">HELLO WORLD</span></button>
+<button class="case-btn" onclick="convert('lower')"><span class="name">lower case</span><span class="ex">hello world</span></button>
+<button class="case-btn" onclick="convert('title')"><span class="name">Title Case</span><span class="ex">Hello World</span></button>
+<button class="case-btn" onclick="convert('sentence')"><span class="name">Sentence case</span><span class="ex">Hello world</span></button>
+<button class="case-btn" onclick="convert('camel')"><span class="name">camelCase</span><span class="ex">helloWorld</span></button>
+<button class="case-btn" onclick="convert('pascal')"><span class="name">PascalCase</span><span class="ex">HelloWorld</span></button>
+<button class="case-btn" onclick="convert('snake')"><span class="name">snake_case</span><span class="ex">hello_world</span></button>
+<button class="case-btn" onclick="convert('kebab')"><span class="name">kebab-case</span><span class="ex">hello-world</span></button>
+<button class="case-btn" onclick="convert('constant')"><span class="name">CONSTANT_CASE</span><span class="ex">HELLO_WORLD</span></button>
+<button class="case-btn" onclick="convert('altcase')"><span class="name">aLtErNaTiNg</span><span class="ex">hElLo WoRlD</span></button>
+<button class="case-btn" onclick="convert('inverse')"><span class="name">iNVERSE cASE</span><span class="ex">Swap upper↔lower</span></button>
+<button class="case-btn" onclick="convert('reverse')"><span class="name">Reverse text</span><span class="ex">dlroW olleH</span></button>
+</div>
+<div class="io-label"><span>Output</span><div style="display:flex;gap:6px"><button class="btn-secondary" onclick="copyOut()" style="padding:4px 12px;font-size:11px">📋 Copy</button></div></div>
+<textarea class="text-area" id="output" readonly></textarea>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/reverse-case.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Formatting text often?</strong> Get more text tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#D85A30">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Paste Text</h3><p>Any text — sentence, paragraph, code.</p></div><div class="step"><div class="step-num">02</div><h3>Pick Case</h3><p>12 different transformations.</p></div><div class="step"><div class="step-num">03</div><h3>Copy Result</h3><p>Ready to paste elsewhere.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">When to use camelCase vs snake_case?</div><div class="faq-a">JavaScript/Java/C++: camelCase (myVariable). Python/Ruby/database columns: snake_case (my_variable). CSS/URLs: kebab-case (my-variable). Constants: CONSTANT_CASE (MY_CONSTANT).</div></div>
+<div class="faq-item"><div class="faq-q">Difference between camel and Pascal?</div><div class="faq-a">camelCase starts lowercase (myVariable). PascalCase starts uppercase (MyClass). PascalCase typically for class names, camelCase for variables and functions.</div></div>
+<div class="faq-item"><div class="faq-q">Sentence vs Title case?</div><div class="faq-a">Sentence: only first letter capitalized (Hello world). Title: every important word capitalized (Hello World). Title case is used in headlines and book titles.</div></div>
+<div class="faq-item"><div class="faq-q">Is my text uploaded?</div><div class="faq-a">No. All transformations run in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(216,90,48,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/text-tools.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Text Tools</a>
+<a href="/tools/word-count.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Word Count</a>
+<a href="/tools/word-frequency.html" style="display:inline-block;background:rgba(216,90,48,0.12);color:#F4A482;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(216,90,48,0.25)">Word Frequency</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(216,90,48,0.06);border-left:3px solid #D85A30;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#D85A30">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#D85A30">Visit our blog</a>.</div>
+</main>
+<script>
+function words(t) { return t.trim().split(/\s+/).filter(Boolean); }
+function convert(mode) {
+  const t = document.getElementById('input').value;
+  let out = '';
+  switch(mode) {
+    case 'upper': out = t.toUpperCase(); break;
+    case 'lower': out = t.toLowerCase(); break;
+    case 'title': out = t.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()); break;
+    case 'sentence': out = t.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase()); break;
+    case 'camel': { const w = words(t.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, ' ')); out = w.map((x,i)=>i?x[0].toUpperCase()+x.slice(1):x).join(''); break; }
+    case 'pascal': { const w = words(t.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, ' ')); out = w.map(x=>x[0]?x[0].toUpperCase()+x.slice(1):'').join(''); break; }
+    case 'snake': out = t.toLowerCase().replace(/[^a-zA-Z0-9\s]/g,' ').trim().split(/\s+/).join('_'); break;
+    case 'kebab': out = t.toLowerCase().replace(/[^a-zA-Z0-9\s]/g,' ').trim().split(/\s+/).join('-'); break;
+    case 'constant': out = t.toUpperCase().replace(/[^a-zA-Z0-9\s]/g,' ').trim().split(/\s+/).join('_'); break;
+    case 'altcase': out = t.split('').map((c,i)=> i%2 ? c.toUpperCase() : c.toLowerCase()).join(''); break;
+    case 'inverse': out = t.split('').map(c=> c===c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join(''); break;
+    case 'reverse': out = t.split('').reverse().join(''); break;
+  }
+  document.getElementById('output').value = out;
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free case converter at Toolify Core: https://toolifycore.com/tools/reverse-case.html`;
+}
+function updateStats() {
+  const t = document.getElementById('input').value;
+  document.getElementById('wc').textContent = t.trim() ? words(t).length : 0;
+  document.getElementById('cc').textContent = t.length;
+  document.getElementById('lc').textContent = t ? t.split('\n').length : 0;
+}
+document.getElementById('input').addEventListener('input', updateStats);
+function loadSample() { document.getElementById('input').value = 'The quick brown fox jumps over the lazy dog.'; updateStats(); convert('title'); }
+function copyOut() { const v = document.getElementById('output').value; if (!v) return alert('Convert first.'); navigator.clipboard.writeText(v); alert('Copied!'); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free case converter!&url=https://toolifycore.com/tools/reverse-case.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/reverse-case.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+loadSample();
+</script>
+</body>
+</html>

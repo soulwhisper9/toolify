@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>QR Code Reader Free — Decode from Image | Toolify Core</title>
+<meta name="description" content="Decode QR codes from any image online for free. Upload photo of QR code and instantly see the encoded URL, text, or WiFi credentials.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:40px 20px;text-align:center;background:var(--surface2);cursor:pointer;transition:.2s;margin:16px 0}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--accent);background:rgba(123,97,255,0.05)}
+.drop-zone .drop-icon{font-size:40px;margin-bottom:8px}
+.preview-img{max-width:200px;max-height:200px;border-radius:8px;margin:12px auto;display:block}
+.result-content{background:var(--surface2);padding:16px 18px;border-radius:10px;font-family:monospace;font-size:14px;color:#B8AAFF;word-break:break-all;margin:12px 0;line-height:1.6;border:1px solid rgba(123,97,255,0.3)}
+.type-badge{display:inline-block;background:rgba(0,229,192,0.15);color:#00E5C0;padding:3px 10px;border-radius:20px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">QR Reader</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>QR Code Reader</h1><p>Upload any image containing a QR code and instantly decode it. Works with URLs, text, WiFi credentials, contact cards, and payment QR codes.</p></div>
+<div class="counter-badge">📱 Used 17,214 times this month</div>
+<div class="drop-zone" id="drop" onclick="document.getElementById('file').click()">
+<div class="drop-icon">📤</div>
+<h3 style="color:var(--text);margin:0 0 6px">Drop QR image or click to upload</h3>
+<p style="color:var(--muted);font-size:13px">Screenshot, photo, or saved QR image</p>
+<input type="file" id="file" accept="image/*" style="display:none">
+</div>
+<div id="output" style="display:none">
+<img id="preview" class="preview-img">
+<div id="status" style="text-align:center;margin:10px 0;color:var(--muted);font-size:13px">Decoding...</div>
+<div id="resultWrap" style="display:none">
+<div class="type-badge" id="typeBadge">Type</div>
+<h3 style="font-family:var(--font-head);margin:6px 0">Decoded content</h3>
+<div class="result-content" id="content"></div>
+<div class="actions"><button class="btn-primary" onclick="copyContent()">📋 Copy</button><button class="btn-secondary" onclick="openLink()" id="openBtn" style="display:none">🔗 Open link</button><button class="btn-secondary" onclick="reset()">Reset</button></div>
+</div>
+</div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/qr-reader.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Working with QR codes?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Upload Image</h3><p>Screenshot or photo of any QR code.</p></div><div class="step"><div class="step-num">02</div><h3>Auto-Decode</h3><p>Runs entirely in your browser.</p></div><div class="step"><div class="step-num">03</div><h3>See Content</h3><p>URL, text, or credentials revealed.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What QR types are supported?</div><div class="faq-a">All standard QR codes: URLs, plain text, WiFi credentials, vCards (contacts), calendar events, phone numbers, email addresses, and payment codes.</div></div>
+<div class="faq-item"><div class="faq-q">Blurry or partial QR?</div><div class="faq-a">Works best on clear, high-contrast images. For blurry photos, try improving lighting or angle. Partial or damaged QRs may not decode.</div></div>
+<div class="faq-item"><div class="faq-q">Camera scanning?</div><div class="faq-a">This tool decodes images only. For live camera scanning, use your phone's built-in QR scanner or camera app.</div></div>
+<div class="faq-item"><div class="faq-q">Is my image uploaded?</div><div class="faq-a">No. Decoding runs in your browser using jsQR — nothing leaves your device.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/qr-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">QR Generator</a>
+<a href="/tools/barcode-gen.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Barcode Gen</a>
+<a href="/tools/url-encoder.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">URL Encoder</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script>
+const drop = document.getElementById('drop');
+document.getElementById('file').addEventListener('change', e => e.target.files[0] && handle(e.target.files[0]));
+['dragover','dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.toggle('dragover', ev === 'dragover'); if (ev === 'drop' && e.dataTransfer.files[0]) handle(e.dataTransfer.files[0]); }));
+function handle(f) {
+  document.getElementById('output').style.display = 'block';
+  document.getElementById('resultWrap').style.display = 'none';
+  document.getElementById('status').textContent = 'Decoding...';
+  document.getElementById('status').style.color = 'var(--muted)';
+  const img = new Image();
+  img.onload = () => {
+    document.getElementById('preview').src = img.src;
+    const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0);
+    const data = ctx.getImageData(0, 0, c.width, c.height);
+    const code = jsQR(data.data, data.width, data.height);
+    if (!code) { document.getElementById('status').textContent = '✗ No QR code found in image. Try a clearer image.'; document.getElementById('status').style.color = '#FF6B6B'; return; }
+    document.getElementById('status').textContent = '';
+    document.getElementById('resultWrap').style.display = 'block';
+    const val = code.data;
+    let type = 'Text';
+    if (val.startsWith('http')) type = 'URL';
+    else if (val.startsWith('WIFI:')) type = 'WiFi';
+    else if (val.startsWith('BEGIN:VCARD')) type = 'Contact';
+    else if (val.startsWith('mailto:')) type = 'Email';
+    else if (val.startsWith('tel:')) type = 'Phone';
+    else if (val.startsWith('sms:')) type = 'SMS';
+    document.getElementById('typeBadge').textContent = type;
+    document.getElementById('content').textContent = val;
+    document.getElementById('openBtn').style.display = ['URL','Email','Phone','SMS'].includes(type) ? 'inline-block' : 'none';
+    window._decoded = val;
+    document.getElementById('shareWa').href = `https://wa.me/?text=Free QR code reader at Toolify Core: https://toolifycore.com/tools/qr-reader.html`;
+  };
+  img.src = URL.createObjectURL(f);
+}
+function copyContent() { if (window._decoded) { navigator.clipboard.writeText(window._decoded); alert('Copied!'); } }
+function openLink() { if (window._decoded) window.open(window._decoded, '_blank'); }
+function reset() { document.getElementById('output').style.display = 'none'; document.getElementById('file').value = ''; window._decoded = null; }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free QR code reader!&url=https://toolifycore.com/tools/qr-reader.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/qr-reader.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

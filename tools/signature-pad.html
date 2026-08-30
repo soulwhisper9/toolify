@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Signature Pad Free — Draw and Download PNG | Toolify Core</title>
+<meta name="description" content="Draw your signature online for free. Works on mouse or touchscreen. Download as transparent PNG for PDFs, contracts, and emails.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.sig-wrap{background:#fff;border:2px solid var(--border);border-radius:12px;padding:0;margin:12px 0;overflow:hidden}
+.sig-canvas{display:block;width:100%;cursor:crosshair;touch-action:none;background:#fff}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:12px 0;padding:14px;background:var(--surface2);border-radius:8px}
+.opts .field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.opts input,.opts select{padding:8px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.tool-badge{background:rgba(123,97,255,0.15) !important;color:#B8AAFF !important;border:1px solid rgba(123,97,255,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Signature Pad</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>Signature Pad</h1><p>Draw your signature with mouse or touch. Download as transparent or white-background PNG for contracts, PDFs, and email signatures.</p></div>
+<div class="counter-badge">✍ Used 14,592 times this month</div>
+<div class="opts">
+<div class="field"><label>Pen color</label><input type="color" id="penColor" value="#000000"></div>
+<div class="field"><label>Pen thickness <span id="thickVal">3</span>px</label><input type="range" id="thickness" min="1" max="10" value="3"></div>
+<div class="field"><label>Background</label><select id="bg"><option value="transparent" selected>Transparent</option><option value="white">White</option></select></div>
+</div>
+<div class="sig-wrap"><canvas id="sig" class="sig-canvas" width="800" height="300"></canvas></div>
+<div class="actions"><button class="btn-primary" onclick="download()">⬇ Download PNG</button><button class="btn-secondary" onclick="clearSig()">🗑 Clear</button></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/signature-pad.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Signing documents?</strong> Get more tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Adjust Settings</h3><p>Pen color, thickness, background.</p></div><div class="step"><div class="step-num">02</div><h3>Draw Signature</h3><p>Mouse or touchscreen — works on any device.</p></div><div class="step"><div class="step-num">03</div><h3>Download</h3><p>Transparent PNG ready to paste anywhere.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Is this legally binding?</div><div class="faq-a">In most jurisdictions, an electronic signature has legal weight for contracts and agreements — but complex legal documents (real estate, wills, medical directives) may require notarization or specific e-signature platforms with audit trails.</div></div>
+<div class="faq-item"><div class="faq-q">Works on phone or tablet?</div><div class="faq-a">Yes. Touchscreen input is supported natively. Use a stylus for cleaner lines.</div></div>
+<div class="faq-item"><div class="faq-q">Why transparent PNG?</div><div class="faq-a">Lets you paste your signature over any background — PDF forms, contract images, or email signatures — without a white box around it.</div></div>
+<div class="faq-item"><div class="faq-q">Is my signature uploaded?</div><div class="faq-a">No. Everything stays on your device — the drawing never leaves your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/watermark-pdf.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Watermark PDF</a>
+<a href="/tools/jpg-to-pdf.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">JPG to PDF</a>
+<a href="/tools/image-crop-circle.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Circle Crop</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+const canvas = document.getElementById('sig');
+const ctx = canvas.getContext('2d');
+let drawing = false, lastX = 0, lastY = 0;
+function resize() {
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width; canvas.height = rect.height;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+}
+window.addEventListener('resize', resize);
+setTimeout(resize, 100);
+function pos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+  const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+  return {x, y};
+}
+function start(e) { e.preventDefault(); drawing = true; const p = pos(e); lastX = p.x; lastY = p.y; }
+function draw(e) {
+  if (!drawing) return; e.preventDefault();
+  const p = pos(e);
+  ctx.strokeStyle = document.getElementById('penColor').value;
+  ctx.lineWidth = parseInt(document.getElementById('thickness').value);
+  ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(p.x, p.y); ctx.stroke();
+  lastX = p.x; lastY = p.y;
+}
+function stop() { drawing = false; }
+canvas.addEventListener('mousedown', start); canvas.addEventListener('mousemove', draw); canvas.addEventListener('mouseup', stop); canvas.addEventListener('mouseleave', stop);
+canvas.addEventListener('touchstart', start); canvas.addEventListener('touchmove', draw); canvas.addEventListener('touchend', stop);
+document.getElementById('thickness').addEventListener('input', e => document.getElementById('thickVal').textContent = e.target.value);
+function clearSig() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+function download() {
+  const bg = document.getElementById('bg').value;
+  const out = document.createElement('canvas');
+  out.width = canvas.width; out.height = canvas.height;
+  const octx = out.getContext('2d');
+  if (bg === 'white') { octx.fillStyle = '#fff'; octx.fillRect(0, 0, out.width, out.height); }
+  octx.drawImage(canvas, 0, 0);
+  const a = document.createElement('a'); a.href = out.toDataURL('image/png'); a.download = 'signature-toolifycore.png'; a.click();
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free signature pad at Toolify Core: https://toolifycore.com/tools/signature-pad.html`;
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free signature pad!&url=https://toolifycore.com/tools/signature-pad.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/signature-pad.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

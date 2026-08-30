@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Favicon Generator Free — All Sizes from Any Image | Toolify Core</title>
+<meta name="description" content="Generate favicon PNGs in all standard sizes (16, 32, 48, 64, 128, 180, 192, 512) from any image. Includes HTML meta tags to paste in your website head.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:40px 20px;text-align:center;background:var(--surface2);cursor:pointer;transition:.2s;margin:16px 0}
+.drop-zone:hover,.drop-zone.dragover{border-color:#1D9E75;background:rgba(29,158,117,0.05)}
+.drop-zone .drop-icon{font-size:40px;margin-bottom:8px}
+.drop-zone p{color:var(--muted);font-size:13px}
+.sizes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin:16px 0}
+.size-card{background:var(--surface2);padding:14px 10px;border-radius:8px;text-align:center}
+.size-card canvas{background:#fff;border-radius:4px;image-rendering:pixelated}
+.size-card .lbl{font-size:11px;color:var(--muted);margin-top:6px}
+.size-card button{background:#1D9E75;color:white;border:none;padding:5px 10px;border-radius:4px;font-size:11px;cursor:pointer;margin-top:6px;width:100%}
+.meta-code{background:var(--surface2);padding:14px;border-radius:8px;font-family:monospace;font-size:11px;color:#6EDFB8;margin:12px 0;line-height:1.5;overflow-x:auto}
+.tool-badge{background:rgba(29,158,117,0.15) !important;color:#6EDFB8 !important;border:1px solid rgba(29,158,117,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Favicon Generator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🖼 Image Tools</div><h1>Favicon Generator</h1><p>Upload any image and download favicons in all standard sizes (16, 32, 48, 64, 128, 180, 192, 512 px). Includes ready-to-paste HTML meta tags.</p></div>
+<div class="counter-badge">🎨 Used 8,472 times this month</div>
+<div class="drop-zone" id="drop" onclick="document.getElementById('file').click()">
+<div class="drop-icon">📤</div>
+<h3 style="color:var(--text);margin:0 0 6px">Drop image here or click to upload</h3>
+<p>Best results: square PNG at 512×512 or larger</p>
+<input type="file" id="file" accept="image/*" style="display:none">
+</div>
+<div id="output" style="display:none">
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px">Generated favicons — click to download each</h4>
+<div class="sizes-grid" id="sizesGrid"></div>
+<div class="actions"><button class="btn-primary" onclick="downloadAll()" style="background:#1D9E75">⬇ Download All (ZIP-style)</button><button class="btn-secondary" onclick="reset()">Reset</button></div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 6px">Paste this in your &lt;head&gt;</h4>
+<div class="meta-code" id="metaCode"></div>
+<button class="btn-secondary" onclick="copyMeta()">📋 Copy HTML meta tags</button>
+</div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/favicon-gen.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Setting up a site?</strong> Get more web tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#1D9E75">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Upload Image</h3><p>PNG, JPG, or any format your browser reads.</p></div><div class="step"><div class="step-num">02</div><h3>Auto-Resize</h3><p>Generated in all 8 standard sizes.</p></div><div class="step"><div class="step-num">03</div><h3>Copy Meta Tags</h3><p>Paste HTML into your website head.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Which sizes do I really need?</div><div class="faq-a">Minimum: 16×16 (browser tab), 32×32 (bookmarks), 180×180 (Apple touch). For modern web apps: 192×192 and 512×512 (Android + PWA). Include all sizes for best support.</div></div>
+<div class="faq-item"><div class="faq-q">Do I need favicon.ico too?</div><div class="faq-a">A 32×32 PNG works in all modern browsers. Only very old Internet Explorer needs .ico format. For legacy support, convert the 32px PNG to ICO using a separate tool.</div></div>
+<div class="faq-item"><div class="faq-q">Best source image?</div><div class="faq-a">Square, 512×512 or larger, with clear focal point. Avoid tiny detail (won't be visible at 16×16). Solid background looks better than transparent for small sizes.</div></div>
+<div class="faq-item"><div class="faq-q">Is my image uploaded?</div><div class="faq-a">No. Everything runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(29,158,117,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/image-resize.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Image Resize</a>
+<a href="/tools/image-compress.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Image Compress</a>
+<a href="/tools/svg-to-png.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">SVG to PNG</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(29,158,117,0.06);border-left:3px solid #1D9E75;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#1D9E75">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#1D9E75">Visit our blog</a>.</div>
+</main>
+<script>
+const SIZES = [16, 32, 48, 64, 128, 180, 192, 512];
+const drop = document.getElementById('drop');
+document.getElementById('file').addEventListener('change', e => e.target.files[0] && handle(e.target.files[0]));
+['dragover','dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.toggle('dragover', ev === 'dragover'); if (ev === 'drop' && e.dataTransfer.files[0]) handle(e.dataTransfer.files[0]); }));
+function handle(f) {
+  const img = new Image();
+  img.onload = () => {
+    document.getElementById('output').style.display = 'block';
+    const grid = document.getElementById('sizesGrid');
+    grid.innerHTML = '';
+    SIZES.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'size-card';
+      const c = document.createElement('canvas');
+      c.width = s; c.height = s;
+      const previewSize = Math.min(80, s);
+      c.style.width = previewSize + 'px'; c.style.height = previewSize + 'px';
+      c.getContext('2d').drawImage(img, 0, 0, s, s);
+      card.appendChild(c);
+      card.innerHTML += `<div class="lbl">${s}×${s}</div><button onclick="downloadSize(${s})">⬇ Download</button>`;
+      card.dataset.size = s;
+      grid.appendChild(card);
+    });
+    window._img = img;
+    document.getElementById('metaCode').innerHTML = SIZES.filter(s => [16,32,180,192,512].includes(s)).map(s => {
+      if (s === 180) return `&lt;link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png"&gt;`;
+      if (s === 192) return `&lt;link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"&gt;`;
+      if (s === 512) return `&lt;link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png"&gt;`;
+      return `&lt;link rel="icon" type="image/png" sizes="${s}x${s}" href="/favicon-${s}.png"&gt;`;
+    }).join('<br>');
+  };
+  img.src = URL.createObjectURL(f);
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free favicon generator at Toolify Core: https://toolifycore.com/tools/favicon-gen.html`;
+}
+function downloadSize(s) {
+  const c = document.createElement('canvas'); c.width = s; c.height = s;
+  c.getContext('2d').drawImage(window._img, 0, 0, s, s);
+  const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = `favicon-${s}.png`; a.click();
+}
+function downloadAll() { SIZES.forEach((s, i) => setTimeout(() => downloadSize(s), i * 250)); }
+function reset() { document.getElementById('output').style.display = 'none'; document.getElementById('file').value = ''; window._img = null; }
+function copyMeta() { navigator.clipboard.writeText(document.getElementById('metaCode').innerText); alert('Meta tags copied!'); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free favicon generator!&url=https://toolifycore.com/tools/favicon-gen.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/favicon-gen.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

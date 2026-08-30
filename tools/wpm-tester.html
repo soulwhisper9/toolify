@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Typing Speed Test Free — WPM Test | Toolify Core</title>
+<meta name="description" content="Test your typing speed and accuracy online for free. WPM tracker, accuracy percentage, and multiple difficulty levels.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.controls{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;padding:14px;background:var(--surface2);border-radius:8px;align-items:center}
+.controls select{padding:8px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.controls .field{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted)}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+.stat{background:var(--surface2);padding:10px;border-radius:8px;text-align:center}
+.stat .lbl{font-size:10px;color:var(--muted);text-transform:uppercase}
+.stat .val{font-family:var(--font-head);font-size:20px;font-weight:700;color:#7B61FF}
+.stat.wpm .val{color:#00E5C0;font-size:26px}
+.text-display{background:var(--surface2);padding:20px;border-radius:10px;font-size:18px;line-height:1.8;font-family:'DM Sans',sans-serif;letter-spacing:.02em;min-height:100px;margin:12px 0;color:var(--muted)}
+.char-correct{color:#00E5C0}
+.char-wrong{color:#FF6B6B;background:rgba(255,107,107,0.15);border-radius:2px}
+.char-current{background:rgba(123,97,255,0.3);border-radius:2px;color:var(--text)}
+.input-area{width:100%;padding:14px 16px;background:var(--surface2);color:var(--text);border:2px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:16px;box-sizing:border-box;outline:none;resize:none;min-height:120px}
+.input-area:focus{border-color:var(--accent)}
+.result-block{background:linear-gradient(135deg,rgba(123,97,255,0.15),rgba(0,229,192,0.15));padding:20px;border-radius:12px;margin:16px 0;text-align:center;border:1px solid rgba(123,97,255,0.3)}
+.result-block h2{font-family:var(--font-head);font-size:28px;margin:0 0 10px;color:#00E5C0}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Typing Speed</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>Typing Speed Test (WPM)</h1><p>Test your typing speed and accuracy. Timer starts on first keystroke and stops when you finish. Multiple difficulty levels and durations.</p></div>
+<div class="counter-badge">⌨️ Used 22,514 times this month</div>
+<div class="controls">
+<div class="field"><label>Difficulty</label><select id="difficulty"><option value="easy">Easy (common words)</option><option value="medium" selected>Medium (sentences)</option><option value="hard">Hard (technical text)</option></select></div>
+<div class="field"><label>Duration</label><select id="duration"><option value="30">30 seconds</option><option value="60" selected>1 minute</option><option value="120">2 minutes</option><option value="0">Untimed</option></select></div>
+<button class="btn-primary" onclick="startTest()">🔄 New Test</button>
+</div>
+<div class="stats-bar">
+<div class="stat wpm"><div class="lbl">WPM</div><div class="val" id="wpm">0</div></div>
+<div class="stat"><div class="lbl">Accuracy</div><div class="val" id="accuracy">100%</div></div>
+<div class="stat"><div class="lbl">Time</div><div class="val" id="time">0s</div></div>
+<div class="stat"><div class="lbl">Errors</div><div class="val" id="errors">0</div></div>
+</div>
+<div class="text-display" id="textDisplay"></div>
+<textarea class="input-area" id="typeInput" placeholder="Click here and start typing..."></textarea>
+<div id="finalResult" style="display:none" class="result-block"></div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/wpm-tester.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Improve productivity?</strong> Get more work tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Options</h3><p>Difficulty and duration.</p></div><div class="step"><div class="step-num">02</div><h3>Start Typing</h3><p>Timer starts on first keystroke.</p></div><div class="step"><div class="step-num">03</div><h3>See WPM</h3><p>Words per minute and accuracy.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What's a good WPM?</div><div class="faq-a">Average: 40 WPM. Good: 60+ WPM. Excellent: 80+ WPM. Fast typists: 100+ WPM. Professional data entry: 60-80 WPM required.</div></div>
+<div class="faq-item"><div class="faq-q">How is WPM calculated?</div><div class="faq-a">Standard: characters typed ÷ 5 (average word length) ÷ minutes elapsed. So 500 characters in 1 minute = 100 WPM.</div></div>
+<div class="faq-item"><div class="faq-q">How to type faster?</div><div class="faq-a">Practice touch typing (don't look at keyboard), use all 10 fingers, aim for accuracy first then speed. 15-30 minutes daily improves WPM steadily.</div></div>
+<div class="faq-item"><div class="faq-q">Is my data uploaded?</div><div class="faq-a">No. Everything runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/word-count.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Word Count</a>
+<a href="/tools/text-tools.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Text Tools</a>
+<a href="/tools/timer-stopwatch.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Timer</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+const TEXTS = {
+  easy: 'The quick brown fox jumps over the lazy dog. She sells seashells by the seashore. A journey of a thousand miles begins with a single step. Practice makes perfect and hard work pays off. Never give up on your dreams and always keep pushing forward.',
+  medium: 'Innovation distinguishes between a leader and a follower. Success is not final, failure is not fatal, it is the courage to continue that counts. Life is what happens when you are busy making other plans. The best way to predict the future is to invent it. Simplicity is the ultimate sophistication.',
+  hard: 'Asynchronous JavaScript enables non-blocking execution through promises and async/await patterns. TypeScript introduces static typing to improve maintainability. React components leverage functional paradigms with hooks like useState and useEffect. RESTful APIs communicate through standardized HTTP verbs including GET, POST, PUT, DELETE.'
+};
+let startTime = null, timer = null, currentText = '', duration = 60;
+function startTest() {
+  currentText = TEXTS[document.getElementById('difficulty').value];
+  duration = parseInt(document.getElementById('duration').value);
+  startTime = null;
+  clearInterval(timer);
+  const input = document.getElementById('typeInput');
+  input.value = '';
+  input.disabled = false;
+  input.focus();
+  document.getElementById('finalResult').style.display = 'none';
+  updateStats();
+  render();
+}
+function render() {
+  const typed = document.getElementById('typeInput').value;
+  let html = '';
+  for (let i = 0; i < currentText.length; i++) {
+    const char = currentText[i];
+    if (i < typed.length) {
+      html += `<span class="char-${typed[i] === char ? 'correct' : 'wrong'}">${char === ' ' ? '&nbsp;' : char}</span>`;
+    } else if (i === typed.length) {
+      html += `<span class="char-current">${char === ' ' ? '&nbsp;' : char}</span>`;
+    } else {
+      html += char;
+    }
+  }
+  document.getElementById('textDisplay').innerHTML = html;
+}
+function updateStats() {
+  const typed = document.getElementById('typeInput').value;
+  let errors = 0, correct = 0;
+  for (let i = 0; i < typed.length; i++) {
+    if (typed[i] === currentText[i]) correct++;
+    else errors++;
+  }
+  const elapsedMs = startTime ? (Date.now() - startTime) : 0;
+  const elapsedSec = elapsedMs / 1000;
+  const wpm = elapsedSec > 0 ? Math.round((correct / 5) / (elapsedSec / 60)) : 0;
+  const acc = typed.length ? Math.round((correct / typed.length) * 100) : 100;
+  document.getElementById('wpm').textContent = wpm;
+  document.getElementById('accuracy').textContent = acc + '%';
+  document.getElementById('errors').textContent = errors;
+  document.getElementById('time').textContent = Math.floor(elapsedSec) + 's';
+  return {wpm, acc, errors, elapsedSec};
+}
+document.getElementById('typeInput').addEventListener('input', e => {
+  if (!startTime) {
+    startTime = Date.now();
+    timer = setInterval(() => {
+      const s = updateStats();
+      if (duration > 0 && s.elapsedSec >= duration) finish();
+    }, 200);
+  }
+  render();
+  updateStats();
+  if (e.target.value.length >= currentText.length) finish();
+});
+function finish() {
+  clearInterval(timer);
+  document.getElementById('typeInput').disabled = true;
+  const s = updateStats();
+  document.getElementById('finalResult').style.display = 'block';
+  document.getElementById('finalResult').innerHTML = `<h2>${s.wpm} WPM · ${s.acc}% accuracy</h2><p style="color:var(--muted);margin:0">${s.errors} errors · ${Math.floor(s.elapsedSec)}s elapsed</p>`;
+  document.getElementById('shareWa').href = `https://wa.me/?text=I just typed ${s.wpm} WPM at ${s.acc}% accuracy! Test yours at Toolify Core: https://toolifycore.com/tools/wpm-tester.html`;
+}
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free typing speed test!&url=https://toolifycore.com/tools/wpm-tester.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/wpm-tester.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+startTest();
+</script>
+</body>
+</html>

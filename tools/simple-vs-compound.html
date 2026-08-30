@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Simple vs Compound Interest Calculator Free — Side by Side | Toolify Core</title>
+<meta name="description" content="Compare simple vs compound interest side-by-side. See exactly how much more compound interest earns over time with year-by-year breakdown.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:#BA7517}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+@media(max-width:640px){.compare-grid{grid-template-columns:1fr}}
+.compare-card{background:var(--surface2);padding:20px 18px;border-radius:12px;text-align:center;border:1px solid var(--border)}
+.compare-card.simple{border-color:rgba(255,107,107,0.3);background:linear-gradient(180deg,rgba(255,107,107,0.05),transparent)}
+.compare-card.compound{border-color:rgba(0,229,192,0.3);background:linear-gradient(180deg,rgba(0,229,192,0.08),transparent)}
+.compare-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.compare-card.simple .compare-label{color:#FF6B6B}
+.compare-card.compound .compare-label{color:#00E5C0}
+.compare-value{font-family:var(--font-head);font-size:28px;font-weight:700;color:var(--text);margin-bottom:4px}
+.compare-sub{font-size:12px;color:var(--muted)}
+.diff-badge{background:linear-gradient(135deg,rgba(0,229,192,0.15),rgba(123,97,255,0.15));padding:14px 20px;border-radius:12px;text-align:center;margin:14px 0;border:1px solid rgba(0,229,192,0.3)}
+.diff-badge .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.diff-badge .val{font-family:var(--font-head);font-size:26px;font-weight:800;color:#00E5C0;margin-top:4px}
+.year-table{width:100%;border-collapse:collapse;margin:12px 0;background:var(--surface2);border-radius:8px;overflow:hidden;font-size:12px}
+.year-table th{padding:8px 12px;background:var(--surface);color:var(--muted);text-align:right;text-transform:uppercase;letter-spacing:.05em;font-size:10px}
+.year-table th:first-child{text-align:left}
+.year-table td{padding:6px 12px;border-top:1px solid var(--border);text-align:right;color:var(--text)}
+.year-table td:first-child{text-align:left;color:var(--muted)}
+.year-table td.simple-c{color:#FF9F9F}
+.year-table td.comp-c{color:#6EDFB8;font-weight:600}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Simple vs Compound</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Simple vs Compound Interest</h1><p>Compare simple and compound interest side-by-side. See exactly how much extra compound earns over time and why it matters for savings.</p></div>
+<div class="counter-badge">📈 Used 11,047 times this month</div>
+<div class="calc-grid">
+<div class="calc-field"><label>Principal amount</label><input type="number" id="principal" value="100000" min="0" step="100"></div>
+<div class="calc-field"><label>Annual interest rate (%)</label><input type="number" id="rate" value="10" min="0" max="100" step="0.1"></div>
+<div class="calc-field"><label>Time period (years)</label><input type="number" id="years" value="10" min="1" max="50" step="1"></div>
+<div class="calc-field"><label>Compound frequency</label><select id="freq"><option value="1">Annually</option><option value="2">Semi-annually</option><option value="4">Quarterly</option><option value="12" selected>Monthly</option><option value="365">Daily</option></select></div>
+<div class="calc-field"><label>Currency</label><select id="currency"><option value="Rs " selected>Rs PKR</option><option value="₹">₹ INR</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="£">£ GBP</option><option value="AED ">AED</option></select></div>
+</div>
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">📈 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+<div class="result-box" id="resultBox">
+<div class="result-icon">📈</div><h3>Side-by-side comparison</h3>
+<div class="compare-grid">
+<div class="compare-card simple">
+<div class="compare-label">Simple Interest</div>
+<div class="compare-value" id="simpleTotal">-</div>
+<div class="compare-sub">Interest earned: <span id="simpleInt">-</span></div>
+</div>
+<div class="compare-card compound">
+<div class="compare-label">Compound Interest</div>
+<div class="compare-value" id="compTotal">-</div>
+<div class="compare-sub">Interest earned: <span id="compInt">-</span></div>
+</div>
+</div>
+<div class="diff-badge">
+<div class="lbl">Compound earns extra</div>
+<div class="val" id="diff">-</div>
+<div class="compare-sub" style="margin-top:4px" id="diffPct">-</div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 6px">Year-by-year breakdown</h4>
+<div style="overflow-x:auto"><table class="year-table" id="yearTable"></table></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/simple-vs-compound.html" width="100%" height="900" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Planning to invest?</strong> Get more finance tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Amount</h3><p>Principal, rate, and time period.</p></div><div class="step"><div class="step-num">02</div><h3>Set Frequency</h3><p>How often compounding happens.</p></div><div class="step"><div class="step-num">03</div><h3>See Difference</h3><p>Total, interest earned, extra from compounding.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is the difference?</div><div class="faq-a">Simple: interest earned only on the original principal. Compound: interest earned on principal + previously earned interest. Over long periods, compound grows dramatically faster.</div></div>
+<div class="faq-item"><div class="faq-q">Simple interest formula?</div><div class="faq-a">SI = Principal × Rate × Time. Example: Rs 100,000 at 10% for 5 years = Rs 100,000 × 0.10 × 5 = Rs 50,000 interest. Final: Rs 150,000.</div></div>
+<div class="faq-item"><div class="faq-q">Compound interest formula?</div><div class="faq-a">CI = P(1 + r/n)^(nt) - P, where n is compounding frequency per year. Higher n = faster growth. Same example compounded monthly = Rs 164,530 (extra Rs 14,530).</div></div>
+<div class="faq-item"><div class="faq-q">Which is used in real life?</div><div class="faq-a">Savings accounts, fixed deposits, mutual funds, retirement accounts almost always use compound. Some short-term loans and bonds use simple. Always check.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/compound-interest.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Compound Only</a>
+<a href="/tools/inflation-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Inflation</a>
+<a href="/tools/retirement-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Retirement</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+function calculate() {
+  const p = parseFloat(document.getElementById('principal').value) || 0;
+  const r = (parseFloat(document.getElementById('rate').value) || 0) / 100;
+  const t = parseInt(document.getElementById('years').value) || 0;
+  const n = parseInt(document.getElementById('freq').value);
+  const cur = document.getElementById('currency').value;
+  const fmt = x => cur + x.toLocaleString('en-US', {maximumFractionDigits: 0});
+  const simpleInt = p * r * t;
+  const simpleTotal = p + simpleInt;
+  const compTotal = p * Math.pow(1 + r/n, n*t);
+  const compInt = compTotal - p;
+  const diff = compTotal - simpleTotal;
+  document.getElementById('simpleTotal').textContent = fmt(simpleTotal);
+  document.getElementById('simpleInt').textContent = fmt(simpleInt);
+  document.getElementById('compTotal').textContent = fmt(compTotal);
+  document.getElementById('compInt').textContent = fmt(compInt);
+  document.getElementById('diff').textContent = fmt(diff);
+  document.getElementById('diffPct').textContent = simpleTotal > 0 ? `${((diff/simpleTotal)*100).toFixed(1)}% more than simple` : '';
+  // Yearly breakdown
+  let html = '<thead><tr><th>Year</th><th>Simple total</th><th>Compound total</th><th>Extra from compound</th></tr></thead><tbody>';
+  for (let y = 1; y <= t; y++) {
+    const sTot = p + p*r*y;
+    const cTot = p * Math.pow(1 + r/n, n*y);
+    html += `<tr><td>Year ${y}</td><td class="simple-c">${fmt(sTot)}</td><td class="comp-c">${fmt(cTot)}</td><td class="comp-c">${fmt(cTot-sTot)}</td></tr>`;
+  }
+  html += '</tbody>';
+  document.getElementById('yearTable').innerHTML = html;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href = `https://wa.me/?text=Free simple vs compound interest calculator at Toolify Core: https://toolifycore.com/tools/simple-vs-compound.html`;
+}
+document.getElementById('calcBtn').addEventListener('click', calculate);
+['principal','rate','years','freq','currency'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+function resetAll() { document.getElementById('principal').value = 100000; document.getElementById('rate').value = 10; document.getElementById('years').value = 10; document.getElementById('freq').value = 12; calculate(); }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free simple vs compound interest calculator!&url=https://toolifycore.com/tools/simple-vs-compound.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/simple-vs-compound.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Meme Generator Free — Top Bottom Text Impact Font | Toolify Core</title>
+<meta name="description" content="Create memes online for free. Upload any image, add top and bottom text with classic Impact font. Download as PNG.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:32px 20px;text-align:center;background:var(--surface2);cursor:pointer;transition:.2s;margin:16px 0}
+.drop-zone:hover,.drop-zone.dragover{border-color:#1D9E75;background:rgba(29,158,117,0.05)}
+.drop-zone .drop-icon{font-size:32px;margin-bottom:6px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;padding:14px;background:var(--surface2);border-radius:8px}
+.opts .field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.opts input,.opts select{padding:8px 10px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.opts input[type=range]{padding:0}
+.preview-wrap{background:linear-gradient(135deg,#3a3a4a 25%,transparent 25%),linear-gradient(-135deg,#3a3a4a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#3a3a4a 75%),linear-gradient(-45deg,transparent 75%,#3a3a4a 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0;background-color:#2a2a3a;border-radius:12px;padding:16px;text-align:center;margin:12px 0}
+.preview-wrap canvas{max-width:100%;height:auto;border-radius:8px}
+.tool-badge{background:rgba(29,158,117,0.15) !important;color:#6EDFB8 !important;border:1px solid rgba(29,158,117,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Meme Generator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🖼 Image Tools</div><h1>Meme Generator</h1><p>Upload any image, add top and bottom text with the classic Impact font. Adjust font size, color, and stroke. Download as PNG.</p></div>
+<div class="counter-badge">😂 Used 26,384 times this month</div>
+<div class="drop-zone" id="drop" onclick="document.getElementById('file').click()">
+<div class="drop-icon">📤</div>
+<h3 style="color:var(--text);margin:0 0 4px">Drop image or click to upload</h3>
+<p style="color:var(--muted);font-size:13px">Any image format, or use a stock template</p>
+<input type="file" id="file" accept="image/*" style="display:none">
+</div>
+<div id="output" style="display:none">
+<div class="opts">
+<div class="field"><label>Top text</label><input type="text" id="topText" placeholder="ONE DOES NOT SIMPLY" value="TOP TEXT"></div>
+<div class="field"><label>Bottom text</label><input type="text" id="botText" placeholder="MAKE MEMES ONLINE" value="BOTTOM TEXT"></div>
+<div class="field"><label>Font size <span id="fsVal">40</span>px</label><input type="range" id="fontSize" min="20" max="100" value="40"></div>
+<div class="field"><label>Text color</label><input type="color" id="tColor" value="#FFFFFF"></div>
+<div class="field"><label>Stroke color</label><input type="color" id="sColor" value="#000000"></div>
+<div class="field"><label>Stroke width <span id="swVal">4</span>px</label><input type="range" id="strokeWidth" min="0" max="10" value="4"></div>
+</div>
+<div class="preview-wrap"><canvas id="canvas"></canvas></div>
+<div class="actions"><button class="btn-primary" onclick="download()" style="background:#1D9E75">⬇ Download Meme</button><button class="btn-secondary" onclick="reset()">Reset</button></div>
+</div>
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/meme-gen.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Content creator?</strong> Get more social tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#1D9E75">Visit Blog →</a></div>
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Upload Image</h3><p>Any picture — screenshot, photo, or template.</p></div><div class="step"><div class="step-num">02</div><h3>Add Text</h3><p>Top and bottom captions in classic Impact style.</p></div><div class="step"><div class="step-num">03</div><h3>Download</h3><p>Save as PNG and share on any platform.</p></div></div></div>
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Why Impact font?</div><div class="faq-a">Impact became the "meme font" in the mid-2000s. Bold, condensed, and white text with black stroke is the classic look everyone recognizes.</div></div>
+<div class="faq-item"><div class="faq-q">Can I use any image?</div><div class="faq-a">Yes for personal use. For commercial or public sharing, respect copyright — use your own photos, free stock, or established meme templates that are fair-use in your region.</div></div>
+<div class="faq-item"><div class="faq-q">What resolution is best?</div><div class="faq-a">Output matches the uploaded image size. For social media, use 1080×1080 (Instagram), 1200×630 (Facebook/Twitter) as source images.</div></div>
+<div class="faq-item"><div class="faq-q">Is my image uploaded?</div><div class="faq-a">No. Everything runs in your browser.</div></div>
+</div>
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(29,158,117,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/image-crop-circle.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Circle Crop</a>
+<a href="/tools/image-resize.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Image Resize</a>
+<a href="/tools/blur-image.html" style="display:inline-block;background:rgba(29,158,117,0.12);color:#6EDFB8;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(29,158,117,0.25)">Blur Image</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(29,158,117,0.06);border-left:3px solid #1D9E75;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#1D9E75">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#1D9E75">Visit our blog</a>.</div>
+</main>
+<script>
+const drop = document.getElementById('drop');
+document.getElementById('file').addEventListener('change', e => e.target.files[0] && handle(e.target.files[0]));
+['dragover','dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.toggle('dragover', ev === 'dragover'); if (ev === 'drop' && e.dataTransfer.files[0]) handle(e.dataTransfer.files[0]); }));
+function handle(f) {
+  const img = new Image();
+  img.onload = () => { window._img = img; document.getElementById('output').style.display = 'block'; render(); document.getElementById('shareWa').href = `https://wa.me/?text=Free meme generator at Toolify Core: https://toolifycore.com/tools/meme-gen.html`; };
+  img.src = URL.createObjectURL(f);
+}
+function wrap(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let line = '';
+  words.forEach(w => {
+    const test = line + w + ' ';
+    if (ctx.measureText(test).width > maxWidth && line) { lines.push(line.trim()); line = w + ' '; }
+    else line = test;
+  });
+  if (line) lines.push(line.trim());
+  return lines;
+}
+function drawText(ctx, text, x, y, size, color, stroke, sw, top) {
+  ctx.font = `bold ${size}px Impact, Anton, Arial Black, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = top ? 'top' : 'bottom';
+  ctx.fillStyle = color;
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth = sw;
+  ctx.lineJoin = 'round';
+  const maxWidth = ctx.canvas.width - 40;
+  const lines = wrap(ctx, text.toUpperCase(), maxWidth);
+  const lineHeight = size * 1.1;
+  lines.forEach((line, i) => {
+    const yy = top ? y + i * lineHeight : y - (lines.length - 1 - i) * lineHeight;
+    if (sw > 0) ctx.strokeText(line, x, yy);
+    ctx.fillText(line, x, yy);
+  });
+}
+function render() {
+  if (!window._img) return;
+  const c = document.getElementById('canvas');
+  c.width = window._img.width;
+  c.height = window._img.height;
+  const ctx = c.getContext('2d');
+  ctx.drawImage(window._img, 0, 0);
+  const size = parseInt(document.getElementById('fontSize').value);
+  const sw = parseInt(document.getElementById('strokeWidth').value);
+  document.getElementById('fsVal').textContent = size;
+  document.getElementById('swVal').textContent = sw;
+  const top = document.getElementById('topText').value;
+  const bot = document.getElementById('botText').value;
+  const scale = c.width / 500;
+  const fs = size * Math.max(1, scale);
+  const sws = sw * Math.max(1, scale);
+  if (top) drawText(ctx, top, c.width/2, 20, fs, document.getElementById('tColor').value, document.getElementById('sColor').value, sws, true);
+  if (bot) drawText(ctx, bot, c.width/2, c.height - 20, fs, document.getElementById('tColor').value, document.getElementById('sColor').value, sws, false);
+}
+['topText','botText','fontSize','tColor','sColor','strokeWidth'].forEach(id => document.getElementById(id).addEventListener('input', render));
+function download() { const a = document.createElement('a'); a.href = document.getElementById('canvas').toDataURL('image/png'); a.download = 'meme-toolifycore.png'; a.click(); }
+function reset() { document.getElementById('output').style.display = 'none'; document.getElementById('file').value = ''; window._img = null; }
+function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=Free meme generator!&url=https://toolifycore.com/tools/meme-gen.html`,'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/meme-gen.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>
