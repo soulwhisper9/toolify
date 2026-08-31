@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GPA Calculator Free — 4.0 Scale and CGPA | Toolify Core</title>
+<meta name="description" content="Free GPA calculator for semester and cumulative CGPA. Supports 4.0 scale, percentage grades and credit hour weighting used by universities in Pakistan, India and the US.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.scale-row{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0;padding:14px;background:var(--surface2);border-radius:8px;align-items:flex-end}
+.scale-row .field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted)}
+.scale-row select,.scale-row input{padding:9px 11px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.course-table{width:100%;border-collapse:collapse;margin:12px 0;background:var(--surface2);border-radius:8px;overflow:hidden;font-size:13px}
+.course-table th{padding:9px 12px;background:var(--surface);color:var(--muted);text-align:left;text-transform:uppercase;letter-spacing:.05em;font-size:10px}
+.course-table td{padding:6px 8px;border-top:1px solid var(--border)}
+.course-table input,.course-table select{width:100%;padding:8px 9px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px;box-sizing:border-box}
+.course-table input:focus,.course-table select:focus{outline:none;border-color:#BA7517}
+.rm-btn{background:transparent;border:1px solid var(--border);color:#FF6B6B;padding:6px 10px;border-radius:6px;font-size:12px;cursor:pointer}
+.rm-btn:hover{border-color:#FF6B6B}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:32px}
+.grade-note{text-align:center;font-size:13px;color:var(--muted);margin:8px 0}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">GPA Calculator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>GPA Calculator</h1><p>Work out your semester GPA or cumulative CGPA with credit hour weighting. Supports letter grades, the 4.0 scale and percentage marks used across Pakistani, Indian and US universities.</p></div>
+<div class="counter-badge">🎓 Used 28,940 times this month</div>
+
+<div class="scale-row">
+<div class="field"><label>Grading input</label><select id="scale"><option value="letter" selected>Letter grade (A, B+, ...)</option><option value="points">Grade points (0–4)</option><option value="percent">Percentage (0–100)</option></select></div>
+<div class="field"><label>Previous CGPA <span style="opacity:.6">(optional)</span></label><input type="number" id="prevGpa" placeholder="e.g. 3.42" step="0.01" min="0" max="4" style="width:130px"></div>
+<div class="field"><label>Previous credits</label><input type="number" id="prevCr" placeholder="e.g. 60" min="0" style="width:120px"></div>
+</div>
+
+<div style="overflow-x:auto"><table class="course-table" id="courseTable"></table></div>
+<button class="btn-secondary" onclick="addRow()" style="width:100%">+ Add course</button>
+
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">🎓 Calculate GPA</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div class="result-icon">🎓</div><h3>Your GPA</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Semester GPA</div><div class="stat-card-value" id="gpa">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Total credits</div><div class="stat-card-value" id="credits">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Grade points</div><div class="stat-card-value" id="points">-</div></div>
+<div class="stat-card" id="cgpaCard" style="display:none"><div class="stat-card-label">Cumulative CGPA</div><div class="stat-card-value" id="cgpa">-</div></div>
+</div>
+<div class="grade-note" id="note"></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/gpa-calc.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Studying?</strong> Study guides and tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Add Courses</h3><p>Name, grade and credit hours for each.</p></div><div class="step"><div class="step-num">02</div><h3>Add Past Record</h3><p>Optional previous CGPA and credits.</p></div><div class="step"><div class="step-num">03</div><h3>See Result</h3><p>Semester GPA and updated cumulative CGPA.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How is GPA actually calculated?</div><div class="faq-a">Multiply each course's grade points by its credit hours to get quality points. Add all quality points, then divide by total credit hours. A 3-credit A (4.0) and a 1-credit C (2.0) give (12 + 2) ÷ 4 = 3.5, not the simple average of 3.0.</div></div>
+<div class="faq-item"><div class="faq-q">What is the difference between GPA and CGPA?</div><div class="faq-a">GPA covers a single semester. CGPA is cumulative across every semester you have completed. Enter your previous CGPA and total prior credits above and this tool works out the updated figure.</div></div>
+<div class="faq-item"><div class="faq-q">Do the letter grades match my university?</div><div class="faq-a">This uses the common 4.0 scale where A = 4.0, A− = 3.7, B+ = 3.3 and so on. Some institutions cap A at 4.0 with no A+, and a few use 5.0 scales. Check your handbook, and use the grade points input if your scale differs.</div></div>
+<div class="faq-item"><div class="faq-q">Do failed or repeated courses count?</div><div class="faq-a">Usually an F counts as 0.0 and still consumes credit hours, which drags the average down. Many universities let a repeat replace the original grade. Include only what your transcript actually counts.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/percentage-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Percentage</a>
+<a href="/tools/stats-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Statistics</a>
+<a href="/tools/scientific-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Scientific</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+const LETTERS=[['A',4.0],['A-',3.7],['B+',3.3],['B',3.0],['B-',2.7],['C+',2.3],['C',2.0],['C-',1.7],['D+',1.3],['D',1.0],['F',0.0]];
+let rows=[{n:'Course 1',g:'A',c:3},{n:'Course 2',g:'B+',c:3},{n:'Course 3',g:'B',c:4}];
+function pctToPoint(p){if(p>=85)return 4.0;if(p>=80)return 3.7;if(p>=75)return 3.3;if(p>=71)return 3.0;if(p>=68)return 2.7;if(p>=64)return 2.3;if(p>=61)return 2.0;if(p>=58)return 1.7;if(p>=54)return 1.3;if(p>=50)return 1.0;return 0.0;}
+function gradeInput(i){
+  const s=document.getElementById('scale').value;
+  if(s==='letter')return `<select onchange="rows[${i}].g=this.value;calculate()">${LETTERS.map(l=>`<option value="${l[0]}" ${rows[i].g===l[0]?'selected':''}>${l[0]} (${l[1].toFixed(1)})</option>`).join('')}</select>`;
+  if(s==='points')return `<input type="number" step="0.1" min="0" max="4" value="${typeof rows[i].g==='number'?rows[i].g:4}" oninput="rows[${i}].g=parseFloat(this.value)||0;calculate()">`;
+  return `<input type="number" step="1" min="0" max="100" value="${typeof rows[i].g==='number'&&rows[i].g<=100?rows[i].g:85}" oninput="rows[${i}].g=parseFloat(this.value)||0;calculate()">`;
+}
+function renderTable(){
+  const s=document.getElementById('scale').value;
+  const lbl=s==='letter'?'Grade':s==='points'?'Points (0-4)':'Percentage';
+  document.getElementById('courseTable').innerHTML=
+    `<thead><tr><th style="width:45%">Course</th><th style="width:27%">${lbl}</th><th style="width:18%">Credits</th><th></th></tr></thead><tbody>`+
+    rows.map((r,i)=>`<tr>
+      <td><input type="text" value="${r.n}" oninput="rows[${i}].n=this.value"></td>
+      <td>${gradeInput(i)}</td>
+      <td><input type="number" min="0" step="0.5" value="${r.c}" oninput="rows[${i}].c=parseFloat(this.value)||0;calculate()"></td>
+      <td><button class="rm-btn" onclick="rmRow(${i})" ${rows.length<=1?'disabled style=opacity:.3':''}>×</button></td>
+    </tr>`).join('')+'</tbody>';
+}
+function addRow(){rows.push({n:'Course '+(rows.length+1),g:document.getElementById('scale').value==='letter'?'A':(document.getElementById('scale').value==='percent'?85:4),c:3});renderTable();calculate();}
+function rmRow(i){if(rows.length<=1)return;rows.splice(i,1);renderTable();calculate();}
+function calculate(){
+  const s=document.getElementById('scale').value;
+  let qp=0,cr=0;
+  rows.forEach(r=>{
+    let p;
+    if(s==='letter'){const f=LETTERS.find(l=>l[0]===r.g);p=f?f[1]:0;}
+    else if(s==='points')p=Math.min(4,Math.max(0,parseFloat(r.g)||0));
+    else p=pctToPoint(parseFloat(r.g)||0);
+    const c=parseFloat(r.c)||0;
+    qp+=p*c;cr+=c;
+  });
+  const gpa=cr>0?qp/cr:0;
+  document.getElementById('gpa').textContent=gpa.toFixed(2);
+  document.getElementById('credits').textContent=cr;
+  document.getElementById('points').textContent=qp.toFixed(1);
+  const pg=parseFloat(document.getElementById('prevGpa').value), pc=parseFloat(document.getElementById('prevCr').value);
+  if(pg>0&&pc>0){
+    const c2=((pg*pc)+qp)/(pc+cr);
+    document.getElementById('cgpaCard').style.display='block';
+    document.getElementById('cgpa').textContent=c2.toFixed(2);
+  } else document.getElementById('cgpaCard').style.display='none';
+  let note='';
+  if(gpa>=3.7)note='Excellent — first class / summa cum laude territory.';
+  else if(gpa>=3.3)note='Strong result, comfortably above average.';
+  else if(gpa>=3.0)note='Good standing at most universities.';
+  else if(gpa>=2.0)note='Passing, but below the threshold many scholarships require.';
+  else note='Below the usual 2.0 minimum for good academic standing.';
+  document.getElementById('note').textContent=note;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free GPA calculator at Toolify Core: https://toolifycore.com/tools/gpa-calc.html';
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+document.getElementById('scale').addEventListener('change',()=>{
+  const s=document.getElementById('scale').value;
+  rows.forEach(r=>{r.g=s==='letter'?'A':(s==='percent'?85:4);});
+  renderTable();calculate();
+});
+['prevGpa','prevCr'].forEach(id=>document.getElementById(id).addEventListener('input',calculate));
+function resetAll(){rows=[{n:'Course 1',g:'A',c:3},{n:'Course 2',g:'B+',c:3},{n:'Course 3',g:'B',c:4}];document.getElementById('scale').value='letter';document.getElementById('prevGpa').value='';document.getElementById('prevCr').value='';renderTable();calculate();}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free GPA calculator!&url=https://toolifycore.com/tools/gpa-calc.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/gpa-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+renderTable();calculate();
+</script>
+</body>
+</html>

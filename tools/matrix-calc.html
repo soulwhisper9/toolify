@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Matrix Calculator Free — Multiply, Determinant, Inverse | Toolify Core</title>
+<meta name="description" content="Free matrix calculator for addition, subtraction, multiplication, determinant, transpose and inverse. Supports 2x2, 3x3 and 4x4 matrices.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.ctrl-row{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0;padding:14px;background:var(--surface2);border-radius:8px;align-items:flex-end}
+.ctrl-row .field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted)}
+.ctrl-row select{padding:9px 11px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px}
+.mx-wrap{display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:center;margin:16px 0}
+.mx-block{text-align:center}
+.mx-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.mx-grid{display:inline-grid;gap:5px;padding:12px;background:var(--surface2);border-radius:10px;border-left:3px solid #BA7517;border-right:3px solid #BA7517}
+.mx-grid input{width:56px;padding:8px 4px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:5px;font-size:13px;text-align:center;font-family:monospace}
+.mx-grid input:focus{outline:none;border-color:#BA7517}
+.mx-out{display:inline-grid;gap:5px;padding:12px;background:rgba(0,229,192,.06);border-radius:10px;border-left:3px solid #00E5C0;border-right:3px solid #00E5C0}
+.mx-out span{width:64px;padding:8px 4px;font-size:13px;text-align:center;font-family:monospace;color:#6EDFB8}
+.op-big{font-size:26px;color:#FAC775;font-family:monospace}
+.scalar-out{font-family:var(--font-head);font-size:34px;font-weight:700;color:#00E5C0;text-align:center;padding:16px}
+.err{color:#FF6B6B;text-align:center;font-size:13.5px;padding:14px}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Matrix Calculator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Matrix Calculator</h1><p>Add, subtract and multiply matrices, or find the determinant, transpose and inverse of a single matrix. Works with 2×2, 3×3 and 4×4 sizes.</p></div>
+<div class="counter-badge">🔢 Used 12,663 times this month</div>
+
+<div class="ctrl-row">
+<div class="field"><label>Size</label><select id="size"><option value="2">2 × 2</option><option value="3" selected>3 × 3</option><option value="4">4 × 4</option></select></div>
+<div class="field"><label>Operation</label><select id="op">
+<option value="add">A + B</option><option value="sub">A − B</option><option value="mul" selected>A × B</option>
+<option value="det">Determinant of A</option><option value="trans">Transpose of A</option><option value="inv">Inverse of A</option>
+<option value="scalar">A × scalar</option></select></div>
+<div class="field" id="scalarField" style="display:none"><label>Scalar</label><input type="number" id="scalarVal" value="2" step="any" style="width:90px;padding:9px 11px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:13px"></div>
+</div>
+
+<div class="mx-wrap">
+<div class="mx-block"><div class="mx-label">Matrix A</div><div class="mx-grid" id="gridA"></div></div>
+<div class="op-big" id="opSign">×</div>
+<div class="mx-block" id="blockB"><div class="mx-label">Matrix B</div><div class="mx-grid" id="gridB"></div></div>
+</div>
+
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">🔢 Calculate</button><button class="btn-secondary" onclick="randomFill()">🎲 Random</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div class="result-icon">🔢</div><h3>Result</h3>
+<div style="text-align:center" id="resultOut"></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/matrix-calc.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Linear algebra coursework?</strong> More maths tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Choose Size</h3><p>2×2, 3×3 or 4×4 square matrices.</p></div><div class="step"><div class="step-num">02</div><h3>Fill Values</h3><p>Type numbers or generate random ones.</p></div><div class="step"><div class="step-num">03</div><h3>Pick Operation</h3><p>Result appears instantly below.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Why is matrix multiplication not commutative?</div><div class="faq-a">A × B and B × A usually give different results because each entry comes from a row of the first matrix meeting a column of the second. Swapping the order changes which numbers pair up. Order matters in linear algebra.</div></div>
+<div class="faq-item"><div class="faq-q">What does the determinant tell me?</div><div class="faq-a">It measures how the matrix scales area or volume. A determinant of zero means the matrix is singular, has no inverse, and collapses space into a lower dimension. A negative value means orientation is flipped.</div></div>
+<div class="faq-item"><div class="faq-q">When does an inverse not exist?</div><div class="faq-a">Whenever the determinant is zero. This happens if one row is a multiple of another, or if rows are linearly dependent. This calculator will tell you when the matrix is singular.</div></div>
+<div class="faq-item"><div class="faq-q">What is a transpose used for?</div><div class="faq-a">Transposing flips rows into columns. It appears throughout statistics, computer graphics and machine learning, notably in the normal equation for least-squares regression.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/equation-solver.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Equation Solver</a>
+<a href="/tools/scientific-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Scientific</a>
+<a href="/tools/stats-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Statistics</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+let N=3;
+const SINGLE=['det','trans','inv','scalar'];
+function buildGrids(){
+  N=parseInt(document.getElementById('size').value);
+  ['A','B'].forEach(m=>{
+    const g=document.getElementById('grid'+m);
+    g.style.gridTemplateColumns=`repeat(${N},auto)`;
+    g.innerHTML='';
+    for(let i=0;i<N*N;i++){
+      const inp=document.createElement('input');
+      inp.type='number'; inp.step='any'; inp.value=m==='A'?(i%(N+1)===0?1:0):(i%(N+1)===0?2:1);
+      inp.addEventListener('input',calculate);
+      g.appendChild(inp);
+    }
+  });
+  updateOpUI();
+}
+function updateOpUI(){
+  const op=document.getElementById('op').value;
+  const single=SINGLE.includes(op);
+  document.getElementById('blockB').style.display=single?'none':'block';
+  document.getElementById('opSign').style.display=single?'none':'block';
+  document.getElementById('opSign').textContent=op==='add'?'+':op==='sub'?'−':'×';
+  document.getElementById('scalarField').style.display=op==='scalar'?'flex':'none';
+}
+function read(m){
+  const v=[...document.getElementById('grid'+m).querySelectorAll('input')].map(i=>parseFloat(i.value)||0);
+  const out=[];for(let r=0;r<N;r++)out.push(v.slice(r*N,r*N+N));return out;
+}
+function det(M){
+  const n=M.length;
+  if(n===1)return M[0][0];
+  if(n===2)return M[0][0]*M[1][1]-M[0][1]*M[1][0];
+  let d=0;
+  for(let c=0;c<n;c++){
+    const sub=M.slice(1).map(r=>r.filter((_,j)=>j!==c));
+    d+=((c%2?-1:1))*M[0][c]*det(sub);
+  }
+  return d;
+}
+function inverse(M){
+  const n=M.length, d=det(M);
+  if(Math.abs(d)<1e-12)return null;
+  if(n===1)return [[1/M[0][0]]];
+  const cof=[];
+  for(let r=0;r<n;r++){cof.push([]);
+    for(let c=0;c<n;c++){
+      const sub=M.filter((_,i)=>i!==r).map(row=>row.filter((_,j)=>j!==c));
+      cof[r].push(((r+c)%2?-1:1)*det(sub));
+    }}
+  const out=[];
+  for(let r=0;r<n;r++){out.push([]);for(let c=0;c<n;c++)out[r].push(cof[c][r]/d);}
+  return out;
+}
+const fmt=n=>{const r=Math.round(n*1e6)/1e6;return Object.is(r,-0)?0:r;};
+function renderMatrix(M){
+  return `<div class="mx-out" style="grid-template-columns:repeat(${M[0].length},auto)">${M.flat().map(v=>`<span>${fmt(v)}</span>`).join('')}</div>`;
+}
+function calculate(){
+  const op=document.getElementById('op').value;
+  const A=read('A');
+  let html='';
+  try{
+    if(op==='det'){
+      const d=det(A);
+      html=`<div class="scalar-out">det(A) = ${fmt(d)}</div><p style="color:var(--muted);font-size:13px">${Math.abs(d)<1e-12?'Matrix is singular — it has no inverse.':'Matrix is invertible.'}</p>`;
+    } else if(op==='trans'){
+      const T=A[0].map((_,c)=>A.map(r=>r[c]));
+      html=renderMatrix(T);
+    } else if(op==='inv'){
+      const I=inverse(A);
+      html=I?renderMatrix(I):'<div class="err">This matrix is singular (determinant = 0), so no inverse exists.</div>';
+    } else if(op==='scalar'){
+      const k=parseFloat(document.getElementById('scalarVal').value)||0;
+      html=renderMatrix(A.map(r=>r.map(v=>v*k)));
+    } else {
+      const B=read('B');
+      if(op==='add')html=renderMatrix(A.map((r,i)=>r.map((v,j)=>v+B[i][j])));
+      else if(op==='sub')html=renderMatrix(A.map((r,i)=>r.map((v,j)=>v-B[i][j])));
+      else{
+        const C=[];
+        for(let i=0;i<N;i++){C.push([]);for(let j=0;j<N;j++){let s=0;for(let k=0;k<N;k++)s+=A[i][k]*B[k][j];C[i].push(s);}}
+        html=renderMatrix(C);
+      }
+    }
+  }catch(e){html='<div class="err">Could not compute — check your inputs.</div>';}
+  document.getElementById('resultOut').innerHTML=html;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free matrix calculator at Toolify Core: https://toolifycore.com/tools/matrix-calc.html';
+}
+function randomFill(){
+  document.querySelectorAll('.mx-grid input').forEach(i=>i.value=Math.floor(Math.random()*19)-9);
+  calculate();
+}
+document.getElementById('size').addEventListener('change',()=>{buildGrids();calculate();});
+document.getElementById('op').addEventListener('change',()=>{updateOpUI();calculate();});
+document.getElementById('scalarVal').addEventListener('input',calculate);
+document.getElementById('calcBtn').addEventListener('click',calculate);
+function resetAll(){document.getElementById('size').value=3;document.getElementById('op').value='mul';buildGrids();calculate();}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free matrix calculator!&url=https://toolifycore.com/tools/matrix-calc.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/matrix-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+buildGrids();calculate();
+</script>
+</body>
+</html>

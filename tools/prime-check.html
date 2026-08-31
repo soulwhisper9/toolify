@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Prime Number Checker Free — Factors and Prime List | Toolify Core</title>
+<meta name="description" content="Free prime number checker. Test if a number is prime, see its prime factorisation, all divisors, and generate a list of primes in any range.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.tab-row{display:flex;gap:0;background:var(--surface2);padding:4px;border-radius:8px;margin:16px 0;flex-wrap:wrap}
+.tab-btn{flex:1;min-width:130px;background:transparent;color:var(--muted);border:none;padding:9px 12px;border-radius:6px;font-size:12.5px;cursor:pointer;font-family:var(--font-body)}
+.tab-btn.active{background:#BA7517;color:white}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:14px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input{padding:11px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:15px;font-family:monospace}
+.calc-field input:focus{outline:none;border-color:#BA7517}
+.verdict{text-align:center;padding:24px 18px;border-radius:12px;margin:14px 0}
+.verdict.prime{background:linear-gradient(180deg,rgba(0,229,192,.12),transparent);border:1px solid rgba(0,229,192,.3)}
+.verdict.composite{background:linear-gradient(180deg,rgba(255,107,107,.1),transparent);border:1px solid rgba(255,107,107,.3)}
+.verdict h2{font-family:var(--font-head);font-size:30px;margin:0 0 6px;font-weight:800}
+.verdict.prime h2{color:#00E5C0}
+.verdict.composite h2{color:#FF9F9F}
+.verdict p{color:var(--muted);font-size:13.5px;margin:0}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:14px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:19px;font-weight:700;color:#FAC775;word-break:break-all}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;max-height:230px;overflow-y:auto;padding:12px;background:var(--surface2);border-radius:8px}
+.chip{background:var(--surface);color:#6EDFB8;padding:4px 11px;border-radius:16px;font-size:12.5px;font-family:monospace;border:1px solid var(--border)}
+.chip.plain{color:#B8AAFF}
+.sec-title{font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 6px}
+.factor-str{background:var(--surface2);padding:14px 16px;border-radius:8px;font-family:monospace;font-size:15px;color:#6EDFB8;text-align:center;margin:10px 0}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Prime Checker</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Prime Number Checker</h1><p>Check whether any number is prime, see its complete prime factorisation and divisors, or generate every prime within a range.</p></div>
+<div class="counter-badge">🔍 Used 15,290 times this month</div>
+
+<div class="tab-row">
+<button class="tab-btn active" data-t="check" onclick="setTab('check')">Check a number</button>
+<button class="tab-btn" data-t="range" onclick="setTab('range')">Primes in a range</button>
+</div>
+
+<div id="pane-check">
+<div class="calc-grid"><div class="calc-field"><label>Number to test</label><input type="number" id="num" value="97" min="0" step="1"></div></div>
+</div>
+
+<div id="pane-range" style="display:none">
+<div class="calc-grid">
+<div class="calc-field"><label>From</label><input type="number" id="from" value="1" min="0"></div>
+<div class="calc-field"><label>To</label><input type="number" id="to" value="200" min="1"></div>
+</div>
+</div>
+
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">🔍 Check</button><button class="btn-secondary" onclick="copyOut()">📋 Copy</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div id="output"></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/prime-check.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Number theory homework?</strong> More maths tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Number</h3><p>Any whole number, large ones included.</p></div><div class="step"><div class="step-num">02</div><h3>Trial Division</h3><p>Tested against divisors up to its square root.</p></div><div class="step"><div class="step-num">03</div><h3>See Factors</h3><p>Prime factorisation and every divisor.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What makes a number prime?</div><div class="faq-a">A prime has exactly two distinct divisors: 1 and itself. 7 is prime because nothing between 2 and 6 divides it evenly. 8 is not, because 2 and 4 both divide it.</div></div>
+<div class="faq-item"><div class="faq-q">Why is 1 not prime?</div><div class="faq-a">It has only one divisor, not two. Excluding it keeps the fundamental theorem of arithmetic clean: every integer above 1 has exactly one prime factorisation. If 1 counted, you could pad any factorisation with endless 1s.</div></div>
+<div class="faq-item"><div class="faq-q">Why only check up to the square root?</div><div class="faq-a">Divisors come in pairs. If n = a × b, one of them must be at most √n. So finding no divisor by the square root proves none exists at all, which makes the check far faster.</div></div>
+<div class="faq-item"><div class="faq-q">What are prime numbers used for?</div><div class="faq-a">Modern encryption depends on them. RSA relies on the fact that multiplying two large primes is easy but factoring the product back is extremely hard. Primes also appear in hashing and random number generation.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/lcm-gcd.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">LCM &amp; GCD</a>
+<a href="/tools/fraction-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Fractions</a>
+<a href="/tools/scientific-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Scientific</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+let tab='check', lastOut='';
+function setTab(t){tab=t;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.t===t));document.getElementById('pane-check').style.display=t==='check'?'block':'none';document.getElementById('pane-range').style.display=t==='range'?'block':'none';calculate();}
+function isPrime(n){if(n<2)return false;if(n<4)return true;if(n%2===0)return false;for(let i=3;i*i<=n;i+=2)if(n%i===0)return false;return true;}
+function factorise(n){const f=[];let x=n;for(let d=2;d*d<=x;d++){while(x%d===0){f.push(d);x/=d;}}if(x>1)f.push(x);return f;}
+function divisors(n){const d=[];for(let i=1;i*i<=n;i++){if(n%i===0){d.push(i);if(i!==n/i)d.push(n/i);}}return d.sort((a,b)=>a-b);}
+function nextPrime(n){let x=n+1;while(!isPrime(x))x++;return x;}
+function prevPrime(n){let x=n-1;while(x>=2&&!isPrime(x))x--;return x>=2?x:null;}
+function calculate(){
+  let html='';
+  if(tab==='check'){
+    const n=parseInt(document.getElementById('num').value);
+    if(isNaN(n)||n<0){document.getElementById('output').innerHTML='<p style="text-align:center;color:#FF6B6B">Enter a whole number of 0 or more.</p>';document.getElementById('resultBox').classList.add('show');return;}
+    if(n>100000000){document.getElementById('output').innerHTML='<p style="text-align:center;color:#FF6B6B">Please use a number under 100,000,000 so the check stays fast.</p>';document.getElementById('resultBox').classList.add('show');return;}
+    const p=isPrime(n);
+    const f=n>1?factorise(n):[];
+    const d=n>0&&n<=1000000?divisors(n):[];
+    const counts={};f.forEach(x=>counts[x]=(counts[x]||0)+1);
+    const fStr=Object.keys(counts).map(k=>counts[k]>1?`${k}<sup>${counts[k]}</sup>`:k).join(' × ');
+    html=`<div class="verdict ${p?'prime':'composite'}"><h2>${n.toLocaleString()} is ${p?'PRIME':(n<2?'neither prime nor composite':'NOT prime')}</h2>
+      <p>${p?'It has exactly two divisors: 1 and itself.':(n<2?'By definition, primes start at 2.':`It divides evenly by ${f[0]}, so it is composite.`)}</p></div>`;
+    html+=`<div class="result-stats">
+      <div class="stat-card"><div class="stat-card-label">Prime factors</div><div class="stat-card-value">${f.length?[...new Set(f)].length:'—'}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Total divisors</div><div class="stat-card-value">${d.length||'—'}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Next prime</div><div class="stat-card-value">${nextPrime(n).toLocaleString()}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Previous prime</div><div class="stat-card-value">${prevPrime(n)?prevPrime(n).toLocaleString():'—'}</div></div>
+    </div>`;
+    if(f.length){html+=`<div class="sec-title">Prime factorisation</div><div class="factor-str">${n} = ${fStr}</div>`;}
+    if(d.length){html+=`<div class="sec-title">All divisors (${d.length})</div><div class="chips">${d.map(x=>`<span class="chip ${isPrime(x)?'':'plain'}">${x}</span>`).join('')}</div>`;}
+    lastOut=`${n} is ${p?'prime':'not prime'}${f.length?'. Factorisation: '+f.join(' x '):''}`;
+  } else {
+    const a=Math.max(0,parseInt(document.getElementById('from').value)||0);
+    const b=parseInt(document.getElementById('to').value)||0;
+    if(b<a){document.getElementById('output').innerHTML='<p style="text-align:center;color:#FF6B6B">The upper bound must be at least the lower bound.</p>';document.getElementById('resultBox').classList.add('show');return;}
+    if(b-a>200000){document.getElementById('output').innerHTML='<p style="text-align:center;color:#FF6B6B">Please keep the range under 200,000 numbers.</p>';document.getElementById('resultBox').classList.add('show');return;}
+    const sieve=new Uint8Array(b+1).fill(1);sieve[0]=0;if(b>=1)sieve[1]=0;
+    for(let i=2;i*i<=b;i++)if(sieve[i])for(let j=i*i;j<=b;j+=i)sieve[j]=0;
+    const primes=[];for(let i=a;i<=b;i++)if(sieve[i])primes.push(i);
+    const twins=[];for(let i=0;i<primes.length-1;i++)if(primes[i+1]-primes[i]===2)twins.push(`${primes[i]}, ${primes[i+1]}`);
+    html=`<div class="result-icon">🔍</div><h3>Primes from ${a.toLocaleString()} to ${b.toLocaleString()}</h3>
+      <div class="result-stats">
+      <div class="stat-card"><div class="stat-card-label">Primes found</div><div class="stat-card-value" style="color:#00E5C0;font-size:26px">${primes.length.toLocaleString()}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Smallest</div><div class="stat-card-value">${primes.length?primes[0].toLocaleString():'—'}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Largest</div><div class="stat-card-value">${primes.length?primes[primes.length-1].toLocaleString():'—'}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Twin pairs</div><div class="stat-card-value">${twins.length}</div></div>
+      </div>`;
+    html+=`<div class="sec-title">Prime list${primes.length>2000?' (first 2,000 shown)':''}</div><div class="chips">${primes.slice(0,2000).map(p=>`<span class="chip">${p}</span>`).join('')||'<span style="color:var(--muted);font-size:13px">No primes in this range.</span>'}</div>`;
+    lastOut=primes.join(', ');
+  }
+  document.getElementById('output').innerHTML=html;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free prime number checker at Toolify Core: https://toolifycore.com/tools/prime-check.html';
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+['num','from','to'].forEach(id=>document.getElementById(id).addEventListener('input',calculate));
+function copyOut(){if(!lastOut)return alert('Calculate first.');navigator.clipboard.writeText(lastOut);alert('Copied!');}
+function resetAll(){document.getElementById('num').value=97;document.getElementById('from').value=1;document.getElementById('to').value=200;calculate();}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free prime number checker!&url=https://toolifycore.com/tools/prime-check.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/prime-check.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

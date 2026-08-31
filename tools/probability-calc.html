@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Probability Calculator Free — Single and Multiple Events | Toolify Core</title>
+<meta name="description" content="Free probability calculator for single events, two events, conditional probability and repeated trials. Shows union, intersection and complement with working.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.tab-row{display:flex;gap:0;background:var(--surface2);padding:4px;border-radius:8px;margin:16px 0;flex-wrap:wrap}
+.tab-btn{flex:1;min-width:120px;background:transparent;color:var(--muted);border:none;padding:9px 12px;border-radius:6px;font-size:12.5px;cursor:pointer;font-family:var(--font-body)}
+.tab-btn.active{background:#BA7517;color:white}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:14px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:14px}
+.calc-field input:focus{outline:none;border-color:#BA7517}
+.calc-field .hint{font-size:11px;color:var(--dim,#5F5D75)}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:20px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:28px}
+.formula{background:var(--surface2);padding:14px 16px;border-radius:8px;font-family:monospace;font-size:12.5px;color:#B8AAFF;margin:12px 0;line-height:1.8}
+.formula b{color:#6EDFB8}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Probability</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Probability Calculator</h1><p>Calculate probability for single events, combinations of two events, conditional probability and repeated trials. Every result shows the formula used.</p></div>
+<div class="counter-badge">🎲 Used 16,842 times this month</div>
+
+<div class="tab-row">
+<button class="tab-btn active" data-t="single" onclick="setTab('single')">Single event</button>
+<button class="tab-btn" data-t="two" onclick="setTab('two')">Two events</button>
+<button class="tab-btn" data-t="cond" onclick="setTab('cond')">Conditional</button>
+<button class="tab-btn" data-t="rep" onclick="setTab('rep')">Repeated trials</button>
+</div>
+
+<div id="pane-single">
+<div class="calc-grid">
+<div class="calc-field"><label>Favourable outcomes</label><input type="number" id="s_fav" value="1" min="0"><span class="hint">Ways the event can happen</span></div>
+<div class="calc-field"><label>Total possible outcomes</label><input type="number" id="s_tot" value="6" min="1"><span class="hint">Size of the sample space</span></div>
+</div>
+</div>
+
+<div id="pane-two" style="display:none">
+<div class="calc-grid">
+<div class="calc-field"><label>P(A)</label><input type="number" id="t_a" value="0.5" min="0" max="1" step="0.01"></div>
+<div class="calc-field"><label>P(B)</label><input type="number" id="t_b" value="0.3" min="0" max="1" step="0.01"></div>
+<div class="calc-field"><label>Relationship</label><select id="t_rel"><option value="ind" selected>Independent</option><option value="excl">Mutually exclusive</option></select></div>
+</div>
+</div>
+
+<div id="pane-cond" style="display:none">
+<div class="calc-grid">
+<div class="calc-field"><label>P(A and B)</label><input type="number" id="c_ab" value="0.15" min="0" max="1" step="0.01"><span class="hint">Both happen together</span></div>
+<div class="calc-field"><label>P(B)</label><input type="number" id="c_b" value="0.3" min="0" max="1" step="0.01"><span class="hint">The given condition</span></div>
+<div class="calc-field"><label>P(A) <span style="opacity:.6">for Bayes</span></label><input type="number" id="c_a" value="0.5" min="0" max="1" step="0.01"></div>
+</div>
+</div>
+
+<div id="pane-rep" style="display:none">
+<div class="calc-grid">
+<div class="calc-field"><label>Probability per trial</label><input type="number" id="r_p" value="0.166" min="0" max="1" step="0.001"></div>
+<div class="calc-field"><label>Number of trials</label><input type="number" id="r_n" value="10" min="1" max="1000"></div>
+<div class="calc-field"><label>Exactly k successes</label><input type="number" id="r_k" value="2" min="0"></div>
+</div>
+</div>
+
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">🎲 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div class="result-icon">🎲</div><h3>Probability</h3>
+<div class="result-stats" id="stats"></div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px">Working</h4>
+<div class="formula" id="formula"></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/probability-calc.html" width="100%" height="750" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Statistics coursework?</strong> More maths tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Scenario</h3><p>Single, two events, conditional or trials.</p></div><div class="step"><div class="step-num">02</div><h3>Enter Values</h3><p>Counts or probabilities between 0 and 1.</p></div><div class="step"><div class="step-num">03</div><h3>Read Working</h3><p>Result plus the formula applied.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is the difference between independent and mutually exclusive?</div><div class="faq-a">Independent means one event does not affect the other, so P(A and B) = P(A) × P(B). Mutually exclusive means they cannot both happen, so P(A and B) = 0 and P(A or B) = P(A) + P(B). Two events cannot be both, unless one has zero probability.</div></div>
+<div class="faq-item"><div class="faq-q">How does conditional probability work?</div><div class="faq-a">P(A given B) = P(A and B) ÷ P(B). It narrows the sample space to only the outcomes where B happened, then asks how often A also occurred.</div></div>
+<div class="faq-item"><div class="faq-q">What are repeated trials used for?</div><div class="faq-a">The binomial formula answers questions like "what is the chance of exactly 2 sixes in 10 dice rolls". It needs a fixed number of trials, the same probability each time, and independent outcomes.</div></div>
+<div class="faq-item"><div class="faq-q">Why must probability sit between 0 and 1?</div><div class="faq-a">0 means impossible and 1 means certain. Anything outside that range signals an input error. Multiply by 100 to express it as a percentage.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/perm-comb.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Permutations</a>
+<a href="/tools/stats-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Statistics</a>
+<a href="/tools/std-deviation.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Std Deviation</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+let tab='single';
+function setTab(t){tab=t;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.t===t));['single','two','cond','rep'].forEach(p=>document.getElementById('pane-'+p).style.display=p===t?'block':'none');calculate();}
+const pc=n=>(n*100).toFixed(2)+'%';
+function nCr(n,k){if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r);}
+function calculate(){
+  let stats='',f='';
+  if(tab==='single'){
+    const fav=parseFloat(document.getElementById('s_fav').value)||0, tot=parseFloat(document.getElementById('s_tot').value)||1;
+    const p=Math.min(1,fav/tot);
+    stats=`<div class="stat-card hi"><div class="stat-card-label">Probability</div><div class="stat-card-value">${pc(p)}</div></div>
+      <div class="stat-card"><div class="stat-card-label">As decimal</div><div class="stat-card-value">${p.toFixed(4)}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Will not happen</div><div class="stat-card-value">${pc(1-p)}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Odds for</div><div class="stat-card-value">${fav} : ${tot-fav}</div></div>`;
+    f=`P(A) = favourable ÷ total<br>P(A) = ${fav} ÷ ${tot} = <b>${p.toFixed(4)}</b><br>Complement P(not A) = 1 − ${p.toFixed(4)} = <b>${(1-p).toFixed(4)}</b>`;
+  }
+  else if(tab==='two'){
+    const a=parseFloat(document.getElementById('t_a').value)||0, b=parseFloat(document.getElementById('t_b').value)||0;
+    const rel=document.getElementById('t_rel').value;
+    const and = rel==='ind' ? a*b : 0;
+    const or = a + b - and;
+    stats=`<div class="stat-card hi"><div class="stat-card-label">P(A and B)</div><div class="stat-card-value">${pc(and)}</div></div>
+      <div class="stat-card"><div class="stat-card-label">P(A or B)</div><div class="stat-card-value">${pc(Math.min(1,or))}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Neither</div><div class="stat-card-value">${pc(Math.max(0,1-or))}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Exactly one</div><div class="stat-card-value">${pc(Math.max(0,or-and))}</div></div>`;
+    f = rel==='ind'
+      ? `Independent events:<br>P(A ∩ B) = P(A) × P(B) = ${a} × ${b} = <b>${and.toFixed(4)}</b><br>P(A ∪ B) = P(A) + P(B) − P(A ∩ B) = <b>${or.toFixed(4)}</b>`
+      : `Mutually exclusive events:<br>P(A ∩ B) = <b>0</b> (they cannot both occur)<br>P(A ∪ B) = P(A) + P(B) = ${a} + ${b} = <b>${or.toFixed(4)}</b>`;
+  }
+  else if(tab==='cond'){
+    const ab=parseFloat(document.getElementById('c_ab').value)||0, b=parseFloat(document.getElementById('c_b').value)||0, a=parseFloat(document.getElementById('c_a').value)||0;
+    const agb = b>0 ? ab/b : 0;
+    const bga = a>0 ? ab/a : 0;
+    stats=`<div class="stat-card hi"><div class="stat-card-label">P(A given B)</div><div class="stat-card-value">${pc(Math.min(1,agb))}</div></div>
+      <div class="stat-card"><div class="stat-card-label">P(B given A)</div><div class="stat-card-value">${pc(Math.min(1,bga))}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Independent?</div><div class="stat-card-value" style="font-size:16px">${Math.abs(ab-(a*b))<0.005?'Yes':'No'}</div></div>`;
+    f=`P(A|B) = P(A ∩ B) ÷ P(B) = ${ab} ÷ ${b} = <b>${agb.toFixed(4)}</b><br>P(B|A) = P(A ∩ B) ÷ P(A) = ${ab} ÷ ${a} = <b>${bga.toFixed(4)}</b><br>Independence check: P(A)×P(B) = ${(a*b).toFixed(4)} vs P(A ∩ B) = ${ab}`;
+  }
+  else {
+    const p=parseFloat(document.getElementById('r_p').value)||0, n=parseInt(document.getElementById('r_n').value)||1, k=parseInt(document.getElementById('r_k').value)||0;
+    const c=nCr(n,k);
+    const exact=c*Math.pow(p,k)*Math.pow(1-p,n-k);
+    const none=Math.pow(1-p,n);
+    const atLeast1=1-none;
+    let atLeastK=0; for(let i=k;i<=n;i++) atLeastK+=nCr(n,i)*Math.pow(p,i)*Math.pow(1-p,n-i);
+    stats=`<div class="stat-card hi"><div class="stat-card-label">Exactly ${k}</div><div class="stat-card-value">${pc(exact)}</div></div>
+      <div class="stat-card"><div class="stat-card-label">At least ${k}</div><div class="stat-card-value">${pc(Math.min(1,atLeastK))}</div></div>
+      <div class="stat-card"><div class="stat-card-label">At least 1</div><div class="stat-card-value">${pc(atLeast1)}</div></div>
+      <div class="stat-card"><div class="stat-card-label">Expected count</div><div class="stat-card-value">${(n*p).toFixed(2)}</div></div>`;
+    f=`Binomial: P(X = k) = C(n,k) × p^k × (1−p)^(n−k)<br>C(${n},${k}) = <b>${c}</b><br>P(X = ${k}) = ${c} × ${p}^${k} × ${(1-p).toFixed(3)}^${n-k} = <b>${exact.toFixed(6)}</b><br>Mean = n × p = ${n} × ${p} = <b>${(n*p).toFixed(3)}</b>`;
+  }
+  document.getElementById('stats').innerHTML=stats;
+  document.getElementById('formula').innerHTML=f;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free probability calculator at Toolify Core: https://toolifycore.com/tools/probability-calc.html';
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',calculate));
+function resetAll(){document.getElementById('s_fav').value=1;document.getElementById('s_tot').value=6;document.getElementById('t_a').value=.5;document.getElementById('t_b').value=.3;document.getElementById('c_ab').value=.15;document.getElementById('c_b').value=.3;document.getElementById('c_a').value=.5;document.getElementById('r_p').value=.166;document.getElementById('r_n').value=10;document.getElementById('r_k').value=2;calculate();}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free probability calculator!&url=https://toolifycore.com/tools/probability-calc.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/probability-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

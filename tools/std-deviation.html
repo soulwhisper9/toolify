@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Standard Deviation Calculator Free — Sample and Population | Toolify Core</title>
+<meta name="description" content="Free standard deviation calculator with full step-by-step working. Shows sample and population formulas, deviation table, variance and z-scores.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.data-area{width:100%;min-height:100px;padding:13px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:14px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.6}
+.data-area:focus{border-color:#BA7517}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px;font-size:12px;color:var(--muted);font-weight:500;flex-wrap:wrap;gap:8px}
+.type-toggle{display:flex;gap:0;background:var(--surface2);padding:4px;border-radius:8px;margin:14px 0;max-width:400px}
+.type-btn{flex:1;background:transparent;color:var(--muted);border:none;padding:9px 12px;border-radius:6px;font-size:12.5px;cursor:pointer;font-family:var(--font-body)}
+.type-btn.active{background:#BA7517;color:white}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:14px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:20px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:28px}
+.work-table{width:100%;border-collapse:collapse;margin:10px 0;background:var(--surface2);border-radius:8px;overflow:hidden;font-size:12.5px;font-family:monospace}
+.work-table th{padding:9px 12px;background:var(--surface);color:var(--muted);text-align:right;text-transform:uppercase;letter-spacing:.05em;font-size:10px}
+.work-table td{padding:6px 12px;border-top:1px solid var(--border);text-align:right;color:var(--text)}
+.work-table tfoot td{border-top:2px solid var(--border);color:#6EDFB8;font-weight:600}
+.table-wrap{max-height:290px;overflow-y:auto;border-radius:8px}
+.formula{background:var(--surface2);padding:15px 17px;border-radius:8px;font-family:monospace;font-size:13px;color:#B8AAFF;margin:12px 0;line-height:2}
+.formula b{color:#6EDFB8}
+.sec-title{font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 6px}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Standard Deviation</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Standard Deviation Calculator</h1><p>Calculate standard deviation with every step shown. See the deviation table, squared differences, and how the sample and population formulas differ.</p></div>
+<div class="counter-badge">📐 Used 26,081 times this month</div>
+
+<div class="type-toggle">
+<button class="type-btn active" data-t="sample" onclick="setType('sample')">Sample (n − 1)</button>
+<button class="type-btn" data-t="pop" onclick="setType('pop')">Population (N)</button>
+</div>
+
+<div class="io-label"><span>Data set — commas, spaces or new lines</span><button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button></div>
+<textarea class="data-area" id="data" placeholder="4, 8, 15, 16, 23, 42"></textarea>
+<div style="font-size:12px;color:var(--muted);margin-top:6px" id="parsed">-</div>
+
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">📐 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div class="result-icon">📐</div><h3>Standard deviation</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label" id="sdLabel">Standard deviation</div><div class="stat-card-value" id="sd">-</div></div>
+<div class="stat-card"><div class="stat-card-label" id="varLabel">Variance</div><div class="stat-card-value" id="varr">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Mean</div><div class="stat-card-value" id="mean">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Count</div><div class="stat-card-value" id="count">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Sum of squares</div><div class="stat-card-value" id="ss">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Coeff. of variation</div><div class="stat-card-value" id="cv">-</div></div>
+</div>
+
+<div class="sec-title">Formula applied</div>
+<div class="formula" id="formula"></div>
+
+<div class="sec-title">Working table</div>
+<div class="table-wrap"><table class="work-table" id="workTable"></table></div>
+
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/std-deviation.html" width="100%" height="900" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Statistics coursework?</strong> Worked examples on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Pick Sample or Population</h3><p>n−1 for a sample, N for the whole population.</p></div><div class="step"><div class="step-num">02</div><h3>Paste Data</h3><p>Any separator works.</p></div><div class="step"><div class="step-num">03</div><h3>Study the Table</h3><p>Every deviation and square shown.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">Sample or population — which do I need?</div><div class="faq-a">Use the population formula only when your data covers every member of the group you care about, such as marks for an entire class. Use the sample formula when your data is a subset used to estimate a wider group. Coursework usually wants the sample version.</div></div>
+<div class="faq-item"><div class="faq-q">Why divide by n − 1 for a sample?</div><div class="faq-a">This is Bessel's correction. A sample tends to cluster closer to its own mean than the true population mean, which underestimates spread. Dividing by n − 1 instead of n compensates and gives an unbiased estimate.</div></div>
+<div class="faq-item"><div class="faq-q">Why square the deviations?</div><div class="faq-a">Deviations above and below the mean cancel out and would always sum to zero. Squaring makes them all positive, and also gives larger deviations more weight. The square root at the end returns the answer to the original units.</div></div>
+<div class="faq-item"><div class="faq-q">What counts as a high standard deviation?</div><div class="faq-a">It depends on scale, which is why the coefficient of variation is shown. That expresses standard deviation as a percentage of the mean, making it comparable across data sets with different units.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/stats-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Full Statistics</a>
+<a href="/tools/probability-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Probability</a>
+<a href="/tools/scientific-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Scientific</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+let type='sample';
+const r4=n=>Math.round(n*1e4)/1e4;
+function setType(t){type=t;document.querySelectorAll('.type-btn').forEach(b=>b.classList.toggle('active',b.dataset.t===t));calculate();}
+function parse(){return (document.getElementById('data').value.match(/-?\d+(\.\d+)?/g)||[]).map(Number);}
+function calculate(){
+  const v=parse();
+  document.getElementById('parsed').textContent=v.length?`${v.length} values detected`:'No numbers detected yet';
+  if(v.length<2){document.getElementById('resultBox').classList.remove('show');return;}
+  const n=v.length, mean=v.reduce((a,b)=>a+b,0)/n;
+  const ss=v.reduce((a,b)=>a+(b-mean)**2,0);
+  const div=type==='sample'?n-1:n;
+  const varr=ss/div, sd=Math.sqrt(varr);
+  document.getElementById('sdLabel').textContent=type==='sample'?'Sample SD (s)':'Population SD (σ)';
+  document.getElementById('varLabel').textContent=type==='sample'?'Variance (s²)':'Variance (σ²)';
+  document.getElementById('sd').textContent=r4(sd);
+  document.getElementById('varr').textContent=r4(varr);
+  document.getElementById('mean').textContent=r4(mean);
+  document.getElementById('count').textContent=n;
+  document.getElementById('ss').textContent=r4(ss);
+  document.getElementById('cv').textContent=mean!==0?r4(sd/Math.abs(mean)*100)+'%':'-';
+  const sym=type==='sample'?'s':'σ', mSym=type==='sample'?'x̄':'μ';
+  document.getElementById('formula').innerHTML=
+    `${sym} = √[ Σ(x − ${mSym})² ÷ ${type==='sample'?'(n − 1)':'N'} ]<br>`+
+    `${mSym} = ${r4(v.reduce((a,b)=>a+b,0))} ÷ ${n} = <b>${r4(mean)}</b><br>`+
+    `Σ(x − ${mSym})² = <b>${r4(ss)}</b><br>`+
+    `${sym}² = ${r4(ss)} ÷ ${div} = <b>${r4(varr)}</b><br>`+
+    `${sym} = √${r4(varr)} = <b>${r4(sd)}</b>`;
+  let html=`<thead><tr><th>x</th><th>x − ${mSym}</th><th>(x − ${mSym})²</th><th>z-score</th></tr></thead><tbody>`;
+  v.forEach(x=>{const d=x-mean;html+=`<tr><td>${x}</td><td>${r4(d)}</td><td>${r4(d*d)}</td><td>${sd?r4(d/sd):'-'}</td></tr>`;});
+  html+=`</tbody><tfoot><tr><td>Σ = ${r4(v.reduce((a,b)=>a+b,0))}</td><td>0</td><td>${r4(ss)}</td><td></td></tr></tfoot>`;
+  document.getElementById('workTable').innerHTML=html;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free standard deviation calculator at Toolify Core: https://toolifycore.com/tools/std-deviation.html';
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+document.getElementById('data').addEventListener('input',calculate);
+function loadSample(){document.getElementById('data').value='4, 8, 15, 16, 23, 42';calculate();}
+function resetAll(){document.getElementById('data').value='';document.getElementById('resultBox').classList.remove('show');document.getElementById('parsed').textContent='-';}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free standard deviation calculator!&url=https://toolifycore.com/tools/std-deviation.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/std-deviation.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+loadSample();
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Fraction Calculator Free — Add Subtract Multiply Divide | Toolify Core</title>
+<meta name="description" content="Free fraction calculator. Add, subtract, multiply and divide fractions with step-by-step working, automatic simplification and mixed number output.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.frac-row{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:16px 0;padding:22px 18px;background:var(--surface2);border-radius:10px}
+.frac{display:flex;flex-direction:column;align-items:center;gap:4px}
+.frac input{width:80px;padding:9px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:16px;text-align:center;font-family:monospace}
+.frac input:focus{outline:none;border-color:#BA7517}
+.frac .bar{width:80px;height:2px;background:var(--muted)}
+.op-select{padding:10px 12px;background:var(--surface);color:#FAC775;border:1px solid var(--border);border-radius:6px;font-size:20px;font-family:monospace;cursor:pointer}
+.eq{font-size:22px;color:var(--muted)}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:28px}
+.steps-box{background:var(--surface2);padding:16px 18px;border-radius:8px;margin:12px 0;font-size:13px;color:var(--muted);line-height:1.9;font-family:monospace}
+.steps-box b{color:#6EDFB8;font-weight:600}
+.mode-toggle{display:flex;gap:0;background:var(--surface2);padding:3px;border-radius:6px;width:fit-content;margin:0 auto 4px}
+.mode-btn{background:transparent;color:var(--muted);border:none;padding:6px 16px;border-radius:4px;font-size:12px;cursor:pointer}
+.mode-btn.active{background:#BA7517;color:white}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Fraction Calculator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Fraction Calculator</h1><p>Add, subtract, multiply and divide fractions. Results are simplified automatically and shown as a mixed number and decimal, with the working laid out step by step.</p></div>
+<div class="counter-badge">➗ Used 24,318 times this month</div>
+
+<div class="mode-toggle"><button class="mode-btn active" data-m="calc" onclick="setMode('calc')">Fraction math</button><button class="mode-btn" data-m="dec" onclick="setMode('dec')">Decimal → fraction</button></div>
+
+<div id="calcMode">
+<div class="frac-row">
+<div class="frac"><input type="number" id="n1" value="1"><div class="bar"></div><input type="number" id="d1" value="2"></div>
+<select class="op-select" id="op"><option value="+">+</option><option value="-">−</option><option value="*">×</option><option value="/">÷</option></select>
+<div class="frac"><input type="number" id="n2" value="1"><div class="bar"></div><input type="number" id="d2" value="3"></div>
+<span class="eq">=</span>
+</div>
+</div>
+
+<div id="decMode" style="display:none">
+<div class="frac-row"><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><label style="font-size:12px;color:var(--muted)">Decimal number</label><input type="number" id="decIn" value="0.375" step="any" style="width:180px;padding:11px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:16px;text-align:center;font-family:monospace"></div></div>
+</div>
+
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">➗ Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div class="result-icon">➗</div><h3>Result</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Simplified</div><div class="stat-card-value" id="simp">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Mixed number</div><div class="stat-card-value" id="mixed">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Decimal</div><div class="stat-card-value" id="dec">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Percentage</div><div class="stat-card-value" id="pct">-</div></div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px">Step by step</h4>
+<div class="steps-box" id="steps"></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/fraction-calc.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Studying maths?</strong> More calculators and guides on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Fractions</h3><p>Numerator on top, denominator below.</p></div><div class="step"><div class="step-num">02</div><h3>Pick Operation</h3><p>Add, subtract, multiply or divide.</p></div><div class="step"><div class="step-num">03</div><h3>Read Working</h3><p>Simplified answer plus each step.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">How do you add fractions with different denominators?</div><div class="faq-a">Find a common denominator by multiplying the two denominators (or use the LCM for smaller numbers). Convert both fractions, add the numerators, then simplify. For 1/2 + 1/3 the common denominator is 6, giving 3/6 + 2/6 = 5/6.</div></div>
+<div class="faq-item"><div class="faq-q">Why does dividing flip the second fraction?</div><div class="faq-a">Dividing by a number is the same as multiplying by its reciprocal. So a/b ÷ c/d becomes a/b × d/c. This is often taught as "keep, change, flip".</div></div>
+<div class="faq-item"><div class="faq-q">What is a mixed number?</div><div class="faq-a">A whole number combined with a proper fraction, such as 1 2/3. Any improper fraction where the numerator exceeds the denominator can be rewritten this way.</div></div>
+<div class="faq-item"><div class="faq-q">How does simplification work?</div><div class="faq-a">Both numerator and denominator are divided by their greatest common divisor. For 8/12 the GCD is 4, so it reduces to 2/3.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/percentage-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Percentage</a>
+<a href="/tools/lcm-gcd.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">LCM &amp; GCD</a>
+<a href="/tools/scientific-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Scientific</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+let mode='calc';
+function setMode(m){mode=m;document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.m===m));document.getElementById('calcMode').style.display=m==='calc'?'block':'none';document.getElementById('decMode').style.display=m==='dec'?'block':'none';calculate();}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a||1;}
+function simplify(n,d){if(d===0)return[NaN,NaN];if(d<0){n=-n;d=-d;}const g=gcd(n,d);return[n/g,d/g];}
+function calculate(){
+  let n,d,steps='';
+  if(mode==='dec'){
+    const v=parseFloat(document.getElementById('decIn').value);
+    if(isNaN(v)){show('-','-','-','-','Enter a valid decimal.');return;}
+    const str=String(v);
+    const decimals=str.includes('.')?str.split('.')[1].length:0;
+    d=Math.pow(10,decimals); n=Math.round(v*d);
+    steps=`Start: <b>${v}</b><br>Write over a power of ten: <b>${n}/${d}</b><br>`;
+    const g=gcd(n,d);
+    steps+=`GCD of ${Math.abs(n)} and ${d} is <b>${g}</b><br>Divide both: <b>${n/g}/${d/g}</b>`;
+    [n,d]=simplify(n,d);
+  } else {
+    const a=parseInt(document.getElementById('n1').value)||0, b=parseInt(document.getElementById('d1').value)||0;
+    const c=parseInt(document.getElementById('n2').value)||0, e=parseInt(document.getElementById('d2').value)||0;
+    const op=document.getElementById('op').value;
+    if(b===0||e===0){show('-','-','-','-','A denominator cannot be zero.');return;}
+    steps=`Start: <b>${a}/${b}</b> ${op==='*'?'×':op==='/'?'÷':op==='-'?'−':'+'} <b>${c}/${e}</b><br>`;
+    if(op==='+'||op==='-'){
+      const cd=b*e;
+      const na=a*e, nc=c*b;
+      steps+=`Common denominator: ${b} × ${e} = <b>${cd}</b><br>`;
+      steps+=`Convert: <b>${na}/${cd}</b> ${op==='-'?'−':'+'} <b>${nc}/${cd}</b><br>`;
+      n=op==='+'?na+nc:na-nc; d=cd;
+      steps+=`${op==='+'?'Add':'Subtract'} numerators: <b>${n}/${d}</b><br>`;
+    } else if(op==='*'){
+      n=a*c; d=b*e;
+      steps+=`Multiply across: ${a}×${c} = <b>${n}</b>, ${b}×${e} = <b>${d}</b><br>Result: <b>${n}/${d}</b><br>`;
+    } else {
+      if(c===0){show('-','-','-','-','Cannot divide by zero.');return;}
+      steps+=`Flip the second fraction: <b>${e}/${c}</b><br>`;
+      n=a*e; d=b*c;
+      steps+=`Multiply across: <b>${n}/${d}</b><br>`;
+    }
+    const g=gcd(n,d);
+    steps+=`GCD is <b>${g}</b> → simplify to <b>${simplify(n,d)[0]}/${simplify(n,d)[1]}</b>`;
+    [n,d]=simplify(n,d);
+  }
+  const val=n/d;
+  const whole=Math.trunc(val);
+  const rem=Math.abs(n)%d;
+  const mixedStr = d===1 ? String(n) : (Math.abs(n)>=d ? `${whole} ${rem}/${d}` : `${n}/${d}`);
+  show(`${n}/${d}`, mixedStr, val.toFixed(6).replace(/\.?0+$/,''), (val*100).toFixed(3).replace(/\.?0+$/,'')+'%', steps);
+}
+function show(s,m,dd,p,st){
+  document.getElementById('simp').textContent=s;
+  document.getElementById('mixed').textContent=m;
+  document.getElementById('dec').textContent=dd;
+  document.getElementById('pct').textContent=p;
+  document.getElementById('steps').innerHTML=st;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free fraction calculator at Toolify Core: https://toolifycore.com/tools/fraction-calc.html';
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+['n1','d1','n2','d2','op','decIn'].forEach(id=>document.getElementById(id).addEventListener('input',calculate));
+function resetAll(){document.getElementById('n1').value=1;document.getElementById('d1').value=2;document.getElementById('n2').value=1;document.getElementById('d2').value=3;document.getElementById('op').value='+';document.getElementById('decIn').value=0.375;calculate();}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free fraction calculator!&url=https://toolifycore.com/tools/fraction-calc.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/fraction-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

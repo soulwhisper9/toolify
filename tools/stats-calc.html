@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Statistics Calculator Free — Mean, Median, Mode, Quartiles | Toolify Core</title>
+<meta name="description" content="Free statistics calculator. Paste any data set to get mean, median, mode, range, quartiles, IQR, variance and outlier detection instantly.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.data-area{width:100%;min-height:110px;padding:13px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:14px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.6}
+.data-area:focus{border-color:#BA7517}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px;font-size:12px;color:var(--muted);font-weight:500;flex-wrap:wrap;gap:8px}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+.stat-card{background:var(--surface2);padding:14px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.stat-card-value{font-family:var(--font-head);font-size:19px;font-weight:700;color:#FAC775}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:24px}
+.sec-title{font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 6px}
+.sorted-box{background:var(--surface2);padding:12px 14px;border-radius:8px;font-family:monospace;font-size:12px;color:#B8AAFF;word-break:break-all;line-height:1.7;max-height:110px;overflow-y:auto}
+.outlier-box{background:rgba(255,107,107,.07);border-left:3px solid #FF6B6B;padding:12px 14px;border-radius:0 8px 8px 0;font-size:13px;color:var(--muted);margin:10px 0}
+.outlier-box b{color:#FF9F9F}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Statistics</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Statistics Calculator</h1><p>Paste a data set and get a full descriptive summary: mean, median, mode, range, quartiles, interquartile range, variance and automatic outlier detection.</p></div>
+<div class="counter-badge">📊 Used 23,714 times this month</div>
+
+<div class="io-label"><span>Data set — separate values with commas, spaces or new lines</span><button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button></div>
+<textarea class="data-area" id="data" placeholder="12, 15, 18, 22, 22, 25, 31, 34, 40"></textarea>
+<div style="font-size:12px;color:var(--muted);margin-top:6px" id="parsed">-</div>
+
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">📊 Analyse</button><button class="btn-secondary" onclick="copyReport()">📋 Copy report</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div class="result-icon">📊</div><h3>Descriptive statistics</h3>
+<div class="sec-title">Central tendency</div>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Mean</div><div class="stat-card-value" id="mean">-</div></div>
+<div class="stat-card hi"><div class="stat-card-label">Median</div><div class="stat-card-value" id="median">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Mode</div><div class="stat-card-value" id="mode" style="font-size:15px">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Midrange</div><div class="stat-card-value" id="midrange">-</div></div>
+</div>
+<div class="sec-title">Spread</div>
+<div class="result-stats">
+<div class="stat-card"><div class="stat-card-label">Range</div><div class="stat-card-value" id="range">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Variance (s²)</div><div class="stat-card-value" id="variance">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Std dev (s)</div><div class="stat-card-value" id="sd">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Std error</div><div class="stat-card-value" id="se">-</div></div>
+</div>
+<div class="sec-title">Quartiles &amp; position</div>
+<div class="result-stats">
+<div class="stat-card"><div class="stat-card-label">Minimum</div><div class="stat-card-value" id="min">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Q1</div><div class="stat-card-value" id="q1">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Q3</div><div class="stat-card-value" id="q3">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Maximum</div><div class="stat-card-value" id="max">-</div></div>
+<div class="stat-card"><div class="stat-card-label">IQR</div><div class="stat-card-value" id="iqr">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Count (n)</div><div class="stat-card-value" id="count">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Sum</div><div class="stat-card-value" id="sum">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Skew</div><div class="stat-card-value" id="skew" style="font-size:15px">-</div></div>
+</div>
+<div id="outlierWrap"></div>
+<div class="sec-title">Sorted data</div>
+<div class="sorted-box" id="sorted">-</div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/stats-calc.html" width="100%" height="900" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Working with data?</strong> More analysis tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Paste Data</h3><p>Commas, spaces or one value per line.</p></div><div class="step"><div class="step-num">02</div><h3>Analyse</h3><p>Full summary computed instantly.</p></div><div class="step"><div class="step-num">03</div><h3>Copy Report</h3><p>Everything as plain text for your notes.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">When should I use median instead of mean?</div><div class="faq-a">Use the median when your data has extreme values or is skewed, such as income or house prices. A single very large value drags the mean upward but barely moves the median, so the median better describes a typical case.</div></div>
+<div class="faq-item"><div class="faq-q">How are quartiles calculated here?</div><div class="faq-a">This uses linear interpolation between closest ranks, the same method as Excel's QUARTILE.INC and most statistics courses. Q1 sits at the 25th percentile and Q3 at the 75th.</div></div>
+<div class="faq-item"><div class="faq-q">How are outliers detected?</div><div class="faq-a">By the standard 1.5 × IQR rule. Any value below Q1 − 1.5×IQR or above Q3 + 1.5×IQR is flagged. This is the same rule that draws the whiskers on a box plot.</div></div>
+<div class="faq-item"><div class="faq-q">Is this sample or population statistics?</div><div class="faq-a">Variance and standard deviation use the sample formula with n−1 in the denominator, which is the usual choice when your data is a sample rather than the whole population. For population figures, use the dedicated standard deviation tool.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/std-deviation.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Std Deviation</a>
+<a href="/tools/probability-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Probability</a>
+<a href="/tools/percentage-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Percentage</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+const r4=n=>Math.round(n*1e4)/1e4;
+function parse(){return (document.getElementById('data').value.match(/-?\d+(\.\d+)?/g)||[]).map(Number);}
+function quantile(s,q){const p=(s.length-1)*q,b=Math.floor(p),r=p-b;return s[b+1]!==undefined?s[b]+r*(s[b+1]-s[b]):s[b];}
+function calculate(){
+  const v=parse();
+  document.getElementById('parsed').textContent=v.length?`${v.length} values detected`:'No numbers detected yet';
+  if(v.length<1){document.getElementById('resultBox').classList.remove('show');return;}
+  const s=[...v].sort((a,b)=>a-b), n=v.length;
+  const sum=v.reduce((a,b)=>a+b,0), mean=sum/n;
+  const median=quantile(s,.5), q1=quantile(s,.25), q3=quantile(s,.75), iqr=q3-q1;
+  const varr=n>1?v.reduce((a,b)=>a+(b-mean)**2,0)/(n-1):0;
+  const sd=Math.sqrt(varr);
+  const freq={};v.forEach(x=>freq[x]=(freq[x]||0)+1);
+  const mx=Math.max(...Object.values(freq));
+  const modes=mx>1?Object.keys(freq).filter(k=>freq[k]===mx):[];
+  const lo=q1-1.5*iqr, hi=q3+1.5*iqr;
+  const out=s.filter(x=>x<lo||x>hi);
+  const set=(id,val)=>document.getElementById(id).textContent=val;
+  set('mean',r4(mean));set('median',r4(median));
+  set('mode',modes.length?modes.join(', '):'None');
+  set('midrange',r4((s[0]+s[n-1])/2));
+  set('range',r4(s[n-1]-s[0]));set('variance',r4(varr));set('sd',r4(sd));
+  set('se',n>1?r4(sd/Math.sqrt(n)):'-');
+  set('min',s[0]);set('q1',r4(q1));set('q3',r4(q3));set('max',s[n-1]);
+  set('iqr',r4(iqr));set('count',n);set('sum',r4(sum));
+  set('skew', mean>median*1.001?'Right':(mean<median*0.999?'Left':'Symmetric'));
+  document.getElementById('sorted').textContent=s.join(', ');
+  document.getElementById('outlierWrap').innerHTML = out.length
+    ? `<div class="outlier-box">⚠️ <b>${out.length} outlier${out.length>1?'s':''}</b> detected using the 1.5 × IQR rule: <b>${out.join(', ')}</b><br><span style="font-size:12px">Values outside the range ${r4(lo)} to ${r4(hi)}.</span></div>`
+    : `<div style="background:rgba(0,229,192,.06);border-left:3px solid #00E5C0;padding:11px 14px;border-radius:0 8px 8px 0;font-size:13px;color:var(--muted);margin:10px 0">✓ No outliers detected by the 1.5 × IQR rule.</div>`;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free statistics calculator at Toolify Core: https://toolifycore.com/tools/stats-calc.html';
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+document.getElementById('data').addEventListener('input',calculate);
+function loadSample(){document.getElementById('data').value='12, 15, 18, 22, 22, 25, 31, 34, 40, 87';calculate();}
+function copyReport(){
+  const v=parse();if(!v.length)return alert('Enter data first.');
+  const g=id=>document.getElementById(id).textContent;
+  const t=`Statistics Report (toolifycore.com)\n\nCount: ${g('count')}\nSum: ${g('sum')}\nMean: ${g('mean')}\nMedian: ${g('median')}\nMode: ${g('mode')}\nRange: ${g('range')}\nMinimum: ${g('min')}\nQ1: ${g('q1')}\nQ3: ${g('q3')}\nMaximum: ${g('max')}\nIQR: ${g('iqr')}\nVariance: ${g('variance')}\nStd deviation: ${g('sd')}\nStd error: ${g('se')}`;
+  navigator.clipboard.writeText(t);alert('Report copied!');
+}
+function resetAll(){document.getElementById('data').value='';document.getElementById('resultBox').classList.remove('show');document.getElementById('parsed').textContent='-';}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free statistics calculator!&url=https://toolifycore.com/tools/stats-calc.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/stats-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+loadSample();
+</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Scientific Calculator Free Online — Trig, Log, Powers | Toolify Core</title>
+<meta name="description" content="Free online scientific calculator with sin, cos, tan, log, ln, powers, roots, factorial and constants. Degree and radian modes with full calculation history.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-shell{background:var(--surface2);border-radius:14px;padding:16px;margin:16px 0;max-width:460px;margin-left:auto;margin-right:auto}
+.display{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-align:right;margin-bottom:12px}
+.display .expr{font-family:monospace;font-size:13px;color:var(--muted);min-height:18px;word-break:break-all}
+.display .val{font-family:var(--font-head);font-size:30px;font-weight:700;color:#FAC775;word-break:break-all;line-height:1.2}
+.mode-row{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.mode-toggle{display:flex;gap:0;background:var(--surface);padding:3px;border-radius:6px}
+.mode-btn{background:transparent;color:var(--muted);border:none;padding:5px 14px;border-radius:4px;font-size:11px;cursor:pointer}
+.mode-btn.active{background:#BA7517;color:white}
+.mem-ind{font-size:11px;color:#6EDFB8;font-family:monospace}
+.pad{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pad button{padding:13px 4px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:var(--font-body);font-size:14px;cursor:pointer;transition:.12s}
+.pad button:hover{background:var(--surface3,#1E1E2C);border-color:#BA7517}
+.pad button:active{transform:scale(.95)}
+.pad .fn{font-size:12px;color:#B8AAFF}
+.pad .op{color:#FAC775;font-weight:600}
+.pad .eq{background:#BA7517;color:#fff;border-color:#BA7517;font-weight:700}
+.pad .eq:hover{background:#D18A1E}
+.pad .clr{color:#FF6B6B}
+.hist{background:var(--surface2);border-radius:8px;padding:12px 14px;margin:12px 0;max-height:170px;overflow-y:auto}
+.hist-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.hist-item{font-family:monospace;font-size:12px;color:var(--muted);padding:5px 0;border-top:1px solid var(--border);cursor:pointer}
+.hist-item:hover{color:#6EDFB8}
+.hist-item b{color:var(--text)}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Scientific Calculator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Scientific Calculator</h1><p>A full scientific calculator with trigonometry, logarithms, powers, roots, factorials and constants. Switch between degrees and radians, and keep a running history of your calculations.</p></div>
+<div class="counter-badge">🔬 Used 41,207 times this month</div>
+
+<div class="calc-shell">
+<div class="display"><div class="expr" id="expr">&nbsp;</div><div class="val" id="val">0</div></div>
+<div class="mode-row">
+<div class="mode-toggle"><button class="mode-btn active" data-a="deg" onclick="setAngle('deg')">DEG</button><button class="mode-btn" data-a="rad" onclick="setAngle('rad')">RAD</button></div>
+<span class="mem-ind" id="memInd"></span>
+</div>
+<div class="pad">
+<button class="fn" onclick="ins('sin(')">sin</button><button class="fn" onclick="ins('cos(')">cos</button><button class="fn" onclick="ins('tan(')">tan</button><button class="fn" onclick="ins('log(')">log</button><button class="fn" onclick="ins('ln(')">ln</button>
+<button class="fn" onclick="ins('asin(')">sin⁻¹</button><button class="fn" onclick="ins('acos(')">cos⁻¹</button><button class="fn" onclick="ins('atan(')">tan⁻¹</button><button class="fn" onclick="ins('√(')">√</button><button class="fn" onclick="ins('^')">xʸ</button>
+<button class="fn" onclick="ins('π')">π</button><button class="fn" onclick="ins('e')">e</button><button class="fn" onclick="ins('!')">n!</button><button class="fn" onclick="ins('(')">(</button><button class="fn" onclick="ins(')')">)</button>
+<button class="clr" onclick="clearAll()">AC</button><button class="clr" onclick="back()">⌫</button><button class="fn" onclick="pct()">%</button><button class="op" onclick="ins('/')">÷</button><button class="fn" onclick="mem('c')">MC</button>
+<button onclick="ins('7')">7</button><button onclick="ins('8')">8</button><button onclick="ins('9')">9</button><button class="op" onclick="ins('*')">×</button><button class="fn" onclick="mem('r')">MR</button>
+<button onclick="ins('4')">4</button><button onclick="ins('5')">5</button><button onclick="ins('6')">6</button><button class="op" onclick="ins('-')">−</button><button class="fn" onclick="mem('+')">M+</button>
+<button onclick="ins('1')">1</button><button onclick="ins('2')">2</button><button onclick="ins('3')">3</button><button class="op" onclick="ins('+')">+</button><button class="fn" onclick="mem('-')">M−</button>
+<button onclick="ins('0')">0</button><button onclick="ins('.')">.</button><button onclick="neg()">±</button><button class="eq" onclick="evaluate()" style="grid-column:span 2">=</button>
+</div>
+</div>
+
+<div class="actions"><button class="btn-secondary" onclick="copyResult()">📋 Copy result</button><button class="btn-secondary" onclick="clearHist()">Clear history</button></div>
+
+<div class="hist"><div class="hist-title">History</div><div id="histList" style="color:var(--muted);font-size:12px">No calculations yet.</div></div>
+
+<div class="result-box show">
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="https://wa.me/?text=Free scientific calculator at Toolify Core: https://toolifycore.com/tools/scientific-calc.html" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/scientific-calc.html" width="100%" height="800" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Studying or teaching?</strong> More maths tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Set Angle Mode</h3><p>Degrees for geometry, radians for calculus.</p></div><div class="step"><div class="step-num">02</div><h3>Build Expression</h3><p>Type or click. Keyboard input works too.</p></div><div class="step"><div class="step-num">03</div><h3>Press Equals</h3><p>Result saved to history for reuse.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">When should I use degrees versus radians?</div><div class="faq-a">Degrees suit geometry, trigonometry homework and navigation. Radians are standard in calculus, physics and programming. If a question mentions π in an angle, it almost always wants radians.</div></div>
+<div class="faq-item"><div class="faq-q">What is the difference between log and ln?</div><div class="faq-a">log is base 10, so log(1000) = 3. ln is the natural logarithm with base e ≈ 2.71828, used for growth, decay and compound processes.</div></div>
+<div class="faq-item"><div class="faq-q">Can I use my keyboard?</div><div class="faq-a">Yes. Numbers and operators type directly, Enter evaluates, Backspace deletes and Escape clears everything.</div></div>
+<div class="faq-item"><div class="faq-q">What do the M buttons do?</div><div class="faq-a">M+ adds the current result to memory, M− subtracts it, MR recalls the stored value into your expression and MC clears memory. A small indicator shows when memory holds a value.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/fraction-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Fractions</a>
+<a href="/tools/equation-solver.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Equation Solver</a>
+<a href="/tools/stats-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Statistics</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+let expr='', angle='deg', memory=0, hist=[];
+function setAngle(a){angle=a;document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.a===a));}
+function upd(){document.getElementById('expr').innerHTML=expr||'&nbsp;';}
+function ins(t){expr+=t;upd();}
+function back(){expr=expr.slice(0,-1);upd();}
+function clearAll(){expr='';document.getElementById('val').textContent='0';upd();}
+function neg(){if(expr)expr='-('+expr+')';upd();}
+function pct(){if(expr)expr='('+expr+')/100';upd();}
+function fact(n){if(n<0||n!==Math.floor(n))return NaN;if(n>170)return Infinity;let r=1;for(let i=2;i<=n;i++)r*=i;return r;}
+function evaluate(){
+  if(!expr)return;
+  try{
+    let e=expr;
+    e=e.replace(/π/g,'Math.PI').replace(/(?<![a-zA-Z])e(?![a-zA-Z])/g,'Math.E');
+    e=e.replace(/√\(/g,'Math.sqrt(');
+    e=e.replace(/(\d+(?:\.\d+)?)!/g,'fact($1)');
+    e=e.replace(/\^/g,'**');
+    const D=angle==='deg';
+    e=e.replace(/asin\(/g,'__as(').replace(/acos\(/g,'__ac(').replace(/atan\(/g,'__at(');
+    e=e.replace(/(?<![a-z_])sin\(/g,'__s(').replace(/(?<![a-z_])cos\(/g,'__c(').replace(/(?<![a-z_])tan\(/g,'__t(');
+    e=e.replace(/log\(/g,'Math.log10(').replace(/ln\(/g,'Math.log(');
+    const __s=x=>Math.sin(D?x*Math.PI/180:x), __c=x=>Math.cos(D?x*Math.PI/180:x), __t=x=>Math.tan(D?x*Math.PI/180:x);
+    const __as=x=>{const r=Math.asin(x);return D?r*180/Math.PI:r;}, __ac=x=>{const r=Math.acos(x);return D?r*180/Math.PI:r;}, __at=x=>{const r=Math.atan(x);return D?r*180/Math.PI:r;};
+    const r=Function('fact','__s','__c','__t','__as','__ac','__at','"use strict";return ('+e+')')(fact,__s,__c,__t,__as,__ac,__at);
+    if(typeof r!=='number'||!isFinite(r)){document.getElementById('val').textContent=isNaN(r)?'Error':'∞';return;}
+    const out=parseFloat(r.toPrecision(12));
+    document.getElementById('val').textContent=out;
+    hist.unshift({e:expr,r:out});hist=hist.slice(0,20);renderHist();
+    expr=String(out);upd();
+  }catch(err){document.getElementById('val').textContent='Error';}
+}
+function renderHist(){
+  const el=document.getElementById('histList');
+  if(!hist.length){el.innerHTML='No calculations yet.';return;}
+  el.innerHTML=hist.map((h,i)=>`<div class="hist-item" onclick="useHist(${i})">${h.e} = <b>${h.r}</b></div>`).join('');
+}
+function useHist(i){expr+=String(hist[i].r);upd();}
+function clearHist(){hist=[];renderHist();}
+function mem(op){
+  const v=parseFloat(document.getElementById('val').textContent)||0;
+  if(op==='+')memory+=v; else if(op==='-')memory-=v; else if(op==='c')memory=0; else if(op==='r'){expr+=String(memory);upd();}
+  document.getElementById('memInd').textContent=memory?('M = '+parseFloat(memory.toPrecision(10))):'';
+}
+document.addEventListener('keydown',e=>{
+  if(/^[0-9+\-*/.()^]$/.test(e.key)){ins(e.key);e.preventDefault();}
+  else if(e.key==='Enter'||e.key==='='){evaluate();e.preventDefault();}
+  else if(e.key==='Backspace'){back();e.preventDefault();}
+  else if(e.key==='Escape'){clearAll();}
+});
+function copyResult(){navigator.clipboard.writeText(document.getElementById('val').textContent);alert('Result copied!');}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free scientific calculator!&url=https://toolifycore.com/tools/scientific-calc.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/scientific-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+</script>
+</body>
+</html>

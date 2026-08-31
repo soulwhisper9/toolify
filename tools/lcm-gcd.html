@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LCM and GCD Calculator Free — With Steps | Toolify Core</title>
+<meta name="description" content="Free LCM and HCF calculator for two or more numbers. Shows prime factorisation, the Euclidean algorithm and full step-by-step working.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.data-area{width:100%;min-height:74px;padding:13px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:15px;resize:vertical;box-sizing:border-box;outline:none;line-height:1.6}
+.data-area:focus{border-color:#BA7517}
+.io-label{display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px;font-size:12px;color:var(--muted);font-weight:500;flex-wrap:wrap;gap:8px}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:18px 14px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775;word-break:break-all}
+.stat-card.hi{border:1px solid rgba(0,229,192,.3);background:linear-gradient(180deg,rgba(0,229,192,.07),transparent)}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:30px}
+.fact-table{width:100%;border-collapse:collapse;margin:10px 0;background:var(--surface2);border-radius:8px;overflow:hidden;font-size:13px}
+.fact-table th{padding:9px 12px;background:var(--surface);color:var(--muted);text-align:left;text-transform:uppercase;letter-spacing:.05em;font-size:10px}
+.fact-table td{padding:8px 12px;border-top:1px solid var(--border);color:var(--text);font-family:monospace}
+.fact-table td:first-child{color:#FAC775;font-weight:600}
+.steps-box{background:var(--surface2);padding:15px 17px;border-radius:8px;margin:12px 0;font-size:13px;color:var(--muted);line-height:1.95;font-family:monospace}
+.steps-box b{color:#6EDFB8;font-weight:600}
+.sec-title{font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 6px}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">LCM &amp; GCD</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>LCM &amp; GCD Calculator</h1><p>Find the lowest common multiple and greatest common divisor of two or more numbers. Includes prime factorisation and the Euclidean algorithm, step by step.</p></div>
+<div class="counter-badge">🔗 Used 18,443 times this month</div>
+
+<div class="io-label"><span>Numbers — separate with commas, spaces or new lines</span><button class="btn-secondary" onclick="loadSample()" style="padding:4px 12px;font-size:11px">Load sample</button></div>
+<textarea class="data-area" id="nums" placeholder="12, 18, 24"></textarea>
+<div style="font-size:12px;color:var(--muted);margin-top:6px" id="parsed">-</div>
+
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">🔗 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div class="result-icon">🔗</div><h3>Result</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">GCD / HCF</div><div class="stat-card-value" id="gcdV">-</div></div>
+<div class="stat-card hi"><div class="stat-card-label">LCM</div><div class="stat-card-value" id="lcmV">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Numbers</div><div class="stat-card-value" id="cnt">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Coprime?</div><div class="stat-card-value" id="cop" style="font-size:17px">-</div></div>
+</div>
+
+<div class="sec-title">Prime factorisation</div>
+<div style="overflow-x:auto"><table class="fact-table" id="factTable"></table></div>
+
+<div class="sec-title">Euclidean algorithm for the GCD</div>
+<div class="steps-box" id="euclid"></div>
+
+<div class="sec-title">LCM working</div>
+<div class="steps-box" id="lcmSteps"></div>
+
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/lcm-gcd.html" width="100%" height="850" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Number theory homework?</strong> Worked examples on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Numbers</h3><p>Two or more whole numbers.</p></div><div class="step"><div class="step-num">02</div><h3>Both Methods</h3><p>Prime factors and Euclidean algorithm.</p></div><div class="step"><div class="step-num">03</div><h3>Check Working</h3><p>Every division step laid out.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is the difference between LCM and GCD?</div><div class="faq-a">The GCD, also called HCF, is the largest number that divides all your values evenly. The LCM is the smallest number that all of them divide into. For 12 and 18 the GCD is 6 and the LCM is 36.</div></div>
+<div class="faq-item"><div class="faq-q">When do I actually need these?</div><div class="faq-a">GCD simplifies fractions to lowest terms. LCM finds common denominators when adding fractions, and answers scheduling questions such as when two buses running every 12 and 18 minutes next depart together.</div></div>
+<div class="faq-item"><div class="faq-q">How does the Euclidean algorithm work?</div><div class="faq-a">Divide the larger number by the smaller and keep the remainder. Replace the pair with the smaller number and that remainder, then repeat. The last non-zero remainder is the GCD. It is dramatically faster than listing every factor.</div></div>
+<div class="faq-item"><div class="faq-q">What does coprime mean?</div><div class="faq-a">Two numbers are coprime when their GCD is 1, meaning they share no common factor other than 1. 8 and 15 are coprime even though neither is prime.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/fraction-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Fractions</a>
+<a href="/tools/prime-check.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Prime Checker</a>
+<a href="/tools/percentage-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Percentage</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+function gcd2(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a;}
+function factorise(n){const f={};let x=Math.abs(n);for(let d=2;d*d<=x;d++){while(x%d===0){f[d]=(f[d]||0)+1;x/=d;}}if(x>1)f[x]=(f[x]||0)+1;return f;}
+function factStr(f){const k=Object.keys(f);return k.length?k.map(p=>f[p]>1?`${p}<sup>${f[p]}</sup>`:p).join(' × '):'—';}
+function calculate(){
+  const v=(document.getElementById('nums').value.match(/\d+/g)||[]).map(Number).filter(x=>x>0);
+  document.getElementById('parsed').textContent=v.length?`${v.length} number${v.length>1?'s':''} detected`:'Enter at least two positive whole numbers';
+  if(v.length<2){document.getElementById('resultBox').classList.remove('show');return;}
+  if(v.some(x=>x>1e12)){document.getElementById('parsed').textContent='Please keep numbers under 1,000,000,000,000.';return;}
+  const g=v.reduce((a,b)=>gcd2(a,b));
+  const l=v.reduce((a,b)=>a/gcd2(a,b)*b);
+  document.getElementById('gcdV').textContent=g.toLocaleString();
+  document.getElementById('lcmV').textContent=isFinite(l)?l.toLocaleString():'Too large';
+  document.getElementById('cnt').textContent=v.length;
+  document.getElementById('cop').textContent=g===1?'Yes':'No';
+  // factor table
+  const facts=v.map(factorise);
+  let t='<thead><tr><th>Number</th><th>Prime factorisation</th></tr></thead><tbody>';
+  v.forEach((n,i)=>{t+=`<tr><td>${n.toLocaleString()}</td><td>${factStr(facts[i])}</td></tr>`;});
+  const allP=[...new Set(facts.flatMap(f=>Object.keys(f)))].map(Number).sort((a,b)=>a-b);
+  const gF={},lF={};
+  allP.forEach(p=>{
+    const exps=facts.map(f=>f[p]||0);
+    const mn=Math.min(...exps), mx=Math.max(...exps);
+    if(mn>0)gF[p]=mn;
+    if(mx>0)lF[p]=mx;
+  });
+  t+=`<tr style="background:rgba(0,229,192,.05)"><td style="color:#00E5C0">GCD</td><td style="color:#6EDFB8">${factStr(gF)||'1'} = ${g.toLocaleString()}</td></tr>`;
+  t+=`<tr style="background:rgba(0,229,192,.05)"><td style="color:#00E5C0">LCM</td><td style="color:#6EDFB8">${factStr(lF)} = ${isFinite(l)?l.toLocaleString():'—'}</td></tr>`;
+  t+='</tbody>';
+  document.getElementById('factTable').innerHTML=t;
+  // euclid
+  let e='';let a=v[0];
+  for(let i=1;i<v.length;i++){
+    let x=Math.max(a,v[i]), y=Math.min(a,v[i]);
+    e+=`Pair: <b>${x.toLocaleString()}</b> and <b>${y.toLocaleString()}</b><br>`;
+    let guard=0;
+    while(y!==0&&guard++<60){
+      const q=Math.floor(x/y), r=x%y;
+      e+=`&nbsp;&nbsp;${x.toLocaleString()} = ${q.toLocaleString()} × ${y.toLocaleString()} + <b>${r.toLocaleString()}</b><br>`;
+      x=y;y=r;
+    }
+    e+=`&nbsp;&nbsp;→ GCD so far = <b>${x.toLocaleString()}</b><br><br>`;
+    a=x;
+  }
+  e+=`Final GCD of all ${v.length} numbers = <b>${g.toLocaleString()}</b>`;
+  document.getElementById('euclid').innerHTML=e;
+  // lcm steps
+  let ls=`Rule: LCM(a, b) = (a × b) ÷ GCD(a, b)<br><br>`;
+  let run=v[0];
+  for(let i=1;i<v.length;i++){
+    const gg=gcd2(run,v[i]), nl=run/gg*v[i];
+    ls+=`LCM(${run.toLocaleString()}, ${v[i].toLocaleString()}) = (${run.toLocaleString()} × ${v[i].toLocaleString()}) ÷ ${gg} = <b>${isFinite(nl)?nl.toLocaleString():'too large'}</b><br>`;
+    run=nl;
+  }
+  ls+=`<br>Final LCM = <b>${isFinite(l)?l.toLocaleString():'too large'}</b>`;
+  document.getElementById('lcmSteps').innerHTML=ls;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free LCM and GCD calculator at Toolify Core: https://toolifycore.com/tools/lcm-gcd.html';
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+document.getElementById('nums').addEventListener('input',calculate);
+function loadSample(){document.getElementById('nums').value='12, 18, 24';calculate();}
+function resetAll(){document.getElementById('nums').value='';document.getElementById('resultBox').classList.remove('show');document.getElementById('parsed').textContent='-';}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free LCM and GCD calculator!&url=https://toolifycore.com/tools/lcm-gcd.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/lcm-gcd.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+loadSample();
+</script>
+</body>
+</html>

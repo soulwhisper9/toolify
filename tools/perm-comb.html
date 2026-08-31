@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Permutation and Combination Calculator Free — nPr nCr | Toolify Core</title>
+<meta name="description" content="Free permutation and combination calculator. Work out nPr and nCr with and without repetition, plus factorials, with full step-by-step working.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:11px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:15px}
+.calc-field input:focus{outline:none;border-color:#BA7517}
+.calc-field .hint{font-size:11px;color:var(--dim,#5F5D75)}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:18px 14px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:var(--font-head);font-size:22px;font-weight:700;color:#FAC775;word-break:break-all}
+.stat-card.hi{border:1px solid rgba(0,229,192,.3);background:linear-gradient(180deg,rgba(0,229,192,.07),transparent)}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:28px}
+.stat-card .sub{font-size:11px;color:var(--dim,#5F5D75);margin-top:4px;font-family:monospace}
+.formula{background:var(--surface2);padding:15px 17px;border-radius:8px;font-family:monospace;font-size:13px;color:#B8AAFF;margin:12px 0;line-height:2}
+.formula b{color:#6EDFB8}
+.compare-note{background:rgba(123,97,255,.06);border-left:3px solid #7B61FF;padding:13px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--muted);margin:12px 0;line-height:1.7}
+.compare-note b{color:var(--text)}
+.tool-badge{background:rgba(186,117,23,0.15) !important;color:#FAC775 !important;border:1px solid rgba(186,117,23,0.3)}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Permutations</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🧮 Calculators</div><h1>Permutation &amp; Combination Calculator</h1><p>Calculate nPr and nCr with or without repetition, alongside factorials. Every result shows the formula and the numbers substituted into it.</p></div>
+<div class="counter-badge">🔢 Used 13,806 times this month</div>
+
+<div class="calc-grid">
+<div class="calc-field"><label>n — total items</label><input type="number" id="n" value="10" min="0" max="170"><span class="hint">Size of the full set</span></div>
+<div class="calc-field"><label>r — items chosen</label><input type="number" id="r" value="3" min="0" max="170"><span class="hint">How many you select</span></div>
+<div class="calc-field"><label>Repetition allowed?</label><select id="rep"><option value="no" selected>No — each item used once</option><option value="yes">Yes — items can repeat</option></select></div>
+</div>
+
+<div class="actions"><button class="btn-primary" id="calcBtn" style="background:#BA7517">🔢 Calculate</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div class="result-icon">🔢</div><h3>Results</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Permutations (order matters)</div><div class="stat-card-value" id="perm">-</div><div class="sub" id="permSub"></div></div>
+<div class="stat-card hi"><div class="stat-card-label">Combinations (order ignored)</div><div class="stat-card-value" id="comb">-</div><div class="sub" id="combSub"></div></div>
+</div>
+<div class="result-stats">
+<div class="stat-card"><div class="stat-card-label">n!</div><div class="stat-card-value" id="nfact" style="font-size:16px">-</div></div>
+<div class="stat-card"><div class="stat-card-label">r!</div><div class="stat-card-value" id="rfact" style="font-size:16px">-</div></div>
+<div class="stat-card"><div class="stat-card-label">(n − r)!</div><div class="stat-card-value" id="nrfact" style="font-size:16px">-</div></div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px">Working</h4>
+<div class="formula" id="formula"></div>
+<div class="compare-note" id="note"></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/perm-comb.html" width="100%" height="750" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Probability coursework?</strong> Worked examples on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn" style="background:#BA7517">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter n and r</h3><p>Total items and how many you pick.</p></div><div class="step"><div class="step-num">02</div><h3>Set Repetition</h3><p>Can an item be chosen more than once?</p></div><div class="step"><div class="step-num">03</div><h3>Compare Both</h3><p>Permutations and combinations side by side.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is the difference between a permutation and a combination?</div><div class="faq-a">Order. A permutation treats ABC and CBA as two different results, so it suits race positions, passwords and seating plans. A combination treats them as the same, so it suits lottery draws, committee selection and pizza toppings.</div></div>
+<div class="faq-item"><div class="faq-q">When does repetition apply?</div><div class="faq-a">Repetition is allowed when the item goes back into the pool, such as digits in a PIN where 1111 is valid. It is not allowed when each item is used once, such as dealing cards from a deck.</div></div>
+<div class="faq-item"><div class="faq-q">Why is nCr always smaller than nPr?</div><div class="faq-a">Every combination corresponds to r! different orderings. Dividing nPr by r! collapses those into one, so nCr = nPr ÷ r!. The gap widens quickly as r grows.</div></div>
+<div class="faq-item"><div class="faq-q">Why do very large values show as infinity?</div><div class="faq-a">Factorials grow extremely fast. 170! is near the largest number JavaScript can represent, so anything beyond that overflows. For bigger cases you would need arbitrary-precision arithmetic.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(186,117,23,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/probability-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Probability</a>
+<a href="/tools/stats-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Statistics</a>
+<a href="/tools/scientific-calc.html" style="display:inline-block;background:rgba(186,117,23,0.12);color:#FAC775;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(186,117,23,0.25)">Scientific</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(186,117,23,0.06);border-left:3px solid #BA7517;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#BA7517">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#BA7517">Visit our blog</a>.</div>
+</main>
+<script>
+function fact(n){if(n<0)return NaN;if(n>170)return Infinity;let r=1;for(let i=2;i<=n;i++)r*=i;return r;}
+const big=n=>!isFinite(n)?'∞':(n>1e15?n.toExponential(4):Math.round(n).toLocaleString());
+function calculate(){
+  const n=parseInt(document.getElementById('n').value);
+  const r=parseInt(document.getElementById('r').value);
+  const rep=document.getElementById('rep').value==='yes';
+  const set=(id,v)=>document.getElementById(id).textContent=v;
+  if(isNaN(n)||isNaN(r)||n<0||r<0){set('perm','—');set('comb','—');document.getElementById('formula').innerHTML='Enter values of 0 or more for n and r.';document.getElementById('resultBox').classList.add('show');return;}
+  if(!rep&&r>n){
+    set('perm','0');set('comb','0');set('permSub','');set('combSub','');
+    set('nfact',big(fact(n)));set('rfact',big(fact(r)));set('nrfact','—');
+    document.getElementById('formula').innerHTML=`With repetition off you cannot choose <b>${r}</b> items from only <b>${n}</b>.<br>Both results are <b>0</b>. Turn repetition on, or reduce r.`;
+    document.getElementById('note').innerHTML='';
+    document.getElementById('resultBox').classList.add('show');return;
+  }
+  let P,C,f;
+  if(rep){
+    P=Math.pow(n,r);
+    C=fact(n+r-1)/(fact(r)*fact(n-1));
+    f=`With repetition allowed:<br>Permutations = n<sup>r</sup> = ${n}<sup>${r}</sup> = <b>${big(P)}</b><br>`+
+      `Combinations = (n + r − 1)! ÷ [ r! × (n − 1)! ]<br>= ${n+r-1}! ÷ (${r}! × ${n-1}!) = <b>${big(C)}</b>`;
+  } else {
+    P=fact(n)/fact(n-r);
+    C=fact(n)/(fact(r)*fact(n-r));
+    f=`Without repetition:<br>nPr = n! ÷ (n − r)! = ${n}! ÷ ${n-r}! = <b>${big(P)}</b><br>`+
+      `nCr = n! ÷ [ r! × (n − r)! ] = ${n}! ÷ (${r}! × ${n-r}!) = <b>${big(C)}</b><br>`+
+      `Check: nCr = nPr ÷ r! = ${big(P)} ÷ ${big(fact(r))} = <b>${big(C)}</b>`;
+  }
+  set('perm',big(P));set('comb',big(C));
+  set('permSub',rep?`${n}^${r}`:`${n}P${r}`);
+  set('combSub',rep?`C(${n+r-1}, ${r})`:`${n}C${r}`);
+  set('nfact',big(fact(n)));set('rfact',big(fact(r)));set('nrfact',n>=r?big(fact(n-r)):'—');
+  document.getElementById('formula').innerHTML=f;
+  document.getElementById('note').innerHTML=
+    `<b>Which one do you need?</b> If rearranging the same items counts as a new outcome — race finishes, PIN codes, seating — use the <b>permutation</b> figure of ${big(P)}. If the order is irrelevant — lottery numbers, a team of ${r} from ${n} people, pizza toppings — use the <b>combination</b> figure of ${big(C)}.`;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free permutation and combination calculator at Toolify Core: https://toolifycore.com/tools/perm-comb.html';
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+['n','r','rep'].forEach(id=>document.getElementById(id).addEventListener('input',calculate));
+function resetAll(){document.getElementById('n').value=10;document.getElementById('r').value=3;document.getElementById('rep').value='no';calculate();}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free permutation and combination calculator!&url=https://toolifycore.com/tools/perm-comb.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/perm-comb.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>

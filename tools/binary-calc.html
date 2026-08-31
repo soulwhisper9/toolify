@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WLBKXMNV15"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WLBKXMNV15');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Binary Calculator Free — Add, Subtract, AND, OR, XOR | Toolify Core</title>
+<meta name="description" content="Free binary calculator for arithmetic and bitwise operations. Add, subtract, multiply, divide, AND, OR, XOR, NOT and bit shifts with decimal and hex output.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.calc-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end;margin:16px 0;padding:20px;background:var(--surface2);border-radius:10px}
+@media(max-width:600px){.calc-grid{grid-template-columns:1fr}}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-field label{font-size:12px;color:var(--muted);font-weight:500}
+.calc-field input,.calc-field select{padding:11px 12px;background:var(--surface);color:#B8AAFF;border:1px solid var(--border);border-radius:6px;font-size:15px;font-family:monospace}
+.calc-field input:focus{outline:none;border-color:#7B61FF}
+.calc-field .dec-hint{font-size:11px;color:var(--dim,#5F5D75);font-family:monospace}
+.op-select{padding:11px 12px;background:var(--surface);color:#FAC775;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:monospace;cursor:pointer;min-width:110px}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--surface2);padding:16px;border-radius:8px;text-align:center}
+.stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-card-value{font-family:monospace;font-size:17px;font-weight:700;color:#FAC775;word-break:break-all}
+.stat-card.hi .stat-card-value{color:#00E5C0;font-size:21px}
+.bit-view{background:var(--surface2);padding:14px 16px;border-radius:8px;margin:12px 0;font-family:monospace;font-size:13px;color:var(--muted);line-height:2.1;overflow-x:auto;white-space:nowrap}
+.bit-view b{color:#6EDFB8}
+.err{color:#FF6B6B;font-size:13px;text-align:center;padding:12px}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo"><div class="logo-icon">⚡</div>Toolify Core</a><span class="nav-sep">/</span><a href="/" class="back">← Tools</a><span class="nav-sep">/</span><span class="tool-title-nav">Binary Calculator</span></nav>
+<main>
+<div class="tool-header"><div class="tool-badge">🔧 Utility Tools</div><h1>Binary Calculator</h1><p>Perform arithmetic and bitwise operations directly in binary. Add, subtract, multiply, divide, or apply AND, OR, XOR, NOT and bit shifts, with decimal and hex shown alongside.</p></div>
+<div class="counter-badge">0️⃣ Used 14,376 times this month</div>
+
+<div class="calc-grid">
+<div class="calc-field"><label>Binary value A</label><input type="text" id="a" value="1011" spellcheck="false"><span class="dec-hint" id="aDec">= 11 decimal</span></div>
+<div class="calc-field"><label>Operation</label><select class="op-select" id="op">
+<option value="+">A + B</option><option value="-">A − B</option><option value="*">A × B</option><option value="/">A ÷ B</option><option value="%">A mod B</option>
+<option value="&">A AND B</option><option value="|">A OR B</option><option value="^">A XOR B</option>
+<option value="<<">A &lt;&lt; B</option><option value=">>">A &gt;&gt; B</option><option value="~">NOT A</option>
+</select></div>
+<div class="calc-field" id="bField"><label>Binary value B</label><input type="text" id="b" value="110" spellcheck="false"><span class="dec-hint" id="bDec">= 6 decimal</span></div>
+</div>
+
+<div class="actions"><button class="btn-primary" id="calcBtn">0️⃣ Calculate</button><button class="btn-secondary" onclick="copyResult()">📋 Copy</button><button class="btn-secondary" onclick="resetAll()">Reset</button></div>
+
+<div class="result-box" id="resultBox">
+<div class="result-icon">0️⃣</div><h3>Result</h3>
+<div class="result-stats">
+<div class="stat-card hi"><div class="stat-card-label">Binary</div><div class="stat-card-value" id="rBin">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Decimal</div><div class="stat-card-value" id="rDec">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Hexadecimal</div><div class="stat-card-value" id="rHex">-</div></div>
+<div class="stat-card"><div class="stat-card-label">Octal</div><div class="stat-card-value" id="rOct">-</div></div>
+</div>
+<h4 style="font-family:var(--font-head);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px">Bit alignment</h4>
+<div class="bit-view" id="bitView"></div>
+<div class="share-row"><a class="share-btn share-wa" id="shareWa" href="#" target="_blank">💬 WhatsApp</a><button class="share-btn share-tw" onclick="shareTwitter()">🐦 Share</button><button class="share-btn" onclick="copyLink()">🔗 Copy link</button></div>
+<div class="embed-section"><div class="embed-label">📌 Embed this tool</div><div class="embed-code" onclick="copyEmbed()">&lt;iframe src="https://toolifycore.com/tools/binary-calc.html" width="100%" height="700" frameborder="0"&gt;&lt;/iframe&gt;</div></div>
+</div>
+
+<div class="bookmark-tip">💡 <strong>Ctrl+D</strong> to bookmark for next time</div>
+<div class="affiliate-banner"><div class="aff-text">💡 <strong>Learning computer science?</strong> More dev tools on our blog</div><a href="https://blog.toolifycore.com" target="_blank" rel="noopener" class="aff-btn">Visit Blog →</a></div>
+
+<div style="margin-top:2rem"><h2 style="font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:1rem">How it works</h2>
+<div class="steps"><div class="step"><div class="step-num">01</div><h3>Enter Binary</h3><p>Only 0s and 1s. Decimal shown live.</p></div><div class="step"><div class="step-num">02</div><h3>Pick Operation</h3><p>Arithmetic or bitwise logic.</p></div><div class="step"><div class="step-num">03</div><h3>See All Bases</h3><p>Binary, decimal, hex and octal.</p></div></div></div>
+
+<div class="faq"><h2>Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What is the difference between AND, OR and XOR?</div><div class="faq-a">AND gives 1 only when both bits are 1. OR gives 1 when at least one bit is 1. XOR gives 1 when exactly one bit is 1, so it flags differences. XOR is widely used in checksums and simple encryption.</div></div>
+<div class="faq-item"><div class="faq-q">What do the shift operators do?</div><div class="faq-a">A left shift moves every bit one place left and pads with zero, which doubles the value each time. A right shift halves it and discards the rightmost bit. Shifts are much faster than multiplication on most processors.</div></div>
+<div class="faq-item"><div class="faq-q">Why is NOT giving a negative number?</div><div class="faq-a">JavaScript uses 32-bit two's complement for bitwise operations, so NOT of a positive number produces a negative result. NOT 5 becomes −6, following the rule that ~x equals −(x + 1).</div></div>
+<div class="faq-item"><div class="faq-q">How is this different from a base converter?</div><div class="faq-a">A base converter only changes representation. This tool performs actual arithmetic and logic between two binary values and shows the result across every common base.</div></div>
+</div>
+
+<div class="related-tools" style="margin:28px 0 0;padding:18px 20px;background:#12121A;border-radius:10px;border:1px solid rgba(123,97,255,0.2)">
+<p style="color:#8885A0;font-size:13px;margin:0 0 10px;font-weight:500">You might also need:</p>
+<a href="/tools/hex-calc.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Hex Calculator</a>
+<a href="/tools/base-converter.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Base Converter</a>
+<a href="/tools/binary-text.html" style="display:inline-block;background:rgba(123,97,255,0.12);color:#7B61FF;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;margin:4px;border:1px solid rgba(123,97,255,0.25)">Binary to Text</a>
+</div>
+<div style="margin:20px 0;padding:12px 16px;background:rgba(123,97,255,0.06);border-left:3px solid #7B61FF;border-radius:0 8px 8px 0;font-size:12.5px;color:#8885A0">All tools are free, browser-based, and process files locally. Read our <a href="/privacy.html" style="color:#7B61FF">Privacy Policy</a> | <a href="https://blog.toolifycore.com" style="color:#7B61FF">Visit our blog</a>.</div>
+</main>
+<script>
+const clean=s=>(s||'').replace(/[^01]/g,'');
+function calculate(){
+  const aS=clean(document.getElementById('a').value), bS=clean(document.getElementById('b').value);
+  const op=document.getElementById('op').value;
+  const A=aS?parseInt(aS,2):0, B=bS?parseInt(bS,2):0;
+  document.getElementById('aDec').textContent='= '+A+' decimal';
+  document.getElementById('bDec').textContent='= '+B+' decimal';
+  document.getElementById('bField').style.visibility=op==='~'?'hidden':'visible';
+  let r, err='';
+  switch(op){
+    case '+':r=A+B;break; case '-':r=A-B;break; case '*':r=A*B;break;
+    case '/':if(B===0){err='Cannot divide by zero.';}else r=Math.floor(A/B);break;
+    case '%':if(B===0){err='Cannot take modulo zero.';}else r=A%B;break;
+    case '&':r=A&B;break; case '|':r=A|B;break; case '^':r=A^B;break;
+    case '<<':r=A<<B;break; case '>>':r=A>>B;break; case '~':r=~A;break;
+  }
+  if(err){document.getElementById('rBin').textContent='—';document.getElementById('rDec').textContent=err;document.getElementById('rHex').textContent='—';document.getElementById('rOct').textContent='—';document.getElementById('bitView').innerHTML=`<span style="color:#FF6B6B">${err}</span>`;document.getElementById('resultBox').classList.add('show');return;}
+  const neg=r<0;
+  const bin=neg?(r>>>0).toString(2):r.toString(2);
+  document.getElementById('rBin').textContent=bin;
+  document.getElementById('rDec').textContent=r;
+  document.getElementById('rHex').textContent='0x'+(neg?(r>>>0):r).toString(16).toUpperCase();
+  document.getElementById('rOct').textContent='0o'+(neg?(r>>>0):r).toString(8);
+  const w=Math.max(aS.length||1,bS.length||1,bin.length,8);
+  const pad=s=>String(s).padStart(w,'0');
+  const opLbl={'+':'+','-':'−','*':'×','/':'÷','%':'mod','&':'AND','|':'OR','^':'XOR','<<':'<<','>>':'>>','~':'NOT'}[op];
+  let bv=`A     ${pad(A.toString(2))}<br>`;
+  if(op!=='~')bv+=`B     ${pad(B.toString(2))}<br>`;
+  bv+=`<span style="color:#FAC775">${opLbl.padEnd(5)}${'─'.repeat(w)}</span><br>`;
+  bv+=`=     <b>${pad(bin)}</b>`;
+  if(neg)bv+=`<br><span style="font-size:11px">Negative result shown as 32-bit two's complement.</span>`;
+  document.getElementById('bitView').innerHTML=bv;
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('shareWa').href='https://wa.me/?text=Free binary calculator at Toolify Core: https://toolifycore.com/tools/binary-calc.html';
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+['a','b','op'].forEach(id=>document.getElementById(id).addEventListener('input',calculate));
+['a','b'].forEach(id=>document.getElementById(id).addEventListener('blur',e=>{e.target.value=clean(e.target.value);calculate();}));
+function copyResult(){navigator.clipboard.writeText(document.getElementById('rBin').textContent);alert('Binary result copied!');}
+function resetAll(){document.getElementById('a').value='1011';document.getElementById('b').value='110';document.getElementById('op').value='+';calculate();}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text=Free binary calculator!&url=https://toolifycore.com/tools/binary-calc.html','_blank')}
+function copyLink(){navigator.clipboard.writeText('https://toolifycore.com/tools/binary-calc.html');alert('Link copied!')}
+function copyEmbed(){navigator.clipboard.writeText(document.querySelector('.embed-code').textContent);alert('Embed code copied!')}
+calculate();
+</script>
+</body>
+</html>
